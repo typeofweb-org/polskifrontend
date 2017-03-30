@@ -100,7 +100,6 @@
     "postcss-pseudoelements": "^3.0.0",
     "postcss-selector-matches": "^2.0.5",
     "postcss-selector-not": "^2.0.0",
-    "pre-commit": "^1.2.2",
     "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.4.2",
     "react-deep-force-update": "^2.0.1",
@@ -141,65 +140,6 @@
         ]
       }
     }
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": [
-      "airbnb",
-      "plugin:css-modules/recommended"
-    ],
-    "plugins": [
-      "css-modules"
-    ],
-    "globals": {
-      "__DEV__": true
-    },
-    "env": {
-      "browser": true
-    },
-    "rules": {
-      "import/extensions": "off",
-      "import/no-extraneous-dependencies": "off",
-      "react/jsx-filename-extension": "off",
-      "react/prefer-stateless-function": "off"
-    }
-  },
-  "stylelint": {
-    "extends": "stylelint-config-standard",
-    "rules": {
-      "string-quotes": "single",
-      "property-no-unknown": [
-        true,
-        {
-          "ignoreProperties": [
-            "composes"
-          ]
-        }
-      ],
-      "selector-pseudo-class-no-unknown": [
-        true,
-        {
-          "ignorePseudoClasses": [
-            "global"
-          ]
-        }
-      ]
-    }
-  },
-  "lint-staged": {
-    "*.{cmd,html,json,md,sh,txt,xml,yml}": [
-      "editorconfig-tools fix",
-      "git add"
-    ],
-    "*.{js,jsx}": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.{css,less,scss,sss}": [
-      "stylefmt",
-      "stylelint",
-      "git add"
-    ]
   },
   "scripts": {
     "lint:js": "eslint src tools",

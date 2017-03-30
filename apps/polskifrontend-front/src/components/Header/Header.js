@@ -6,9 +6,9 @@ import Link from '../Link/Link';
 class Header extends React.Component {
   render() {
     return (
-      <div>
-        <Link to="/">
-          <h1>Polski Front-End</h1>
+      <div className={style.header}>
+        <Link className={style['header__link']} to="/">
+          <h1 className={style['header__title']}>Polski Front-End</h1>
         </Link>
       </div>
     );
