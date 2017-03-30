@@ -17,15 +17,9 @@ export default {
   // Keep in mind, routes are evaluated in order
   children: [
     require('./home').default,
-    require('./contact').default,
-    require('./login').default,
-    require('./register').default,
-    require('./about').default,
-    require('./privacy').default,
-    require('./admin').default,
 
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
-    require('./notFound').default,
+    require('./notFound').default
   ],
 
   async action({ next }) {
@@ -37,6 +31,6 @@ export default {
     route.description = route.description || '';
 
     return route;
-  },
+  }
 
 };

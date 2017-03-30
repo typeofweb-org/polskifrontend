@@ -21,7 +21,7 @@ import PrettyError from 'pretty-error';
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
-import errorPageStyle from './routes/error/ErrorPage.css';
+import errorPageStyle from './routes/error/ErrorPage.styl';
 import passport from './core/passport';
 import models from './data/models';
 import schema from './data/schema';
@@ -54,7 +54,7 @@ app.use(bodyParser.json());
 app.use(expressJwt({
   secret: auth.jwt.secret,
   credentialsRequired: false,
-  getToken: req => req.cookies.id_token,
+  getToken: req => req.cookies.id_token
 }));
 app.use(passport.initialize());
 
@@ -81,7 +81,7 @@ app.use('/graphql', expressGraphQL(req => ({
   schema,
   graphiql: __DEV__,
   rootValue: { request: req },
-  pretty: __DEV__,
+  pretty: __DEV__
 })));
 
 //
@@ -90,14 +90,14 @@ app.use('/graphql', expressGraphQL(req => ({
 app.get('*', async (req, res, next) => {
   try {
     const store = configureStore({
-      user: req.user || null,
+      user: req.user || null
     }, {
-      cookie: req.headers.cookie,
+      cookie: req.headers.cookie
     });
 
     store.dispatch(setRuntimeVariable({
       name: 'initialNow',
-      value: Date.now(),
+      value: Date.now()
     }));
 
     const css = new Set();
@@ -113,13 +113,13 @@ app.get('*', async (req, res, next) => {
       },
       // Initialize a new Redux store
       // http://redux.js.org/docs/basics/UsageWithReact.html
-      store,
+      store
     };
 
     const route = await UniversalRouter.resolve(routes, {
       ...context,
       path: req.path,
-      query: req.query,
+      query: req.query
     });
 
     if (route.redirect) {
@@ -130,11 +130,11 @@ app.get('*', async (req, res, next) => {
     const data = { ...route };
     data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
     data.styles = [
-      { id: 'css', cssText: [...css].join('') },
+      { id: 'css', cssText: [...css].join('') }
     ];
     data.scripts = [
       assets.vendor.js,
-      assets.client.js,
+      assets.client.js
     ];
     data.state = context.store.getState();
     if (assets[route.chunk]) {
