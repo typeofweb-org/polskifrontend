@@ -1,0 +1,32 @@
+{
+  "extends": "airbnb/base",
+  "parser": "babel-eslint",
+  "env": {
+    "node": true,
+    "mocha": true
+
+  },
+  "rules": {
+    "import/default": 0,
+    "import/no-duplicates": 0,
+    "import/named": 0,
+    "import/namespace": 0,
+    "import/no-named-as-default": 2,
+    "comma-dangle": 0,
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "no-console": 0,
+    "no-alert": 0,
+    "camelcase": 0,
+    "consistent-return": 0,
+    "no-param-reassign": 0,
+    "max-len": ["error", 150, 2],
+    "new-cap": 0,
+    "no-shadow":0
+  },
+  "settings": {
+    "import/parser": "babel-eslint"
+  },
+  "plugins": [
+    "import"
+  ]
+}
