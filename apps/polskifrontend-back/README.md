@@ -2,19 +2,14 @@
 
 A simple template for building a node restful api service
 
-## 技术栈
+## Technologies used
 - nodejs
 - express
 - mongodb
 - mocha
 - swagger-jsdoc
 
-## 项目简介
-- 使用ES6/ES7特性
-- 使用ESlint进行语法检测，遵循[Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
-- 使用swagger-doc管理文档. Visualize document using Swagger UI.
-
-## 开发、测试、打包命令
+## mongodb config
 ``` bash
 # mongodb config
 # config locate in: src/config.js
@@ -29,16 +24,17 @@ mongodb: {
   user:'user',
   password:'pwd'
 }
-# 安装依赖
+
+## Before first run
 yarn
 
-# 运行
+## Run app
 npm run start
 
-# 构建
+## Build for production
 npm run build
 
-# 测试
+## Run tests
 npm run test
 
 
