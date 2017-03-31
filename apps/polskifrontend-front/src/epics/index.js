@@ -1,8 +1,9 @@
 import { combineEpics } from 'redux-observable';
-import { getBlogListEpic } from './home';
+import { getBlogListEpic, getArticleListForBlog } from './home';
 
 const rootEpic = combineEpics(
-  getBlogListEpic
+  getBlogListEpic,
+  getArticleListForBlog
 );
 
 export default rootEpic;

@@ -27,7 +27,7 @@ class Home extends React.Component {
                   <a className={style['title__link']} href={item.href}>{item.name}</a>
                 </h2>
                 <section className={style.items}>
-                  {item.articles.map((article, artIndex) => {
+                  {(item.articles || []).map((article, artIndex) => {
                     return <a className={style['items__link']} key={artIndex} href={article.href}>{article.title}</a>
                   })}
                 </section>
