@@ -1,10 +1,16 @@
 @import "../../styles/colors.styl"
+@import "../../styles/variables.styl"
 
 .header
-  background $primary
-  height 60px
-  border-bottom 3px solid $tertiary
+  background $color-primary
+  height $header-height
+  width 100%
+  border-bottom 3px solid $color-tertiary
   text-align center
+  position fixed
+  top 0
+  left 0
+  right 0
 
   &__link
     text-decoration none
@@ -12,7 +18,7 @@
   &__title
     margin 0
     padding 0
-    color $secondary
+    color $color-secondary
     font-size 2.6rem
     line-height 60px
 
