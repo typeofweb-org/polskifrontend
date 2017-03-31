@@ -3,90 +3,23 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Home.styl';
 
 class Home extends React.Component {
+  static propTypes = {
+    actions: PropTypes.object,
+    homeState: PropTypes.object
+  };
+
+  componentDidMount() {
+    const { actions: { getBlogList } } = this.props;
+    getBlogList();
+  }
+
   render() {
-    const blogs = [
-      {
-        name: 'Na Frontendzie',
-        href: '#',
-        articles: [
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-        ]
-      },
-      {
-        name: 'DevCorner',
-        href: '#',
-        articles: [
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-        ]
-      },
-      {
-        name: 'Ferrante',
-        href: '#',
-        articles: [
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-        ]
-      },
-      {
-        name: 'devstyle',
-        href: '#',
-        articles: [
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-        ]
-      },
-      {
-        name: 'Blog title',
-        href: '#',
-        articles: [
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-        ]
-      },
-      {
-        name: 'Blog title',
-        href: '#',
-        articles: [
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-        ]
-      },
-      {
-        name: 'Blog title',
-        href: '#',
-        articles: [
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-          { title: 'Super tytuł', href: '#' },
-        ]
-      },
-    ];
+    let { homeState: { blogList } } = this.props;
+    blogList = blogList || [];
 
     return (
       <div className={style.container}>
-        {blogs.map((item, index) => {
+        {blogList.map((item, index) => {
           return (
             <div className={style['container__wrapper']}>
               <section key={index} className={style['container__blog']}>

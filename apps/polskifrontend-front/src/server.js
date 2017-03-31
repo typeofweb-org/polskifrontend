@@ -28,8 +28,8 @@ import schema from './data/schema';
 import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
-import { setRuntimeVariable } from './actions/runtime';
 import { port, auth } from './config';
+import 'rxjs';
 
 const app = express();
 
@@ -89,16 +89,9 @@ app.use('/graphql', expressGraphQL(req => ({
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
   try {
-    const store = configureStore({
-      user: req.user || null
-    }, {
+    const store = configureStore({}, {
       cookie: req.headers.cookie
     });
-
-    store.dispatch(setRuntimeVariable({
-      name: 'initialNow',
-      value: Date.now()
-    }));
 
     const css = new Set();
 

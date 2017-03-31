@@ -10,6 +10,7 @@
 import React, { PropTypes } from 'react';
 import serialize from 'serialize-javascript';
 import { analytics } from '../config';
+import 'rxjs';
 
 class Html extends React.Component {
   static propTypes = {
