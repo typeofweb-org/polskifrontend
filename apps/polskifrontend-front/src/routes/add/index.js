@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from './Home';
+import Add from './Add';
 import Layout from '../../components/Layout/Layout';
 import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
@@ -7,15 +7,15 @@ import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 
 export default {
 
-  path: '/',
+  path: '/add',
 
   async action() {
 
-    const ConnectedHome = connect(mapStateToProps, mapDispatchToProps)(Home);
+    const ConnectedAdd = connect(mapStateToProps, mapDispatchToProps)(Add);
 
     return {
-      title: 'Strona główna | Polski Front-End',
-      component: <Layout><ConnectedHome /></Layout>
+      title: 'Dodaj stronę | Polski Front-End',
+      component: <Layout><ConnectedAdd /></Layout>
     };
   }
 };
