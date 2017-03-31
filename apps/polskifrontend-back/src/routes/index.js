@@ -1,5 +1,6 @@
 import express from 'express';
 import user from './user';
+import { Blog } from '../models';
 import { ensureLogin } from './privilege';
 import { swagDocHandler } from '../utils';
 
@@ -7,6 +8,11 @@ const router = new express.Router();
 
 router.get('/', async (req, res) => {
   res.send({ msg: 'HELLO WORLD' });
+});
+
+router.get('/blogs', async (req, res) => {
+  const blogs = await Blog.find();
+  return res.send({ blogs });
 });
 
 // return swagger doc json data.
