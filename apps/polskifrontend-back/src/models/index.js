@@ -1,3 +1,4 @@
 import User from './user';
 import Blog from './blog';
-export { User, Blog };
+import Article from './article';
+export { User, Blog, Article };

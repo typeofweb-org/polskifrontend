@@ -1,14 +1,11 @@
-import { User } from 'models';
+import { getBasicAuthToken } from '../utils/authHelper';
 
 export async function ensureLogin(req, res, next) {
   const token = req.headers.authorization;
-  if (token) {
-    req.user = await User.findOne({ token });
-  }
-  if (req.user) {
+  if (token && token === getBasicAuthToken()) {
     next();
   } else {
-    const excludeUrls = ['/user/create', '/user/login'];
+    const excludeUrls = [''];
     for (const excludeUrl of excludeUrls) {
       if (req.url.indexOf(excludeUrl) === 0) {
         return next();

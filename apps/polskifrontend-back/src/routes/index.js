@@ -1,28 +1,13 @@
 import express from 'express';
-import user from './user';
-import { Blog } from '../models';
 import { ensureLogin } from './privilege';
-import { swagDocHandler } from '../utils';
+import routes from './routes';
 
 const router = new express.Router();
 
-router.get('/', async (req, res) => {
-  res.send({ msg: 'HELLO WORLD' });
-});
-
-router.get('/blogs', async (req, res) => {
-  const blogs = await Blog.find();
-  return res.send({ blogs });
-});
-
-// return swagger doc json data.
-// open [http://swagger.daguchuangyi.com/?url=http://localhost:8888/swagger.json#!]
-// to use Swagger UI to visualize the doc
-router.get('/swagger.json', swagDocHandler);
-
+// check basic auth
 router.use(ensureLogin);
 
-// example user routes providing: [create|login|get] method.
-router.use('/user', user);
+// define routes
+router.use(routes);
 
 export default router;

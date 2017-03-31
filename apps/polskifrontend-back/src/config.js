@@ -12,7 +12,7 @@ const config = {
   production: {
     mongodb: {
       host: '127.0.0.1',
-      database: 'example-production'
+      database: 'polskifrontend'
     }
   },
   test: {

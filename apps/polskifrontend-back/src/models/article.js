@@ -1,17 +1,18 @@
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
-const BlogSchema = new Schema({
-  name: String,
-  href: String
+const ArticleSchema = new Schema({
+  title: String,
+  href: String,
+  blog_id: String
 });
 
-BlogSchema.options.toJSON = BlogSchema.options.toJSON || {};
-BlogSchema.options.toJSON.transform = (doc, ret) => {
+ArticleSchema.options.toJSON = ArticleSchema.options.toJSON || {};
+ArticleSchema.options.toJSON.transform = (doc, ret) => {
   return ret;
 };
 
-const Blog = mongoose.model('blog', BlogSchema);
+const Article = mongoose.model('article', ArticleSchema);
 
 /**
  * @swagger
@@ -22,7 +23,7 @@ const Blog = mongoose.model('blog', BlogSchema);
  *       _id:
  *         type: string
  *         default: objectId
- *       name:
+ *       title:
  *         type: string
  *         default: NAME
  *       href:
@@ -30,4 +31,4 @@ const Blog = mongoose.model('blog', BlogSchema);
  *         default: #
  */
 
-export default Blog;
+export default Article;
