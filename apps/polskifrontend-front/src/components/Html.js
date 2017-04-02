@@ -42,7 +42,8 @@ class Html extends React.Component {
           <title>{title}</title>
           <meta name="description" content={description} />
           <meta name="viewport" content="width=device-width" />
-          <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+          <link rel="shortcut icon" href="polskifrontend_icon.png" />
+          <link rel="apple-touch-icon" href="polskifrontend_icon.png" />
           {styles.map(style =>
             <style
               key={style.id}
