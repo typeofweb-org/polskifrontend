@@ -17,16 +17,19 @@ class Home extends React.Component {
 
   onBlogProposalUrlChange(event) {
     event.preventDefault();
+
+    const { actions: { blogProposalChange } } = this.props;
+    blogProposalChange(event.target.value);
   }
 
   render() {
-    let { homeState: { blogList } } = this.props;
+    let { homeState: { blogList, blogProposalUrlValid } } = this.props;
     blogList = blogList || [];
 
     return (
       <div className={style.container}>
-        <BlogProposalForm onUrlChange={this.onBlogProposalUrlChange.bind(this)}/>
-        <BlogList blogList={blogList}/>
+        <BlogProposalForm onUrlChange={this.onBlogProposalUrlChange.bind(this)} isUrlValid={blogProposalUrlValid} />
+        <BlogList blogList={blogList} />
       </div>
     );
   }

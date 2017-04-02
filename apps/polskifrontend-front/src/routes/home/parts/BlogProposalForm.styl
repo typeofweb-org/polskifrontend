@@ -18,7 +18,7 @@
     width 100%
     height 100%
     background $color-tertiary
-    opacity 0.7
+    opacity 0.8
 
   .wrapper
     position relative
@@ -45,6 +45,11 @@
         border-radius 5px 0 0 5px
         width 80%
         max-width 450px
+        transition box-shadow 0.2s
+
+        &--invalid
+          border 1px solid $color-primary
+          box-shadow 0 0 6px 0 $color-primary
 
       &__button
         font-family $font-header
@@ -53,7 +58,24 @@
         border 1px solid $color-primary
         border-radius 0 5px 5px 0
         padding 10px 25px
-        transition color 0.4s
+        transition color 0.2s
 
         &:hover
           color darken($color-secondary, 10%)
+
+    &__error
+      visibility hidden
+      opacity 0
+      color $color-primary
+      position absolute
+      width 100%
+      text-align center
+      font-size 1.3em
+      font-family $font-header
+      text-shadow none
+      padding-top $global-padding
+      transition opacity 0.2s, visibility 0.2s
+
+      &--invalid
+        visibility visible
+        opacity 1
