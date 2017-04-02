@@ -15,13 +15,17 @@ class Home extends React.Component {
     getBlogList();
   }
 
+  onBlogProposalUrlChange(event) {
+    event.preventDefault();
+  }
+
   render() {
     let { homeState: { blogList } } = this.props;
     blogList = blogList || [];
 
     return (
       <div className={style.container}>
-        <BlogProposalForm/>
+        <BlogProposalForm onUrlChange={this.onBlogProposalUrlChange.bind(this)}/>
         <BlogList blogList={blogList}/>
       </div>
     );

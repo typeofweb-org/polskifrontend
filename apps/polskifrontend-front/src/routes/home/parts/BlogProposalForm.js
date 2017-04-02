@@ -11,12 +11,16 @@ const BlogProposalForm = props => {
         <p className={style['wrapper__title']}>Uważasz, że brakuje jakiegoś bloga?</p>
         <p className={style['wrapper__description']}>Podaj jego adres - jeśli uznamy, że się nadaje, dodamy go do naszej listy!</p>
         <form className={style.form}>
-          <input className={style['form__input']} type="text" placeholder="http://" />
+          <input className={style['form__input']} type="text" placeholder="podaj adres bloga..." onChange={props.onUrlChange} />
           <button className={style['form__button']}>Zgłoś</button>
         </form>
       </div>
     </div>
   );
+};
+
+BlogProposalForm.propTypes = {
+  onUrlChange: PropTypes.func.isRequired
 };
 
 export default withStyles(style)(BlogProposalForm);

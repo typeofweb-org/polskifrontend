@@ -1,4 +1,5 @@
 @import './variables.styl'
+@import './colors.styl'
 
 // style for h1 - h6
 body
@@ -6,3 +7,22 @@ body
 for n in 1..6
   h{n}
     font-family $font-header
+
+input, textarea
+  font-weight 200
+  padding 10px 15px
+  border-radius 5px
+  border 1px solid lighten($color-primary, 70%)
+  outline none
+
+  &:active, &:focus
+    border 1px solid $color-primary
+
+::-webkit-input-placeholder
+  color lighten($color-primary, 70%)
+::-moz-placeholder
+  color lighten($color-primary, 70%)
+:-ms-input-placeholder
+  color lighten($color-primary, 70%)
+:-moz-placeholder
+  color lighten($color-primary, 70%)
