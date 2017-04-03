@@ -34,3 +34,15 @@ input, textarea
 :-moz-placeholder
   font-weight 200
   color lighten($color-primary, 70%)
+
+button
+  font-family $font-header
+  color $color-secondary
+  background $color-primary
+  border 1px solid $color-primary
+  border-radius 5px
+  padding 10px 25px
+  transition color 0.2s
+
+  &:hover
+    color darken($color-secondary, 10%)
