@@ -19,8 +19,8 @@ const config = {
     mongodb: {
       host: 'ds145780.mlab.com',
       database: 'heroku_0zs85rh3',
-      user: 'db_user',
-      password: 'test',
+      user: 'heroku_0zs85rh3',
+      password: '8rnhpj0msjtg0rmdnvosmvstmo',
       port: '45780'
     },
     secret: 'UOvVBHR6cRGpoRuUD3abaBXvdhO8larp'
