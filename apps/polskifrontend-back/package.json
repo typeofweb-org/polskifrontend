@@ -12,6 +12,8 @@
   },
   "author": "Bartlomiej Dybowski",
   "devDependencies": {
+  },
+  "dependencies": {
     "babel-cli": "^6.6.5",
     "babel-core": "^6.5.2",
     "babel-eslint": "^6.0.4",
@@ -26,9 +28,7 @@
     "jsonwebtoken": "^7.3.0",
     "mocha": "^3.2.0",
     "npm": "^3.10.8",
-    "rimraf": "^2.5.2"
-  },
-  "dependencies": {
+    "rimraf": "^2.5.2",
     "body-parser": "^1.15.0",
     "cors": "^2.7.1",
     "express": "^4.13.4",
