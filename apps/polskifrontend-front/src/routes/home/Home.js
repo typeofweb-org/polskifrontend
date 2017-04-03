@@ -3,6 +3,9 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Home.styl';
 import BlogList from './parts/BlogList';
 import BlogProposalForm from './parts/BlogProposalForm';
+import { connect } from 'react-redux';
+import mapStateToProps from '../../core/redux/mapStateToProps';
+import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 
 class Home extends React.Component {
   static propTypes = {
@@ -35,4 +38,4 @@ class Home extends React.Component {
   }
 }
 
-export default withStyles(style)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Home));

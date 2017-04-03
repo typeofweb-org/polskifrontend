@@ -50,7 +50,9 @@ app.use(bodyParser.json());
 app.get('*', async (req, res, next) => {
   try {
     cookie.plugToRequest(req, res);
-    const store = configureStore({});
+    const store = configureStore({}, {
+      cookie: req.header.cookie
+    });
 
     const css = new Set();
 

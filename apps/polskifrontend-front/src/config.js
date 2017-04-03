@@ -26,8 +26,8 @@ const api = {
     url: 'http://localhost:8880'
   },
   prod: {
-    url: 'https://polskifrontend-back.herokuapp.com/'
+    url: 'https://polskifrontend-back.herokuapp.com'
   }
 };
 
-export const apiUrl = process.env.NODE_ENV === 'development' ? api.dev.url : api.prod.url;
+export const apiUrl = __DEV__ ? api.dev.url : api.prod.url;

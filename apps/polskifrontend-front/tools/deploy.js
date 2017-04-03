@@ -13,8 +13,6 @@ import { spawn } from './lib/cp';
 import { makeDir, moveDir, cleanDir } from './lib/fs';
 import run from './run';
 
-process.env.NODE_ENV = 'production';
-
 // GitHub Pages
 // const remote = {
 //   name: 'github',

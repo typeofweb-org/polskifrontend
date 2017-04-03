@@ -4,6 +4,9 @@ import style from './Login.styl';
 import LoginForm from './parts/LoginForm';
 import history from '../../core/history';
 import * as loginHelper from '../../core/helpers/loginHelper';
+import { connect } from 'react-redux';
+import mapStateToProps from '../../core/redux/mapStateToProps';
+import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 
 class Login extends React.Component {
   static propTypes = {
@@ -58,4 +61,4 @@ class Login extends React.Component {
   }
 }
 
-export default withStyles(style)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Login));
