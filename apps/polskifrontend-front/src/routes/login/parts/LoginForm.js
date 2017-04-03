@@ -7,6 +7,7 @@ const LoginForm = () => {
     <div className={style.container}>
       <h2 className={style['container__title']}>Logowanie</h2>
       <div className={style.wrapper}>
+        <p className={style['wrapper__description']}>Podaj nazwę użytkownika oraz hasło</p>
         <form className={style.form}>
           <input className={style['form__input']} placeholder="użytkownik" type="text" />
           <input className={style['form__input']} placeholder="hasło" type="password" />
