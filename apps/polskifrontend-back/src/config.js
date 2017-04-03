@@ -1,6 +1,11 @@
 const env = process.env.NODE_ENV;
 const common = {
-  port: 8880
+  develop: {
+    port: 8880
+  },
+  production: {
+    port: 80
+  }
 };
 const config = {
   develop: {
@@ -27,4 +32,4 @@ const config = {
     }
   }
 };
-export default Object.assign(common, config[env]);
+export default Object.assign(common[env], config[env]);
