@@ -20,7 +20,11 @@ process.on('uncaughtException', err => {
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3001', 'https://polskifrontend-front.herokuapp.com'],
+  methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept'
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({
   limit: '50mb'
