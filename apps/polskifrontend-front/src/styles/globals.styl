@@ -47,3 +47,10 @@ button
 
   &:hover
     color darken($color-secondary, 10%)
+
+  &[disabled]
+    background lighten($color-primary, 50%)
+    border 1px solid lighten($color-primary, 50%)
+
+    &:hover
+      color $color-secondary

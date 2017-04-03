@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './LoginForm.styl';
 
-const LoginForm = () => {
+const LoginForm = props => {
+  const { onUserChange, onPasswordChange, onLoginClick, buttonDisabled } = props;
+
   return (
     <div className={style.container}>
       <h2 className={style['container__title']}>Logowanie</h2>
       <div className={style.wrapper}>
         <p className={style['wrapper__description']}>Podaj nazwę użytkownika oraz hasło</p>
         <form className={style.form}>
-          <input className={style['form__input']} placeholder="użytkownik" type="text" />
-          <input className={style['form__input']} placeholder="hasło" type="password" />
-          <button className={style['form__button']}>Zaloguj</button>
+          <input className={style['form__input']} placeholder="użytkownik" type="text" onChange={onUserChange} />
+          <input className={style['form__input']} placeholder="hasło" type="password" onChange={onPasswordChange} />
+          <button className={style['form__button']} disabled={buttonDisabled} onClick={onLoginClick}>Zaloguj</button>
         </form>
       </div>
     </div>
   );
+};
+
+LoginForm.propTypes = {
+  onUserChange: PropTypes.func.isRequired,
+  onPasswordChange: PropTypes.func.isRequired,
+  onLoginClick: PropTypes.func.isRequired,
+  buttonDisabled: PropTypes.bool.isRequired
 };
 
 export default withStyles(style)(LoginForm);

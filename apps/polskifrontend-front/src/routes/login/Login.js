@@ -4,10 +4,34 @@ import style from './Login.styl';
 import LoginForm from './parts/LoginForm';
 
 class Login extends React.Component {
+  onUserChange(event) {
+    event.preventDefault();
+
+    const { actions: { userChange } } = this.props;
+    userChange(event.target.value);
+  }
+
+  onPasswordChange(event) {
+    event.preventDefault();
+
+    const { actions: { passwordChange } } = this.props;
+    passwordChange(event.target.value);
+  }
+
+  onLoginClick(event) {
+    event.preventDefault();
+  }
+
   render() {
+    const { loginState: { buttonDisabled } } = this.props;
+
     return (
       <div className={style.container}>
-        <LoginForm />
+        <LoginForm onUserChange={this.onUserChange.bind(this)}
+                   onPasswordChange={this.onPasswordChange.bind(this)}
+                   onLoginClick={this.onLoginClick.bind(this)}
+                   buttonDisabled={buttonDisabled}
+        />
       </div>
     );
   }
