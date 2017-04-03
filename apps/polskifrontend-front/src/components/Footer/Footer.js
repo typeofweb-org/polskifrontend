@@ -6,7 +6,7 @@ class Footer extends React.Component {
   render() {
     return (
       <div className={styles.footer}>
-        <p>Copyright@2017 - Polski Front-End</p>
+        <p>Copyright@2017 - <a className={styles['footer__link']} target="_blank" href="https://nafrontendzie.pl">Na Frontendzie</a></p>
       </div>
     );
   }

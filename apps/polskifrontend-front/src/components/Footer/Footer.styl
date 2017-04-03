@@ -1,3 +1,20 @@
+@import "../../styles/colors.styl"
+@import "../../styles/variables.styl"
+
 .footer
-  width 100%
+  background $color-primary
+  color $color-secondary
+  height $footer-height
+  border-top 3px solid $color-tertiary
+  text-align center
   clear both
+  line-height $footer-height - 3px
+  margin-top $global-margin
+
+  &__link
+    color $color-tertiary
+    text-decoration none
+    transition color 0.4s
+
+    &:hover
+      color lighten($color-tertiary, 20%)

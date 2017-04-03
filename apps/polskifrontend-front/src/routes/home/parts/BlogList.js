@@ -21,6 +21,8 @@ const BlogList = props => {
           </div>
         );
       })}
+      <div className={style['container__clear']}>
+      </div>
     </div>
   );
 };
