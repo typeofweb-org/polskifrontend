@@ -7,13 +7,15 @@ const config = {
     mongodb: {
       host: '127.0.0.1',
       database: 'polskifrontend'
-    }
+    },
+    secret: 'pl_front'
   },
   production: {
     mongodb: {
       host: '127.0.0.1',
       database: 'polskifrontend'
-    }
+    },
+    secret: 'UOvVBHR6cRGpoRuUD3abaBXvdhO8larp'
   },
   test: {
     mongodb: {

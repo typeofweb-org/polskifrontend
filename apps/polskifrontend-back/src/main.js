@@ -21,9 +21,13 @@ process.on('uncaughtException', err => {
 const app = express();
 
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({
   limit: '50mb'
 }));
+
+app.set('secret', config.secret);
+process.env.JWT_SECRET = config.secret;
 
 app.use('/', routes);
 

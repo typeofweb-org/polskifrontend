@@ -2,15 +2,12 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
-  name: String,
-  password: String,
-  role: String,
-  token: String
+  user: String,
+  password: String
 });
 
 UserSchema.options.toJSON = UserSchema.options.toJSON || {};
 UserSchema.options.toJSON.transform = (doc, ret) => {
-  delete ret.password;
   return ret;
 };
 
