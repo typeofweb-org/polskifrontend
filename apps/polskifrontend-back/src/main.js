@@ -37,7 +37,7 @@ app.use('/', routes);
 
 app.use(errorHandle);
 
-const port = config.port;
+const port = process.env.PORT || config.port;
 app.listen(port, () => {
   log.info(`App is listening on ${port}.`);
 });

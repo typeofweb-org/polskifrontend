@@ -64,7 +64,7 @@ app.use('/', _routes2.default);
 
 app.use(_utils.errorHandle);
 
-const port = _config2.default.port;
+const port = process.env.PORT || _config2.default.port;
 app.listen(port, () => {
   _log2.default.info(`App is listening on ${port}.`);
 });
