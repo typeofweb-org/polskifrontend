@@ -2,14 +2,14 @@ import mongoose from 'mongoose';
 import log from 'log';
 import config from '../config';
 
-const { host, database, user, password } = config.mongodb;
+const { host, database, user, password, port } = config.mongodb;
 let status = 'DISCONNETED';
 
 const init = () => {
   if (status === 'DISCONNETED') {
     let mongoUrl = `mongodb://${host}/${database}`;
-    if (user && password) {
-      mongoUrl = `mongodb://${user}:${password}@${host}:27017/${database}?authSource=admin`;
+    if (user && password && port) {
+      mongoUrl = `mongodb://${user}:${password}@${host}:${port}/${database}?authSource=admin`;
     }
     mongoose.connect(mongoUrl);
     status = 'CONNECTING';
