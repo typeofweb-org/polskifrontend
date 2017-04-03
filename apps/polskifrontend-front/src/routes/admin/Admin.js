@@ -8,11 +8,18 @@ import AddBlog from './parts/AddBlog';
 import BlogList from './parts/BlogList';
 
 class Add extends React.Component {
+  componentDidMount() {
+    const { actions: { getAdminBlogList } } = this.props;
+    getAdminBlogList();
+  }
+
   render() {
+    const { adminState: { blogList, blogListLoading } } = this.props;
+
     return (
       <div className={style.container}>
         <AddBlog />
-        <BlogList />
+        <BlogList blogList={blogList} blogListLoading={blogListLoading} />
       </div>
     );
   }

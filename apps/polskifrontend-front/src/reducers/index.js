@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import homeReducer from './home';
-import loginReduxer from './login';
+import loginReducer from './login';
+import adminReducer from './admin';
 
 export default combineReducers({
   homeState: homeReducer,
-  loginState: loginReduxer
+  loginState: loginReducer,
+  adminState: adminReducer
 });
