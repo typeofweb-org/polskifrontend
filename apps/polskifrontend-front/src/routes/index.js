@@ -18,7 +18,7 @@ export default {
   children: [
     require('./home').default,
     require('./login').default,
-    require('./add').default,
+    require('./admin').default,
 
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default

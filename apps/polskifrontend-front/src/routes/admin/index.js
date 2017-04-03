@@ -3,17 +3,17 @@ import Layout from '../../components/Layout/Layout';
 import * as loginHelper from '../../core/helpers/loginHelper';
 
 export default {
-  path: '/add',
+  path: '/admin',
   async action() {
     if (!loginHelper.getLoginToken()) {
       return { redirect: '/login' };
     }
 
-    const Add = await require.ensure([], require => require('./Add').default, 'add');
+    const Admin = await require.ensure([], require => require('./Admin').default, 'admin');
 
     return {
-      title: 'Dodaj stronę | Polski Front-End',
-      component: <Layout><Add /></Layout>
+      title: 'Panel kontrolny | Polski Front-End',
+      component: <Layout><Admin /></Layout>
     };
   }
 };

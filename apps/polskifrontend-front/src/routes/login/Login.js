@@ -42,7 +42,7 @@ class Login extends React.Component {
 
   componentDidUpdate() {
     if (loginHelper.getLoginToken()) {
-      history.push('/add');
+      history.push('/admin');
     }
   }
 

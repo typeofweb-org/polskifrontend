@@ -1,0 +1,28 @@
+@import "../../../styles/globals.styl"
+@import "../../../styles/variables.styl"
+@import "../../../styles/colors.styl"
+
+.container
+  margin-top $global-margin * 2
+
+  .list
+    text-align left
+    list-style none
+
+    .item
+      padding $global-padding 0
+      border-bottom 1px solid lighten($color-primary, 75%)
+      font-size 1.2em
+
+      &:last-child
+        border-bottom none
+
+      &__title
+        padding $global-padding 0 0
+
+      &__url
+        padding $global-padding 0 0
+
+        a
+          color $color-tertiary
+          font-weight bold
