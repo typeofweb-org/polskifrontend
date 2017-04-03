@@ -9,13 +9,13 @@ export default {
 
   path: '/login',
 
-  async action() {
+  async action(context) {
 
     const ConnectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login);
 
     return {
       title: 'Zaloguj | Polski Front-End',
-      component: <Layout><ConnectedLogin /></Layout>
+      component: <Layout><ConnectedLogin routing={context} /></Layout>
     };
   }
 };

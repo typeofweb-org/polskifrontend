@@ -1,16 +1,14 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { connect } from 'react-redux';
-import cookie from 'js-cookie';
+import * as loginHelper from '../../core/helpers/loginHelper';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 
 export default {
-
   path: '/add',
-
   async action() {
-    if (!cookie.get('pl_front_user')) {
+    if (!loginHelper.getLoginToken()) {
       return { redirect: '/login' };
     }
 

@@ -13,3 +13,13 @@ export function passwordChange(newValue) {
     payload: newValue
   }
 }
+
+export function login(user, password) {
+  return {
+    type: constants.LOGIN_INVOKE,
+    payload: {
+      user,
+      password
+    }
+  }
+}

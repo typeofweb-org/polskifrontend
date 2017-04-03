@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Login.styl';
 import LoginForm from './parts/LoginForm';
+import history from '../../core/history';
+import * as loginHelper from '../../core/helpers/loginHelper';
 
 class Login extends React.Component {
+  static propTypes = {
+    routing: PropTypes.object
+  };
+
   onUserChange(event) {
     event.preventDefault();
 
@@ -20,6 +26,21 @@ class Login extends React.Component {
 
   onLoginClick(event) {
     event.preventDefault();
+
+    const { actions: { login }, loginState: { userName, password } } = this.props;
+    if (userName !== '' && password !== '') {
+      login(userName, password);
+    }
+  }
+
+  componentDidMount() {
+    loginHelper.clearLoginToken();
+  }
+
+  componentDidUpdate() {
+    if (loginHelper.getLoginToken()) {
+      history.push('/add');
+    }
   }
 
   render() {
