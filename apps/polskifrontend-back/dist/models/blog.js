@@ -13,7 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const Schema = _mongoose2.default.Schema;
 const BlogSchema = new Schema({
   name: String,
-  href: String
+  href: String,
+  rss: String
 });
 
 BlogSchema.options.toJSON = BlogSchema.options.toJSON || {};
@@ -22,22 +23,5 @@ BlogSchema.options.toJSON.transform = (doc, ret) => {
 };
 
 const Blog = _mongoose2.default.model('blog', BlogSchema);
-
-/**
- * @swagger
- * definitions:
- *   Blog:
- *     type: object
- *     properties:
- *       _id:
- *         type: string
- *         default: objectId
- *       name:
- *         type: string
- *         default: NAME
- *       href:
- *         type: string
- *         default: #
- */
 
 exports.default = Blog;

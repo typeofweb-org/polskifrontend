@@ -112,6 +112,17 @@ router.use((req, res, next) => {
   }
 });
 
+router.get('/admin/blogs', (() => {
+  var _ref4 = _asyncToGenerator(function* (req, res) {
+    const blogs = yield _models.Blog.find();
+    return res.send({ blogs });
+  });
+
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+})());
+
 // return swagger doc json data.
 // open [http://swagger.daguchuangyi.com/?url=http://localhost:8888/swagger.json#!]
 // to use Swagger UI to visualize the doc
