@@ -5,9 +5,9 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "NODE_ENV=production babel src --out-dir dist",
-    "serve": "node dist/main",
+    "start": "NODE_ENV=production node dist/main",
     "start:babel": "babel-node src/main",
-    "start": "NODE_ENV=develop nodemon --watch src --exec npm run start:babel -L",
+    "serve": "NODE_ENV=develop nodemon --watch src --exec npm run start:babel -L",
     "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.js --bail -t 2000000"
   },
   "author": "Bartlomiej Dybowski",
