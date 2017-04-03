@@ -35,7 +35,7 @@ yarn
 ## Run app
 
 ```bash
-npm run start
+npm run serve
 ```
 
 ## Build for production

@@ -6,6 +6,13 @@ import app from '../main';
 
 const router = new express.Router();
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3001, https://polskifrontend-front.herokuapp.com');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  next();
+});
+
 router.get('/blogs', async (req, res) => {
   const blogs = await Blog.find();
   return res.send({ blogs });
