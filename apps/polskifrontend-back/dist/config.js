@@ -5,12 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 const env = process.env.NODE_ENV;
 const common = {
-  develop: {
-    port: 8880
-  },
-  production: {
-    port: 80
-  }
+  port: 8880
 };
 const config = {
   develop: {
@@ -37,4 +32,4 @@ const config = {
     }
   }
 };
-exports.default = Object.assign(common[env], config[env]);
+exports.default = Object.assign(common, config[env]);
