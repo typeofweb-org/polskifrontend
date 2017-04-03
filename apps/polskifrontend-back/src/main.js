@@ -23,7 +23,7 @@ const app = express();
 app.use(cors({
   origin: ['http://localhost', 'https://polskifrontend-front.herokuapp.com'],
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept'
+  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({

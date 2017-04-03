@@ -50,7 +50,7 @@ const app = (0, _express2.default)();
 app.use((0, _cors2.default)({
   origin: ['http://localhost', 'https://polskifrontend-front.herokuapp.com'],
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept'
+  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
 }));
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.use(_bodyParser2.default.json({
