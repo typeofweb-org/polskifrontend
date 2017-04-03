@@ -1,10 +1,13 @@
 import * as constants from '../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
+import { apiUrl } from '../config';
+
+console.log(apiUrl);
 
 export const getBlogListEpic = action$ => {
   return action$.ofType(constants.HOME_GET_BLOG_LIST)
     .mergeMap(action =>
-      ajax.getJSON('http://localhost:8880/blogs', { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
+      ajax.getJSON(`${apiUrl}/blogs`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
         .flatMap(response => {
           const blogs = response.blogs;
           const actions = [{
@@ -31,7 +34,7 @@ export const getBlogListEpic = action$ => {
 export const getArticleListForBlog = action$ => {
   return action$.ofType(constants.HOME_GET_ARTICLES_FOR_BLOG)
     .mergeMap(action =>
-      ajax.getJSON(`http://localhost:8880/articles/${action.payload}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
+      ajax.getJSON(`${apiUrl}/articles/${action.payload}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
         .map(response => ({
           type: constants.HOME_GET_ARTICLES_FOR_BLOG_SUCCESS,
           payload: {

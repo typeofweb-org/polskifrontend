@@ -1,13 +1,13 @@
 import * as constants from '../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import * as loginHelper from '../core/helpers/loginHelper';
-import 'rxjs';
+import { apiUrl } from '../config';
 
 export const loginEpic = action$ => {
   return action$.ofType(constants.LOGIN_INVOKE)
     .mergeMap(action =>
       ajax({
-        url: 'http://localhost:8880/authenticate',
+        url: `${apiUrl}/authenticate`,
         body: { user: action.payload.user, password: action.payload.password },
         headers: { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' },
         method: 'POST',
