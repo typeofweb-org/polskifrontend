@@ -79,9 +79,25 @@ router.get('/admin/blogs', async (req, res) => {
   return res.send({ blogs });
 });
 
-// return swagger doc json data.
-// open [http://swagger.daguchuangyi.com/?url=http://localhost:8888/swagger.json#!]
-// to use Swagger UI to visualize the doc
-router.get('/swagger.json', swagDocHandler);
+router.delete('/admin/blogs/:blogId', async (req, res) => {
+  const blogId = req.params.blogId;
+  Blog.findByIdAndRemove(blogId, error => {
+    if (error) {
+      res.send({ success: false, message: `Unable to delete blog with ID: ${blogId}` });
+    }
+
+    Blog.find((error, blogs) => res.send({ success: true, blogs }));
+  });
+});
+
+router.post('/admin/blogs', async (req, res) => {
+  const blog = new Blog(req.body);
+  blog.save((error, createdBlog) => {
+    if (error) {
+      res.send({ success: false, message: 'New blog entity adding failed' });
+    }
+    res.send({ success: true, blog: createdBlog });
+  });
+});
 
 export default router;
