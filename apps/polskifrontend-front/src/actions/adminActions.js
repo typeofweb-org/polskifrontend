@@ -12,3 +12,31 @@ export function deleteBlog(blogId) {
     payload: blogId
   };
 }
+
+export function newBlogNameChanged(newName) {
+  return {
+    type: constants.ADMIN_NEW_BLOG_NAME_CHANGED,
+    payload: newName
+  }
+}
+
+export function newBlogUrlChanged(newUrl) {
+  return {
+    type: constants.ADMIN_NEW_BLOG_URL_CHANGED,
+    payload: newUrl
+  }
+}
+
+export function newBlogRssChanged(newRss) {
+  return {
+    type: constants.ADMIN_NEW_BLOG_RSS_CHANGED,
+    payload: newRss
+  }
+}
+
+export function addBlog(data) {
+  return {
+    type: constants.ADMIN_ADD_BLOG,
+    payload: data
+  };
+}

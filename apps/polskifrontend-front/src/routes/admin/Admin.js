@@ -25,13 +25,73 @@ class Add extends React.Component {
     console.log(id);
   }
 
+  onNameChange(event) {
+    event.preventDefault();
+    const { actions: { newBlogNameChanged } } = this.props;
+    newBlogNameChanged(event.target.value);
+  }
+
+  onUrlChange(event) {
+    event.preventDefault();
+    const { actions: { newBlogUrlChanged } } = this.props;
+    newBlogUrlChanged(event.target.value);
+  }
+
+  onRssChange(event) {
+    event.preventDefault();
+    const { actions: { newBlogRssChanged } } = this.props;
+    newBlogRssChanged(event.target.value);
+  }
+
+  onAddFormSubmit(event) {
+    event.preventDefault();
+
+    const {
+      actions: {
+        addBlog
+      },
+      adminState: {
+        newBlogName,
+        newBlogNameValid,
+        newBlogUrl,
+        newBlogUrlValid,
+        newBlogRss,
+        newBlogRssValid
+      } } = this.props;
+
+    console.log(newBlogNameValid && newBlogUrlValid && newBlogRssValid);
+    if (newBlogNameValid && newBlogUrlValid && newBlogRssValid) {
+      addBlog({ name: newBlogName, href: newBlogUrl, rss: newBlogRss });
+    }
+  }
+
   render() {
-    const { adminState: { blogList, blogListLoading, blogListError } } = this.props;
+    const { adminState: {
+      blogList,
+      blogListLoading,
+      blogListError,
+      newBlogNameValid,
+      newBlogNameDirty,
+      newBlogUrlValid,
+      newBlogUrlDirty,
+      newBlogRssValid,
+      newBlogRssDirty
+    } } = this.props;
     const errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
 
     return (
       <div className={style.container}>
-        <AddBlog />
+        <AddBlog onNameChange={this.onNameChange.bind(this)}
+                 onUrlChange={this.onUrlChange.bind(this)}
+                 onRssChange={this.onRssChange.bind(this)}
+                 onFormSubmit={this.onAddFormSubmit.bind(this)}
+                 nameValid={newBlogNameValid}
+                 nameDirty={newBlogNameDirty}
+                 urlValid={newBlogUrlValid}
+                 urlDirty={newBlogUrlDirty}
+                 rssValid={newBlogRssValid}
+                 rssDirty={newBlogRssDirty}
+        />
         <BlogList blogList={blogList} blogListLoading={blogListLoading} onDeleteClick={this.onDeleteClick.bind(this)} onEditClick={this.onEditClick.bind(this)} />
         <Message type="alert" message={errorMessage} isVisible={blogListError}/>
       </div>
