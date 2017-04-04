@@ -15,6 +15,16 @@ const BlogList = props => {
               <h3 className={style['item__title']}>{item.name}</h3>
               <p className={style['item__url']}><a target="_blank" href={item.href}>{item.href}</a></p>
               <p className={style['item__url']}><a target="_blank" href={item.rss}>{item.rss}</a></p>
+              <div className={style.buttons}>
+                <a className={`${style['buttons__item']} ${style['buttons__item--special']}`} href="#">
+                  <i className="fa fa-trash-o">
+                  </i>
+                </a>
+                <a className={style['buttons__item']} href="#">
+                  <i className="fa fa-pencil-square-o">
+                  </i>
+                </a>
+              </div>
             </li>
           );
         })}

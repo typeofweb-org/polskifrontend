@@ -1,4 +1,5 @@
 import React, { Children, PropTypes } from 'react';
+import fontAwesome from 'font-awesome/css/font-awesome.css';
 import fonts from '../styles/fonts.styl';
 
 const ContextType = {
@@ -52,10 +53,12 @@ class App extends React.PureComponent {
   componentWillMount() {
     const { insertCss } = this.props.context;
     this.removeFonts = insertCss(fonts);
+    this.removeFontAwesome = insertCss(fontAwesome);
   }
 
   componentWillUnmount() {
     this.removeFonts();
+    this.removeFontAwesome();
   }
 
   render() {

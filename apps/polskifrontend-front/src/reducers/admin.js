@@ -9,7 +9,7 @@ const initialState = {
 export default function adminReducer(state = initialState, action) {
   switch (action.type) {
     case constants.ADMIN_GET_BLOG_LIST:
-      return { ...state, blogListLoading: true };
+      return { ...state, blogListLoading: true, blogListError: false };
     case constants.ADMIN_GET_BLOG_LIST_SUCCESS:
       return { ...state, blogListLoading: false, blogList: action.payload };
     case constants.ADMIN_GET_BLOG_LIST_ERROR:
