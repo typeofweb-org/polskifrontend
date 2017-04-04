@@ -7,7 +7,7 @@ const ResponsivePanel = props => {
   return (
     <ResponsiveContainer className={props.className}>
       <div className={style.container}>
-        <h1 className={style['container__title']}>{props.header}</h1>
+        <h2 className={style['container__title']}>{props.header}</h2>
         <div className={style.wrapper}>
           <p className={style['wrapper__description']}>{props.description}</p>
           {props.children}
