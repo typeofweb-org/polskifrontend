@@ -1,14 +1,7 @@
 import * as constants from '../constants';
 import * as validators from '../core/helpers/validators';
 
-const initialState = {
-  blogList: [],
-  blogListLoading: false,
-  blogListError: false,
-  blogDeleteLoading: false,
-  blogDeleteSuccess: false,
-  blogDeleteError: false,
-
+const initialFormState = {
   newBlogName: '',
   newBlogNameValid: false,
   newBlogNameDirty: false,
@@ -18,6 +11,17 @@ const initialState = {
   newBlogRss: '',
   newBlogRssValid: false,
   newBlogRssDirty: false,
+}
+
+const initialState = {
+  blogList: [],
+  blogListLoading: false,
+  blogListError: false,
+  blogDeleteLoading: false,
+  blogDeleteSuccess: false,
+  blogDeleteError: false,
+
+  ...initialFormState,
 
   addBlogLoading: false,
   addBlogError: false
@@ -51,7 +55,7 @@ export default function adminReducer(state = initialState, action) {
     case constants.ADMIN_ADD_BLOG_SUCCESS:
       const currentBlogList = state.blogList;
       currentBlogList.push(action.payload);
-      return { ...state, addBlogLoading: false, addBlogError: false, blogList: currentBlogList };
+      return { ...state, ...initialFormState, addBlogLoading: false, addBlogError: false, blogList: currentBlogList };
     case constants.ADMIN_ADD_BLOG_ERROR:
       return { ...state, addBlogLoading: false, addBlogError: true };
   }

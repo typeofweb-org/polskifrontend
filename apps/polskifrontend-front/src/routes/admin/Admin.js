@@ -14,6 +14,22 @@ class Add extends React.Component {
     getAdminBlogList();
   }
 
+  componentDidUpdate() {
+    const {
+      adminState: {
+        newBlogName,
+        newBlogUrl,
+        newBlogRss,
+      } } = this.props;
+
+    if (newBlogName === '' && newBlogUrl === '' && newBlogRss === '') {
+      console.log(this.refs.addBlog);
+      // this.refs.addBlog.refs.name.value = '';
+      // this.refs.addBlog.refs.url.value = '';
+      // this.refs.addBlog.refs.rss.value = '';
+    }
+  }
+
   onDeleteClick(id, event) {
     event.preventDefault();
     const { actions: { deleteBlog } } = this.props;
@@ -70,6 +86,9 @@ class Add extends React.Component {
       blogList,
       blogListLoading,
       blogListError,
+      newBlogName,
+      newBlogUrl,
+      newBlogRss,
       newBlogNameValid,
       newBlogNameDirty,
       newBlogUrlValid,
@@ -78,6 +97,7 @@ class Add extends React.Component {
       newBlogRssDirty
     } } = this.props;
     const errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
+    const shouldCleanUp = newBlogName === '' && newBlogUrl === '' && newBlogRss === '';
 
     return (
       <div className={style.container}>
@@ -91,6 +111,7 @@ class Add extends React.Component {
                  urlDirty={newBlogUrlDirty}
                  rssValid={newBlogRssValid}
                  rssDirty={newBlogRssDirty}
+                 shouldCleanUp={shouldCleanUp}
         />
         <BlogList blogList={blogList} blogListLoading={blogListLoading} onDeleteClick={this.onDeleteClick.bind(this)} onEditClick={this.onEditClick.bind(this)} />
         <Message type="alert" message={errorMessage} isVisible={blogListError}/>
