@@ -10,8 +10,6 @@ var _express2 = _interopRequireDefault(_express);
 
 var _models = require('../models');
 
-var _utils = require('../utils');
-
 var _jsonwebtoken = require('jsonwebtoken');
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
@@ -126,13 +124,20 @@ router.get('/admin/blogs', (() => {
 router.delete('/admin/blogs/:blogId', (() => {
   var _ref5 = _asyncToGenerator(function* (req, res) {
     const blogId = req.params.blogId;
-    _models.Blog.findByIdAndRemove(blogId, function (error) {
+    _models.Blog.findById(blogId, function (error, blog) {
       if (error) {
-        res.send({ success: false, message: `Unable to delete blog with ID: ${blogId}` });
+        return res.send({ success: false, message: `Unable to delete blog with ID: ${blogId}` });
       }
 
-      _models.Blog.find(function (error, blogs) {
-        return res.send({ success: true, blogs });
+      // hack to call pre middleware
+      blog.remove(function (err) {
+        if (err) {
+          return res.send({ success: false, message: `Unable to delete blog with ID: ${blogId}` });
+        }
+
+        _models.Blog.find(function (error, blogs) {
+          return res.send({ success: true, blogs });
+        });
       });
     });
   });

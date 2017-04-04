@@ -27,10 +27,10 @@ BlogSchema.options.toJSON.transform = (doc, ret) => {
   return ret;
 };
 
-BlogSchema.pre('remove', next => {
+BlogSchema.pre('remove', function (next) {
   // 'this' is the blog being removed. Provide callbacks here if you want
   // to be notified of the calls' result.
-  _article2.default.remove({ blog_id: undefined.id }).exec();
+  _article2.default.remove({ blog_id: this._id }).exec();
   next();
 });
 

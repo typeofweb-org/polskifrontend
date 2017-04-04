@@ -1,6 +1,5 @@
 import express from 'express';
 import { Blog, Article, User } from '../models';
-import { swagDocHandler } from '../utils';
 import jwt from 'jsonwebtoken';
 import app from '../main';
 
@@ -81,12 +80,19 @@ router.get('/admin/blogs', async (req, res) => {
 
 router.delete('/admin/blogs/:blogId', async (req, res) => {
   const blogId = req.params.blogId;
-  Blog.findByIdAndRemove(blogId, error => {
+  Blog.findById(blogId, (error, blog) => {
     if (error) {
-      res.send({ success: false, message: `Unable to delete blog with ID: ${blogId}` });
+      return res.send({ success: false, message: `Unable to delete blog with ID: ${blogId}` });
     }
 
-    Blog.find((error, blogs) => res.send({ success: true, blogs }));
+    // hack to call pre middleware
+    blog.remove(err => {
+      if (err) {
+        return res.send({ success: false, message: `Unable to delete blog with ID: ${blogId}` });
+      }
+
+      Blog.find((error, blogs) => res.send({ success: true, blogs }));
+    });
   });
 });
 
