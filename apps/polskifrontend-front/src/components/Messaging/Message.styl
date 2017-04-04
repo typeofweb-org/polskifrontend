@@ -1,0 +1,29 @@
+@import "../../styles/globals.styl"
+@import "../../styles/variables.styl"
+@import "../../styles/colors.styl"
+
+.container
+  position fixed
+  bottom $global-margin
+  right $global-margin
+  border-radius 5px
+  padding 25px
+  max-width 300px
+  z-index 100
+  color $color-secondary
+  line-height 1.6em
+  text-align center
+  visibility hidden
+  opacity 0
+  transition visibility $animation-time, opacity $animation-time
+
+  &--alert
+    background $color-alert
+  &--message
+    background $color-message
+  &--info
+    background $color-info
+
+  &--visible
+    visibility visible
+    opacity 1

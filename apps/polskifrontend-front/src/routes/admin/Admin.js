@@ -6,6 +6,7 @@ import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import AddBlog from './parts/AddBlog';
 import BlogList from './parts/BlogList';
+import Message from '../../components/Messaging/Message';
 
 class Add extends React.Component {
   componentDidMount() {
@@ -14,12 +15,14 @@ class Add extends React.Component {
   }
 
   render() {
-    const { adminState: { blogList, blogListLoading } } = this.props;
+    const { adminState: { blogList, blogListLoading, blogListError } } = this.props;
+    const errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
 
     return (
       <div className={style.container}>
         <AddBlog />
         <BlogList blogList={blogList} blogListLoading={blogListLoading} />
+        <Message type="alert" message={errorMessage} isVisible={blogListError}/>
       </div>
     );
   }

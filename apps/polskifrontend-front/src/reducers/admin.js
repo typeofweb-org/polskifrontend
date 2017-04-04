@@ -11,7 +11,7 @@ export default function adminReducer(state = initialState, action) {
     case constants.ADMIN_GET_BLOG_LIST:
       return { ...state, blogListLoading: true };
     case constants.ADMIN_GET_BLOG_LIST_SUCCESS:
-      return { ...state, blogListLoading: false, blogList: action.payload };
+      return { ...state, blogListLoading: false, blogList: action.payload, blogListError: true };
     case constants.ADMIN_GET_BLOG_LIST_ERROR:
       return { ...state, blogListLoading: false, blogListError: true };
   }
