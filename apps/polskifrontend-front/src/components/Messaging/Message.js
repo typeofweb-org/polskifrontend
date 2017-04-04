@@ -12,6 +12,7 @@ class Message extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isMessageVisible: false };
+    this.currentTimout = null;
   }
 
   componentDidMount() {
@@ -26,6 +27,10 @@ class Message extends React.Component {
     const { isMessageVisible } = this.state;
     const { isVisible } = this.props;
 
+    if (this.currentTimout) {
+      clearTimeout(this.currentTimout);
+    }
+
     if (prevProps.isVisible !== isVisible) {
       this.setState({
         isMessageVisible: isVisible
@@ -33,7 +38,7 @@ class Message extends React.Component {
     }
 
     if (prevState.isMessageVisible === false && isMessageVisible) {
-      setTimeout(() => {
+      this.currentTimout = setTimeout(() => {
         this.setState({
           isMessageVisible: false
         });

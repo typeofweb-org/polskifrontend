@@ -7,6 +7,7 @@ import * as loginHelper from '../../core/helpers/loginHelper';
 import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import Message from '../../components/Messaging/Message';
 
 class Login extends React.Component {
   static propTypes = {
@@ -47,7 +48,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { loginState: { buttonDisabled } } = this.props;
+    const { loginState: { buttonDisabled, loginError } } = this.props;
+    const errorMessage = loginError ? 'Logowanie nie udane - spóbuj ponownie' : '';
 
     return (
       <div className={style.container}>
@@ -56,6 +58,7 @@ class Login extends React.Component {
                    onLoginClick={this.onLoginClick.bind(this)}
                    buttonDisabled={buttonDisabled}
         />
+        <Message type="alert" message={errorMessage} isVisible={loginError}/>
       </div>
     );
   }

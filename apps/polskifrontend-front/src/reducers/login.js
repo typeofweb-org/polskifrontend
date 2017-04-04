@@ -6,8 +6,7 @@ const initialState = {
   password: '',
   buttonDisabled: true,
   inputsDisabled: false,
-  loginError: false,
-  loginErrorMessage: ''
+  loginError: false
 };
 
 export default function homeReducer(state = initialState, action) {
@@ -20,11 +19,11 @@ export default function homeReducer(state = initialState, action) {
       return { ...state, password: sha1(action.payload), buttonDisabled: !pwdEnabled };
 
     case constants.LOGIN_INVOKE:
-      return { ...state, buttonDisabled: true, inputsDisabled: true };
+      return { ...state, buttonDisabled: true, inputsDisabled: true, loginError: false };
     case constants.LOGIN_INVOKE_SUCCESS:
       return { ...state, userName: '', password: '', buttonDisabled: true, inputsDisabled: false };
     case constants.LOGIN_INVOKE_ERROR:
-      return { ...state,  buttonDisabled: false, inputsDisabled: false };
+      return { ...state,  buttonDisabled: false, inputsDisabled: false, loginError: true };
   }
 
   return state;
