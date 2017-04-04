@@ -4,9 +4,13 @@ import style from './BlogList.styl';
 import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
 
 const BlogList = props => {
-  const { blogList } = props;
+  const { blogList, onDeleteClick, onEditClick } = props;
 
-  return (
+  const noList = (
+    <ResponsivePanel className={style.container} header="Lista blogów" description="Na razie nie dodano żadnych blogów..." >
+    </ResponsivePanel>
+  );
+  const list = (
     <ResponsivePanel className={style.container} header="Lista blogów" description="Poniżej można usuwać oraz edytować blogi" >
       <ul className={style.list}>
         {blogList.map((item, index) => {
@@ -16,11 +20,11 @@ const BlogList = props => {
               <p className={style['item__url']}><a target="_blank" href={item.href}>{item.href}</a></p>
               <p className={style['item__url']}><a target="_blank" href={item.rss}>{item.rss}</a></p>
               <div className={style.buttons}>
-                <a className={`${style['buttons__item']} ${style['buttons__item--special']}`} href="#">
+                <a className={`${style['buttons__item']} ${style['buttons__item--special']}`} onClick={onDeleteClick.bind(this, item['_id'])} href="#">
                   <i className="fa fa-trash-o">
                   </i>
                 </a>
-                <a className={style['buttons__item']} href="#">
+                <a className={style['buttons__item']} onClick={onEditClick.bind(this, item['_id'])} href="#">
                   <i className="fa fa-pencil-square-o">
                   </i>
                 </a>
@@ -31,11 +35,15 @@ const BlogList = props => {
       </ul>
     </ResponsivePanel>
   );
+
+  return blogList.length > 0 ? list : noList;
 };
 
 BlogList.propTypes = {
   blogList: PropTypes.array.isRequired,
-  blogListLoading: PropTypes.bool.isRequired
+  blogListLoading: PropTypes.bool.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
+  onEditClick: PropTypes.func.isRequired
 };
 
 export default withStyles(style)(BlogList);

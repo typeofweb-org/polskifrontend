@@ -14,6 +14,17 @@ class Add extends React.Component {
     getAdminBlogList();
   }
 
+  onDeleteClick(id, event) {
+    event.preventDefault();
+    const { actions: { deleteBlog } } = this.props;
+    deleteBlog(id);
+  }
+
+  onEditClick(id, event) {
+    event.preventDefault();
+    console.log(id);
+  }
+
   render() {
     const { adminState: { blogList, blogListLoading, blogListError } } = this.props;
     const errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
@@ -21,7 +32,7 @@ class Add extends React.Component {
     return (
       <div className={style.container}>
         <AddBlog />
-        <BlogList blogList={blogList} blogListLoading={blogListLoading} />
+        <BlogList blogList={blogList} blogListLoading={blogListLoading} onDeleteClick={this.onDeleteClick.bind(this)} onEditClick={this.onEditClick.bind(this)} />
         <Message type="alert" message={errorMessage} isVisible={blogListError}/>
       </div>
     );
