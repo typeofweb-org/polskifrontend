@@ -32,7 +32,7 @@ class Home extends React.Component {
     return (
       <div className={style.container}>
         <BlogProposalForm onUrlChange={this.onBlogProposalUrlChange.bind(this)} isUrlValid={blogProposalUrlValid} />
-        <BlogList blogList={blogList} isLoading={blogListLoading} />
+        <BlogList blogList={blogList} blogListLoading={blogListLoading} />
       </div>
     );
   }

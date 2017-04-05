@@ -6,7 +6,7 @@ import Loader from '../../../components/Indicators/Loader';
 const BlogList = props => {
   return (
     <div className={style.container}>
-      <Loader isLoading={props.isLoading}>
+      <Loader isLoading={props.blogListLoading}>
         {props.blogList.map((item, index) => {
           return (
             <div className={style['container__wrapper']} key={index}>
@@ -32,7 +32,7 @@ const BlogList = props => {
 
 BlogList.propTypes = {
   blogList: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  blogListLoading: PropTypes.bool.isRequired
 };
 
 export default withStyles(style)(BlogList);

@@ -24,6 +24,9 @@ const initialState = {
 
   ...initialFormState,
 
+  deleteBlogRequested: false,
+  deleteBlogId: '',
+
   addBlogLoading: false,
   addBlogError: false
 };
@@ -42,8 +45,12 @@ export default function adminReducer(state = initialState, action) {
     case constants.ADMIN_GET_BLOG_LIST_ERROR:
       return { ...state, blogListLoading: false, blogListError: true };
 
+    case constants.ADMIN_DELETE_BLOG_REQUEST:
+      return { ...state, deleteBlogRequested: true, deleteBlogId: action.payload };
+    case constants.ADMIN_DELETE_BLOG_REQUEST_CANCEL:
+      return { ...state, deleteBlogRequested: false, deleteBlogId: '' };
     case constants.ADMIN_DELETE_BLOG:
-      return { ...state, blogDeleteLoading: true, blogDeleteSuccess: false, blogDeleteError: false };
+      return { ...state, deleteBlogRequested: false, deleteBlogId: '', blogDeleteLoading: true, blogDeleteSuccess: false, blogDeleteError: false };
     case constants.ADMIN_DELETE_BLOG_SUCCESS:
       return { ...state, blogDeleteLoading: false, blogDeleteSuccess: true, blogDeleteError: false, blogList: action.payload };
     case constants.ADMIN_DELETE_BLOG_ERROR:

@@ -8,6 +8,7 @@ import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import AddBlog from './parts/AddBlog';
 import BlogList from './parts/BlogList';
 import Message from '../../components/Indicators/Message';
+import Confirm from '../../components/Modals/Confirm';
 
 class Add extends React.Component {
   componentDidMount() {
@@ -29,8 +30,8 @@ class Add extends React.Component {
 
   onDeleteClick(id, event) {
     event.preventDefault();
-    const { actions: { deleteBlog } } = this.props;
-    deleteBlog(id);
+    const { actions: { deleteBlogRequest } } = this.props;
+    deleteBlogRequest(id);
   }
 
   onEditClick(id, event) {
@@ -78,6 +79,16 @@ class Add extends React.Component {
     }
   }
 
+  onDeleteCancelClick() {
+    const { actions: { deleteBlogRequestCancel } } = this.props;
+    deleteBlogRequestCancel();
+  }
+
+  onDeleteConfirmClick() {
+    const { actions: { deleteBlog }, adminState: { deleteBlogId } } = this.props;
+    deleteBlog(deleteBlogId);
+  }
+
   render() {
     const { adminState: {
       blogList,
@@ -94,6 +105,7 @@ class Add extends React.Component {
       newBlogRssDirty,
       addBlogLoading,
       addBlogError,
+      deleteBlogRequested
     } } = this.props;
     let errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
     const shouldCleanUp = newBlogName === '' && newBlogUrl === '' && newBlogRss === '';
@@ -118,6 +130,7 @@ class Add extends React.Component {
                  addBlogLoading={addBlogLoading}
         />
         <BlogList blogList={blogList} blogListLoading={blogListLoading} onDeleteClick={this.onDeleteClick.bind(this)} onEditClick={this.onEditClick.bind(this)} />
+        <Confirm question="Czy jesteś pewien, że chcesz usunąć bloga?" isVisible={deleteBlogRequested} onCancelClick={this.onDeleteCancelClick.bind(this)} onConfirmClick={this.onDeleteConfirmClick.bind(this)} />
         <Message type="alert" message={errorMessage} isVisible={blogListError || addBlogError} />
       </div>
     );

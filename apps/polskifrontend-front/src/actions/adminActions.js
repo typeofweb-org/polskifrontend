@@ -12,6 +12,19 @@ export function getAdminBlogList() {
   };
 }
 
+export function deleteBlogRequest(blogId) {
+  return {
+    type: constants.ADMIN_DELETE_BLOG_REQUEST,
+    payload: blogId
+  }
+}
+
+export function deleteBlogRequestCancel() {
+  return {
+    type: constants.ADMIN_DELETE_BLOG_REQUEST_CANCEL
+  }
+}
+
 export function deleteBlog(blogId) {
   return {
     type: constants.ADMIN_DELETE_BLOG,
