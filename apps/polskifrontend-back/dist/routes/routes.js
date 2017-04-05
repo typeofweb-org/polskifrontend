@@ -58,11 +58,11 @@ router.post('/authenticate', (() => {
       }
 
       if (!user) {
-        res.json({ success: false, message: 'Authentication failed. User not found.' });
+        res.json({ success: false, reason: 'cant-authenticate', message: 'Authentication failed.' });
       } else if (user) {
         // check if password matches
         if (user.password !== req.body.password) {
-          res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+          res.json({ success: false, reason: 'cant-authenticate', message: 'Authentication failed.' });
         } else {
           // if user is found and password is right
           // create a token
@@ -94,7 +94,7 @@ router.use((req, res, next) => {
     // verifies secret and checks exp
     _jsonwebtoken2.default.verify(token, _main2.default.get('secret'), (err, decoded) => {
       if (err) {
-        return res.json({ success: false, message: 'Failed to authenticate token.' });
+        return res.json({ success: false, reason: 'bad-token', message: 'Failed to authenticate token.' });
       }
       // if everything is good, save to request for use in other routes
       req.decoded = decoded;
@@ -105,6 +105,7 @@ router.use((req, res, next) => {
     // return an error
     return res.status(403).send({
       success: false,
+      reason: 'no-token',
       message: 'No token provided.'
     });
   }
@@ -126,13 +127,13 @@ router.delete('/admin/blogs/:blogId', (() => {
     const blogId = req.params.blogId;
     _models.Blog.findById(blogId, function (error, blog) {
       if (error) {
-        return res.send({ success: false, message: `Unable to delete blog with ID: ${blogId}` });
+        return res.send({ success: false, reason: 'cant-find', message: `Unable to delete blog with ID: ${blogId}` });
       }
 
       // hack to call pre middleware
       blog.remove(function (err) {
         if (err) {
-          return res.send({ success: false, message: `Unable to delete blog with ID: ${blogId}` });
+          return res.send({ success: false, reason: 'cant-remove', message: `Unable to delete blog with ID: ${blogId}` });
         }
 
         _models.Blog.find(function (error, blogs) {
@@ -152,7 +153,7 @@ router.post('/admin/blogs', (() => {
     const blog = new _models.Blog(req.body);
     blog.save(function (error, createdBlog) {
       if (error) {
-        res.send({ success: false, message: 'New blog entity adding failed' });
+        res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
       }
       res.send({ success: true, blog: createdBlog });
     });
