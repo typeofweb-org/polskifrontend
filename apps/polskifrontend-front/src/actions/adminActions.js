@@ -1,5 +1,11 @@
 import * as constants from '../constants';
 
+export function resetAdminState() {
+  return {
+    type: constants.ADMIN_RESET_STATE
+  }
+}
+
 export function getAdminBlogList() {
   return {
     type: constants.ADMIN_GET_BLOG_LIST

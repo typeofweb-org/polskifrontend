@@ -2,6 +2,7 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Admin.styl';
 import { connect } from 'react-redux';
+import history from '../../core/history';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import AddBlog from './parts/AddBlog';
@@ -15,18 +16,14 @@ class Add extends React.Component {
   }
 
   componentDidUpdate() {
-    const {
-      adminState: {
-        newBlogName,
-        newBlogUrl,
-        newBlogRss,
-      } } = this.props;
+    const { actions: { resetAdminState }, adminState: { tokenExpired } } = this.props;
 
-    if (newBlogName === '' && newBlogUrl === '' && newBlogRss === '') {
-      console.log(this.refs.addBlog);
-      // this.refs.addBlog.refs.name.value = '';
-      // this.refs.addBlog.refs.url.value = '';
-      // this.refs.addBlog.refs.rss.value = '';
+    if (tokenExpired) {
+      // reset token expired
+      resetAdminState();
+
+      // redirect to login
+      history.push('/login');
     }
   }
 

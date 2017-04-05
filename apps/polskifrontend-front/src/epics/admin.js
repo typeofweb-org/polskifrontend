@@ -5,17 +5,25 @@ import * as loginHelper from '../core/helpers/loginHelper';
 
 export const getAdminBlogListEpic = action$ => {
   return action$.ofType(constants.ADMIN_GET_BLOG_LIST)
-    .mergeMap(action => {
+    .mergeMap(() => {
       const headers = {
         'authorization': 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==',
         'x-access-token': loginHelper.getLoginToken()
       };
 
-      return ajax.getJSON(`${apiUrl}/admin/blogs`, headers)
-        .map(response => ({
-          type: constants.ADMIN_GET_BLOG_LIST_SUCCESS,
-          payload: response.blogs
-        }))
+      return ajax.get(`${apiUrl}/admin/blogs`, headers)
+        .map(responseData => {
+          if (responseData.response.success === false && responseData.response.reason === 'bad-token') {
+            return {
+              type: constants.ADMIN_TOKEN_EXPIRED
+            };
+          }
+
+          return {
+            type: constants.ADMIN_GET_BLOG_LIST_SUCCESS,
+            payload: responseData.response.blogs
+          };
+        })
         .catch(error => ({
           type: constants.ADMIN_GET_BLOG_LIST_ERROR,
           payload: error
@@ -33,11 +41,16 @@ export const deleteBlogEpic = action$ => {
 
       return ajax.delete(`${apiUrl}/admin/blogs/${action.payload}`, headers)
         .map(responseData => {
-          console.log(responseData);
+          if (responseData.response.success === false && responseData.response.reason === 'bad-token') {
+            return {
+              type: constants.ADMIN_TOKEN_EXPIRED
+            };
+          }
+
           if (responseData.response.status === false) {
             return {
               type: constants.ADMIN_DELETE_BLOG_ERROR,
-                payload: responseData.response.message
+              payload: responseData.response.message
             };
           }
 
@@ -69,7 +82,12 @@ export const addBlogEpic = action$ => {
           responseType: 'json'
         })
         .map(responseData => {
-          console.log(responseData);
+          if (responseData.response.success === false && responseData.response.reason === 'bad-token') {
+            return {
+              type: constants.ADMIN_TOKEN_EXPIRED
+            };
+          }
+
           if (responseData.response.status === false) {
             return {
               type: constants.ADMIN_ADD_BLOG_ERROR,

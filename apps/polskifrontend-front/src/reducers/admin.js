@@ -14,6 +14,7 @@ const initialFormState = {
 }
 
 const initialState = {
+  tokenExpired: false,
   blogList: [],
   blogListLoading: false,
   blogListError: false,
@@ -29,6 +30,11 @@ const initialState = {
 
 export default function adminReducer(state = initialState, action) {
   switch (action.type) {
+    case constants.ADMIN_TOKEN_EXPIRED:
+      return { ...state, tokenExpired: true };
+    case constants.ADMIN_RESET_STATE:
+      return { ...initialState };
+
     case constants.ADMIN_GET_BLOG_LIST:
       return { ...state, blogListLoading: true, blogListError: false };
     case constants.ADMIN_GET_BLOG_LIST_SUCCESS:
