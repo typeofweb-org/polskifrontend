@@ -7,7 +7,7 @@ import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import AddBlog from './parts/AddBlog';
 import BlogList from './parts/BlogList';
-import Message from '../../components/Messaging/Message';
+import Message from '../../components/Indicators/Message';
 
 class Add extends React.Component {
   componentDidMount() {
@@ -91,10 +91,16 @@ class Add extends React.Component {
       newBlogUrlValid,
       newBlogUrlDirty,
       newBlogRssValid,
-      newBlogRssDirty
+      newBlogRssDirty,
+      addBlogLoading,
+      addBlogError,
     } } = this.props;
-    const errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
+    let errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
     const shouldCleanUp = newBlogName === '' && newBlogUrl === '' && newBlogRss === '';
+
+    if (blogListError === false && addBlogError) {
+      errorMessage = 'Próba dodania bloga zakończona niepowodzeniem';
+    }
 
     return (
       <div className={style.container}>
@@ -109,9 +115,10 @@ class Add extends React.Component {
                  rssValid={newBlogRssValid}
                  rssDirty={newBlogRssDirty}
                  shouldCleanUp={shouldCleanUp}
+                 addBlogLoading={addBlogLoading}
         />
         <BlogList blogList={blogList} blogListLoading={blogListLoading} onDeleteClick={this.onDeleteClick.bind(this)} onEditClick={this.onEditClick.bind(this)} />
-        <Message type="alert" message={errorMessage} isVisible={blogListError}/>
+        <Message type="alert" message={errorMessage} isVisible={blogListError || addBlogError} />
       </div>
     );
   }

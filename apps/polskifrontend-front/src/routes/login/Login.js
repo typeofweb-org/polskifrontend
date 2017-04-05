@@ -7,7 +7,7 @@ import * as loginHelper from '../../core/helpers/loginHelper';
 import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
-import Message from '../../components/Messaging/Message';
+import Message from '../../components/Indicators/Message';
 
 class Login extends React.Component {
   static propTypes = {

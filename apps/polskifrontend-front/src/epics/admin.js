@@ -47,7 +47,7 @@ export const deleteBlogEpic = action$ => {
             };
           }
 
-          if (responseData.response.status === false) {
+          if (responseData.response.success === false) {
             return {
               type: constants.ADMIN_DELETE_BLOG_ERROR,
               payload: responseData.response.message
@@ -88,7 +88,8 @@ export const addBlogEpic = action$ => {
             };
           }
 
-          if (responseData.response.status === false) {
+          console.log(responseData.response);
+          if (responseData.response.success === false) {
             return {
               type: constants.ADMIN_ADD_BLOG_ERROR,
               payload: responseData.response.message

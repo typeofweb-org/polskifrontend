@@ -15,7 +15,8 @@ class AddBlog extends React.Component {
     urlDirty: PropTypes.bool.isRequired,
     rssValid: PropTypes.bool.isRequired,
     rssDirty: PropTypes.bool.isRequired,
-    shouldCleanUp: PropTypes.bool.isRequired
+    shouldCleanUp: PropTypes.bool.isRequired,
+    addBlogLoading: PropTypes.bool.isRequired
   };
 
   componentDidUpdate() {
@@ -33,10 +34,10 @@ class AddBlog extends React.Component {
     return (
       <ResponsivePanel header="Dodaj bloga" description="Wypełnij poniższe pola aby dodać bloga">
         <form className={style.form} onSubmit={this.props.onFormSubmit}>
-          <input className={errorClass(this.props.nameValid || this.props.nameDirty === false)} placeholder="nazwa" onChange={this.props.onNameChange} ref="name" />
-          <input className={errorClass(this.props.urlValid || this.props.urlDirty === false)} placeholder="adres url" onChange={this.props.onUrlChange} ref="url" />
-          <input className={errorClass(this.props.rssValid || this.props.rssDirty === false)} placeholder="kanał rss" onChange={this.props.onRssChange} ref="rss" />
-          <button type="submit" disabled={disabled} className={style['form__button']}>Dodaj</button>
+          <input className={errorClass(this.props.nameValid || this.props.nameDirty === false)} disabled={this.props.addBlogLoading} placeholder="nazwa" onChange={this.props.onNameChange} ref="name" />
+          <input className={errorClass(this.props.urlValid || this.props.urlDirty === false)} disabled={this.props.addBlogLoading} placeholder="adres url" onChange={this.props.onUrlChange} ref="url" />
+          <input className={errorClass(this.props.rssValid || this.props.rssDirty === false)} disabled={this.props.addBlogLoading} placeholder="kanał rss" onChange={this.props.onRssChange} ref="rss" />
+          <button type="submit" disabled={disabled || this.props.addBlogLoading} className={style['form__button']}>Dodaj</button>
         </form>
       </ResponsivePanel>
     );

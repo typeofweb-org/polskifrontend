@@ -11,12 +11,12 @@ const initialFormState = {
   newBlogRss: '',
   newBlogRssValid: false,
   newBlogRssDirty: false,
-}
+};
 
 const initialState = {
   tokenExpired: false,
   blogList: [],
-  blogListLoading: false,
+  blogListLoading: true,
   blogListError: false,
   blogDeleteLoading: false,
   blogDeleteSuccess: false,

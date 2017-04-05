@@ -26,13 +26,13 @@ class Home extends React.Component {
   }
 
   render() {
-    let { homeState: { blogList, blogProposalUrlValid } } = this.props;
+    let { homeState: { blogList, blogListLoading, blogProposalUrlValid } } = this.props;
     blogList = blogList || [];
 
     return (
       <div className={style.container}>
         <BlogProposalForm onUrlChange={this.onBlogProposalUrlChange.bind(this)} isUrlValid={blogProposalUrlValid} />
-        <BlogList blogList={blogList} />
+        <BlogList blogList={blogList} isLoading={blogListLoading} />
       </div>
     );
   }
