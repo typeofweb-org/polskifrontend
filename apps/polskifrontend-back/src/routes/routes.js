@@ -26,11 +26,11 @@ router.post('/authenticate', async (req, res) => {
     }
 
     if (!user) {
-      res.json({ success: false, message: 'Authentication failed. User not found.' });
+      res.json({ success: false, reason: 'cant-authenticate', message: 'Authentication failed.' });
     } else if (user) {
       // check if password matches
       if (user.password !== req.body.password) {
-        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+        res.json({ success: false, reason: 'cant-authenticate', message: 'Authentication failed.' });
       } else {
         // if user is found and password is right
         // create a token
@@ -57,7 +57,7 @@ router.use((req, res, next) => {
     // verifies secret and checks exp
     jwt.verify(token, app.get('secret'), (err, decoded) => {
       if (err) {
-        return res.json({ success: false, message: 'Failed to authenticate token.' });
+        return res.json({ success: false, reason: 'bad-token', message: 'Failed to authenticate token.' });
       }
       // if everything is good, save to request for use in other routes
       req.decoded = decoded;
@@ -68,6 +68,7 @@ router.use((req, res, next) => {
     // return an error
     return res.status(403).send({
       success: false,
+      reason: 'no-token',
       message: 'No token provided.'
     });
   }
@@ -82,13 +83,13 @@ router.delete('/admin/blogs/:blogId', async (req, res) => {
   const blogId = req.params.blogId;
   Blog.findById(blogId, (error, blog) => {
     if (error) {
-      return res.send({ success: false, message: `Unable to delete blog with ID: ${blogId}` });
+      return res.send({ success: false, reason: 'cant-find', message: `Unable to delete blog with ID: ${blogId}` });
     }
 
     // hack to call pre middleware
     blog.remove(err => {
       if (err) {
-        return res.send({ success: false, message: `Unable to delete blog with ID: ${blogId}` });
+        return res.send({ success: false, reason: 'cant-remove', message: `Unable to delete blog with ID: ${blogId}` });
       }
 
       Blog.find((error, blogs) => res.send({ success: true, blogs }));
@@ -100,7 +101,7 @@ router.post('/admin/blogs', async (req, res) => {
   const blog = new Blog(req.body);
   blog.save((error, createdBlog) => {
     if (error) {
-      res.send({ success: false, message: 'New blog entity adding failed' });
+      res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
     }
     res.send({ success: true, blog: createdBlog });
   });
