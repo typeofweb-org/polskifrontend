@@ -14,6 +14,9 @@ const Schema = _mongoose2.default.Schema;
 const ArticleSchema = new Schema({
   title: String,
   href: String,
+  description: String,
+  summary: String,
+  date: Date,
   blog_id: String
 });
 
@@ -23,22 +26,5 @@ ArticleSchema.options.toJSON.transform = (doc, ret) => {
 };
 
 const Article = _mongoose2.default.model('article', ArticleSchema);
-
-/**
- * @swagger
- * definitions:
- *   Blog:
- *     type: object
- *     properties:
- *       _id:
- *         type: string
- *         default: objectId
- *       title:
- *         type: string
- *         default: NAME
- *       href:
- *         type: string
- *         default: #
- */
 
 exports.default = Article;
