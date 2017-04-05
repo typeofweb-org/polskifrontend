@@ -7,13 +7,13 @@ const router = new express.Router();
 
 router.get('/blogs', async (req, res) => {
   const blogs = await Blog.find();
-  return res.send({ blogs });
+  res.send({ blogs });
 });
 
 router.get('/articles/:blog', async (req, res) => {
   const blog_id = req.params.blog;
-  const articles = await Article.find({ blog_id });
-  return res.send({ articles });
+  const articles = await Article.find({ blog_id }).sort({ date: -1 }).limit(5);
+  res.send({ articles });
 });
 
 router.post('/authenticate', async (req, res) => {

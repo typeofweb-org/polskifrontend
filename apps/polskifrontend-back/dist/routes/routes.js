@@ -27,7 +27,7 @@ const router = new _express2.default.Router();
 router.get('/blogs', (() => {
   var _ref = _asyncToGenerator(function* (req, res) {
     const blogs = yield _models.Blog.find();
-    return res.send({ blogs });
+    res.send({ blogs });
   });
 
   return function (_x, _x2) {
@@ -38,8 +38,8 @@ router.get('/blogs', (() => {
 router.get('/articles/:blog', (() => {
   var _ref2 = _asyncToGenerator(function* (req, res) {
     const blog_id = req.params.blog;
-    const articles = yield _models.Article.find({ blog_id });
-    return res.send({ articles });
+    const articles = yield _models.Article.find({ blog_id }).sort({ date: -1 }).limit(5);
+    res.send({ articles });
   });
 
   return function (_x3, _x4) {
