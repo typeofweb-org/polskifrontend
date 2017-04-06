@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Home.styl';
 import BlogList from './parts/BlogList';
-import BlogProposalForm from './parts/BlogProposalForm';
+import TopHomePanel from './parts/TopHomePanel';
 import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
@@ -26,12 +26,12 @@ class Home extends React.Component {
   }
 
   render() {
-    let { homeState: { blogList, blogListLoading, blogProposalUrlValid } } = this.props;
+    let { homeState: { blogList, blogListLoading } } = this.props;
     blogList = blogList || [];
 
     return (
       <div className={style.container}>
-        <BlogProposalForm onUrlChange={this.onBlogProposalUrlChange.bind(this)} isUrlValid={blogProposalUrlValid} />
+        <TopHomePanel />
         <BlogList blogList={blogList} blogListLoading={blogListLoading} />
       </div>
     );
