@@ -3,6 +3,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './BlogList.styl';
 import Loader from '../../../components/Indicators/Loader';
 import dateFormat from 'dateformat';
+import he from 'he';
 
 const BlogList = props => {
   return (
@@ -23,7 +24,7 @@ const BlogList = props => {
                         <span className={style['meta']}>
                           <p className={style['meta__date']}>{dateFormat(article.date, 'dd-mm-yyyy')}</p>
                           <p className={style['meta__description']}>
-                            {`${article.description.replace(/(<([^>]+)>)/ig, '').substring(0, 80)} [...]`}
+                            {`${he.decode(article.description.replace(/(<([^>]+)>)/ig, '').substring(0, 80))} [...]`}
                           </p>
                         </span>
                       </div>
