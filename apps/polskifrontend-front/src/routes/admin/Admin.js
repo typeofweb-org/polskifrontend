@@ -105,13 +105,14 @@ class Add extends React.Component {
       newBlogRssDirty,
       addBlogLoading,
       addBlogError,
+      addBlogErrorMessage,
       deleteBlogRequested
     } } = this.props;
     let errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
     const shouldCleanUp = newBlogName === '' && newBlogUrl === '' && newBlogRss === '';
 
     if (blogListError === false && addBlogError) {
-      errorMessage = 'Próba dodania bloga zakończona niepowodzeniem';
+      errorMessage = addBlogErrorMessage;
     }
 
     return (

@@ -28,7 +28,8 @@ const initialState = {
   deleteBlogId: '',
 
   addBlogLoading: false,
-  addBlogError: false
+  addBlogError: false,
+  addBlogErrorMessage: ''
 };
 
 export default function adminReducer(state = initialState, action) {
@@ -59,18 +60,20 @@ export default function adminReducer(state = initialState, action) {
     case constants.ADMIN_NEW_BLOG_NAME_CHANGED:
       return { ...state, newBlogName: action.payload, newBlogNameValid: validators.isRequired(action.payload), newBlogNameDirty: true };
     case constants.ADMIN_NEW_BLOG_URL_CHANGED:
-      return { ...state, newBlogUrl: action.payload, newBlogUrlValid: validators.isUrlValid(action.payload), newBlogUrlDirty: true };
+      return { ...state, newBlogUrl: action.payload, newBlogUrlValid: validators.isUrlValidWithProtocol(action.payload), newBlogUrlDirty: true };
     case constants.ADMIN_NEW_BLOG_RSS_CHANGED:
-      return { ...state, newBlogRss: action.payload, newBlogRssValid: validators.isUrlValid(action.payload), newBlogRssDirty: true };
+      return { ...state, newBlogRss: action.payload, newBlogRssValid: validators.isUrlValidWithProtocol(action.payload), newBlogRssDirty: true };
 
     case constants.ADMIN_ADD_BLOG:
-      return { ...state, addBlogLoading: true, addBlogError: false };
+      return { ...state, addBlogLoading: true, addBlogError: false, addBlogErrorMessage: '' };
     case constants.ADMIN_ADD_BLOG_SUCCESS:
       const currentBlogList = state.blogList;
       currentBlogList.push(action.payload);
       return { ...state, ...initialFormState, addBlogLoading: false, addBlogError: false, blogList: currentBlogList };
     case constants.ADMIN_ADD_BLOG_ERROR:
-      return { ...state, addBlogLoading: false, addBlogError: true };
+      const reason = action.payload;
+      const message = reason === 'rss-invalid' ? 'Podany adres RSS jest nie prawidłowy' : 'Próba dodania bloga zakończona niepowodzeniem';
+      return { ...state, addBlogLoading: false, addBlogError: true, addBlogErrorMessage: message };
   }
 
   return state;

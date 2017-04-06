@@ -92,7 +92,7 @@ export const addBlogEpic = action$ => {
           if (responseData.response.success === false) {
             return {
               type: constants.ADMIN_ADD_BLOG_ERROR,
-              payload: responseData.response.message
+              payload: responseData.response.reason
             };
           }
 

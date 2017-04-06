@@ -13,7 +13,10 @@ const BlogList = props => {
             <div className={style['container__wrapper']} key={index}>
               <section className={style['container__blog']}>
                 <h2 className={style.title}>
-                  <a className={style['title__link']} target="_blank" href={item.href}>{item.name}</a>
+                  <a className={style['title__link']} target="_blank" href={item.href}>
+                    {item.favicon !== '' ? <img className={style['title__favicon']} src={item.favicon} /> : null}
+                    {item.name}
+                    </a>
                 </h2>
                 <Articles articles={item.articles || []} />
               </section>
