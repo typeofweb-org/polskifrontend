@@ -22,6 +22,12 @@ var _rssHandler = require('../rss/rssHandler');
 
 var _rssHandler2 = _interopRequireDefault(_rssHandler);
 
+var _faviconHelper = require('../utils/faviconHelper');
+
+var faviconHelper = _interopRequireWildcard(_faviconHelper);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -154,36 +160,42 @@ router.delete('/admin/blogs/:blogId', (() => {
 
 router.post('/admin/blogs', (() => {
   var _ref6 = _asyncToGenerator(function* (req, res) {
-    const blog = new _models.Blog(req.body);
-    blog.save(function (error, createdBlog) {
-      if (error) {
-        res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
-      }
+    const rssInstance = new _rssHandler2.default(req.body.rss);
+    faviconHelper.getFaviconUrl(req.body.href).then(function (faviconUrl) {
+      rssInstance.isRssAddressValid().then(function () {
+        req.body.favicon = faviconUrl;
+        const blog = new _models.Blog(req.body);
+        blog.save(function (error, createdBlog) {
+          if (error) {
+            res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
+          }
 
-      const rssHandler = new _rssHandler2.default(createdBlog.rss);
-      rssHandler.getParsedData(function (data) {
-        const pubDate = new Date(data.article.pubDate);
-        const article = new _models.Article({
-          title: data.article.title,
-          href: data.article.link,
-          description: data.article.summary || data.article.description,
-          date: pubDate,
-          blog_id: blog._id
+          const rssHandler = new _rssHandler2.default(createdBlog.rss);
+          rssHandler.getParsedData(function (data) {
+            const pubDate = new Date(data.article.pubDate);
+            const article = new _models.Article({
+              title: data.article.title,
+              href: data.article.link,
+              description: data.article.summary || data.article.description,
+              date: pubDate,
+              blog_id: blog._id
+            });
+
+            article.save(function (error) {
+              console.log(error);
+            });
+
+            if (pubDate > createdBlog.publishedDate) {
+              createdBlog.publishedDate = pubDate;
+              createdBlog.save();
+            }
+          });
+
+          res.send({ success: true, blog: createdBlog });
         });
-
-        article.save(function (error) {
-          console.log(error);
-        });
-
-        if (pubDate > createdBlog.publishedDate) {
-          createdBlog.publishedDate = pubDate;
-          createdBlog.save();
-        }
-      }, function () {
-        res.send({ success: false, reason: 'rss-error', message: 'Error during RSS parsing' });
+      }).catch(function () {
+        res.send({ success: false, reason: 'rss-invalid', message: 'Given rss address is not a valid RSS feed.' });
       });
-
-      res.send({ success: true, blog: createdBlog });
     });
   });
 

@@ -3,6 +3,7 @@ import { Blog, Article, User } from '../models';
 import jwt from 'jsonwebtoken';
 import app from '../main';
 import RssHandler from '../rss/rssHandler';
+import * as faviconHelper from '../utils/faviconHelper';
 
 const router = new express.Router();
 
@@ -99,36 +100,42 @@ router.delete('/admin/blogs/:blogId', async (req, res) => {
 });
 
 router.post('/admin/blogs', async (req, res) => {
-  const blog = new Blog(req.body);
-  blog.save((error, createdBlog) => {
-    if (error) {
-      res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
-    }
+  const rssInstance = new RssHandler(req.body.rss);
+  faviconHelper.getFaviconUrl(req.body.href).then(faviconUrl => {
+    rssInstance.isRssAddressValid().then(() => {
+      req.body.favicon = faviconUrl;
+      const blog = new Blog(req.body);
+      blog.save((error, createdBlog) => {
+        if (error) {
+          res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
+        }
 
-    const rssHandler = new RssHandler(createdBlog.rss);
-    rssHandler.getParsedData(data => {
-      const pubDate = new Date(data.article.pubDate);
-      const article = new Article({
-        title: data.article.title,
-        href: data.article.link,
-        description: data.article.summary || data.article.description,
-        date: pubDate,
-        blog_id: blog._id
+        const rssHandler = new RssHandler(createdBlog.rss);
+        rssHandler.getParsedData(data => {
+          const pubDate = new Date(data.article.pubDate);
+          const article = new Article({
+            title: data.article.title,
+            href: data.article.link,
+            description: data.article.summary || data.article.description,
+            date: pubDate,
+            blog_id: blog._id
+          });
+
+          article.save(error => {
+            console.log(error);
+          });
+
+          if (pubDate > createdBlog.publishedDate) {
+            createdBlog.publishedDate = pubDate;
+            createdBlog.save();
+          }
+        });
+
+        res.send({ success: true, blog: createdBlog });
       });
-
-      article.save(error => {
-        console.log(error);
-      });
-
-      if (pubDate > createdBlog.publishedDate) {
-        createdBlog.publishedDate = pubDate;
-        createdBlog.save();
-      }
-    }, () => {
-      res.send({ success: false, reason: 'rss-error', message: 'Error during RSS parsing' });
+    }).catch(() => {
+      res.send({ success: false, reason: 'rss-invalid', message: 'Given rss address is not a valid RSS feed.' });
     });
-
-    res.send({ success: true, blog: createdBlog });
   });
 });
 

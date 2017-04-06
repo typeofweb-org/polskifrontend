@@ -7,6 +7,7 @@ const BlogSchema = new Schema({
   name: String,
   href: String,
   rss: String,
+  favicon: { type: String, default: '' },
   publishedDate: { type: Date, default: new Date('01/01/1900') }
 });
 

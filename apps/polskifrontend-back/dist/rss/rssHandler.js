@@ -14,8 +14,6 @@ var _request2 = _interopRequireDefault(_request);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
 // for fetching the feed
 
 class RssHandler {
@@ -23,41 +21,51 @@ class RssHandler {
     this.feedAddress = feedAddress;
   }
 
-  getParsedData(onItemRead, onError) {
-    var _this = this;
-
-    return _asyncToGenerator(function* () {
-      const feedRequest = (0, _request2.default)(_this.feedAddress);
+  isRssAddressValid() {
+    return new Promise((resolve, reject) => {
+      const feedRequest = (0, _request2.default)(this.feedAddress);
       const feedparser = new _feedparser2.default();
 
-      feedRequest.on('error', function (error) {
-        onError(error);
+      feedRequest.on('error', () => {
+        reject({ error: 'bad-request' });
       });
 
-      feedRequest.on('response', function (response) {
+      feedRequest.on('response', response => {
         if (response.statusCode !== 200) {
-          onError({ type: 'bad-status' });
-          feedRequest.emit('error', new Error('Bad status code'));
+          reject({ error: 'bad-status' });
         } else {
           feedRequest.pipe(feedparser);
         }
       });
 
-      feedparser.on('error', function (error) {
-        onError(error);
+      feedparser.on('error', () => {
+        reject({ error: 'invalid-rss' });
       });
 
-      feedparser.on('readable', function () {
-        let item;
-        while (item = feedparser.read()) {
-          // eslint-disable-line no-cond-assign
-          onItemRead({
-            meta: feedparser.meta,
-            article: item
-          });
-        }
+      feedparser.on('readable', () => {
+        resolve();
       });
-    })();
+    });
+  }
+
+  getParsedData(onItemRead) {
+    const feedRequest = (0, _request2.default)(this.feedAddress);
+    const feedparser = new _feedparser2.default();
+
+    feedRequest.on('response', () => {
+      feedRequest.pipe(feedparser);
+    });
+
+    feedparser.on('readable', () => {
+      let item;
+      while (item = feedparser.read()) {
+        // eslint-disable-line no-cond-assign
+        onItemRead({
+          meta: feedparser.meta,
+          article: item
+        });
+      }
+    });
   }
 }
 
