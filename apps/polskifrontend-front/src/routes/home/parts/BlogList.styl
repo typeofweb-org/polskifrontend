@@ -44,53 +44,5 @@
       &:hover
         color lighten($color-tertiary, 20%)
 
-  .items
-    background $color-secondary
-    padding 5px $global-padding
-    border-radius 2px
-    min-height 167px
-
-    .item
-      border-bottom 1px dotted $color-tertiary
-      border-left 6px solid $color-tertiary
-      padding-left 10px
-      margin 25px 5px
-
-      &__link
-        display block
-        margin 7px 0
-        text-decoration none
-        font-size 20px
-        font-weight bold
-        font-family $font-header
-        color $color-primary
-        transition color $animation-time
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        &:hover
-          color lighten($color-primary, 50%)
-
-      .meta
-        font-size 14px
-        padding-top $global-margin
-        color lighten($color-primary, 50%)
-
-        //&__date
-
-        &__description
-          font-size 16px
-          line-height 1.3em
-          color $color-primary
-          padding $global-padding 0
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-
-          img
-            width 25%
-            height auto
-            float left
-
   &__clear
     clear both
