@@ -4,8 +4,7 @@ import { Blog, Article } from '../models';
 
 export function initRssParsingSchedule() {
   schedule.scheduleJob('*/15 * * * *', async () => {
-    console.log('running scheduler job...');
-
+    console.log('running scheduled job [RSS update]...');
     const blogs = await Blog.find();
     blogs.forEach(blog => {
       const rssHandler = new RssHandler(blog.rss);
@@ -21,16 +20,22 @@ export function initRssParsingSchedule() {
           });
 
           article.save(error => {
-            console.log(error);
+            if (error) {
+              console.log(error);
+            }
           });
 
           blog.publishedDate = pubDate;
           blog.save(error => {
-            console.log(error);
+            if (error) {
+              console.log(error);
+            }
           });
         }
       }, error => {
-        console.log(error);
+        if (error) {
+          console.log(error);
+        }
       });
     });
   });

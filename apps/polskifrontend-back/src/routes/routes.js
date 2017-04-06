@@ -12,9 +12,14 @@ router.get('/blogs', async (req, res) => {
   res.send({ blogs });
 });
 
+router.get('/articles/', async (req, res) => {
+  const articles = await Article.find().populate('_blog').sort({ date: -1 });
+  res.send({ success: true, articles });
+});
+
 router.get('/articles/:blog', async (req, res) => {
   const blog_id = req.params.blog;
-  const articles = await Article.find({ blog_id }).sort({ date: -1 }).limit(5);
+  const articles = await Article.find({ _blog: blog_id }).sort({ date: -1 }).limit(5);
   res.send({ articles });
 });
 
@@ -103,8 +108,7 @@ router.post('/admin/blogs', async (req, res) => {
   const rssInstance = new RssHandler(req.body.rss);
   faviconHelper.getFaviconUrl(req.body.href).then(faviconUrl => {
     rssInstance.isRssAddressValid().then(() => {
-      req.body.favicon = faviconUrl;
-      const blog = new Blog(req.body);
+      const blog = new Blog({ ...req.body, favicon: faviconUrl });
       blog.save((error, createdBlog) => {
         if (error) {
           res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
@@ -118,11 +122,13 @@ router.post('/admin/blogs', async (req, res) => {
             href: data.article.link,
             description: data.article.summary || data.article.description,
             date: pubDate,
-            blog_id: blog._id
+            _blog: blog._id
           });
 
           article.save(error => {
-            console.log(error);
+            if (error) {
+              console.log(error);
+            }
           });
 
           if (pubDate > createdBlog.publishedDate) {

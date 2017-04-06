@@ -21,8 +21,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 function initRssParsingSchedule() {
   _nodeSchedule2.default.scheduleJob('*/15 * * * *', _asyncToGenerator(function* () {
-    console.log('running scheduler job...');
-
+    console.log('running scheduled job [RSS update]...');
     const blogs = yield _models.Blog.find();
     blogs.forEach(function (blog) {
       const rssHandler = new _rssHandler2.default(blog.rss);
@@ -38,16 +37,22 @@ function initRssParsingSchedule() {
           });
 
           article.save(function (error) {
-            console.log(error);
+            if (error) {
+              console.log(error);
+            }
           });
 
           blog.publishedDate = pubDate;
           blog.save(function (error) {
-            console.log(error);
+            if (error) {
+              console.log(error);
+            }
           });
         }
       }, function (error) {
-        console.log(error);
+        if (error) {
+          console.log(error);
+        }
       });
     });
   }));

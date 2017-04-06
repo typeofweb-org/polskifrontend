@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -45,11 +47,10 @@ router.get('/blogs', (() => {
   };
 })());
 
-router.get('/articles/:blog', (() => {
+router.get('/articles/', (() => {
   var _ref2 = _asyncToGenerator(function* (req, res) {
-    const blog_id = req.params.blog;
-    const articles = yield _models.Article.find({ blog_id }).sort({ date: -1 }).limit(5);
-    res.send({ articles });
+    const articles = yield _models.Article.find().populate('_blog').sort({ date: -1 });
+    res.send({ success: true, articles });
   });
 
   return function (_x3, _x4) {
@@ -57,8 +58,20 @@ router.get('/articles/:blog', (() => {
   };
 })());
 
-router.post('/authenticate', (() => {
+router.get('/articles/:blog', (() => {
   var _ref3 = _asyncToGenerator(function* (req, res) {
+    const blog_id = req.params.blog;
+    const articles = yield _models.Article.find({ _blog: blog_id }).sort({ date: -1 }).limit(5);
+    res.send({ articles });
+  });
+
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+})());
+
+router.post('/authenticate', (() => {
+  var _ref4 = _asyncToGenerator(function* (req, res) {
     // find the user
     _models.User.findOne({
       user: req.body.user
@@ -90,8 +103,8 @@ router.post('/authenticate', (() => {
     });
   });
 
-  return function (_x5, _x6) {
-    return _ref3.apply(this, arguments);
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 })());
 
@@ -122,18 +135,18 @@ router.use((req, res, next) => {
 });
 
 router.get('/admin/blogs', (() => {
-  var _ref4 = _asyncToGenerator(function* (req, res) {
+  var _ref5 = _asyncToGenerator(function* (req, res) {
     const blogs = yield _models.Blog.find();
     return res.send({ blogs });
   });
 
-  return function (_x7, _x8) {
-    return _ref4.apply(this, arguments);
+  return function (_x9, _x10) {
+    return _ref5.apply(this, arguments);
   };
 })());
 
 router.delete('/admin/blogs/:blogId', (() => {
-  var _ref5 = _asyncToGenerator(function* (req, res) {
+  var _ref6 = _asyncToGenerator(function* (req, res) {
     const blogId = req.params.blogId;
     _models.Blog.findById(blogId, function (error, blog) {
       if (error) {
@@ -153,18 +166,17 @@ router.delete('/admin/blogs/:blogId', (() => {
     });
   });
 
-  return function (_x9, _x10) {
-    return _ref5.apply(this, arguments);
+  return function (_x11, _x12) {
+    return _ref6.apply(this, arguments);
   };
 })());
 
 router.post('/admin/blogs', (() => {
-  var _ref6 = _asyncToGenerator(function* (req, res) {
+  var _ref7 = _asyncToGenerator(function* (req, res) {
     const rssInstance = new _rssHandler2.default(req.body.rss);
     faviconHelper.getFaviconUrl(req.body.href).then(function (faviconUrl) {
       rssInstance.isRssAddressValid().then(function () {
-        req.body.favicon = faviconUrl;
-        const blog = new _models.Blog(req.body);
+        const blog = new _models.Blog(_extends({}, req.body, { favicon: faviconUrl }));
         blog.save(function (error, createdBlog) {
           if (error) {
             res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
@@ -178,11 +190,13 @@ router.post('/admin/blogs', (() => {
               href: data.article.link,
               description: data.article.summary || data.article.description,
               date: pubDate,
-              blog_id: blog._id
+              _blog: blog._id
             });
 
             article.save(function (error) {
-              console.log(error);
+              if (error) {
+                console.log(error);
+              }
             });
 
             if (pubDate > createdBlog.publishedDate) {
@@ -199,8 +213,8 @@ router.post('/admin/blogs', (() => {
     });
   });
 
-  return function (_x11, _x12) {
-    return _ref6.apply(this, arguments);
+  return function (_x13, _x14) {
+    return _ref7.apply(this, arguments);
   };
 })());
 

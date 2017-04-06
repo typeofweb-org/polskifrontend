@@ -7,7 +7,7 @@ const ArticleSchema = new Schema({
   description: String,
   summary: String,
   date: Date,
-  blog_id: String
+  _blog: { type: String, ref: 'blog' }
 });
 
 ArticleSchema.options.toJSON = ArticleSchema.options.toJSON || {};
