@@ -169,10 +169,30 @@ const config = {
       },
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-        loader: 'file-loader',
-        query: {
-          name: isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]',
-        },
+        loaders: [
+          {
+            loader: 'file-loader',
+            query: {
+              name: isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]',
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            query: {
+              progressive: true,
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              },
+              optipng: {
+                optimizationLevel: 7
+              },
+              gifsicle: {
+                interlaced: false
+              }
+            }
+          }
+        ],
       },
       {
         test: /\.(mp4|webm|wav|mp3|m4a|aac|oga)(\?.*)?$/,

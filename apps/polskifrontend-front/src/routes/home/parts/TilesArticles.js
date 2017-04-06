@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import styles from './Articles.styl';
+import styles from './TilesArticles.styl';
 import dateFormat from 'dateformat';
 import he from 'he';
 
-const Articles = props => {
+const TilesArticles = props => {
   return (
     <section className={styles.items}>
       {(props.articles || []).map((article, artIndex) => {
@@ -31,8 +31,8 @@ const Articles = props => {
   );
 };
 
-Articles.propTypes = {
+TilesArticles.propTypes = {
   articles: PropTypes.array.isRequired
 };
 
-export default withStyles(styles)(Articles);
+export default withStyles(styles)(TilesArticles);

@@ -1,18 +1,12 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import style from './BlogList.styl';
+import style from './BlogTiles.styl';
 import Loader from '../../../components/Indicators/Loader';
-import Articles from './Articles';
-import BlogListControlPanel from './BlogListControlPanel';
+import TilesArticles from './TilesArticles';
 
-const BlogList = props => {
+const BlogTiles = props => {
   return (
     <div className={style.container}>
-      <BlogListControlPanel isTilesOptionSelected={props.isTilesOptionSelected}
-                            isListOptionSelected={props.isListOptionSelected}
-                            onTilesOptionClick={props.onTilesOptionClick}
-                            onListOptionClick={props.onListOptionClick}
-      />
       <Loader isLoading={props.blogListLoading}>
         {props.blogList.map((item, index) => {
           return (
@@ -24,7 +18,7 @@ const BlogList = props => {
                     {item.name}
                     </a>
                 </h2>
-                <Articles articles={item.articles || []} />
+                <TilesArticles articles={item.articles || []} />
               </section>
             </div>
           );
@@ -36,13 +30,9 @@ const BlogList = props => {
   );
 };
 
-BlogList.propTypes = {
+BlogTiles.propTypes = {
   blogList: PropTypes.array.isRequired,
-  blogListLoading: PropTypes.bool.isRequired,
-  isTilesOptionSelected: PropTypes.bool.isRequired,
-  isListOptionSelected: PropTypes.bool.isRequired,
-  onTilesOptionClick: PropTypes.func.isRequired,
-  onListOptionClick: PropTypes.func.isRequired
+  blogListLoading: PropTypes.bool.isRequired
 };
 
-export default withStyles(style)(BlogList);
+export default withStyles(style)(BlogTiles);

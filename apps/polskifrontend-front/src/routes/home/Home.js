@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Home.styl';
-import BlogList from './parts/BlogList';
+import BlogTiles from './parts/BlogTiles';
 import TopHomePanel from './parts/TopHomePanel';
+import BlogListControlPanel from './parts/BlogListControlPanel';
 import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
@@ -44,13 +45,14 @@ class Home extends React.Component {
     return (
       <div className={style.container}>
         <TopHomePanel />
-        <BlogList blogList={blogList}
-                  blogListLoading={blogListLoading}
-                  isListOptionSelected={isListOptionSelected}
-                  isTilesOptionSelected={isTilesOptionSelected}
-                  onListOptionClick={this.onListOptionClick.bind(this)}
-                  onTilesOptionClick={this.onTilesOptionClick.bind(this)}
+        <BlogListControlPanel isTilesOptionSelected={isTilesOptionSelected}
+                              isListOptionSelected={isListOptionSelected}
+                              onTilesOptionClick={this.onTilesOptionClick.bind(this)}
+                              onListOptionClick={this.onListOptionClick.bind(this)}
         />
+        {isTilesOptionSelected ?
+          <BlogTiles blogList={blogList} blogListLoading={blogListLoading}/> :
+          null}
       </div>
     );
   }
