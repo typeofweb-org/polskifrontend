@@ -2,11 +2,12 @@ import express from 'express';
 import { Blog, Article, User } from '../models';
 import jwt from 'jsonwebtoken';
 import app from '../main';
+import RssHandler from '../rss/rssHandler';
 
 const router = new express.Router();
 
 router.get('/blogs', async (req, res) => {
-  const blogs = await Blog.find();
+  const blogs = await Blog.find().sort({ publishedDate: -1 });
   res.send({ blogs });
 });
 
@@ -103,6 +104,30 @@ router.post('/admin/blogs', async (req, res) => {
     if (error) {
       res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
     }
+
+    const rssHandler = new RssHandler(createdBlog.rss);
+    rssHandler.getParsedData(data => {
+      const pubDate = new Date(data.article.pubDate);
+      const article = new Article({
+        title: data.article.title,
+        href: data.article.link,
+        description: data.article.summary || data.article.description,
+        date: pubDate,
+        blog_id: blog._id
+      });
+
+      article.save(error => {
+        console.log(error);
+      });
+
+      if (pubDate > createdBlog.publishedDate) {
+        createdBlog.publishedDate = pubDate;
+        createdBlog.save();
+      }
+    }, () => {
+      res.send({ success: false, reason: 'rss-error', message: 'Error during RSS parsing' });
+    });
+
     res.send({ success: true, blog: createdBlog });
   });
 });

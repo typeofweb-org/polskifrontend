@@ -32,6 +32,12 @@ var _config2 = _interopRequireDefault(_config);
 
 var _utils = require('./utils');
 
+var _scheduler = require('./rss/scheduler');
+
+var scheduler = _interopRequireWildcard(_scheduler);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _utils.db.init();
@@ -63,6 +69,8 @@ process.env.JWT_SECRET = _config2.default.secret;
 app.use('/', _routes2.default);
 
 app.use(_utils.errorHandle);
+
+scheduler.initRssParsingSchedule();
 
 const port = process.env.PORT || _config2.default.port;
 app.listen(port, () => {

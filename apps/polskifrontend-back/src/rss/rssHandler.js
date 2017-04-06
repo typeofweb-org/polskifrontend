@@ -6,16 +6,17 @@ class RssHandler {
     this.feedAddress = feedAddress;
   }
 
-  async getParsedData(onItemRead) {
+  async getParsedData(onItemRead, onError) {
     const feedRequest = request(this.feedAddress);
     const feedparser = new FeedParser();
 
     feedRequest.on('error', error => {
-      console.log(error);
+      onError(error);
     });
 
     feedRequest.on('response', response => {
       if (response.statusCode !== 200) {
+        onError({ type: 'bad-status' });
         feedRequest.emit('error', new Error('Bad status code'));
       } else {
         feedRequest.pipe(feedparser);
@@ -23,7 +24,7 @@ class RssHandler {
     });
 
     feedparser.on('error', error => {
-      console.log(error);
+      onError(error);
     });
 
     feedparser.on('readable', () => {

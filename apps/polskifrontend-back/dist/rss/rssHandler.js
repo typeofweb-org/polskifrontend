@@ -23,7 +23,7 @@ class RssHandler {
     this.feedAddress = feedAddress;
   }
 
-  getParsedData(onItemRead) {
+  getParsedData(onItemRead, onError) {
     var _this = this;
 
     return _asyncToGenerator(function* () {
@@ -31,11 +31,12 @@ class RssHandler {
       const feedparser = new _feedparser2.default();
 
       feedRequest.on('error', function (error) {
-        console.log(error);
+        onError(error);
       });
 
       feedRequest.on('response', function (response) {
         if (response.statusCode !== 200) {
+          onError({ type: 'bad-status' });
           feedRequest.emit('error', new Error('Bad status code'));
         } else {
           feedRequest.pipe(feedparser);
@@ -43,7 +44,7 @@ class RssHandler {
       });
 
       feedparser.on('error', function (error) {
-        console.log(error);
+        onError(error);
       });
 
       feedparser.on('readable', function () {

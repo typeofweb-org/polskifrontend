@@ -6,6 +6,7 @@ import cors from 'cors';
 import log from 'log';
 import config from 'config';
 import { errorHandle, db } from 'utils';
+import * as scheduler from './rss/scheduler';
 
 db.init();
 
@@ -36,6 +37,8 @@ process.env.JWT_SECRET = config.secret;
 app.use('/', routes);
 
 app.use(errorHandle);
+
+scheduler.initRssParsingSchedule();
 
 const port = process.env.PORT || config.port;
 app.listen(port, () => {

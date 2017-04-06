@@ -12,10 +12,6 @@ var _article = require('./article');
 
 var _article2 = _interopRequireDefault(_article);
 
-var _rssHandler = require('../rss/rssHandler');
-
-var _rssHandler2 = _interopRequireDefault(_rssHandler);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const Schema = _mongoose2.default.Schema;
@@ -23,7 +19,8 @@ const BlogSchema = new Schema({
   id: String,
   name: String,
   href: String,
-  rss: String
+  rss: String,
+  publishedDate: { type: Date, default: new Date('01/01/1900') }
 });
 
 BlogSchema.options.toJSON = BlogSchema.options.toJSON || {};
@@ -36,23 +33,6 @@ BlogSchema.pre('remove', function (next) {
   // to be notified of the calls' result.
   _article2.default.remove({ blog_id: this._id }).exec();
   next();
-});
-
-BlogSchema.post('save', function (blog) {
-  const rssHandler = new _rssHandler2.default(blog.rss);
-  rssHandler.getParsedData(data => {
-    const article = new _article2.default({
-      title: data.article.title,
-      href: data.article.link,
-      description: data.article.summary || data.article.description,
-      date: new Date(data.article.date),
-      blog_id: blog._id
-    });
-
-    article.save(error => {
-      console.log(error);
-    });
-  });
 });
 
 const Blog = _mongoose2.default.model('blog', BlogSchema);

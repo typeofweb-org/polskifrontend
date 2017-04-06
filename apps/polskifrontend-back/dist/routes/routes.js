@@ -18,6 +18,10 @@ var _main = require('../main');
 
 var _main2 = _interopRequireDefault(_main);
 
+var _rssHandler = require('../rss/rssHandler');
+
+var _rssHandler2 = _interopRequireDefault(_rssHandler);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -26,7 +30,7 @@ const router = new _express2.default.Router();
 
 router.get('/blogs', (() => {
   var _ref = _asyncToGenerator(function* (req, res) {
-    const blogs = yield _models.Blog.find();
+    const blogs = yield _models.Blog.find().sort({ publishedDate: -1 });
     res.send({ blogs });
   });
 
@@ -155,6 +159,30 @@ router.post('/admin/blogs', (() => {
       if (error) {
         res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
       }
+
+      const rssHandler = new _rssHandler2.default(createdBlog.rss);
+      rssHandler.getParsedData(function (data) {
+        const pubDate = new Date(data.article.pubDate);
+        const article = new _models.Article({
+          title: data.article.title,
+          href: data.article.link,
+          description: data.article.summary || data.article.description,
+          date: pubDate,
+          blog_id: blog._id
+        });
+
+        article.save(function (error) {
+          console.log(error);
+        });
+
+        if (pubDate > createdBlog.publishedDate) {
+          createdBlog.publishedDate = pubDate;
+          createdBlog.save();
+        }
+      }, function () {
+        res.send({ success: false, reason: 'rss-error', message: 'Error during RSS parsing' });
+      });
+
       res.send({ success: true, blog: createdBlog });
     });
   });

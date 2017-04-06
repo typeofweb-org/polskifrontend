@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 import Article from './article';
-import RssHandler from '../rss/rssHandler';
 
 const Schema = mongoose.Schema;
 const BlogSchema = new Schema({
   id: String,
   name: String,
   href: String,
-  rss: String
+  rss: String,
+  publishedDate: { type: Date, default: new Date('01/01/1900') }
 });
 
 BlogSchema.options.toJSON = BlogSchema.options.toJSON || {};
@@ -20,23 +20,6 @@ BlogSchema.pre('remove', function (next) {
   // to be notified of the calls' result.
   Article.remove({ blog_id: this._id }).exec();
   next();
-});
-
-BlogSchema.post('save', function (blog) {
-  const rssHandler = new RssHandler(blog.rss);
-  rssHandler.getParsedData(data => {
-    const article = new Article({
-      title: data.article.title,
-      href: data.article.link,
-      description: data.article.summary || data.article.description,
-      date: new Date(data.article.date),
-      blog_id: blog._id
-    });
-
-    article.save(error => {
-      console.log(error);
-    });
-  });
 });
 
 const Blog = mongoose.model('blog', BlogSchema);
