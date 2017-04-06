@@ -3,10 +3,12 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './BlogList.styl';
 import Loader from '../../../components/Indicators/Loader';
 import Articles from './Articles';
+import BlogListControlPanel from './BlogListControlPanel';
 
 const BlogList = props => {
   return (
     <div className={style.container}>
+      <BlogListControlPanel />
       <Loader isLoading={props.blogListLoading}>
         {props.blogList.map((item, index) => {
           return (

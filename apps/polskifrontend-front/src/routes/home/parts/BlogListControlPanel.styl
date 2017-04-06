@@ -1,0 +1,73 @@
+@import "../../../styles/globals.styl"
+@import "../../../styles/variables.styl"
+@import "../../../styles/colors.styl"
+
+.container
+  width 100%
+  box-sizing border-box
+  padding 0 $global-padding
+  margin 0 0 $global-padding
+
+  .wrapper
+    float left
+
+    &--left
+      width 65%
+      float left
+
+    &--right
+      width 35%
+      float left
+      text-align right
+
+    &__submit
+      display inline-block
+      padding $global-padding
+      background $color-primary
+      color $color-secondary
+      border-radius 5px
+      margin-right 10px
+      text-decoration none
+      transition background $animation-time
+
+      @media screen and (min-width: 768px)
+        padding $global-padding ($global-padding * 2)
+
+      &:hover
+        background lighten($color-primary, 25%)
+
+      i
+        font-size 20px
+        margin-right 10px
+        vertical-align top
+
+    &__search
+      width 50%
+      vertical-align middle
+
+    &__link
+      display inline-block
+      padding $global-padding
+      background $color-primary
+      color $color-secondary
+      margin-left $global-padding
+      border-radius 5px
+      transition background $animation-time
+
+      @media screen and (min-width: 768px)
+        padding $global-padding ($global-padding * 2)
+
+      &:hover
+        background lighten($color-primary, 25%)
+
+      i
+        font-size 20px
+
+      &--active
+        background $color-tertiary
+
+        &:hover
+          background $color-tertiary
+
+  &__clear
+    clear both
