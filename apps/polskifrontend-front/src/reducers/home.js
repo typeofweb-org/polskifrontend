@@ -9,7 +9,14 @@ const initialState = {
   articlesLoading: false,
   articlesError: false,
   blogProposalUrl: '',
-  blogProposalUrlValid: true
+  blogProposalUrlValid: true,
+
+  allArticlesList: [],
+  allArticlesListLoading: false,
+  allArticlesListError: false,
+
+  isListOptionSelected: false,
+  isTilesOptionSelected: true
 };
 
 export default function homeReducer(state = initialState, action) {
@@ -17,7 +24,7 @@ export default function homeReducer(state = initialState, action) {
     case constants.HOME_GET_BLOG_LIST:
       return { ...state, blogListLoading: true };
     case constants.HOME_GET_BLOG_LIST_SUCCESS:
-      return { ...state, blogList: action.payload, blogListLoading: false };
+      return { ...state, blogList: action.payload, blogListLoading: false, isTilesOptionSelected: true, isListOptionSelected: false };
     case constants.HOME_GET_BLOG_LIST_ERROR:
       return { ...state, blogListLoading: false, blogListError: true };
     case constants.HOME_GET_ARTICLES_FOR_BLOG:
@@ -35,6 +42,13 @@ export default function homeReducer(state = initialState, action) {
       const isValid = newValue && newValue.length > 0 ? isUrlValid(newValue) : true;
 
       return { ...state, blogProposalUrl: newValue, blogProposalUrlValid: isValid };
+
+    case constants.HOME_SWITCH_TO_LIST_VIEW:
+      return { ...state, allArticlesListLoading: true, isTilesOptionSelected: true, isListOptionSelected: false };
+    case constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS:
+      return { ...state, allArticlesList: action.payload, allArticlesListLoading: false, isTilesOptionSelected: false, isListOptionSelected: true };
+    case constants.HOME_SWITCH_TO_LIST_VIEW_ERROR:
+      return { ...state, allArticlesListLoading: false, allArticlesListError: true };
   }
 
   return state

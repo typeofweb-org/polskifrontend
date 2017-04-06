@@ -12,3 +12,9 @@ export function blogProposalChange(value) {
     payload: value
   };
 }
+
+export function switchToListView() {
+  return {
+    type: constants.HOME_SWITCH_TO_LIST_VIEW
+  };
+}

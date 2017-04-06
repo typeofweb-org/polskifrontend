@@ -46,3 +46,26 @@ export const getArticleListForBlog = action$ => {
         }))
     );
 };
+
+export const switchToListViewEpic = action$ => {
+  return action$.ofType(constants.HOME_SWITCH_TO_LIST_VIEW)
+    .mergeMap(action =>
+      ajax.get(`${apiUrl}/articles/`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' }))
+        .map(responseData => {
+          if (responseData.response.success === false) {
+            return {
+              type: constants.HOME_SWITCH_TO_LIST_VIEW_ERROR,
+              payload: 'get-articles-failed'
+            };
+          }
+
+          return {
+            type: constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS,
+            payload: responseData.response.articles
+          }
+        })
+        .catch(error => ({
+          type: constants.HOME_SWITCH_TO_LIST_VIEW_ERROR,
+          payload: error
+        }));
+};

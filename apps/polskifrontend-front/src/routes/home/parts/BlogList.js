@@ -8,7 +8,11 @@ import BlogListControlPanel from './BlogListControlPanel';
 const BlogList = props => {
   return (
     <div className={style.container}>
-      <BlogListControlPanel />
+      <BlogListControlPanel isTilesOptionSelected={props.isTilesOptionSelected}
+                            isListOptionSelected={props.isListOptionSelected}
+                            onTilesOptionClick={props.onTilesOptionClick}
+                            onListOptionClick={props.onListOptionClick}
+      />
       <Loader isLoading={props.blogListLoading}>
         {props.blogList.map((item, index) => {
           return (
@@ -34,7 +38,11 @@ const BlogList = props => {
 
 BlogList.propTypes = {
   blogList: PropTypes.array.isRequired,
-  blogListLoading: PropTypes.bool.isRequired
+  blogListLoading: PropTypes.bool.isRequired,
+  isTilesOptionSelected: PropTypes.bool.isRequired,
+  isListOptionSelected: PropTypes.bool.isRequired,
+  onTilesOptionClick: PropTypes.func.isRequired,
+  onListOptionClick: PropTypes.func.isRequired
 };
 
 export default withStyles(style)(BlogList);

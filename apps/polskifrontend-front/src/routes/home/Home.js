@@ -18,21 +18,39 @@ class Home extends React.Component {
     getBlogList();
   }
 
-  onBlogProposalUrlChange(event) {
+  onListOptionClick(event) {
     event.preventDefault();
 
-    const { actions: { blogProposalChange } } = this.props;
-    blogProposalChange(event.target.value);
+    const { actions: { switchToListView } } = this.props;
+    switchToListView();
+  }
+
+  onTilesOptionClick(event) {
+    event.preventDefault();
+
+    const { actions: { getBlogList } } = this.props;
+    getBlogList();
   }
 
   render() {
-    let { homeState: { blogList, blogListLoading } } = this.props;
+    let { homeState: {
+      blogList,
+      blogListLoading,
+      isTilesOptionSelected,
+      isListOptionSelected
+    } } = this.props;
     blogList = blogList || [];
 
     return (
       <div className={style.container}>
         <TopHomePanel />
-        <BlogList blogList={blogList} blogListLoading={blogListLoading} />
+        <BlogList blogList={blogList}
+                  blogListLoading={blogListLoading}
+                  isListOptionSelected={isListOptionSelected}
+                  isTilesOptionSelected={isTilesOptionSelected}
+                  onListOptionClick={this.onListOptionClick.bind(this)}
+                  onTilesOptionClick={this.onTilesOptionClick.bind(this)}
+        />
       </div>
     );
   }

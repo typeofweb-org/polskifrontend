@@ -4,6 +4,9 @@ import styles from './BlogListControlPanel.styl';
 import Link from '../../../components/Link/Link';
 
 const BlogListControlPanel = props => {
+  const listOptionClass = `${styles['wrapper__link']} ${props.isListOptionSelected ? styles['wrapper__link--active'] : ''}`;
+  const tilesOptionClass = `${styles['wrapper__link']} ${props.isTilesOptionSelected ? styles['wrapper__link--active'] : ''}`;
+
   return (
     <div className={styles.container}>
       <div className={`${styles.wrapper} ${styles['wrapper--left']}`}>
@@ -14,11 +17,11 @@ const BlogListControlPanel = props => {
         </Link>
       </div>
       <div className={`${styles.wrapper} ${styles['wrapper--right']}`}>
-        <a disabled className={`${styles['wrapper__link']} ${styles['wrapper__link--active']}`} href="#">
+        <a className={tilesOptionClass} onClick={props.onTilesOptionClick} href="#">
           <i className="fa fa-th-large">
           </i>
         </a>
-        <a className={styles['wrapper__link']} href="#">
+        <a className={listOptionClass} onClick={props.onListOptionClick} href="#">
           <i className="fa fa-bars">
           </i>
         </a>
@@ -27,6 +30,13 @@ const BlogListControlPanel = props => {
       </div>
     </div>
   );
+};
+
+BlogListControlPanel.propTypes = {
+  onListOptionClick: PropTypes.func.isRequired,
+  onTilesOptionClick: PropTypes.func.isRequired,
+  isListOptionSelected: PropTypes.bool.isRequired,
+  isTilesOptionSelected: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(BlogListControlPanel);
