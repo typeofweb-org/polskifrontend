@@ -9,7 +9,7 @@ const ResponsivePanel = props => {
       <div className={style.container}>
         <h2 className={style['container__title']}>{props.header}</h2>
         <div className={style.wrapper}>
-          <p className={style['wrapper__description']}>{props.description}</p>
+          {props.description ? <p className={style['wrapper__description']}>{props.description}</p> : null}
           {props.children}
         </div>
       </div>

@@ -6218,6 +6218,10 @@ react-addons-test-utils@^15.4.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
+react-async-script:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/react-async-script/-/react-async-script-0.8.0.tgz#c623ff2c7e959281f0aef70e241040dfb99fdff0"
+
 react-cookie:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/react-cookie/-/react-cookie-1.0.5.tgz#234190bd55ddfea361444a89c873077ab6abf651"
@@ -6237,6 +6241,10 @@ react-dom@^15.4.2:
     fbjs "^0.8.1"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
+
+react-google-recaptcha:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/react-google-recaptcha/-/react-google-recaptcha-0.8.1.tgz#b580bfe5c045150b46aa52150e695189b0b3027f"
 
 react-hot-loader@^3.0.0-beta.6:
   version "3.0.0-beta.6"

@@ -4,6 +4,7 @@ import styles from './BlogSubmit.styl';
 import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import SubmitForm from './parts/SubmitForm';
 
 class BlogSubmit extends React.Component {
   static propTypes = {
@@ -12,7 +13,7 @@ class BlogSubmit extends React.Component {
   render() {
     return (
       <div className={styles.container}>
-        blog-submit
+        <SubmitForm />
       </div>
     );
   }

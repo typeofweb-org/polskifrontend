@@ -1,0 +1,35 @@
+@import "../../../styles/globals.styl"
+@import "../../../styles/variables.styl"
+@import "../../../styles/colors.styl"
+
+.container
+  padding $global-padding
+
+  .form
+    text-align right
+
+    &__input
+      width 100%
+      display block
+      margin 0 0 $global-margin
+
+      &--invalid
+        border 1px solid $color-alert
+
+        &:focus
+          border 1px solid $color-alert
+
+    &__captcha
+      float left
+      width 50%
+
+    .buttons
+      position relative
+      float right
+      width 50%
+      height 78px
+
+      button
+        position absolute
+        bottom 0
+        right 0
