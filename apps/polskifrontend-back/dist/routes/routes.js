@@ -28,6 +28,10 @@ var _faviconHelper = require('../utils/faviconHelper');
 
 var faviconHelper = _interopRequireWildcard(_faviconHelper);
 
+var _emailer = require('../utils/emailer');
+
+var _emailer2 = _interopRequireDefault(_emailer);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -70,8 +74,20 @@ router.get('/articles/:blog', (() => {
   };
 })());
 
-router.post('/authenticate', (() => {
+router.post('/submit-blog', (() => {
   var _ref4 = _asyncToGenerator(function* (req, res) {
+    const body = `<p>Adres bloga: <a href="${req.body.blogName}">${req.body.blogName}</a>, email: ${req.body.email || 'nie podano'}</p>`;
+    const sendingResult = yield (0, _emailer2.default)(body);
+    res.send(sendingResult);
+  });
+
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+})());
+
+router.post('/authenticate', (() => {
+  var _ref5 = _asyncToGenerator(function* (req, res) {
     // find the user
     _models.User.findOne({
       user: req.body.user
@@ -103,8 +119,8 @@ router.post('/authenticate', (() => {
     });
   });
 
-  return function (_x7, _x8) {
-    return _ref4.apply(this, arguments);
+  return function (_x9, _x10) {
+    return _ref5.apply(this, arguments);
   };
 })());
 
@@ -135,18 +151,18 @@ router.use((req, res, next) => {
 });
 
 router.get('/admin/blogs', (() => {
-  var _ref5 = _asyncToGenerator(function* (req, res) {
+  var _ref6 = _asyncToGenerator(function* (req, res) {
     const blogs = yield _models.Blog.find();
     return res.send({ blogs });
   });
 
-  return function (_x9, _x10) {
-    return _ref5.apply(this, arguments);
+  return function (_x11, _x12) {
+    return _ref6.apply(this, arguments);
   };
 })());
 
 router.delete('/admin/blogs/:blogId', (() => {
-  var _ref6 = _asyncToGenerator(function* (req, res) {
+  var _ref7 = _asyncToGenerator(function* (req, res) {
     const blogId = req.params.blogId;
     _models.Blog.findById(blogId, function (error, blog) {
       if (error) {
@@ -166,16 +182,16 @@ router.delete('/admin/blogs/:blogId', (() => {
     });
   });
 
-  return function (_x11, _x12) {
-    return _ref6.apply(this, arguments);
+  return function (_x13, _x14) {
+    return _ref7.apply(this, arguments);
   };
 })());
 
 router.post('/admin/blogs/:blogId/refresh', (() => {
-  var _ref7 = _asyncToGenerator(function* (req, res) {
+  var _ref8 = _asyncToGenerator(function* (req, res) {
     const blogId = req.params.blogId;
     _models.Blog.findById(blogId, (() => {
-      var _ref8 = _asyncToGenerator(function* (error, blog) {
+      var _ref9 = _asyncToGenerator(function* (error, blog) {
         yield _models.Article.remove({ _blog: blog._id });
 
         // reset blog last update date
@@ -208,19 +224,19 @@ router.post('/admin/blogs/:blogId/refresh', (() => {
         res.send({ success: true });
       });
 
-      return function (_x15, _x16) {
-        return _ref8.apply(this, arguments);
+      return function (_x17, _x18) {
+        return _ref9.apply(this, arguments);
       };
     })());
   });
 
-  return function (_x13, _x14) {
-    return _ref7.apply(this, arguments);
+  return function (_x15, _x16) {
+    return _ref8.apply(this, arguments);
   };
 })());
 
 router.post('/admin/blogs', (() => {
-  var _ref9 = _asyncToGenerator(function* (req, res) {
+  var _ref10 = _asyncToGenerator(function* (req, res) {
     const rssInstance = new _rssHandler2.default(req.body.rss);
     faviconHelper.getFaviconUrl(req.body.href).then(function (faviconUrl) {
       rssInstance.isRssAddressValid().then(function () {
@@ -261,8 +277,8 @@ router.post('/admin/blogs', (() => {
     });
   });
 
-  return function (_x17, _x18) {
-    return _ref9.apply(this, arguments);
+  return function (_x19, _x20) {
+    return _ref10.apply(this, arguments);
   };
 })());
 

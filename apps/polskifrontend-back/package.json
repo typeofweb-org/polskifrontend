@@ -35,6 +35,7 @@
     "mocha": "^3.2.0",
     "mongoose": "^4.7.0",
     "node-schedule": "^1.2.1",
+    "nodemailer": "^4.0.0",
     "nodemon": "^1.11.0",
     "npm": "^3.10.8",
     "randomstring": "^1.1.5",

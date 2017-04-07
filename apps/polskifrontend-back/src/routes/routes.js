@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import app from '../main';
 import RssHandler from '../rss/rssHandler';
 import * as faviconHelper from '../utils/faviconHelper';
+import sendMail from '../utils/emailer';
 
 const router = new express.Router();
 
@@ -21,6 +22,12 @@ router.get('/articles/:blog', async (req, res) => {
   const blog_id = req.params.blog;
   const articles = await Article.find({ _blog: blog_id }).sort({ date: -1 }).limit(5);
   res.send({ success: true, articles });
+});
+
+router.post('/submit-blog', async (req, res) => {
+  const body = `<p>Adres bloga: <a href="${req.body.blogName}">${req.body.blogName}</a>, email: ${req.body.email || 'nie podano'}</p>`;
+  const sendingResult = await sendMail(body);
+  res.send(sendingResult);
 });
 
 router.post('/authenticate', async (req, res) => {
