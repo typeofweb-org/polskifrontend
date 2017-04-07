@@ -4,13 +4,22 @@ import styles from './BlogListControlPanel.styl';
 import Link from '../../../components/Link/Link';
 
 const BlogListControlPanel = props => {
-  const listOptionClass = `${styles['wrapper__link']} ${props.isListOptionSelected ? styles['wrapper__link--active'] : ''}`;
-  const tilesOptionClass = `${styles['wrapper__link']} ${props.isTilesOptionSelected ? styles['wrapper__link--active'] : ''}`;
+  let listOptionClass = `${styles['wrapper__link']} ${props.isListOptionSelected ? styles['wrapper__link--active'] : ''}`;
+  let tilesOptionClass = `${styles['wrapper__link']} ${props.isTilesOptionSelected ? styles['wrapper__link--active'] : ''}`;
+  let wrapperClass = styles['wrapper__submit'];
+  const disabledLinkClass = styles['wrapper__link--disabled'];
+  const disabledWrapperClass = styles['wrapper__submit--disabled'];
+
+  if (props.isLoading) {
+    listOptionClass = `${listOptionClass} ${disabledLinkClass}`;
+    tilesOptionClass = `${tilesOptionClass} ${disabledLinkClass}`;
+    wrapperClass = `${wrapperClass} ${disabledWrapperClass}`;
+  }
 
   return (
     <div className={styles.container}>
       <div className={`${styles.wrapper} ${styles['wrapper--left']}`}>
-        <Link className={styles['wrapper__submit']} to="/blog-submit">
+        <Link className={wrapperClass} to="/blog-submit">
           <i className="fa fa-plus">
           </i>
           Zgłoś bloga
@@ -36,7 +45,8 @@ BlogListControlPanel.propTypes = {
   onListOptionClick: PropTypes.func.isRequired,
   onTilesOptionClick: PropTypes.func.isRequired,
   isListOptionSelected: PropTypes.bool.isRequired,
-  isTilesOptionSelected: PropTypes.bool.isRequired
+  isTilesOptionSelected: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 export default withStyles(styles)(BlogListControlPanel);

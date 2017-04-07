@@ -55,6 +55,7 @@ class Home extends React.Component {
                               isListOptionSelected={isListOptionSelected}
                               onTilesOptionClick={this.onTilesOptionClick.bind(this)}
                               onListOptionClick={this.onListOptionClick.bind(this)}
+                              isLoading={blogListLoading || allArticlesListLoading}
         />
         {isTilesOptionSelected ?
           <BlogTiles blogList={blogList || []} blogListLoading={blogListLoading}/> :

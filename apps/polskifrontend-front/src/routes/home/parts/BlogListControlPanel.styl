@@ -46,6 +46,14 @@
       &:hover
         background lighten($color-primary, 25%)
 
+      &--disabled
+        background lighten($color-primary, 50%)
+        pointer-events none
+        cursor default
+
+        &:hover
+          background lighten($color-primary, 50%)
+
       i
         font-size 20px
         margin-right 10px
@@ -72,6 +80,14 @@
 
       i
         font-size 20px
+
+      &--disabled
+        background lighten($color-primary, 50%)
+        pointer-events none
+        cursor default
+
+        &:hover
+          background lighten($color-primary, 50%)
 
       &--active
         background $color-tertiary

@@ -12,7 +12,7 @@ export const initialState = {
   blogProposalUrlValid: true,
 
   allArticlesList: [],
-  allArticlesListLoading: true,
+  allArticlesListLoading: false,
   allArticlesListError: false,
 
   isListOptionSelected: false,

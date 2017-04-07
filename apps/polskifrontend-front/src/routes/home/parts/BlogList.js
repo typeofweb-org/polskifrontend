@@ -8,8 +8,8 @@ import he from 'he';
 
 const BlogList = props => {
   return (
-    <Loader isLoading={props.isLoading}>
-      <ResponsivePanel className={styles.container} header="Wszystkie artykuły" description="">
+    <ResponsivePanel className={styles.container} header="Wszystkie artykuły" description="">
+      <Loader isLoading={props.isLoading}>
         {props.articles.map((item, index) => {
           const isTodayArticle = dateFormat(item.date, 'dd-mm-yyyy') === dateFormat(Date.now(), 'dd-mm-yyyy');
           const itemClass = `${styles.item} ${isTodayArticle ? styles['item--today'] : ''}`;
@@ -34,8 +34,8 @@ const BlogList = props => {
               </div>
             </section>);
         })}
-      </ResponsivePanel>
-    </Loader>
+      </Loader>
+    </ResponsivePanel>
   );
 };
 
