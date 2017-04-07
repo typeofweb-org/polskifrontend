@@ -16,7 +16,7 @@ export function initRssParsingSchedule() {
             href: data.article.link,
             description: data.article.summary || data.article.description,
             date: pubDate,
-            blog_id: blog._id
+            _blog: blog._id
           });
 
           article.save(error => {
