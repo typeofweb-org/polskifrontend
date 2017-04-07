@@ -2,17 +2,21 @@
 @import "../../../styles/variables.styl"
 @import "../../../styles/colors.styl"
 
-.items
-  background $color-secondary
-  padding 5px $global-padding
-  border-radius 2px
-  min-height 595px
+.container
+  padding $global-margin $global-padding
+
+  @media screen and (min-width: 768px)
+    padding $global-margin
 
   .item
     border-bottom 1px dotted $color-tertiary
     border-left 6px solid $color-tertiary
     padding-left 10px
     margin 25px 5px
+    text-align left
+
+    &:first-child
+      margin-top 0
 
     &--today
       border-bottom 1px dotted $color-oposite
@@ -47,10 +51,24 @@
       &:hover
         color lighten($color-primary, 50%)
 
+      img
+        height 25px
+        vertical-align sub
+        margin-right 10px
+
     .meta
       font-size 14px
       padding-top $global-margin
       color lighten($color-primary, 50%)
+
+      &__date
+        a
+          text-decoration none
+          color $color-primary
+          text-transform uppercase
+
+          &:hover
+            text-decoration underline
 
       &__description
         font-size 16px
@@ -60,8 +78,3 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
-        img
-          width 25%
-          height auto
-          float left

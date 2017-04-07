@@ -17,7 +17,7 @@ const TilesArticles = props => {
             <a className={styles['item__link']} target="_blank" href={article.href}>
               <span className={tagClass}>Nowość</span>
               {article.title}
-              </a>
+            </a>
             <span className={styles['meta']}>
               <p className={styles['meta__date']}>{dateFormat(article.date, 'dd-mm-yyyy')}</p>
               <p className={styles['meta__description']}>

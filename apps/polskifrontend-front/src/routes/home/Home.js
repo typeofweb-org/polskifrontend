@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Home.styl';
 import BlogTiles from './parts/BlogTiles';
+import BlogList from './parts/BlogList';
 import TopHomePanel from './parts/TopHomePanel';
 import BlogListControlPanel from './parts/BlogListControlPanel';
 import { connect } from 'react-redux';
@@ -34,13 +35,14 @@ class Home extends React.Component {
   }
 
   render() {
-    let { homeState: {
+    const { homeState: {
       blogList,
       blogListLoading,
       isTilesOptionSelected,
-      isListOptionSelected
+      isListOptionSelected,
+      allArticlesList,
+      allArticlesListLoading
     } } = this.props;
-    blogList = blogList || [];
 
     return (
       <div className={style.container}>
@@ -51,8 +53,8 @@ class Home extends React.Component {
                               onListOptionClick={this.onListOptionClick.bind(this)}
         />
         {isTilesOptionSelected ?
-          <BlogTiles blogList={blogList} blogListLoading={blogListLoading}/> :
-          null}
+          <BlogTiles blogList={blogList || []} blogListLoading={blogListLoading}/> :
+          <BlogList articles={allArticlesList || []} isLoading={allArticlesListLoading}/>}
       </div>
     );
   }
