@@ -16,8 +16,12 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    const { actions: { getBlogList } } = this.props;
-    getBlogList();
+    const { actions: { getBlogList, switchToListView }, homeState: { isTilesOptionSelected, isListOptionSelected, } } = this.props;
+    if (isTilesOptionSelected) {
+      getBlogList();
+    } else if (isListOptionSelected) {
+      switchToListView();
+    }
   }
 
   onListOptionClick(event) {

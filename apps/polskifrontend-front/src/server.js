@@ -23,6 +23,7 @@ import models from './data/models';
 import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
+import { initialState as homeState } from './reducers/home';
 import { port, auth } from './config';
 import 'rxjs';
 import cookie from 'react-cookie';
@@ -50,7 +51,13 @@ app.use(bodyParser.json());
 app.get('*', async (req, res, next) => {
   try {
     cookie.plugToRequest(req, res);
-    const store = configureStore({}, {
+
+    // set up settings stored in cookies
+    const settings = req.cookies.PL_FRONT_END_USER_SETTINGS ? JSON.parse(req.cookies.PL_FRONT_END_USER_SETTINGS) : { tiles: true };
+    homeState.isTilesOptionSelected = settings.tiles;
+    homeState.isListOptionSelected = !settings.tiles;
+
+    const store = configureStore({ homeState }, {
       cookie: req.header.cookie
     });
 

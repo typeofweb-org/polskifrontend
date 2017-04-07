@@ -2,7 +2,7 @@ import * as constants from '../constants';
 import { isUrlValid } from '../core/helpers/validators';
 import _ from 'lodash';
 
-const initialState = {
+export const initialState = {
   blogList: [],
   blogListLoading: false,
   blogListError: false,
@@ -12,7 +12,7 @@ const initialState = {
   blogProposalUrlValid: true,
 
   allArticlesList: [],
-  allArticlesListLoading: false,
+  allArticlesListLoading: true,
   allArticlesListError: false,
 
   isListOptionSelected: false,
@@ -44,7 +44,7 @@ export default function homeReducer(state = initialState, action) {
       return { ...state, blogProposalUrl: newValue, blogProposalUrlValid: isValid };
 
     case constants.HOME_SWITCH_TO_LIST_VIEW:
-      return { ...state, allArticlesListLoading: true, isTilesOptionSelected: true, isListOptionSelected: false };
+      return { ...state, allArticlesListLoading: true };
     case constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS:
       return { ...state, allArticlesList: action.payload, allArticlesListLoading: false, isTilesOptionSelected: false, isListOptionSelected: true };
     case constants.HOME_SWITCH_TO_LIST_VIEW_ERROR:

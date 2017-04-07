@@ -1,4 +1,5 @@
 import * as constants from '../constants';
+import * as settingsHelper from '../core/helpers/settingsHelper';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { apiUrl } from '../config';
 
@@ -19,6 +20,9 @@ export const getBlogListEpic = action$ => {
               payload: item._id
             });
           });
+
+          // store this setting in cookie
+          settingsHelper.saveSettings({ ...settingsHelper.getSettings(), tiles: true });
 
           return actions;
         })
@@ -58,6 +62,9 @@ export const switchToListViewEpic = action$ => {
               payload: 'get-articles-failed'
             };
           }
+
+          // store this setting in cookie
+          settingsHelper.saveSettings({ ...settingsHelper.getSettings(), tiles: false });
 
           return {
             type: constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS,
