@@ -9,9 +9,11 @@
     width 100%
     display block
     margin 0 0 $global-margin
+    transition border $animation-time, box-shadow $animation-time
 
     &--invalid
       border 1px solid $color-alert
+      box-shadow 0 0 1px 0 $color-alert
 
       &:focus
         border 1px solid $color-alert

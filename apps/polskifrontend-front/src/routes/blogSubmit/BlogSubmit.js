@@ -25,6 +25,25 @@ class BlogSubmit extends React.Component {
     captchaChanged(value);
   }
 
+  onBlogSubmit(event) {
+    event.preventDefault();
+
+    const { actions: {
+      sendBlogRequest
+    }, submitState } = this.props;
+
+    if (submitState.urlValid && (submitState.emailValid || submitState.emailDirty === false ) && submitState.captcha !== null) {
+      sendBlogRequest(submitState.url, submitState.email);
+    }
+  }
+
+  onSubmitAgain(event) {
+    event.preventDefault();
+
+    const { actions: { resetSubmitState} } = this.props;
+    resetSubmitState();
+  }
+
   render() {
     const { submitState } = this.props;
 
@@ -33,11 +52,16 @@ class BlogSubmit extends React.Component {
         <SubmitForm onUrlChange={this.onUrlChange.bind(this)}
                     onEmailChange={this.onEmailChange.bind(this)}
                     onCaptchaChange={this.onCapchaChange.bind(this)}
+                    onSubmit={this.onBlogSubmit.bind(this)}
+                    onSubmitAgain={this.onSubmitAgain.bind(this)}
                     captcha={submitState.captcha}
                     urlValid={submitState.urlValid}
                     urlDirty={submitState.urlDirty}
                     emailValid={submitState.emailValid}
                     emailDirty={submitState.emailDirty}
+                    isSending={submitState.sending}
+                    sent={submitState.sent}
+                    shouldCleanUp={submitState.shouldCleanUp}
         />
       </div>
     );

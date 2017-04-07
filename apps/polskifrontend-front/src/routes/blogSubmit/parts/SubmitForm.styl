@@ -7,6 +7,12 @@
 
   .form
     text-align right
+    height 258px
+    @media screen and (min-width: 768px)
+      height 198px
+
+    &--invisible
+      display none
 
     .fieldset
       position relative
@@ -68,3 +74,23 @@
           position absolute
           bottom 0
           right 0
+
+  .sent
+    margin 0 auto
+    display none
+    height 258px
+    @media screen and (min-width: 768px)
+      height 198px
+
+    &__wrapper
+      display table-cell
+      vertical-align middle
+
+    &__text
+      font-family $font-header
+      font-size 26px
+      font-weight bold
+      margin-bottom $global-margin
+
+    &--visible
+      display table

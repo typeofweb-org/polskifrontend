@@ -9,12 +9,25 @@ class SubmitForm extends React.Component {
     onUrlChange: PropTypes.func.isRequired,
     onEmailChange: PropTypes.func.isRequired,
     onCaptchaChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    onSubmitAgain: PropTypes.func.isRequired,
     urlValid: PropTypes.bool.isRequired,
     urlDirty: PropTypes.bool.isRequired,
     emailValid: PropTypes.bool.isRequired,
     emailDirty: PropTypes.bool.isRequired,
-    captcha: PropTypes.string
+    captcha: PropTypes.string,
+    isSending: PropTypes.bool.isRequired,
+    sent: PropTypes.bool.isRequired,
+    shouldCleanUp: PropTypes.bool.isRequired
   };
+
+  componentDidUpdate() {
+    if (this.props.shouldCleanUp) {
+      this.refs.urlInput.value = '';
+      this.refs.emailInput.value = '';
+      this.refs.recaptcha.reset();
+    }
+  }
 
   render() {
     const {
@@ -22,9 +35,11 @@ class SubmitForm extends React.Component {
       urlDirty,
       emailValid,
       emailDirty,
-      captcha
+      captcha,
+      isSending,
+      sent
     } = this.props;
-    const buttonDisabled = (captcha !== null && urlValid && emailValid) === false;
+    const buttonDisabled = (captcha !== null && urlValid && (emailValid || emailDirty === false)) === false || isSending;
     const isUrlInvalid = urlDirty && urlValid === false;
     const isEmailValid = emailDirty && emailValid === false;
 
@@ -33,19 +48,22 @@ class SubmitForm extends React.Component {
     const emailClass = `${style['fieldset__input']} ${isEmailValid ? style['fieldset__input--invalid'] : ''}`;
     const emailLabelClass = `${style['fieldset__label']} ${isEmailValid ? style['fieldset__label--visible'] : ''}`;
 
+    const formClass = `${style.form} ${sent ? style['form--invisible'] : ''}`;
+    const sentClass = `${style.sent} ${sent ? style['sent--visible'] : ''}`;
+
     return (
       <ResponsivePanel className={style.container} header="Zgłoś bloga" description="Jeśli uważasz, że jakiś blog lub serwis internetowy powinien się tutaj znaleźć, podaj poniżej jego adres. Jeżeli się nada, zostanie dodany do serwisu!">
-        <form className={style.form}>
+        <form className={formClass} onSubmit={this.props.onSubmit}>
           <fieldset className={style.fieldset}>
-            <input className={urlClass} id="url" type="text" placeholder="Podaj adres adres url" onChange={this.props.onUrlChange}/>
+            <input disabled={isSending} className={urlClass} id="url" type="text" placeholder="Podaj adres adres url" onChange={this.props.onUrlChange} ref="urlInput" />
             <label className={urlLabelClass} htmlFor="url">Adres URL jest wymagany i musi być poprawny</label>
           </fieldset>
           <fieldset className={style.fieldset}>
-            <input className={emailClass} type="email" placeholder="Podaj swój email (opcjonalnie)" onChange={this.props.onEmailChange}/>
+            <input disabled={isSending} className={emailClass} type="email" placeholder="Podaj swój email (opcjonalnie)" onChange={this.props.onEmailChange} ref="emailInput" />
             <label className={emailLabelClass} htmlFor="url">Podany email musi być poprawny</label>
           </fieldset>
           <div className={style['form__captcha']}>
-            <ReCAPTCHA sitekey="6Le2ABwUAAAAAMLjbtCsFtd2oymEMAAQVw8MZXWs" onChange={this.props.onCaptchaChange}/>
+            <ReCAPTCHA sitekey="6Le2ABwUAAAAAMLjbtCsFtd2oymEMAAQVw8MZXWs" onChange={this.props.onCaptchaChange} ref="recaptcha"/>
           </div>
           <div className={style.buttons}>
             <button disabled={buttonDisabled} type="submit">Zgłoś</button>
@@ -53,6 +71,12 @@ class SubmitForm extends React.Component {
           <div style={{ clear: 'both' }}>
           </div>
         </form>
+        <div className={sentClass}>
+          <div className={style['sent__wrapper']}>
+            <p className={style['sent__text']}>Dzięki za zgłoszenie!</p>
+            <button className={style['sent__button']} onClick={this.props.onSubmitAgain}>Zgłoś kolejny blog</button>
+          </div>
+        </div>
       </ResponsivePanel>
     );
   }
