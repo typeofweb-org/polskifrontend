@@ -3,6 +3,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './SubmitForm.styl';
 import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
 import ReCAPTCHA from 'react-google-recaptcha';
+import Link from '../../../components/Link/Link';
 
 class SubmitForm extends React.Component {
   static propTypes = {
@@ -52,32 +53,39 @@ class SubmitForm extends React.Component {
     const sentClass = `${style.sent} ${sent ? style['sent--visible'] : ''}`;
 
     return (
-      <ResponsivePanel className={style.container} header="Zgłoś bloga" description="Jeśli uważasz, że jakiś blog lub serwis internetowy powinien się tutaj znaleźć, podaj poniżej jego adres. Jeżeli się nada, zostanie dodany do serwisu!">
-        <form className={formClass} onSubmit={this.props.onSubmit}>
-          <fieldset className={style.fieldset}>
-            <input disabled={isSending} className={urlClass} id="url" type="text" placeholder="Podaj adres adres url" onChange={this.props.onUrlChange} ref="urlInput" />
-            <label className={urlLabelClass} htmlFor="url">Adres URL jest wymagany i musi być poprawny</label>
-          </fieldset>
-          <fieldset className={style.fieldset}>
-            <input disabled={isSending} className={emailClass} type="email" placeholder="Podaj swój email (opcjonalnie)" onChange={this.props.onEmailChange} ref="emailInput" />
-            <label className={emailLabelClass} htmlFor="url">Podany email musi być poprawny</label>
-          </fieldset>
-          <div className={style['form__captcha']}>
-            <ReCAPTCHA sitekey="6Le2ABwUAAAAAMLjbtCsFtd2oymEMAAQVw8MZXWs" onChange={this.props.onCaptchaChange} ref="recaptcha"/>
+      <div>
+        <Link className={style.back} to="/">
+          <i className="fa fa-arrow-left">
+          </i>
+          Powrót
+        </Link>
+        <ResponsivePanel className={style.container} header="Zgłoś bloga" description="Jeśli uważasz, że jakiś blog lub serwis internetowy powinien się tutaj znaleźć, podaj poniżej jego adres. Jeżeli się nada, zostanie dodany do serwisu!">
+          <form className={formClass} onSubmit={this.props.onSubmit}>
+            <fieldset className={style.fieldset}>
+              <input disabled={isSending} className={urlClass} id="url" type="text" placeholder="Podaj adres adres url" onChange={this.props.onUrlChange} ref="urlInput" />
+              <label className={urlLabelClass} htmlFor="url">Adres URL jest wymagany i musi być poprawny</label>
+            </fieldset>
+            <fieldset className={style.fieldset}>
+              <input disabled={isSending} className={emailClass} type="email" placeholder="Podaj swój email (opcjonalnie)" onChange={this.props.onEmailChange} ref="emailInput" />
+              <label className={emailLabelClass} htmlFor="url">Podany email musi być poprawny</label>
+            </fieldset>
+            <div className={style['form__captcha']}>
+              <ReCAPTCHA sitekey="6Le2ABwUAAAAAMLjbtCsFtd2oymEMAAQVw8MZXWs" onChange={this.props.onCaptchaChange} ref="recaptcha"/>
+            </div>
+            <div className={style.buttons}>
+              <button disabled={buttonDisabled} type="submit">Zgłoś</button>
+            </div>
+            <div style={{ clear: 'both' }}>
+            </div>
+          </form>
+          <div className={sentClass}>
+            <div className={style['sent__wrapper']}>
+              <p className={style['sent__text']}>Dzięki za zgłoszenie!</p>
+              <button className={style['sent__button']} onClick={this.props.onSubmitAgain}>Zgłoś kolejny blog</button>
+            </div>
           </div>
-          <div className={style.buttons}>
-            <button disabled={buttonDisabled} type="submit">Zgłoś</button>
-          </div>
-          <div style={{ clear: 'both' }}>
-          </div>
-        </form>
-        <div className={sentClass}>
-          <div className={style['sent__wrapper']}>
-            <p className={style['sent__text']}>Dzięki za zgłoszenie!</p>
-            <button className={style['sent__button']} onClick={this.props.onSubmitAgain}>Zgłoś kolejny blog</button>
-          </div>
-        </div>
-      </ResponsivePanel>
+        </ResponsivePanel>
+      </div>
     );
   }
 }
