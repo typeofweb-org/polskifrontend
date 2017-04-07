@@ -23,6 +23,8 @@ import models from './data/models';
 import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
+import fetch from './core/fetch';
+import { apiUrl } from './config';
 import { initialState as homeState } from './reducers/home';
 import { port, auth } from './config';
 import 'rxjs';
@@ -49,13 +51,38 @@ app.use(bodyParser.json());
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
+  // try to get settings form cookie
+  const settings = req.cookies.PL_FRONT_END_USER_SETTINGS ? JSON.parse(req.cookies.PL_FRONT_END_USER_SETTINGS) : { tiles: true };
   try {
     cookie.plugToRequest(req, res);
 
     // set up settings stored in cookies
-    const settings = req.cookies.PL_FRONT_END_USER_SETTINGS ? JSON.parse(req.cookies.PL_FRONT_END_USER_SETTINGS) : { tiles: true };
     homeState.isTilesOptionSelected = settings.tiles;
     homeState.isListOptionSelected = !settings.tiles;
+
+    const url = settings.tiles ? `${apiUrl}/blogs` : `${apiUrl}/articles/`;
+    const getData = async () => {
+      const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
+      return await response.json();
+    };
+
+    const getArticles = async (blogId) => {
+      const response = await fetch(`${apiUrl}/articles/${blogId}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
+      return await response.json();
+    };
+
+    const remoteData = await getData();
+    if (remoteData.success) {
+      if (settings.tiles) {
+        homeState.blogList = remoteData.blogs;
+        for (let blog of homeState.blogList) {
+          const articlesData = await getArticles(blog._id);
+          blog.articles = await articlesData.success ? articlesData.articles : [];
+        }
+      } else {
+        homeState.allArticlesList = remoteData.articles;
+      }
+    }
 
     const store = configureStore({ homeState }, {
       cookie: req.header.cookie

@@ -15,15 +15,6 @@ class Home extends React.Component {
     homeState: PropTypes.object
   };
 
-  componentDidMount() {
-    const { actions: { getBlogList, switchToListView }, homeState: { isTilesOptionSelected, isListOptionSelected, } } = this.props;
-    if (isTilesOptionSelected) {
-      getBlogList();
-    } else if (isListOptionSelected) {
-      switchToListView();
-    }
-  }
-
   onListOptionClick(event) {
     event.preventDefault();
 
