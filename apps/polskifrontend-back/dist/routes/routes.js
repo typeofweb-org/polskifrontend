@@ -171,8 +171,56 @@ router.delete('/admin/blogs/:blogId', (() => {
   };
 })());
 
-router.post('/admin/blogs', (() => {
+router.post('/admin/blogs/:blogId/refresh', (() => {
   var _ref7 = _asyncToGenerator(function* (req, res) {
+    const blogId = req.params.blogId;
+    _models.Blog.findById(blogId, (() => {
+      var _ref8 = _asyncToGenerator(function* (error, blog) {
+        yield _models.Article.remove({ _blog: blog._id });
+
+        // reset blog last update date
+        blog.publishedDate = new Date(1900, 1, 1);
+        yield blog.save();
+
+        const rssHandler = new _rssHandler2.default(blog.rss);
+        rssHandler.getParsedData(function (data) {
+          const pubDate = new Date(data.article.pubDate);
+          const article = new _models.Article({
+            title: data.article.title,
+            href: data.article.link,
+            description: data.article.summary || data.article.description,
+            date: pubDate,
+            _blog: blog._id
+          });
+
+          article.save(function (error) {
+            if (error) {
+              console.log(error);
+            }
+          });
+
+          if (pubDate > blog.publishedDate) {
+            blog.publishedDate = pubDate;
+            blog.save();
+          }
+        });
+
+        res.send({ success: true });
+      });
+
+      return function (_x15, _x16) {
+        return _ref8.apply(this, arguments);
+      };
+    })());
+  });
+
+  return function (_x13, _x14) {
+    return _ref7.apply(this, arguments);
+  };
+})());
+
+router.post('/admin/blogs', (() => {
+  var _ref9 = _asyncToGenerator(function* (req, res) {
     const rssInstance = new _rssHandler2.default(req.body.rss);
     faviconHelper.getFaviconUrl(req.body.href).then(function (faviconUrl) {
       rssInstance.isRssAddressValid().then(function () {
@@ -213,8 +261,8 @@ router.post('/admin/blogs', (() => {
     });
   });
 
-  return function (_x13, _x14) {
-    return _ref7.apply(this, arguments);
+  return function (_x17, _x18) {
+    return _ref9.apply(this, arguments);
   };
 })());
 

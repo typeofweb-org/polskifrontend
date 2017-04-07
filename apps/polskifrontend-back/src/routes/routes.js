@@ -104,6 +104,42 @@ router.delete('/admin/blogs/:blogId', async (req, res) => {
   });
 });
 
+router.post('/admin/blogs/:blogId/refresh', async (req, res) => {
+  const blogId = req.params.blogId;
+  Blog.findById(blogId, async (error, blog) => {
+    await Article.remove({ _blog: blog._id });
+
+    // reset blog last update date
+    blog.publishedDate = new Date(1900, 1, 1);
+    await blog.save();
+
+    const rssHandler = new RssHandler(blog.rss);
+    rssHandler.getParsedData(data => {
+      const pubDate = new Date(data.article.pubDate);
+      const article = new Article({
+        title: data.article.title,
+        href: data.article.link,
+        description: data.article.summary || data.article.description,
+        date: pubDate,
+        _blog: blog._id
+      });
+
+      article.save(error => {
+        if (error) {
+          console.log(error);
+        }
+      });
+
+      if (pubDate > blog.publishedDate) {
+        blog.publishedDate = pubDate;
+        blog.save();
+      }
+    });
+
+    res.send({ success: true });
+  });
+});
+
 router.post('/admin/blogs', async (req, res) => {
   const rssInstance = new RssHandler(req.body.rss);
   faviconHelper.getFaviconUrl(req.body.href).then(faviconUrl => {
