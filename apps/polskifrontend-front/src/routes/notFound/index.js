@@ -11,7 +11,7 @@ import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import NotFound from './NotFound';
 
-const title = 'Page Not Found';
+const title = 'Nie znaleziono strony';
 
 export default {
 
