@@ -9,7 +9,7 @@ const router = new express.Router();
 
 router.get('/blogs', async (req, res) => {
   const blogs = await Blog.find().sort({ publishedDate: -1 });
-  res.send({ blogs });
+  res.send({ success: true, blogs });
 });
 
 router.get('/articles/', async (req, res) => {
@@ -20,7 +20,7 @@ router.get('/articles/', async (req, res) => {
 router.get('/articles/:blog', async (req, res) => {
   const blog_id = req.params.blog;
   const articles = await Article.find({ _blog: blog_id }).sort({ date: -1 }).limit(5);
-  res.send({ articles });
+  res.send({ success: true, articles });
 });
 
 router.post('/authenticate', async (req, res) => {
