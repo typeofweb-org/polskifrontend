@@ -10,10 +10,35 @@ class BlogSubmit extends React.Component {
   static propTypes = {
   };
 
+  onUrlChange(event) {
+    const { actions: { urlChanged } } = this.props;
+    urlChanged(event.target.value || '');
+  }
+
+  onEmailChange(event) {
+    const { actions: { emailChanged } } = this.props;
+    emailChanged(event.target.value || '');
+  }
+
+  onCapchaChange(value) {
+    const { actions: { captchaChanged } } = this.props;
+    captchaChanged(value);
+  }
+
   render() {
+    const { submitState } = this.props;
+
     return (
       <div className={styles.container}>
-        <SubmitForm />
+        <SubmitForm onUrlChange={this.onUrlChange.bind(this)}
+                    onEmailChange={this.onEmailChange.bind(this)}
+                    onCaptchaChange={this.onCapchaChange.bind(this)}
+                    captcha={submitState.captcha}
+                    urlValid={submitState.urlValid}
+                    urlDirty={submitState.urlDirty}
+                    emailValid={submitState.emailValid}
+                    emailDirty={submitState.emailDirty}
+        />
       </div>
     );
   }

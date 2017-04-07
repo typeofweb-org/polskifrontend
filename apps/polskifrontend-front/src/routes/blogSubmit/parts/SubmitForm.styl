@@ -8,16 +8,35 @@
   .form
     text-align right
 
-    &__input
-      width 100%
-      display block
-      margin 0 0 $global-margin
+    .fieldset
+      position relative
 
-      &--invalid
-        border 1px solid $color-alert
+      &__input
+        width 100%
+        display block
+        margin 0 0 $global-margin
+        transition border $animation-time, box-shadow $animation-time
 
-        &:focus
+        &--invalid
           border 1px solid $color-alert
+          box-shadow 0 0 1px 0 $color-alert
+
+          &:focus
+            border 1px solid $color-alert
+
+      &__label
+        color $color-alert
+        position absolute
+        left 2px
+        bottom 4px
+        font-size 11px
+        visibility hidden
+        opacity 0
+        transition opacity $animation-time, visibility $animation-time
+
+        &--visible
+          opacity 1
+          visibility visible
 
     &__captcha
       @media screen and (min-width: 350px)

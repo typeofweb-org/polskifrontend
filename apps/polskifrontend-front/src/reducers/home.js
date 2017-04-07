@@ -1,5 +1,4 @@
 import * as constants from '../constants';
-import { isUrlValid } from '../core/helpers/validators';
 import _ from 'lodash';
 
 export const initialState = {
@@ -37,11 +36,6 @@ export default function homeReducer(state = initialState, action) {
       return { ...state, articlesLoading: false, blogList: blogListCopy };
     case constants.HOME_GET_ARTICLES_FOR_BLOG_ERROR:
       return { ...state, articlesLoading: false, articlesError: true };
-    case constants.HOME_BLOG_PROPOSAL_URL_CHANGE:
-      const newValue = action.payload;
-      const isValid = newValue && newValue.length > 0 ? isUrlValid(newValue) : true;
-
-      return { ...state, blogProposalUrl: newValue, blogProposalUrlValid: isValid };
 
     case constants.HOME_SWITCH_TO_LIST_VIEW:
       return { ...state, allArticlesListLoading: true };

@@ -11,3 +11,8 @@ export function isUrlValidWithProtocol(url) {
 export function isRequired(value) {
   return value.length > 3;
 }
+
+export function isEmailValid(value) {
+  const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/;
+  return pattern.test(value);
+}
