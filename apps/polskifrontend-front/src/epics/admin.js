@@ -107,3 +107,27 @@ export const addBlogEpic = action$ => {
         }))
     });
 };
+
+export const blogRefreshEpic = action$ => {
+  return action$.ofType(constants.ADMIN_BLOG_REFRESH)
+    .mergeMap(action => {
+      const headers = {
+        'authorization': 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==',
+        'x-access-token': loginHelper.getLoginToken()
+      };
+
+      return ajax({
+          url: `${apiUrl}/admin/blogs/${action.payload}/refresh`,
+          headers: headers,
+          method: 'POST',
+          responseType: 'json'
+        })
+        .map(responseData => ({
+          type: constants.ADMIN_BLOG_REFRESH_SUCCESS
+        }))
+        .catch(error => ({
+          type: constants.ADMIN_BLOG_REFRESH_ERROR,
+          payload: error
+        }))
+    });
+};

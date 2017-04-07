@@ -89,6 +89,12 @@ class Add extends React.Component {
     deleteBlog(deleteBlogId);
   }
 
+  onRefreshClick(id, event) {
+    event.preventDefault();
+    const { actions: { refreshBlog } } = this.props;
+    refreshBlog(id);
+  }
+
   render() {
     const { adminState: {
       blogList,
@@ -106,7 +112,8 @@ class Add extends React.Component {
       addBlogLoading,
       addBlogError,
       addBlogErrorMessage,
-      deleteBlogRequested
+      deleteBlogRequested,
+      refreshBlogLoading
     } } = this.props;
     let errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
     const shouldCleanUp = newBlogName === '' && newBlogUrl === '' && newBlogRss === '';
@@ -130,7 +137,13 @@ class Add extends React.Component {
                  shouldCleanUp={shouldCleanUp}
                  addBlogLoading={addBlogLoading}
         />
-        <BlogList blogList={blogList} blogListLoading={blogListLoading} onDeleteClick={this.onDeleteClick.bind(this)} onEditClick={this.onEditClick.bind(this)} />
+        <BlogList blogList={blogList}
+                  blogListLoading={blogListLoading}
+                  onDeleteClick={this.onDeleteClick.bind(this)}
+                  onEditClick={this.onEditClick.bind(this)}
+                  onRefreshClick={this.onRefreshClick.bind(this)}
+                  refreshLoading={refreshBlogLoading}
+        />
         <Confirm question="Czy jesteś pewien, że chcesz usunąć bloga?" isVisible={deleteBlogRequested} onCancelClick={this.onDeleteCancelClick.bind(this)} onConfirmClick={this.onDeleteConfirmClick.bind(this)} />
         <Message type="alert" message={errorMessage} isVisible={blogListError || addBlogError} />
       </div>

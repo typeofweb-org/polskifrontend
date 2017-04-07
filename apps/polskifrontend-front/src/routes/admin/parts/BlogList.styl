@@ -67,3 +67,17 @@
 
           &:hover
             background lighten($color-alert, 20%)
+
+        &--refresh
+          background $color-info
+
+          &:hover
+            background lighten($color-info, 20%)
+
+        &--disabled
+          background lighten($color-primary, 50%)
+          pointer-events none
+          cursor default
+
+          &:hover
+            background lighten($color-primary, 50%)

@@ -29,7 +29,10 @@ const initialState = {
 
   addBlogLoading: false,
   addBlogError: false,
-  addBlogErrorMessage: ''
+  addBlogErrorMessage: '',
+
+  refreshBlogLoading: false,
+  refreshBlogError: false
 };
 
 export default function adminReducer(state = initialState, action) {
@@ -74,6 +77,13 @@ export default function adminReducer(state = initialState, action) {
       const reason = action.payload;
       const message = reason === 'rss-invalid' ? 'Podany adres RSS jest nie prawidłowy' : 'Próba dodania bloga zakończona niepowodzeniem';
       return { ...state, addBlogLoading: false, addBlogError: true, addBlogErrorMessage: message };
+
+    case constants.ADMIN_BLOG_REFRESH:
+      return { ...state, refreshBlogLoading: true, refreshBlogError: false };
+    case constants.ADMIN_BLOG_REFRESH_SUCCESS:
+      return { ...state, refreshBlogLoading: false, refreshBlogError: false };
+    case constants.ADMIN_BLOG_REFRESH_ERROR:
+      return { ...state, refreshBlogLoading: false, refreshBlogError: true };
   }
 
   return state;

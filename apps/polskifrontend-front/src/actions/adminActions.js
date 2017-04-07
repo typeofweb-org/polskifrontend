@@ -59,3 +59,10 @@ export function addBlog(data) {
     payload: data
   };
 }
+
+export function refreshBlog(id) {
+  return {
+    type: constants.ADMIN_BLOG_REFRESH,
+    payload: id
+  };
+}
