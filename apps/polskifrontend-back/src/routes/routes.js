@@ -8,9 +8,17 @@ import sendMail from '../utils/emailer';
 
 const router = new express.Router();
 
-router.get('/blogs', async (req, res) => {
-  const blogs = await Blog.find().sort({ publishedDate: -1 });
-  res.send({ success: true, blogs });
+router.get('/blogs/:page', async (req, res) => {
+  const perPage = 6;
+  const page = req.params.page - 1;
+  const count = await Blog.count();
+  const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
+  const blogs = await Blog
+    .find()
+    .sort({ publishedDate: -1 })
+    .skip(perPage * page)
+    .limit(perPage);
+  res.send({ success: true, blogs, nextPage });
 });
 
 router.get('/articles/all/:page', async (req, res) => {

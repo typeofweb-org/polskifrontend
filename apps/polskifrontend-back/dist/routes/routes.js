@@ -40,10 +40,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 const router = new _express2.default.Router();
 
-router.get('/blogs', (() => {
+router.get('/blogs/:page', (() => {
   var _ref = _asyncToGenerator(function* (req, res) {
-    const blogs = yield _models.Blog.find().sort({ publishedDate: -1 });
-    res.send({ success: true, blogs });
+    const perPage = 6;
+    const page = req.params.page - 1;
+    const count = yield _models.Blog.count();
+    const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
+    const blogs = yield _models.Blog.find().sort({ publishedDate: -1 }).skip(perPage * page).limit(perPage);
+    res.send({ success: true, blogs, nextPage });
   });
 
   return function (_x, _x2) {
