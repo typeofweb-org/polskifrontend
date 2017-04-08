@@ -60,7 +60,7 @@ app.get('*', async (req, res, next) => {
     homeState.isTilesOptionSelected = settings.tiles;
     homeState.isListOptionSelected = !settings.tiles;
 
-    const url = settings.tiles ? `${apiUrl}/blogs` : `${apiUrl}/articles/`;
+    const url = settings.tiles ? `${apiUrl}/blogs` : `${apiUrl}/articles/all/1`;
     const getData = async () => {
       const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
       return await response.json();
@@ -81,6 +81,7 @@ app.get('*', async (req, res, next) => {
         }
       } else {
         homeState.allArticlesList = remoteData.articles;
+        homeState.allArticlesNextPage = 2;
       }
     }
 

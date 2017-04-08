@@ -13,8 +13,9 @@ export function blogProposalChange(value) {
   };
 }
 
-export function switchToListView() {
+export function switchToListView(page) {
   return {
-    type: constants.HOME_SWITCH_TO_LIST_VIEW
+    type: constants.HOME_SWITCH_TO_LIST_VIEW,
+    payload: page
   };
 }

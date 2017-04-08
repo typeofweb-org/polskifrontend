@@ -5,6 +5,7 @@ import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
 import Loader from '../../../components/Indicators/Loader';
 import dateFormat from 'dateformat';
 import he from 'he';
+import Waypoint from 'react-waypoint';
 
 const BlogList = props => {
   return (
@@ -18,14 +19,14 @@ const BlogList = props => {
           return (
             <section key={index}>
               <div className={itemClass}>
-                <a className={styles['item__link']} href={item.href}>
+                <a className={styles['item__link']} href={item.href} target="_blank">
                   <span className={tagClass}>Nowość</span>
                   <img src={item._blog.favicon} />
                   {item.title}
                 </a>
                 <span className={styles['meta']}>
                   <p className={styles['meta__date']}>
-                    <a href={item._blog.href}>{item._blog.name}</a> | {dateFormat(item.date, 'dd-mm-yyyy')}
+                    <a href={item._blog.href} target="_blank">{item._blog.name}</a> | {dateFormat(item.date, 'dd-mm-yyyy')}
                   </p>
                   <p className={styles['meta__description']}>
                     {he.decode(item.description.replace(/(<([^>]+)>)/ig, ''))}
@@ -35,13 +36,21 @@ const BlogList = props => {
             </section>);
         })}
       </Loader>
+      {props.nextPage !== -1 ? (
+        <Loader isLoading={props.isLoadingMore}>
+          <Waypoint onEnter={props.onScrolledBottom} scrollableAncestor="window" />
+        </Loader>
+      ) : null}
     </ResponsivePanel>
   );
 };
 
 BlogList.propTypes = {
   articles: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  isLoadingMore: PropTypes.bool.isRequired,
+  onScrolledBottom: PropTypes.func.isRequired,
+  nextPage: PropTypes.number.isRequired
 };
 
 export default withStyles(styles)(BlogList);

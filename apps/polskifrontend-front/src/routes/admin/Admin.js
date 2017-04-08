@@ -73,7 +73,6 @@ class Add extends React.Component {
         newBlogRssValid
       } } = this.props;
 
-    console.log(newBlogNameValid && newBlogUrlValid && newBlogRssValid);
     if (newBlogNameValid && newBlogUrlValid && newBlogRssValid) {
       addBlog({ name: newBlogName, href: newBlogUrl, rss: newBlogRss });
     }

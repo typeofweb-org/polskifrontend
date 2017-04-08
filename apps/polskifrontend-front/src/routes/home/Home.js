@@ -19,7 +19,7 @@ class Home extends React.Component {
     event.preventDefault();
 
     const { actions: { switchToListView } } = this.props;
-    switchToListView();
+    switchToListView(1);
   }
 
   onTilesOptionClick(event) {
@@ -29,6 +29,13 @@ class Home extends React.Component {
     getBlogList();
   }
 
+  onScrolledBottom() {
+    const { actions: { switchToListView }, homeState: { allArticlesNextPage, allArticlesListLoading } } = this.props;
+    if (allArticlesListLoading === false && allArticlesNextPage > 1) {
+      switchToListView(allArticlesNextPage);
+    }
+  }
+
   render() {
     const { homeState: {
       blogList,
@@ -36,7 +43,8 @@ class Home extends React.Component {
       isTilesOptionSelected,
       isListOptionSelected,
       allArticlesList,
-      allArticlesListLoading
+      allArticlesListLoading,
+      allArticlesNextPage
     } } = this.props;
 
     return (
@@ -50,7 +58,12 @@ class Home extends React.Component {
         />
         {isTilesOptionSelected ?
           <BlogTiles blogList={blogList || []} blogListLoading={blogListLoading}/> :
-          <BlogList articles={allArticlesList || []} isLoading={allArticlesListLoading}/>}
+          <BlogList articles={allArticlesList || []}
+                    isLoading={allArticlesListLoading && allArticlesNextPage === 1}
+                    isLoadingMore={allArticlesListLoading && allArticlesNextPage > 1}
+                    onScrolledBottom={this.onScrolledBottom.bind(this)}
+                    nextPage={allArticlesNextPage}
+          />}
       </div>
     );
   }

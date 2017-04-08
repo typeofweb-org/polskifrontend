@@ -11,7 +11,6 @@ export function saveSettings(settings) {
 
 export function getSettings() {
   const data = cookie.load(cookieName);
-  console.log(`data: ${data}`);
   return data || initialSettings;
 }
 

@@ -11,6 +11,7 @@ export const initialState = {
   blogProposalUrlValid: true,
 
   allArticlesList: [],
+  allArticlesNextPage: 1,
   allArticlesListLoading: false,
   allArticlesListError: false,
 
@@ -38,9 +39,11 @@ export default function homeReducer(state = initialState, action) {
       return { ...state, articlesLoading: false, articlesError: true };
 
     case constants.HOME_SWITCH_TO_LIST_VIEW:
-      return { ...state, allArticlesListLoading: true };
+      return { ...state, allArticlesListLoading: true, allArticlesList: action.payload === 1 ? [] : state.allArticlesList };
     case constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS:
-      return { ...state, allArticlesList: action.payload, allArticlesListLoading: false, isTilesOptionSelected: false, isListOptionSelected: true };
+      const newArticlesList = _.cloneDeep(state.allArticlesList);
+      newArticlesList.push(...action.payload.articles);
+      return { ...state, allArticlesList: newArticlesList, allArticlesNextPage: action.payload.nextPage, allArticlesListLoading: false, isTilesOptionSelected: false, isListOptionSelected: true };
     case constants.HOME_SWITCH_TO_LIST_VIEW_ERROR:
       return { ...state, allArticlesListLoading: false, allArticlesListError: true };
   }

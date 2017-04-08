@@ -19,7 +19,6 @@ export default function submitReducer(state = initialState, action) {
   switch (action.type) {
     case constants.SUBMIT_URL_CHANGED:
       const newUrl = action.payload;
-      console.log(validators.isUrlValid(newUrl));
       const isUrlValid = validators.isRequired(newUrl) && validators.isUrlValid(newUrl);
       return { ...state, url: newUrl, urlDirty: true, urlValid: isUrlValid, shouldCleanUp: false };
     case constants.SUBMIT_EMAIL_CHANGED:

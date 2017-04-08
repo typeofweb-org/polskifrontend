@@ -1714,6 +1714,10 @@ console-stream@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/console-stream/-/console-stream-0.1.1.tgz#a095fe07b20465955f2fafd28b5d72bccd949d44"
 
+consolidated-events@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/consolidated-events/-/consolidated-events-1.0.1.tgz#70f475f4a5d6d20428e702da1b8870d9cc031a14"
+
 constants-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
@@ -6281,6 +6285,12 @@ react-retina-image:
     image-exists "^1.1.0"
     is-retina "^1.0.3"
     object-assign "^4.1.0"
+
+react-waypoint:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/react-waypoint/-/react-waypoint-5.2.1.tgz#0c5e13600df5e59c0e1abc29a527054ce3db6909"
+  dependencies:
+    consolidated-events "^1.0.1"
 
 react@^15.4.2:
   version "15.4.2"

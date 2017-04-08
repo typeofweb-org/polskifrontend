@@ -54,7 +54,7 @@ export const getArticleListForBlog = action$ => {
 export const switchToListViewEpic = action$ => {
   return action$.ofType(constants.HOME_SWITCH_TO_LIST_VIEW)
     .mergeMap(action =>
-      ajax.get(`${apiUrl}/articles/`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' }))
+      ajax.get(`${apiUrl}/articles/all/${action.payload}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' }))
         .map(responseData => {
           if (responseData.response.success === false) {
             return {
@@ -68,7 +68,10 @@ export const switchToListViewEpic = action$ => {
 
           return {
             type: constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS,
-            payload: responseData.response.articles
+            payload: {
+              articles: responseData.response.articles,
+              nextPage: responseData.response.nextPage
+            }
           }
         })
         .catch(error => ({

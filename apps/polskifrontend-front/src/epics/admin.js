@@ -88,7 +88,6 @@ export const addBlogEpic = action$ => {
             };
           }
 
-          console.log(responseData.response);
           if (responseData.response.success === false) {
             return {
               type: constants.ADMIN_ADD_BLOG_ERROR,
