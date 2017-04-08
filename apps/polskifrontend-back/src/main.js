@@ -22,7 +22,7 @@ process.on('uncaughtException', err => {
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:3001', 'https://polskifrontend-front.herokuapp.com'],
+  origin: ['http://localhost:3001', 'https://polskifrontend-front.herokuapp.com, www.polskifrontend.pl, polskifrontend.pl'],
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Access-Token'
 }));
