@@ -51,10 +51,14 @@ router.get('/blogs', (() => {
   };
 })());
 
-router.get('/articles/', (() => {
+router.get('/articles/all/:page', (() => {
   var _ref2 = _asyncToGenerator(function* (req, res) {
-    const articles = yield _models.Article.find().populate('_blog').sort({ date: -1 });
-    res.send({ success: true, articles });
+    const perPage = 50;
+    const page = req.params.page - 1;
+    const count = yield _models.Article.count();
+    const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
+    const articles = yield _models.Article.find().populate('_blog').sort({ date: -1 }).skip(perPage * page).limit(perPage);
+    res.send({ success: true, articles, nextPage });
   });
 
   return function (_x3, _x4) {

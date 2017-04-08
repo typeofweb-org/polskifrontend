@@ -13,9 +13,18 @@ router.get('/blogs', async (req, res) => {
   res.send({ success: true, blogs });
 });
 
-router.get('/articles/', async (req, res) => {
-  const articles = await Article.find().populate('_blog').sort({ date: -1 });
-  res.send({ success: true, articles });
+router.get('/articles/all/:page', async (req, res) => {
+  const perPage = 50;
+  const page = req.params.page - 1;
+  const count = await Article.count();
+  const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
+  const articles = await Article
+    .find()
+    .populate('_blog')
+    .sort({ date: -1 })
+    .skip(perPage * page)
+    .limit(perPage);
+  res.send({ success: true, articles, nextPage });
 });
 
 router.get('/articles/:blog', async (req, res) => {
