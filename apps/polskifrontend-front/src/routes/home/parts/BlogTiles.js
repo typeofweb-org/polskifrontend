@@ -3,6 +3,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './BlogTiles.styl';
 import Loader from '../../../components/Indicators/Loader';
 import TilesArticles from './TilesArticles';
+import Waypoint from 'react-waypoint';
 
 const BlogTiles = props => {
   return (
@@ -26,13 +27,21 @@ const BlogTiles = props => {
         <div className={style['container__clear']}>
         </div>
       </Loader>
+      {props.nextPage !== -1 ? (
+        <Loader isLoading={props.isLoadingMore}>
+          <Waypoint onEnter={props.onScrolledBottom} scrollableAncestor="window" />
+        </Loader>
+      ) : null}
     </div>
   );
 };
 
 BlogTiles.propTypes = {
   blogList: PropTypes.array.isRequired,
-  blogListLoading: PropTypes.bool.isRequired
+  blogListLoading: PropTypes.bool.isRequired,
+  isLoadingMore: PropTypes.bool.isRequired,
+  onScrolledBottom: PropTypes.func.isRequired,
+  nextPage: PropTypes.number.isRequired
 };
 
 export default withStyles(style)(BlogTiles);

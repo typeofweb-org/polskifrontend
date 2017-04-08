@@ -1,8 +1,9 @@
 import * as constants from '../constants';
 
-export function getBlogList() {
+export function getBlogList(page) {
   return {
-    type: constants.HOME_GET_BLOG_LIST
+    type: constants.HOME_GET_BLOG_LIST,
+    payload: page
   };
 }
 

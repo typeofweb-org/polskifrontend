@@ -6,12 +6,15 @@ import { apiUrl } from '../config';
 export const getBlogListEpic = action$ => {
   return action$.ofType(constants.HOME_GET_BLOG_LIST)
     .mergeMap(action =>
-      ajax.getJSON(`${apiUrl}/blogs`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
-        .flatMap(response => {
-          const blogs = response.blogs;
+      ajax.get(`${apiUrl}/blogs/${action.payload}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
+        .flatMap(responseData => {
+          const blogs = responseData.response.blogs;
           const actions = [{
             type: constants.HOME_GET_BLOG_LIST_SUCCESS,
-            payload: blogs
+            payload: {
+              blogs,
+              nextPage: responseData.response.nextPage
+            }
           }];
 
           blogs.map(item => {

@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 export const initialState = {
   blogList: [],
+  blogListNextPage: 1,
   blogListLoading: false,
   blogListError: false,
   articlesLoading: false,
@@ -22,9 +23,11 @@ export const initialState = {
 export default function homeReducer(state = initialState, action) {
   switch (action.type) {
     case constants.HOME_GET_BLOG_LIST:
-      return { ...state, blogListLoading: true };
+      return { ...state, blogListLoading: true, blogList: action.payload === 1 ? [] : state.blogList };
     case constants.HOME_GET_BLOG_LIST_SUCCESS:
-      return { ...state, blogList: action.payload, blogListLoading: false, isTilesOptionSelected: true, isListOptionSelected: false };
+      const newBlogList = _.cloneDeep(state.blogList);
+      newBlogList.push(...action.payload.blogs);
+      return { ...state, blogList: newBlogList, blogListNextPage: action.payload.nextPage, blogListLoading: false, isTilesOptionSelected: true, isListOptionSelected: false };
     case constants.HOME_GET_BLOG_LIST_ERROR:
       return { ...state, blogListLoading: false, blogListError: true };
     case constants.HOME_GET_ARTICLES_FOR_BLOG:

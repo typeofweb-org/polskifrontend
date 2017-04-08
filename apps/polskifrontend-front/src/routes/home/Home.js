@@ -26,13 +26,20 @@ class Home extends React.Component {
     event.preventDefault();
 
     const { actions: { getBlogList } } = this.props;
-    getBlogList();
+    getBlogList(1);
   }
 
-  onScrolledBottom() {
+  onAllListScrolledBottom() {
     const { actions: { switchToListView }, homeState: { allArticlesNextPage, allArticlesListLoading } } = this.props;
     if (allArticlesListLoading === false && allArticlesNextPage > 1) {
       switchToListView(allArticlesNextPage);
+    }
+  }
+
+  onBlogListScrolledBottom() {
+    const { actions: { getBlogList }, homeState: { blogListNextPage, blogListLoading } } = this.props;
+    if (blogListLoading === false && blogListNextPage > 1) {
+      getBlogList(blogListNextPage);
     }
   }
 
@@ -40,6 +47,7 @@ class Home extends React.Component {
     const { homeState: {
       blogList,
       blogListLoading,
+      blogListNextPage,
       isTilesOptionSelected,
       isListOptionSelected,
       allArticlesList,
@@ -57,11 +65,16 @@ class Home extends React.Component {
                               isLoading={blogListLoading || allArticlesListLoading}
         />
         {isTilesOptionSelected ?
-          <BlogTiles blogList={blogList || []} blogListLoading={blogListLoading}/> :
+          <BlogTiles blogList={blogList || []}
+                     blogListLoading={blogListLoading && blogListNextPage === 1}
+                     nextPage={blogListNextPage}
+                     isLoadingMore={blogListLoading && blogListNextPage > 1}
+                     onScrolledBottom={this.onBlogListScrolledBottom.bind(this)}
+          /> :
           <BlogList articles={allArticlesList || []}
                     isLoading={allArticlesListLoading && allArticlesNextPage === 1}
                     isLoadingMore={allArticlesListLoading && allArticlesNextPage > 1}
-                    onScrolledBottom={this.onScrolledBottom.bind(this)}
+                    onScrolledBottom={this.onAllListScrolledBottom.bind(this)}
                     nextPage={allArticlesNextPage}
           />}
       </div>

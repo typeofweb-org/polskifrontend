@@ -60,7 +60,7 @@ app.get('*', async (req, res, next) => {
     homeState.isTilesOptionSelected = settings.tiles;
     homeState.isListOptionSelected = !settings.tiles;
 
-    const url = settings.tiles ? `${apiUrl}/blogs` : `${apiUrl}/articles/all/1`;
+    const url = settings.tiles ? `${apiUrl}/blogs/1` : `${apiUrl}/articles/all/1`;
     const getData = async () => {
       const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
       return await response.json();
@@ -75,6 +75,7 @@ app.get('*', async (req, res, next) => {
     if (remoteData.success) {
       if (settings.tiles) {
         homeState.blogList = remoteData.blogs;
+        homeState.blogListNextPage = 2;
         for (let blog of homeState.blogList) {
           const articlesData = await getArticles(blog._id);
           blog.articles = await articlesData.success ? articlesData.articles : [];
