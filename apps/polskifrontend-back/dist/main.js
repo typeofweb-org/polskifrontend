@@ -54,7 +54,7 @@ process.on('uncaughtException', err => {
 const app = (0, _express2.default)();
 
 app.use((0, _cors2.default)({
-  origin: ['http://localhost:3001', 'https://polskifrontend-front.herokuapp.com, www.polskifrontend.pl, polskifrontend.pl'],
+  origin: ['http://localhost:3001', 'https://polskifrontend-front.herokuapp.com, http://www.polskifrontend.pl, http://polskifrontend.pl'],
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
   allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Access-Token'
 }));
