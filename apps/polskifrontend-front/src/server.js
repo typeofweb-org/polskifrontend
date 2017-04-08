@@ -19,7 +19,6 @@ import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.styl';
-import models from './data/models';
 import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
@@ -165,9 +164,10 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 // Launch the server
 // -----------------------------------------------------------------------------
 /* eslint-disable no-console */
-models.sync().catch(err => console.error(err.stack)).then(() => {
-  app.listen(port, () => {
-    console.log(`The server is running at http://localhost:${port}/`);
-  });
+// models.sync().catch(err => console.error(err.stack)).then(() => {
+//
+// });
+app.listen(port, () => {
+  console.log(`The server is running at http://localhost:${port}/`);
 });
 /* eslint-enable no-console */
