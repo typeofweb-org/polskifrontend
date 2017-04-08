@@ -6,7 +6,7 @@ export default {
   path: '/blog-submit',
   async action() {
     return {
-      title: 'Zgłoś bloga | Polski Front-End',
+      title: 'Zgłoś serwis | Polski Front-End',
       component: <Layout><BlogSubmit /></Layout>
     };
   }

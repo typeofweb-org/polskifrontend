@@ -44,6 +44,11 @@ class BlogSubmit extends React.Component {
     resetSubmitState();
   }
 
+  onGoBackClick() {
+    const { actions: { resetSubmitState} } = this.props;
+    resetSubmitState();
+  }
+
   render() {
     const { submitState } = this.props;
 
@@ -54,6 +59,7 @@ class BlogSubmit extends React.Component {
                     onCaptchaChange={this.onCapchaChange.bind(this)}
                     onSubmit={this.onBlogSubmit.bind(this)}
                     onSubmitAgain={this.onSubmitAgain.bind(this)}
+                    onGoBackClick={this.onGoBackClick.bind(this)}
                     captcha={submitState.captcha}
                     urlValid={submitState.urlValid}
                     urlDirty={submitState.urlDirty}

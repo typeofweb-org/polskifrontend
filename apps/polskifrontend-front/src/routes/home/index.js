@@ -6,7 +6,7 @@ export default {
   path: '/',
   async action() {
     return {
-      title: 'Strona główna | Polski Front-End',
+      title: 'Polski Front-End',
       component: <Layout><Home /></Layout>
     };
   }

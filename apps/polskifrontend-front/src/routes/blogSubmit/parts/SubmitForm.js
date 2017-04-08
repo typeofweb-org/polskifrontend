@@ -12,6 +12,7 @@ class SubmitForm extends React.Component {
     onCaptchaChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onSubmitAgain: PropTypes.func.isRequired,
+    onGoBackClick: PropTypes.func.isRequired,
     urlValid: PropTypes.bool.isRequired,
     urlDirty: PropTypes.bool.isRequired,
     emailValid: PropTypes.bool.isRequired,
@@ -54,12 +55,12 @@ class SubmitForm extends React.Component {
 
     return (
       <div>
-        <Link className={style.back} to="/">
+        <Link className={style.back} onClick={this.props.onGoBackClick} to="/">
           <i className="fa fa-arrow-left">
           </i>
           Powrót
         </Link>
-        <ResponsivePanel className={style.container} header="Zgłoś bloga" description="Jeśli uważasz, że jakiś blog lub serwis internetowy powinien się tutaj znaleźć, podaj poniżej jego adres. Jeżeli się nada, zostanie dodany do serwisu!">
+        <ResponsivePanel className={style.container} header="Zgłoś serwis" description="Jeśli uważasz, że jakiś serwis (lub blog) powinien się tutaj znaleźć, podaj poniżej jego adres. Jeżeli się nada, zostanie dodany do naszej listy!">
           <form className={formClass} onSubmit={this.props.onSubmit}>
             <fieldset className={style.fieldset}>
               <input disabled={isSending} className={urlClass} id="url" type="text" placeholder="Podaj adres adres url" onChange={this.props.onUrlChange} ref="urlInput" />

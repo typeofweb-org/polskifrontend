@@ -22,7 +22,7 @@ const BlogListControlPanel = props => {
         <Link className={wrapperClass} to="/blog-submit">
           <i className="fa fa-plus">
           </i>
-          Zgłoś bloga
+          Zgłoś serwis
         </Link>
       </div>
       <div className={`${styles.wrapper} ${styles['wrapper--right']}`}>
