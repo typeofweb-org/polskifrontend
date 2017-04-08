@@ -80,7 +80,7 @@ router.get('/articles/:blog', (() => {
 
 router.post('/submit-blog', (() => {
   var _ref4 = _asyncToGenerator(function* (req, res) {
-    const body = `<p>Adres bloga: <a href="${req.body.blogName}">${req.body.blogName}</a>, email: ${req.body.email || 'nie podano'}</p>`;
+    const body = `<p style="font-size: 1.4em;">Adres bloga: <a href="${req.body.blogName}">${req.body.blogName}</a>, email: ${req.body.email || 'nie podano'}</p>`;
     const sendingResult = yield (0, _emailer2.default)(body);
     res.send(sendingResult);
   });

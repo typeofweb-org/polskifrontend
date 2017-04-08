@@ -12,16 +12,18 @@ var _nodemailer2 = _interopRequireDefault(_nodemailer);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const transporter = _nodemailer2.default.createTransport({
-  service: 'gmail',
+  port: 587,
+  host: 'smtp.zenbox.pl',
   auth: {
-    user: 'b.dybowski@gmail.com',
-    pass: '1kCg6APhKS8e'
-  }
+    user: 'request@frontendinsights.com',
+    pass: 'LlDM0*8q#fg^'
+  },
+  secure: false
 });
 
 function sendEmail(body) {
   const options = {
-    from: 'info@polskifrontend.pl',
+    from: 'request@frontendinsights.com',
     to: 'kontakt@nafrontendzie.pl',
     subject: 'Nowa prośba o dodanie bloga!!',
     html: body

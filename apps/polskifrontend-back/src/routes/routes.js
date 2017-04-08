@@ -34,7 +34,7 @@ router.get('/articles/:blog', async (req, res) => {
 });
 
 router.post('/submit-blog', async (req, res) => {
-  const body = `<p>Adres bloga: <a href="${req.body.blogName}">${req.body.blogName}</a>, email: ${req.body.email || 'nie podano'}</p>`;
+  const body = `<p style="font-size: 1.4em;">Adres bloga: <a href="${req.body.blogName}">${req.body.blogName}</a>, email: ${req.body.email || 'nie podano'}</p>`;
   const sendingResult = await sendMail(body);
   res.send(sendingResult);
 });

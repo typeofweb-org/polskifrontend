@@ -1,16 +1,18 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  port: 587,
+  host: 'smtp.zenbox.pl',
   auth: {
-    user: 'b.dybowski@gmail.com',
-    pass: '1kCg6APhKS8e'
-  }
+    user: 'request@frontendinsights.com',
+    pass: 'LlDM0*8q#fg^'
+  },
+  secure: false
 });
 
 export default function sendEmail(body) {
   const options = {
-    from: 'info@polskifrontend.pl',
+    from: 'request@frontendinsights.com',
     to: 'kontakt@nafrontendzie.pl',
     subject: 'Nowa prośba o dodanie bloga!!',
     html: body
