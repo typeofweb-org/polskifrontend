@@ -4,7 +4,7 @@
 
 .container
   width 100%
-  min-height 300px
+  min-height 270px
   position relative
   background-image url('../../../../public/lead_background.jpg')
   background-size cover
@@ -19,14 +19,16 @@
     left 0
     width 100%
     height 100%
-    background $color-tertiary
-    opacity 0.8
+    background darken($color-tertiary, 15%)
+    //background $color-oposite
+    opacity 0.85
+    box-shadow 0 0 8px 1px lighten($color-primary, 20%)
 
   .wrapper
     position relative
     display table-cell
     vertical-align middle
-    text-shadow 1px 1px $color-primary
+    text-shadow 1px 1px lighten($color-primary, 40%)
 
     &__title
       font-size 1.9em
@@ -36,7 +38,7 @@
       margin 0 0 32px
 
       @media screen and (min-width: 375px)
-        font-size 2.8em
+        font-size 3.2em
 
     &__description
       font-size 1.3em

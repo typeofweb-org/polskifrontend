@@ -8,8 +8,8 @@ const TopHomePanel = props => {
       <div className={style['container__green']}>
       </div>
       <div className={style.wrapper}>
-        <h2 className={style['wrapper__title']}>Serwisy i blogi o front-endzie</h2>
-        <p className={style['wrapper__description']}>Wszystkie w jednym miejscu, po polsku!</p>
+        <h2 className={style['wrapper__title']}>Serwisy na temat front-endu</h2>
+        <p className={style['wrapper__description']}>Wszystkie w jednym miejscu. Po polsku!</p>
       </div>
     </div>
   );
