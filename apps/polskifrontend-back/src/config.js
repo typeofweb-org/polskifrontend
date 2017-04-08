@@ -12,11 +12,12 @@ const config = {
   },
   production: {
     mongodb: {
-      host: 'ds145780.mlab.com',
-      database: 'heroku_0zs85rh3',
-      user: 'heroku_0zs85rh3',
-      password: '8rnhpj0msjtg0rmdnvosmvstmo',
-      port: '45780'
+      host1: 'ds157280-a0.mlab.com',
+      host2: 'ds157280-a1.mlab.com',
+      database: 'heroku_m83rr84d',
+      user: 'heroku_m83rr84d',
+      password: 'nr05d87qo6dsbgtf4ek77mru4v',
+      port: '57280'
     },
     secret: 'UOvVBHR6cRGpoRuUD3abaBXvdhO8larp'
   },

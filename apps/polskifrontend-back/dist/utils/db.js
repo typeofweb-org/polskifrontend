@@ -18,14 +18,14 @@ var _config2 = _interopRequireDefault(_config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const { host, database, user, password, port } = _config2.default.mongodb;
+const { host, host1, host2, database, user, password, port } = _config2.default.mongodb;
 let status = 'DISCONNETED';
 
 const init = () => {
   if (status === 'DISCONNETED') {
     let mongoUrl = `mongodb://${host}/${database}`;
     if (user && password && port) {
-      mongoUrl = `mongodb://${user}:${password}@${host}:${port}/${database}`;
+      mongoUrl = `mongodb://${user}:${password}@${host1}:${port},${host2}:${port}/${database}?replicaSet=rs-ds157280`;
     }
     _mongoose2.default.connect(mongoUrl);
     status = 'CONNECTING';
