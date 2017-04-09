@@ -6,6 +6,8 @@ import Loader from '../../../components/Indicators/Loader';
 import dateFormat from 'dateformat';
 import he from 'he';
 import Waypoint from 'react-waypoint';
+import ReactImageFallback from 'react-image-fallback';
+import noImage from '../../../../public/no_image_light.png';
 
 const BlogList = props => {
   return (
@@ -21,7 +23,7 @@ const BlogList = props => {
               <div className={itemClass}>
                 <a className={styles['item__link']} href={item.href} target="_blank">
                   <span className={tagClass}>Nowość</span>
-                  <img src={item._blog.favicon} />
+                  <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} />
                   {item.title}
                 </a>
                 <span className={styles['meta']}>

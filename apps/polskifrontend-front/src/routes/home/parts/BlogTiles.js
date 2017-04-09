@@ -4,6 +4,8 @@ import style from './BlogTiles.styl';
 import Loader from '../../../components/Indicators/Loader';
 import TilesArticles from './TilesArticles';
 import Waypoint from 'react-waypoint';
+import ReactImageFallback from 'react-image-fallback';
+import noImage from '../../../../public/no_image_dark.png';
 
 const BlogTiles = props => {
   return (
@@ -15,7 +17,7 @@ const BlogTiles = props => {
               <section className={style['container__blog']}>
                 <h2 className={style.title}>
                   <a className={style['title__link']} target="_blank" href={item.href}>
-                    {item.favicon !== '' ? <img className={style['title__favicon']} src={item.favicon} /> : null}
+                    {item.favicon !== '' ? <ReactImageFallback className={style['title__favicon']} src={item.favicon} fallbackImage={noImage} /> : null}
                     {item.name}
                     </a>
                 </h2>

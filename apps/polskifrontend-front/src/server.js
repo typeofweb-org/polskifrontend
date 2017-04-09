@@ -96,14 +96,14 @@ app.get('*', async (req, res, next) => {
     if (remoteData.success) {
       if (settings.tiles) {
         homeState.blogList = remoteData.blogs;
-        homeState.blogListNextPage = 2;
+        homeState.blogListNextPage = remoteData.nextPage;
         for (let blog of homeState.blogList) {
           const articlesData = await getArticles(blog._id);
           blog.articles = await articlesData.success ? articlesData.articles : [];
         }
       } else {
         homeState.allArticlesList = remoteData.articles;
-        homeState.allArticlesNextPage = 2;
+        homeState.allArticlesNextPage = remoteData.nextPage;
       }
     }
 
