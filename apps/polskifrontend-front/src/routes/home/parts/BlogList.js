@@ -8,13 +8,14 @@ import he from 'he';
 import Waypoint from 'react-waypoint';
 import ReactImageFallback from 'react-image-fallback';
 import noImage from '../../../../public/no_image_light.png';
+import * as dateHelper from '../../../core/helpers/dateHelper';
 
 const BlogList = props => {
   return (
     <ResponsivePanel className={styles.container} header="Wszystkie artykuły" description="">
       <Loader isLoading={props.isLoading}>
         {props.articles.map((item, index) => {
-          const isTodayArticle = dateFormat(item.date, 'dd-mm-yyyy') === dateFormat(Date.now(), 'dd-mm-yyyy');
+          const isTodayArticle = dateHelper.isToday(new Date(item.date));
           const itemClass = `${styles.item} ${isTodayArticle ? styles['item--today'] : ''}`;
           const tagClass = `${styles['item__new']} ${isTodayArticle ? styles['item__new--visible'] : ''}`;
 
