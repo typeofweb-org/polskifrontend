@@ -5,10 +5,11 @@ import dateFormat from 'dateformat';
 import he from 'he';
 
 const TilesArticles = props => {
+  const oneDay = 60 * 60 * 24 * 1000; // ms
   return (
     <section className={styles.items}>
       {(props.articles || []).map((article, artIndex) => {
-        const isTodayArticle = dateFormat(article.date, 'dd-mm-yyyy') === dateFormat(Date.now(), 'dd-mm-yyyy');
+        const isTodayArticle = (Date.now() - new Date(article.date)) < oneDay;
         const itemClass = `${styles.item} ${isTodayArticle ? styles['item--today'] : ''}`;
         const tagClass = `${styles['item__new']} ${isTodayArticle ? styles['item__new--visible'] : ''}`;
 
