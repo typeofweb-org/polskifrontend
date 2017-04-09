@@ -1,17 +1,45 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RetinaImage from 'react-retina-image';
-import style from './Header.styl';
+import styles from './Header.styl';
 import Link from '../Link/Link';
 import logo from '../../../public/polskifrontend.png';
 import logo2 from '../../../public/polskifrontend@2x.png';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { scrolled: false };
+  }
+
+  componentDidMount() {
+    if (window) {
+      window.addEventListener('scroll', this.handleScroll.bind(this));
+    }
+  }
+
+  componentWillUnmount() {
+    if (window) {
+      window.removeEventListener('scroll', this.handleScroll.bind(this));
+    }
+  }
+
+  handleScroll(event) {
+    // how pixels is to top
+    const target = event.target || event.srcElement;
+    const scrollTop = target.documentElement.scrollTop || target.body.scrollTop || 0;
+    const scrolled = scrollTop > 150;
+
+    this.setState({ scrolled });
+  }
+
   render() {
+    const containerStyle = `${styles.header} ${this.state.scrolled ? styles['header--scrolled'] : ''}`;
+
     return (
-      <div className={style.header}>
-        <Link className={style['header__link']} to="/">
-          <h1 className={style['header__title']}>
+      <div className={containerStyle}>
+        <Link className={styles['header__link']} to="/">
+          <h1 className={styles['header__title']}>
             <RetinaImage src={[logo, logo2]} />
           </h1>
         </Link>
@@ -20,4 +48,4 @@ class Header extends React.Component {
   }
 }
 
-export default withStyles(style)(Header);
+export default withStyles(styles)(Header);

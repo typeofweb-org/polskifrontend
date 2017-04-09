@@ -57,6 +57,8 @@ class Home extends React.Component {
 
     return (
       <div className={style.container}>
+        <div className={style.pusher}>
+        </div>
         <TopHomePanel />
         <BlogListControlPanel isTilesOptionSelected={isTilesOptionSelected}
                               isListOptionSelected={isListOptionSelected}

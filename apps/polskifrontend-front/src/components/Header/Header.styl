@@ -10,15 +10,30 @@
   top 0
   left 0
   right 0
-  z-index 1
+  z-index 100
+  transition height $animation-time, opacity $animation-time
+
+  img
+    height 70px
+    width auto
+    transition height $animation-time
+
+  &--scrolled
+    height $header-height * 0.75
+    -webkit-backface-visibility hidden
+
+    h1
+      padding ((($header-height * 0.75) - 3 - (70 * 0.75)) * 0.5)px
+
+    img
+      height 70px * 0.75
 
   &__link
     text-decoration none
 
   &__title
     margin 0
-    padding 0
+    padding ($header-height - 3 - 70) * 0.5
     color $color-secondary
     font-size 2.6rem
-    line-height 60px
-
+    display inline-block

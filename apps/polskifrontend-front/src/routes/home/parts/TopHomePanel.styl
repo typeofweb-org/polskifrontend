@@ -4,13 +4,13 @@
 
 .container
   width 100%
-  min-height 270px
+  height 270px
+  display table
   position relative
+  text-align center
   background-image url('../../../../public/lead_background-min.jpg')
   background-size cover
   background-position center
-  text-align center
-  display table
   padding $global-padding * 1.5
 
   &__green
@@ -20,7 +20,6 @@
     width 100%
     height 100%
     background $color-tertiary
-    //background $color-oposite
     opacity 0.85
     box-shadow 0 0 8px 1px lighten($color-primary, 20%)
 
