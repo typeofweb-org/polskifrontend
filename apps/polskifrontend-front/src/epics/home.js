@@ -9,6 +9,13 @@ export const getBlogListEpic = action$ => {
       ajax.get(`${apiUrl}/blogs/${action.payload}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
         .flatMap(responseData => {
           const blogs = responseData.response.blogs;
+          if (responseData.response.success === false) {
+            return [{
+              type: constants.HOME_GET_BLOG_LIST_ERROR,
+              payload: responseData.response.message
+            }];
+          }
+
           const actions = [{
             type: constants.HOME_GET_BLOG_LIST_SUCCESS,
             payload: {
@@ -39,14 +46,23 @@ export const getBlogListEpic = action$ => {
 export const getArticleListForBlog = action$ => {
   return action$.ofType(constants.HOME_GET_ARTICLES_FOR_BLOG)
     .mergeMap(action =>
-      ajax.getJSON(`${apiUrl}/articles/${action.payload}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
-        .map(response => ({
-          type: constants.HOME_GET_ARTICLES_FOR_BLOG_SUCCESS,
-          payload: {
-            articles: response.articles,
-            blogId: action.payload
+      ajax.get(`${apiUrl}/articles/${action.payload}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' })
+        .map(responseData => {
+          if (responseData.response.success === false) {
+            return {
+              type: constants.HOME_GET_ARTICLES_FOR_BLOG_ERROR,
+              payload: responseData.response.message
+            };
           }
-        }))
+
+          return {
+            type: constants.HOME_GET_ARTICLES_FOR_BLOG_SUCCESS,
+            payload: {
+              articles: responseData.response.articles,
+              blogId: action.payload
+            }
+          }
+        })
         .catch(error => ({
           type: constants.HOME_GET_ARTICLES_FOR_BLOG_ERROR,
           payload: error
@@ -62,7 +78,7 @@ export const switchToListViewEpic = action$ => {
           if (responseData.response.success === false) {
             return {
               type: constants.HOME_SWITCH_TO_LIST_VIEW_ERROR,
-              payload: 'get-articles-failed'
+              payload: responseData.response.message
             };
           }
 

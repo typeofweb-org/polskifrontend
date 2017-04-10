@@ -8,6 +8,7 @@ import BlogListControlPanel from './parts/BlogListControlPanel';
 import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import Message from '../../components/Indicators/Message';
 
 class Home extends React.Component {
   static propTypes = {
@@ -47,12 +48,15 @@ class Home extends React.Component {
     const { homeState: {
       blogList,
       blogListLoading,
+      blogListError,
       blogListNextPage,
+      articlesError,
       isTilesOptionSelected,
       isListOptionSelected,
       allArticlesList,
       allArticlesListLoading,
-      allArticlesNextPage
+      allArticlesNextPage,
+      allArticlesListError
     } } = this.props;
 
     return (
@@ -79,6 +83,9 @@ class Home extends React.Component {
                     onScrolledBottom={this.onAllListScrolledBottom.bind(this)}
                     nextPage={allArticlesNextPage}
           />}
+          <Message type="alert"
+                   message="Błąd pobierania danych. Spróbuj ponownie!"
+                   isVisible={blogListError || articlesError || allArticlesListError} />
       </div>
     );
   }

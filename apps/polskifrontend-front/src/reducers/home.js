@@ -23,7 +23,7 @@ export const initialState = {
 export default function homeReducer(state = initialState, action) {
   switch (action.type) {
     case constants.HOME_GET_BLOG_LIST:
-      return { ...state, blogListLoading: true, blogList: action.payload === 1 ? [] : state.blogList };
+      return { ...state, blogListLoading: true, blogList: action.payload === 1 ? [] : state.blogList, blogListError: false };
     case constants.HOME_GET_BLOG_LIST_SUCCESS:
       const newBlogList = _.cloneDeep(state.blogList);
       newBlogList.push(...action.payload.blogs);
@@ -31,7 +31,7 @@ export default function homeReducer(state = initialState, action) {
     case constants.HOME_GET_BLOG_LIST_ERROR:
       return { ...state, blogListLoading: false, blogListError: true };
     case constants.HOME_GET_ARTICLES_FOR_BLOG:
-      return { ...state, articlesLoading: true };
+      return { ...state, articlesLoading: true, articlesError: false };
     case constants.HOME_GET_ARTICLES_FOR_BLOG_SUCCESS:
       const blogListCopy = _.cloneDeep(state.blogList);
       const filteredList = _.filter(blogListCopy, item => item._id === action.payload.blogId);
@@ -42,7 +42,7 @@ export default function homeReducer(state = initialState, action) {
       return { ...state, articlesLoading: false, articlesError: true };
 
     case constants.HOME_SWITCH_TO_LIST_VIEW:
-      return { ...state, allArticlesListLoading: true, allArticlesList: action.payload === 1 ? [] : state.allArticlesList };
+      return { ...state, allArticlesListLoading: true, allArticlesList: action.payload === 1 ? [] : state.allArticlesList, allArticlesListError: false };
     case constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS:
       const newArticlesList = _.cloneDeep(state.allArticlesList);
       newArticlesList.push(...action.payload.articles);

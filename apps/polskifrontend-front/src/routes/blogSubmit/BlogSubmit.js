@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import SubmitForm from './parts/SubmitForm';
+import Message from '../../components/Indicators/Message';
 
 class BlogSubmit extends React.Component {
   static propTypes = {
@@ -69,6 +70,7 @@ class BlogSubmit extends React.Component {
                     sent={submitState.sent}
                     shouldCleanUp={submitState.shouldCleanUp}
         />
+        <Message type="alert" message="Wysyłanie nie udane. Spróbuj ponownie!" isVisible={submitState.sendError} />
       </div>
     );
   }
