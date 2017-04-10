@@ -22,14 +22,14 @@ const BlogList = props => {
           return (
             <section key={index}>
               <div className={itemClass}>
-                <a className={styles['item__link']} href={item.href} target="_blank">
+                <a className={styles['item__link']} href={item.href} rel="nofollow" target="_blank">
                   <span className={tagClass}>Nowość</span>
                   <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} />
                   {item.title}
                 </a>
                 <span className={styles['meta']}>
                   <p className={styles['meta__date']}>
-                    <a href={item._blog.href} target="_blank">{item._blog.name}</a> | {dateFormat(item.date, 'dd-mm-yyyy')}
+                    <a href={item._blog.href} target="_blank" rel="nofollow">{item._blog.name}</a> | {dateFormat(item.date, 'dd-mm-yyyy')}
                   </p>
                   <p className={styles['meta__description']}>
                     {he.decode(item.description.replace(/(<([^>]+)>)/ig, ''))}

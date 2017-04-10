@@ -16,7 +16,7 @@ const BlogTiles = props => {
             <div className={style['container__wrapper']} key={index}>
               <section className={style['container__blog']}>
                 <h2 className={style.title}>
-                  <a className={style['title__link']} target="_blank" href={item.href}>
+                  <a className={style['title__link']} target="_blank" href={item.href} rel="nofollow">
                     {item.favicon !== '' ? <ReactImageFallback className={style['title__favicon']} src={item.favicon} fallbackImage={noImage} /> : null}
                     {item.name}
                     </a>

@@ -16,7 +16,7 @@ const TilesArticles = props => {
 
         return (
           <div className={itemClass} key={artIndex}>
-            <a className={styles['item__link']} target="_blank" href={article.href}>
+            <a className={styles['item__link']} target="_blank" href={article.href} rel="nofollow">
               <span className={tagClass}>Nowość</span>
               {article.title}
             </a>
