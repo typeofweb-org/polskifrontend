@@ -5,6 +5,7 @@ import app from '../main';
 import RssHandler from '../rss/rssHandler';
 import * as faviconHelper from '../utils/faviconHelper';
 import sendMail from '../utils/emailer';
+import slugify from '../utils/slugify';
 
 const router = new express.Router();
 
@@ -183,11 +184,19 @@ router.post('/admin/blogs/:blogId/refresh', async (req, res) => {
 router.post('/admin/blogs', async (req, res) => {
   const rssInstance = new RssHandler(req.body.rss);
   faviconHelper.getFaviconUrl(req.body.href).then(faviconUrl => {
-    rssInstance.isRssAddressValid().then(() => {
-      const blog = new Blog({ ...req.body, favicon: faviconUrl });
+    rssInstance.isRssAddressValid().then(async () => {
+      const slug = slugify(req.body.name);
+      const existingBlog = await Blog.findOne({ slug });
+
+      if (existingBlog) {
+        // there is such blog in the database already
+        return res.send({ success: false, reason: 'slug-exists', message: 'There is such blog in the database' });
+      }
+
+      const blog = new Blog({ ...req.body, slug, favicon: faviconUrl });
       blog.save((error, createdBlog) => {
         if (error) {
-          res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
+          return res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
         }
 
         const rssHandler = new RssHandler(createdBlog.rss);
@@ -213,10 +222,10 @@ router.post('/admin/blogs', async (req, res) => {
           }
         });
 
-        res.send({ success: true, blog: createdBlog });
+        return res.send({ success: true, blog: createdBlog });
       });
     }).catch(() => {
-      res.send({ success: false, reason: 'rss-invalid', message: 'Given rss address is not a valid RSS feed.' });
+      return res.send({ success: false, reason: 'rss-invalid', message: 'Given rss address is not a valid RSS feed.' });
     });
   });
 });

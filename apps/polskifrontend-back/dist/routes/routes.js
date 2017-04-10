@@ -32,6 +32,10 @@ var _emailer = require('../utils/emailer');
 
 var _emailer2 = _interopRequireDefault(_emailer);
 
+var _slugify = require('../utils/slugify');
+
+var _slugify2 = _interopRequireDefault(_slugify);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -263,11 +267,19 @@ router.post('/admin/blogs', (() => {
   var _ref10 = _asyncToGenerator(function* (req, res) {
     const rssInstance = new _rssHandler2.default(req.body.rss);
     faviconHelper.getFaviconUrl(req.body.href).then(function (faviconUrl) {
-      rssInstance.isRssAddressValid().then(function () {
-        const blog = new _models.Blog(_extends({}, req.body, { favicon: faviconUrl }));
+      rssInstance.isRssAddressValid().then(_asyncToGenerator(function* () {
+        const slug = (0, _slugify2.default)(req.body.name);
+        const existingBlog = yield _models.Blog.findOne({ slug });
+
+        if (existingBlog) {
+          // there is such blog in the database already
+          return res.send({ success: false, reason: 'slug-exists', message: 'There is such blog in the database' });
+        }
+
+        const blog = new _models.Blog(_extends({}, req.body, { slug, favicon: faviconUrl }));
         blog.save(function (error, createdBlog) {
           if (error) {
-            res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
+            return res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
           }
 
           const rssHandler = new _rssHandler2.default(createdBlog.rss);
@@ -293,10 +305,10 @@ router.post('/admin/blogs', (() => {
             }
           });
 
-          res.send({ success: true, blog: createdBlog });
+          return res.send({ success: true, blog: createdBlog });
         });
-      }).catch(function () {
-        res.send({ success: false, reason: 'rss-invalid', message: 'Given rss address is not a valid RSS feed.' });
+      })).catch(function () {
+        return res.send({ success: false, reason: 'rss-invalid', message: 'Given rss address is not a valid RSS feed.' });
       });
     });
   });
