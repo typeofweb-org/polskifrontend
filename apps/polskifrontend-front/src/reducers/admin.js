@@ -75,7 +75,22 @@ export default function adminReducer(state = initialState, action) {
       return { ...state, ...initialFormState, addBlogLoading: false, addBlogError: false, blogList: currentBlogList };
     case constants.ADMIN_ADD_BLOG_ERROR:
       const reason = action.payload;
-      const message = reason === 'rss-invalid' ? 'Podany adres RSS jest nie prawidłowy' : 'Próba dodania bloga zakończona niepowodzeniem';
+      let message ;
+      switch (reason) {
+        case 'rss-invalid':
+          message = 'Podany adres RSS jest nie prawidłowy';
+          break;
+        case 'cant-add':
+          message = 'Próba dodania bloga zakończona niepowodzeniem';
+          break;
+        case 'slug-exists':
+          message = 'Blog o tej nazwie już istnieje';
+          break;
+        default:
+          message = 'Nieokreślony błąd...';
+          break;
+      }
+
       return { ...state, addBlogLoading: false, addBlogError: true, addBlogErrorMessage: message };
 
     case constants.ADMIN_BLOG_REFRESH:

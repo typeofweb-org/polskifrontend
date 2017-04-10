@@ -10,7 +10,7 @@ import BlogList from './parts/BlogList';
 import Message from '../../components/Indicators/Message';
 import Confirm from '../../components/Modals/Confirm';
 
-class Add extends React.Component {
+class Admin extends React.Component {
   componentDidMount() {
     const { actions: { getAdminBlogList } } = this.props;
     getAdminBlogList();
@@ -150,4 +150,4 @@ class Add extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Add));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Admin));
