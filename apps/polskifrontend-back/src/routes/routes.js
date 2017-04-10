@@ -9,42 +9,58 @@ import sendMail from '../utils/emailer';
 const router = new express.Router();
 
 router.get('/blogs/:page', async (req, res) => {
-  const perPage = 6;
-  const page = req.params.page - 1;
-  const count = await Blog.count();
-  const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
-  const blogs = await Blog
-    .find()
-    .sort({ publishedDate: -1 })
-    .skip(perPage * page)
-    .limit(perPage);
-  res.send({ success: true, blogs, nextPage });
+  try {
+    const perPage = 6;
+    const page = req.params.page - 1;
+    const count = await Blog.count();
+    const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
+    const blogs = await Blog
+      .find()
+      .sort({ publishedDate: -1 })
+      .skip(perPage * page)
+      .limit(perPage);
+    res.send({ success: true, blogs, nextPage });
+  } catch (error) {
+    res.send({ success: false, message: error });
+  }
 });
 
 router.get('/articles/all/:page', async (req, res) => {
-  const perPage = 50;
-  const page = req.params.page - 1;
-  const count = await Article.count();
-  const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
-  const articles = await Article
-    .find()
-    .populate('_blog')
-    .sort({ date: -1 })
-    .skip(perPage * page)
-    .limit(perPage);
-  res.send({ success: true, articles, nextPage });
+  try {
+    const perPage = 50;
+    const page = req.params.page - 1;
+    const count = await Article.count();
+    const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
+    const articles = await Article
+      .find()
+      .populate('_blog')
+      .sort({ date: -1 })
+      .skip(perPage * page)
+      .limit(perPage);
+    res.send({ success: true, articles, nextPage });
+  } catch (error) {
+    res.send({ success: false, message: error });
+  }
 });
 
 router.get('/articles/:blog', async (req, res) => {
-  const blog_id = req.params.blog;
-  const articles = await Article.find({ _blog: blog_id }).sort({ date: -1 }).limit(5);
-  res.send({ success: true, articles });
+  try {
+    const blog_id = req.params.blog;
+    const articles = await Article.find({_blog: blog_id}).sort({date: -1}).limit(5);
+    res.send({ success: true, articles });
+  } catch (error) {
+    res.send({ success: false, message: error });
+  }
 });
 
 router.post('/submit-blog', async (req, res) => {
-  const body = `<p style="font-size: 1.4em;">Adres bloga: <a href="${req.body.blogName}">${req.body.blogName}</a>, email: ${req.body.email || 'nie podano'}</p>`;
-  const sendingResult = await sendMail(body);
-  res.send(sendingResult);
+  try {
+    const body = `<p style="font-size: 1.4em;">Adres bloga: <a href="${req.body.blogName}">${req.body.blogName}</a>, email: ${req.body.email || 'nie podano'}</p>`;
+    const sendingResult = await sendMail(body);
+    res.send(sendingResult);
+  } catch (error) {
+    res.send({ success: false, message: error });
+  }
 });
 
 router.post('/authenticate', async (req, res) => {
