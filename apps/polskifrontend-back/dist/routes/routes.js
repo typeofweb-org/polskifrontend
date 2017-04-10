@@ -42,12 +42,16 @@ const router = new _express2.default.Router();
 
 router.get('/blogs/:page', (() => {
   var _ref = _asyncToGenerator(function* (req, res) {
-    const perPage = 6;
-    const page = req.params.page - 1;
-    const count = yield _models.Blog.count();
-    const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
-    const blogs = yield _models.Blog.find().sort({ publishedDate: -1 }).skip(perPage * page).limit(perPage);
-    res.send({ success: true, blogs, nextPage });
+    try {
+      const perPage = 6;
+      const page = req.params.page - 1;
+      const count = yield _models.Blog.count();
+      const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
+      const blogs = yield _models.Blog.find().sort({ publishedDate: -1 }).skip(perPage * page).limit(perPage);
+      res.send({ success: true, blogs, nextPage });
+    } catch (error) {
+      res.send({ success: false, message: error });
+    }
   });
 
   return function (_x, _x2) {
@@ -57,12 +61,16 @@ router.get('/blogs/:page', (() => {
 
 router.get('/articles/all/:page', (() => {
   var _ref2 = _asyncToGenerator(function* (req, res) {
-    const perPage = 50;
-    const page = req.params.page - 1;
-    const count = yield _models.Article.count();
-    const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
-    const articles = yield _models.Article.find().populate('_blog').sort({ date: -1 }).skip(perPage * page).limit(perPage);
-    res.send({ success: true, articles, nextPage });
+    try {
+      const perPage = 50;
+      const page = req.params.page - 1;
+      const count = yield _models.Article.count();
+      const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
+      const articles = yield _models.Article.find().populate('_blog').sort({ date: -1 }).skip(perPage * page).limit(perPage);
+      res.send({ success: true, articles, nextPage });
+    } catch (error) {
+      res.send({ success: false, message: error });
+    }
   });
 
   return function (_x3, _x4) {
@@ -72,9 +80,13 @@ router.get('/articles/all/:page', (() => {
 
 router.get('/articles/:blog', (() => {
   var _ref3 = _asyncToGenerator(function* (req, res) {
-    const blog_id = req.params.blog;
-    const articles = yield _models.Article.find({ _blog: blog_id }).sort({ date: -1 }).limit(5);
-    res.send({ success: true, articles });
+    try {
+      const blog_id = req.params.blog;
+      const articles = yield _models.Article.find({ _blog: blog_id }).sort({ date: -1 }).limit(5);
+      res.send({ success: true, articles });
+    } catch (error) {
+      res.send({ success: false, message: error });
+    }
   });
 
   return function (_x5, _x6) {
@@ -84,9 +96,13 @@ router.get('/articles/:blog', (() => {
 
 router.post('/submit-blog', (() => {
   var _ref4 = _asyncToGenerator(function* (req, res) {
-    const body = `<p style="font-size: 1.4em;">Adres bloga: <a href="${req.body.blogName}">${req.body.blogName}</a>, email: ${req.body.email || 'nie podano'}</p>`;
-    const sendingResult = yield (0, _emailer2.default)(body);
-    res.send(sendingResult);
+    try {
+      const body = `<p style="font-size: 1.4em;">Adres bloga: <a href="${req.body.blogName}">${req.body.blogName}</a>, email: ${req.body.email || 'nie podano'}</p>`;
+      const sendingResult = yield (0, _emailer2.default)(body);
+      res.send(sendingResult);
+    } catch (error) {
+      res.send({ success: false, message: error });
+    }
   });
 
   return function (_x7, _x8) {
