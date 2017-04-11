@@ -12,17 +12,16 @@ import Confirm from '../../components/Modals/Confirm';
 
 class Admin extends React.Component {
   componentDidMount() {
-    const { actions: { getAdminBlogList } } = this.props;
-    getAdminBlogList();
+    const { actions: { getAdminBlogList }, adminState: blogListLoading } = this.props
+    if (blogListLoading) {
+      getAdminBlogList();
+    }
   }
 
   componentDidUpdate() {
-    const { actions: { resetAdminState }, adminState: { tokenExpired } } = this.props;
+    const { adminState: { tokenExpired } } = this.props;
 
     if (tokenExpired) {
-      // reset token expired
-      resetAdminState();
-
       // redirect to login
       history.push('/login');
     }

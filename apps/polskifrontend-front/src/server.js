@@ -22,9 +22,8 @@ import errorPageStyle from './routes/error/ErrorPage.styl';
 import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
-import fetch from './core/fetch';
-import { apiUrl } from './config';
-import { initialState as homeState } from './reducers/home';
+import getHomeInitialState from './store/serverSideInitializers/homeInitializer';
+import getAdminInitialState from './store/serverSideInitializers/adminInitializer';
 import { port, auth } from './config';
 import 'rxjs';
 import cookie from 'react-cookie';
@@ -73,41 +72,14 @@ app.get('*', async (req, res, next) => {
   }
 
   // try to get settings form cookie
-  const settings = req.cookies.PL_FRONT_END_USER_SETTINGS ? JSON.parse(req.cookies.PL_FRONT_END_USER_SETTINGS) : { tiles: true };
+  // const settings = req.cookies.PL_FRONT_END_USER_SETTINGS ? JSON.parse(req.cookies.PL_FRONT_END_USER_SETTINGS) : { tiles: true };
   try {
     cookie.plugToRequest(req, res);
 
-    // set up settings stored in cookies
-    homeState.isTilesOptionSelected = settings.tiles;
-    homeState.isListOptionSelected = !settings.tiles;
+    const homeState = await getHomeInitialState();
+    const adminState = await getAdminInitialState();
 
-    const url = settings.tiles ? `${apiUrl}/blogs/1` : `${apiUrl}/articles/all/1`;
-    const getData = async () => {
-      const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
-      return await response.json();
-    };
-
-    const getArticles = async (blogId) => {
-      const response = await fetch(`${apiUrl}/articles/${blogId}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
-      return await response.json();
-    };
-
-    const remoteData = await getData();
-    if (remoteData.success) {
-      if (settings.tiles) {
-        homeState.blogList = remoteData.blogs;
-        homeState.blogListNextPage = remoteData.nextPage;
-        for (let blog of homeState.blogList) {
-          const articlesData = await getArticles(blog._id);
-          blog.articles = await articlesData.success ? articlesData.articles : [];
-        }
-      } else {
-        homeState.allArticlesList = remoteData.articles;
-        homeState.allArticlesNextPage = remoteData.nextPage;
-      }
-    }
-
-    const store = configureStore({ homeState }, {
+    const store = configureStore({ homeState, adminState }, {
       cookie: req.header.cookie
     });
 

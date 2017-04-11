@@ -37,12 +37,11 @@ class Login extends React.Component {
     }
   }
 
-  componentDidMount() {
-    loginHelper.clearLoginToken();
-  }
-
   componentDidUpdate() {
-    if (loginHelper.getLoginToken()) {
+    const { adminState: { tokenExpired } } = this.props;
+    const token = loginHelper.getLoginToken();
+
+    if (tokenExpired === false && token && token.length > 0) {
       history.push('/admin');
     }
   }

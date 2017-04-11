@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import Message from '../../components/Indicators/Message';
+import CookieInfo from '../../components/Cookie/CookieInfo';
 
 class Home extends React.Component {
   static propTypes = {
@@ -83,9 +84,10 @@ class Home extends React.Component {
                     onScrolledBottom={this.onAllListScrolledBottom.bind(this)}
                     nextPage={allArticlesNextPage}
           />}
-          <Message type="alert"
-                   message="Błąd pobierania danych. Spróbuj ponownie!"
-                   isVisible={blogListError || articlesError || allArticlesListError} />
+        <Message type="alert"
+                 message="Błąd pobierania danych. Spróbuj ponownie!"
+                 isVisible={blogListError || articlesError || allArticlesListError} />
+        <CookieInfo />
       </div>
     );
   }

@@ -1,0 +1,44 @@
+@import "../../styles/colors.styl"
+@import "../../styles/variables.styl"
+
+.container
+  position fixed
+  bottom 0 //$global-margin * 0.25
+  left 0 //$global-margin * 0.25
+  right 0 // $global-margin * 0.25
+  padding 20px 15px
+  z-index 100
+  color $color-secondary
+  background $color-tertiary
+  line-height 1.6em
+  box-shadow 0 0 6px 0 $color-primary
+  text-align center
+  visibility visibility
+  opacity 1
+  transition visibility $animation-time, opacity $animation-time
+
+  @media screen and (min-width 768px)
+    bottom $global-margin
+    left $global-margin
+    max-width 300px
+    border-radius 5px
+
+  &--invisible
+    visibility hidden
+    opacity 0
+
+  &__text
+    margin-bottom $global-padding
+
+  &__button
+    display inline-block
+    padding ($global-padding * 0.5) $global-padding
+    background $color-primary
+    color $color-secondary
+    border-radius 5px
+    margin-right 10px
+    text-decoration none
+    transition background $animation-time
+
+    &:hover
+      background lighten($color-primary, 25%)

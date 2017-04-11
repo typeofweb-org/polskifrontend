@@ -6,6 +6,12 @@ export function resetAdminState() {
   }
 }
 
+export function resetToken() {
+  return {
+    type: constants.ADMIN_RESET_TOKEN
+  }
+}
+
 export function getAdminBlogList() {
   return {
     type: constants.ADMIN_GET_BLOG_LIST

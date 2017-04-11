@@ -13,7 +13,7 @@ const initialFormState = {
   newBlogRssDirty: false,
 };
 
-const initialState = {
+export const initialState = {
   tokenExpired: false,
   blogList: [],
   blogListLoading: true,
@@ -41,6 +41,8 @@ export default function adminReducer(state = initialState, action) {
       return { ...state, tokenExpired: true };
     case constants.ADMIN_RESET_STATE:
       return { ...initialState };
+    case constants.ADMIN_RESET_TOKEN:
+      return { ...state, tokenExpired: false };
 
     case constants.ADMIN_GET_BLOG_LIST:
       return { ...state, blogListLoading: true, blogListError: false };
