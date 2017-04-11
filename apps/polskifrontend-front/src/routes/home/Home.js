@@ -52,13 +52,13 @@ class Home extends React.Component {
     const link = clickedLinks.find(item => item === url);
     if (!link && isToday) {
       const settings = settingsHelper.getSettings();
+      const clicked = settings.clickedLinks || [];
 
       // filter old clicked articles
       settings.clickedLinks = settings.clickedLinks.filter(item => {
         return dateHelper.isToday(item.date);
       });
 
-      const clicked = settings.clickedLinks || [];
       clicked.push({ url, date: Date.now() });
       settings.clickedLinks = clicked;
       settingsHelper.saveSettings(settings);
