@@ -27,7 +27,7 @@ const BlogTiles = props => {
                     {item.name}
                   </a>
                 </h2>
-                <TilesArticles articles={item.articles || []} />
+                <TilesArticles articles={item.articles || []} onArticleClicked={props.onArticleClicked} clickedArticles={props.clickedArticles} />
               </section>
             </div>
           );
@@ -49,7 +49,9 @@ BlogTiles.propTypes = {
   blogListLoading: PropTypes.bool.isRequired,
   isLoadingMore: PropTypes.bool.isRequired,
   onScrolledBottom: PropTypes.func.isRequired,
-  nextPage: PropTypes.number.isRequired
+  nextPage: PropTypes.number.isRequired,
+  onArticleClicked: PropTypes.func.isRequired,
+  clickedArticles: PropTypes.array.isRequired
 };
 
 export default withStyles(style)(BlogTiles);

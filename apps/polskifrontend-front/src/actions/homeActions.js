@@ -20,3 +20,10 @@ export function switchToListView(page) {
     payload: page
   };
 }
+
+export function addLinkToClicked(url) {
+  return {
+    type: constants.HOME_ADD_LINK_TO_CLICKED,
+    payload: url
+  }
+}

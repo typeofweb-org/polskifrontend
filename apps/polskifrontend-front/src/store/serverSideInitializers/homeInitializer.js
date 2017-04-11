@@ -4,11 +4,12 @@ import fetch from '../../core/fetch';
 import { apiUrl } from '../../config';
 
 export default async function getHomeInitialState() {
-  const settings = cookie.load('PL_FRONT_END_USER_SETTINGS') || { tiles: true };
+  const settings = cookie.load('PL_FRONT_END_USER_SETTINGS') || { tiles: true, clickedLinks: [] };
 
   // set up settings stored in cookies
   homeState.isTilesOptionSelected = settings.tiles;
   homeState.isListOptionSelected = !settings.tiles;
+  homeState.clickedLinks = settings.clickedLinks || [];
 
   const url = settings.tiles ? `${apiUrl}/blogs/1` : `${apiUrl}/articles/all/1`;
   const getData = async () => {

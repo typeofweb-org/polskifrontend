@@ -6,17 +6,19 @@ import he from 'he';
 import * as dateHelper from '../../../core/helpers/dateHelper';
 
 const TilesArticles = props => {
-  const oneDay = 60 * 60 * 24 * 1000; // ms
   return (
     <section className={styles.items}>
       {(props.articles || []).map((article, artIndex) => {
         const isTodayArticle = dateHelper.isToday(new Date(article.date));
-        const itemClass = `${styles.item} ${isTodayArticle ? styles['item--today'] : ''}`;
-        const tagClass = `${styles['item__new']} ${isTodayArticle ? styles['item__new--visible'] : ''}`;
+        const clicked = props.clickedArticles.find(art => art.url === article.href);
+        let itemClass = `${styles.item} ${isTodayArticle ? styles['item--today'] : ''}`;
+        let tagClass = `${styles['item__new']} ${isTodayArticle ? styles['item__new--visible'] : ''}`;
+        itemClass = `${itemClass} ${clicked ? styles['item--clicked'] : ''}`;
+        tagClass = `${tagClass} ${clicked ? styles['item__new--clicked'] : ''}`
 
         return (
           <div className={itemClass} key={artIndex}>
-            <a className={styles['item__link']} target="_blank" href={article.href} rel="nofollow">
+            <a className={styles['item__link']} target="_blank" href={article.href} rel="nofollow" onMouseDown={props.onArticleClicked.bind(this, article.href, isTodayArticle)}>
               <span className={tagClass}>Nowość</span>
               {article.title}
             </a>
@@ -34,7 +36,9 @@ const TilesArticles = props => {
 };
 
 TilesArticles.propTypes = {
-  articles: PropTypes.array.isRequired
+  articles: PropTypes.array.isRequired,
+  clickedArticles: PropTypes.array.isRequired,
+  onArticleClicked: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(TilesArticles);

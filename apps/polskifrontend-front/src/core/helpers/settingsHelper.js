@@ -2,7 +2,8 @@ import cookie from 'react-cookie';
 
 const cookieName = 'PL_FRONT_END_USER_SETTINGS';
 const initialSettings = {
-  tiles: true
+  tiles: true,
+  clickedLinks: []
 };
 
 export function saveSettings(settings) {

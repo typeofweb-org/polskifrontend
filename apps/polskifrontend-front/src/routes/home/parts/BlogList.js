@@ -16,13 +16,16 @@ const BlogList = props => {
       <Loader isLoading={props.isLoading}>
         {props.articles.map((item, index) => {
           const isTodayArticle = dateHelper.isToday(new Date(item.date));
-          const itemClass = `${styles.item} ${isTodayArticle ? styles['item--today'] : ''}`;
-          const tagClass = `${styles['item__new']} ${isTodayArticle ? styles['item__new--visible'] : ''}`;
+          const clicked = props.clickedArticles.find(art => art.url === item.href);
+          let itemClass = `${styles.item} ${isTodayArticle ? styles['item--today'] : ''}`;
+          let tagClass = `${styles['item__new']} ${isTodayArticle ? styles['item__new--visible'] : ''}`;
+          itemClass = `${itemClass} ${clicked ? styles['item--clicked'] : ''}`;
+          tagClass = `${tagClass} ${clicked ? styles['item__new--clicked'] : ''}`
 
           return (
             <section key={index}>
               <div className={itemClass}>
-                <a className={styles['item__link']} href={item.href} rel="nofollow" target="_blank">
+                <a className={styles['item__link']} href={item.href} rel="nofollow" target="_blank" onMouseDown={props.onArticleClicked.bind(this, item.href, isTodayArticle)}>
                   <span className={tagClass}>Nowość</span>
                   <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} />
                   {item.title}
@@ -50,9 +53,11 @@ const BlogList = props => {
 
 BlogList.propTypes = {
   articles: PropTypes.array.isRequired,
+  clickedArticles: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isLoadingMore: PropTypes.bool.isRequired,
   onScrolledBottom: PropTypes.func.isRequired,
+  onArticleClicked: PropTypes.func.isRequired,
   nextPage: PropTypes.number.isRequired
 };
 

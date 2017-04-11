@@ -1,5 +1,6 @@
 import * as constants from '../constants';
 import _ from 'lodash';
+import * as settingsHelper from '../core/helpers/settingsHelper';
 
 export const initialState = {
   blogList: [],
@@ -17,7 +18,9 @@ export const initialState = {
   allArticlesListError: false,
 
   isListOptionSelected: false,
-  isTilesOptionSelected: true
+  isTilesOptionSelected: true,
+
+  clickedLinks: []
 };
 
 export default function homeReducer(state = initialState, action) {
@@ -27,6 +30,12 @@ export default function homeReducer(state = initialState, action) {
     case constants.HOME_GET_BLOG_LIST_SUCCESS:
       const newBlogList = _.cloneDeep(state.blogList);
       newBlogList.push(...action.payload.blogs);
+
+      // store this setting in cookie
+      const tilesSettings = settingsHelper.getSettings();
+      tilesSettings.tiles = true;
+      settingsHelper.saveSettings(tilesSettings);
+
       return { ...state, blogList: newBlogList, blogListNextPage: action.payload.nextPage, blogListLoading: false, isTilesOptionSelected: true, isListOptionSelected: false };
     case constants.HOME_GET_BLOG_LIST_ERROR:
       return { ...state, blogListLoading: false, blogListError: true };
@@ -46,9 +55,20 @@ export default function homeReducer(state = initialState, action) {
     case constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS:
       const newArticlesList = _.cloneDeep(state.allArticlesList);
       newArticlesList.push(...action.payload.articles);
+
+      // store this setting in cookie
+      const listSettings = settingsHelper.getSettings();
+      listSettings.tiles = false;
+      settingsHelper.saveSettings(listSettings);
+
       return { ...state, allArticlesList: newArticlesList, allArticlesNextPage: action.payload.nextPage, allArticlesListLoading: false, isTilesOptionSelected: false, isListOptionSelected: true };
     case constants.HOME_SWITCH_TO_LIST_VIEW_ERROR:
       return { ...state, allArticlesListLoading: false, allArticlesListError: true };
+
+    case constants.HOME_ADD_LINK_TO_CLICKED:
+      const links = _.cloneDeep(state.clickedLinks);
+      links.push(action.payload);
+      return { ...state, clickedLinks: links };
   }
 
   return state

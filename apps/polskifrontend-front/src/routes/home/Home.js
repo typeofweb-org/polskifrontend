@@ -10,6 +10,8 @@ import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import Message from '../../components/Indicators/Message';
 import CookieInfo from '../../components/Cookie/CookieInfo';
+import * as settingsHelper from '../../core/helpers/settingsHelper';
+import * as dateHelper from '../../core/helpers/dateHelper';
 
 class Home extends React.Component {
   static propTypes = {
@@ -45,6 +47,26 @@ class Home extends React.Component {
     }
   }
 
+  onLinkClicked(url, isToday) {
+    const { actions: { addLinkToClicked }, homeState: { clickedLinks } } = this.props;
+    const link = clickedLinks.find(item => item === url);
+    if (!link && isToday) {
+      const settings = settingsHelper.getSettings();
+
+      // filter old clicked articles
+      settings.clickedLinks = settings.clickedLinks.filter(item => {
+        return dateHelper.isToday(item.date);
+      });
+
+      const clicked = settings.clickedLinks || [];
+      clicked.push({ url, date: Date.now() });
+      settings.clickedLinks = clicked;
+      settingsHelper.saveSettings(settings);
+
+      addLinkToClicked({ url, date: Date.now() });
+    }
+  }
+
   render() {
     const { homeState: {
       blogList,
@@ -57,7 +79,8 @@ class Home extends React.Component {
       allArticlesList,
       allArticlesListLoading,
       allArticlesNextPage,
-      allArticlesListError
+      allArticlesListError,
+      clickedLinks
     } } = this.props;
 
     return (
@@ -77,12 +100,16 @@ class Home extends React.Component {
                      nextPage={blogListNextPage}
                      isLoadingMore={blogListLoading && blogListNextPage > 1}
                      onScrolledBottom={this.onBlogListScrolledBottom.bind(this)}
+                     onArticleClicked={this.onLinkClicked.bind(this)}
+                     clickedArticles={clickedLinks}
           /> :
           <BlogList articles={allArticlesList || []}
                     isLoading={allArticlesListLoading && allArticlesNextPage === 1}
                     isLoadingMore={allArticlesListLoading && allArticlesNextPage > 1}
                     onScrolledBottom={this.onAllListScrolledBottom.bind(this)}
                     nextPage={allArticlesNextPage}
+                    onArticleClicked={this.onLinkClicked.bind(this)}
+                    clickedArticles={clickedLinks}
           />}
         <Message type="alert"
                  message="Błąd pobierania danych. Spróbuj ponownie!"
