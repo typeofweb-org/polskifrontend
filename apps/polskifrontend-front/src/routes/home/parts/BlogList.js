@@ -27,14 +27,14 @@ const BlogList = props => {
                   <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} />
                   {item.title}
                 </a>
-                <span className={styles['meta']}>
+                <section className={styles['meta']}>
                   <p className={styles['meta__date']}>
                     <a href={item._blog.href} target="_blank" rel="nofollow">{item._blog.name}</a> | {dateFormat(item.date, 'dd-mm-yyyy')}
                   </p>
                   <p className={styles['meta__description']}>
                     {he.decode(item.description.replace(/(<([^>]+)>)/ig, ''))}
                   </p>
-                </span>
+                </section>
               </div>
             </section>);
         })}

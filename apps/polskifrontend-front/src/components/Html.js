@@ -33,15 +33,19 @@ class Html extends React.Component {
   };
 
   render() {
-    const { title, description, styles, scripts, state, children } = this.props;
+    const { title, description, styles, scripts, state, children, fullUrl } = this.props;
     return (
-      <html className="no-js" lang="en" style={{ position: 'relative', minHeight: '100%' }}>
+      <html className="no-js" lang="pl" style={{ position: 'relative', minHeight: '100%' }}>
         <head>
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
           <title>{title}</title>
           <meta name="description" content={description} />
           <meta name="viewport" content="width=device-width" />
+          <meta property="og:title" content={title} />
+          <meta property="og:url" content={fullUrl} />
+          <meta property="og:type" content="website" />
+          <meta property="og:image" content="http://www.polskifrontend.pl/assets/1c1007d7.png" />
           <link rel="shortcut icon" href="polskifrontend_icon.png" />
           <link rel="apple-touch-icon" href="polskifrontend_icon.png" />
           {styles.map(style =>

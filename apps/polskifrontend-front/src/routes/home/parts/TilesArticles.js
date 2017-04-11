@@ -20,12 +20,12 @@ const TilesArticles = props => {
               <span className={tagClass}>Nowość</span>
               {article.title}
             </a>
-            <span className={styles['meta']}>
+            <section className={styles['meta']}>
               <p className={styles['meta__date']}>{dateFormat(article.date, 'dd-mm-yyyy')}</p>
               <p className={styles['meta__description']}>
                 {`${he.decode(article.description.replace(/(<([^>]+)>)/ig, ''))} [...]`}
               </p>
-            </span>
+            </section>
           </div>
         )
       })}

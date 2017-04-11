@@ -111,6 +111,7 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
+    data.fullUrl = `http://www.polskifrontend.pl${req.originalUrl}`;
     data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
     data.styles = [
       { id: 'css', cssText: [...css].join('') }
