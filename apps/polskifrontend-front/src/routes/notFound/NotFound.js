@@ -11,7 +11,7 @@ class NotFound extends React.Component {
     return (
       <div className={style.container}>
         <h2>404 - nie znaleziono strony</h2>
-        <p className={style['container__text']}>Niestety strona, na którą próbowałeś(aś) wejść nie istenie</p>
+        <p className={style['container__text']}>Niestety strona, na którą próbowałeś(aś) wejść nie istnieje</p>
       </div>
     );
   }

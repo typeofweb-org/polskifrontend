@@ -11,6 +11,7 @@ import React, { PropTypes } from 'react';
 import serialize from 'serialize-javascript';
 import { analytics } from '../config';
 import 'rxjs';
+import ogImage from '../../public/polskifrontend_og.png';
 
 class Html extends React.Component {
   static propTypes = {
@@ -45,7 +46,7 @@ class Html extends React.Component {
           <meta property="og:title" content={title} />
           <meta property="og:url" content={fullUrl} />
           <meta property="og:type" content="website" />
-          <meta property="og:image" content="http://www.polskifrontend.pl/assets/1c1007d7.png" />
+          <meta property="og:image" content={ogImage} />
           <link rel="shortcut icon" href="polskifrontend_icon.png" />
           <link rel="apple-touch-icon" href="polskifrontend_icon.png" />
           {styles.map(style =>

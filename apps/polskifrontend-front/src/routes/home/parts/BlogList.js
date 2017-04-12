@@ -27,7 +27,7 @@ const BlogList = props => {
               <div className={itemClass}>
                 <a className={styles['item__link']} href={item.href} rel="nofollow" target="_blank" onMouseDown={props.onArticleClicked.bind(this, item.href, isTodayArticle)}>
                   <span className={tagClass}>Nowość</span>
-                  <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} />
+                  <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} initialImage={noImage} />
                   {item.title}
                 </a>
                 <section className={styles['meta']}>
