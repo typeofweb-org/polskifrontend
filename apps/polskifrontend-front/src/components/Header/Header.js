@@ -41,6 +41,7 @@ class Header extends React.Component {
         <Link className={styles['header__link']} to="/">
           <h1 className={styles['header__title']}>
             <RetinaImage src={[logo, logo2]} alt="Polski Front-End Logo" />
+            <span className={styles['header--hidden']}>Polski Front-End - serwisy na temat front-endu w jednym miejscu!</span>
           </h1>
         </Link>
       </div>

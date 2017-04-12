@@ -7,7 +7,7 @@ export default {
   async action() {
     return {
       title: 'Polski Front-End',
-      description: 'Polskie serwisy i blogi na temat front-endu w jednym miejscu',
+      description: 'Polskie serwisy i blogi na temat front-endu w jednym miejscu. Coś dla każdego webmastera!',
       component: <Layout><Home /></Layout>
     };
   }

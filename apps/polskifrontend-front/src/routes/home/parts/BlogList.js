@@ -23,23 +23,23 @@ const BlogList = props => {
           tagClass = `${tagClass} ${clicked ? styles['item__new--clicked'] : ''}`
 
           return (
-            <section key={index}>
+            <div key={index}>
               <div className={itemClass}>
                 <a className={styles['item__link']} href={item.href} rel="nofollow" target="_blank" onMouseDown={props.onArticleClicked.bind(this, item.href, isTodayArticle)}>
                   <span className={tagClass}>Nowość</span>
                   <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} initialImage={noImage} />
                   {item.title}
                 </a>
-                <section className={styles['meta']}>
+                <div className={styles['meta']}>
                   <p className={styles['meta__date']}>
                     <a href={item._blog.href} target="_blank" rel="nofollow">{item._blog.name}</a> | {dateFormat(item.date, 'dd-mm-yyyy')}
                   </p>
                   <p className={styles['meta__description']}>
                     {he.decode(item.description.replace(/(<([^>]+)>)/ig, ''))}
                   </p>
-                </section>
+                </div>
               </div>
-            </section>);
+            </div>);
         })}
       </Loader>
       {props.nextPage !== -1 ? (

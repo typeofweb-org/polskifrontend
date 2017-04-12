@@ -7,7 +7,7 @@ import * as dateHelper from '../../../core/helpers/dateHelper';
 
 const TilesArticles = props => {
   return (
-    <section className={styles.items}>
+    <div className={styles.items}>
       {(props.articles || []).map((article, artIndex) => {
         const isTodayArticle = dateHelper.isToday(new Date(article.date));
         const clicked = props.clickedArticles.find(art => art.url === article.href);
@@ -22,16 +22,16 @@ const TilesArticles = props => {
               <span className={tagClass}>Nowość</span>
               {article.title}
             </a>
-            <section className={styles['meta']}>
+            <div className={styles['meta']}>
               <p className={styles['meta__date']}>{dateFormat(article.date, 'dd-mm-yyyy')}</p>
               <p className={styles['meta__description']}>
                 {`${he.decode(article.description.replace(/(<([^>]+)>)/ig, ''))} [...]`}
               </p>
-            </section>
+            </div>
           </div>
         )
       })}
-    </section>
+    </div>
   );
 };
 
