@@ -46,7 +46,7 @@ class Html extends React.Component {
           <meta property="og:title" content={title} />
           <meta property="og:url" content={fullUrl} />
           <meta property="og:type" content="website" />
-          <meta property="og:image" content={ogImage} />
+          <meta property="og:image" content={`http://www.polskifrontend.pl${ogImage}`} />
           <link rel="shortcut icon" href="polskifrontend_icon.png" />
           <link rel="apple-touch-icon" href="polskifrontend_icon.png" />
           {styles.map(style =>
