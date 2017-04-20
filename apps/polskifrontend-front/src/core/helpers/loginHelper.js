@@ -3,7 +3,7 @@ import cookie from 'react-cookie';
 const cookieName = 'PL_FRONT_END';
 
 export function saveLoginToken(token) {
-  cookie.save(cookieName, token, { path: '/' });
+  cookie.save(cookieName, token, { path: '/', maxAge: 1800 });
 }
 
 export function getLoginToken() {

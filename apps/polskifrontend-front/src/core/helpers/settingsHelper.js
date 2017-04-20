@@ -7,7 +7,7 @@ const initialSettings = {
 };
 
 export function saveSettings(settings) {
-  cookie.save(cookieName, settings, { path: '/' });
+  cookie.save(cookieName, settings, { path: '/', expires: new Date(2050, 1, 1) });
 }
 
 export function getSettings() {

@@ -13,7 +13,7 @@ class CookieInfo extends React.Component {
   onOkClick(event) {
     event.preventDefault();
 
-    cookie.save('cookie-accepted', true);
+    cookie.save('cookie-accepted', true, { path: '/', expires: new Date(2050, 1, 1) });
     this.setState({
       shouldBeClosed: true
     });

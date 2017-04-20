@@ -1,11 +1,10 @@
-import cookie from 'react-cookie';
 import { initialState as adminState } from '../../reducers/admin';
 import fetch from '../../core/fetch';
 import { apiUrl } from '../../config';
 
-export default async function getAdminInitialState() {
+export default async function getAdminInitialState(authCookie) {
   const getData = async () => {
-    const authCookie = cookie.load('PL_FRONT_END');
+
     const headers = {
       'x-access-token': authCookie,
       'authorization': 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw=='

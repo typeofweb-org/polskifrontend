@@ -3,9 +3,7 @@ import { initialState as homeState } from '../../reducers/home';
 import fetch from '../../core/fetch';
 import { apiUrl } from '../../config';
 
-export default async function getHomeInitialState() {
-  const settings = cookie.load('PL_FRONT_END_USER_SETTINGS') || { tiles: true, clickedLinks: [] };
-
+export default async function getHomeInitialState(settings) {
   // set up settings stored in cookies
   homeState.isTilesOptionSelected = settings.tiles;
   homeState.isListOptionSelected = !settings.tiles;

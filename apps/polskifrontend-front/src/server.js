@@ -83,8 +83,11 @@ app.get('*', async (req, res, next) => {
   try {
     cookie.plugToRequest(req, res);
 
-    const homeState = await getHomeInitialState();
-    const adminState = await getAdminInitialState();
+    const settings = cookie.load('PL_FRONT_END_USER_SETTINGS') || { tiles: true, clickedLinks: [] };
+    const authCookie = cookie.load('PL_FRONT_END');
+
+    const homeState = await getHomeInitialState(settings);
+    const adminState = await getAdminInitialState(authCookie);
 
     const store = configureStore({ homeState, adminState }, {
       cookie: req.header.cookie
@@ -132,6 +135,7 @@ app.get('*', async (req, res, next) => {
       data.scripts.push(assets[route.chunk].js);
     }
 
+    cookie.plugToRequest(req, res);
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(route.status || 200);
     res.send(`<!doctype html>${html}`);
