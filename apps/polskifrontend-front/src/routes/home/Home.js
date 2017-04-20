@@ -3,8 +3,6 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Home.styl';
 import BlogTiles from './parts/BlogTiles';
 import BlogList from './parts/BlogList';
-import TopHomeLinks from './parts/TopHomeLinks';
-import TopHomePanel from './parts/TopHomePanel';
 import BlogListControlPanel from './parts/BlogListControlPanel';
 import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
