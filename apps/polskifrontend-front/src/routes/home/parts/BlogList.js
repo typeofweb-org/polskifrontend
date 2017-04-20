@@ -20,7 +20,9 @@ const BlogList = props => {
           let itemClass = `${styles.item} ${isTodayArticle ? styles['item--today'] : ''}`;
           let tagClass = `${styles['item__new']} ${isTodayArticle ? styles['item__new--visible'] : ''}`;
           itemClass = `${itemClass} ${clicked ? styles['item--clicked'] : ''}`;
-          tagClass = `${tagClass} ${clicked ? styles['item__new--clicked'] : ''}`
+          tagClass = `${tagClass} ${clicked ? styles['item__new--clicked'] : ''}`;
+
+          const description = item.description ? he.decode(item.description.replace(/(<([^>]+)>)/ig, '')) : '';
 
           return (
             <div key={index}>
@@ -35,7 +37,7 @@ const BlogList = props => {
                     <a href={item._blog.href} target="_blank" rel="nofollow">{item._blog.name}</a> | {dateFormat(item.date, 'dd-mm-yyyy')}
                   </p>
                   <p className={styles['meta__description']}>
-                    {he.decode(item.description.replace(/(<([^>]+)>)/ig, ''))}
+                    {description}
                   </p>
                 </div>
               </div>

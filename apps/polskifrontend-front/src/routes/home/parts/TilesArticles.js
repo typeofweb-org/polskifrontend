@@ -14,7 +14,9 @@ const TilesArticles = props => {
         let itemClass = `${styles.item} ${isTodayArticle ? styles['item--today'] : ''}`;
         let tagClass = `${styles['item__new']} ${isTodayArticle ? styles['item__new--visible'] : ''}`;
         itemClass = `${itemClass} ${clicked ? styles['item--clicked'] : ''}`;
-        tagClass = `${tagClass} ${clicked ? styles['item__new--clicked'] : ''}`
+        tagClass = `${tagClass} ${clicked ? styles['item__new--clicked'] : ''}`;
+
+        const description = article.description ? he.decode(article.description.replace(/(<([^>]+)>)/ig, '')) : '';
 
         return (
           <div className={itemClass} key={artIndex}>
@@ -25,7 +27,7 @@ const TilesArticles = props => {
             <div className={styles['meta']}>
               <p className={styles['meta__date']}>{dateFormat(article.date, 'dd-mm-yyyy')}</p>
               <p className={styles['meta__description']}>
-                {`${he.decode(article.description.replace(/(<([^>]+)>)/ig, ''))} [...]`}
+                {`${description} [...]`}
               </p>
             </div>
           </div>
