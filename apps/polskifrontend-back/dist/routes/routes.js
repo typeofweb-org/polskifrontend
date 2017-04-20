@@ -229,10 +229,14 @@ router.post('/admin/blogs/:blogId/refresh', (() => {
         const rssHandler = new _rssHandler2.default(blog.rss);
         rssHandler.getParsedData(function (data) {
           const pubDate = new Date(data.article.pubDate);
+          let description = data.article.summary || data.article.description;
+          if (!description && data.article['media:group'] && data.article['media:group']['media:description']) {
+            description = data.article['media:group']['media:description']['#'];
+          }
           const article = new _models.Article({
             title: data.article.title,
             href: data.article.link,
-            description: data.article.summary || data.article.description,
+            description,
             date: pubDate,
             _blog: blog._id
           });
@@ -285,10 +289,14 @@ router.post('/admin/blogs', (() => {
           const rssHandler = new _rssHandler2.default(createdBlog.rss);
           rssHandler.getParsedData(function (data) {
             const pubDate = new Date(data.article.pubDate);
+            let description = data.article.summary || data.article.description;
+            if (!description && data.article['media:group'] && data.article['media:group']['media:description']) {
+              description = data.article['media:group']['media:description']['#'];
+            }
             const article = new _models.Article({
               title: data.article.title,
               href: data.article.link,
-              description: data.article.summary || data.article.description,
+              description,
               date: pubDate,
               _blog: blog._id
             });
