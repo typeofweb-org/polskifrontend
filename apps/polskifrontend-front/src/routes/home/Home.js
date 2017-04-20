@@ -86,10 +86,6 @@ class Home extends React.Component {
 
     return (
       <div className={style.container}>
-        <div className={style.pusher}>
-        </div>
-        <TopHomePanel />
-        <TopHomeLinks />
         <BlogListControlPanel isTilesOptionSelected={isTilesOptionSelected}
                               isListOptionSelected={isListOptionSelected}
                               onTilesOptionClick={this.onTilesOptionClick.bind(this)}

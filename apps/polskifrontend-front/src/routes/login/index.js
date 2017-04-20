@@ -1,6 +1,6 @@
 import React from 'react';
 import Login from './Login';
-import Layout from '../../components/Layout/Layout';
+import LayoutAdmin from '../../components/Layout/LayoutAdmin';
 import * as loginHelper from '../../core/helpers/loginHelper';
 
 export default {
@@ -11,7 +11,7 @@ export default {
 
     return {
       title: 'Zaloguj | Polski Front-End',
-      component: <Layout><Login routing={context} /></Layout>
+      component: <LayoutAdmin><Login routing={context} /></LayoutAdmin>
     };
   }
 };

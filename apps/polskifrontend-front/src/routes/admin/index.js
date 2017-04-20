@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../components/Layout/Layout';
+import LayoutAdmin from '../../components/Layout/LayoutAdmin';
 import * as loginHelper from '../../core/helpers/loginHelper';
 
 export default {
@@ -15,7 +15,7 @@ export default {
 
     return {
       title: 'Panel kontrolny | Polski Front-End',
-      component: <Layout><Admin /></Layout>
+      component: <LayoutAdmin><Admin /></LayoutAdmin>
     };
   }
 };

@@ -1,0 +1,47 @@
+@import "../../styles/globals.styl"
+@import "../../styles/variables.styl"
+@import "../../styles/colors.styl"
+
+.container
+  width 100%
+  padding $global-margin
+  border-bottom 2px dashed $color-tertiary
+  text-align center
+
+  .list
+
+    &__item
+      display inline-block
+      margin 0 $global-margin
+
+    &__link
+      color $color-tertiary
+      text-decoration none
+      font-weight bold
+      font-size 1.3em
+      font-family $font-header
+      position relative
+      transition color $animation-time
+
+      &:hover
+        color lighten($color-tertiary, 10%)
+
+        i
+          color lighten($color-tertiary, 10%)
+
+      i
+        margin-right 8px
+        color $color-tertiary
+        transition color $animation-time
+
+    &__info
+      position absolute
+      background $color-alert
+      color $color-secondary
+      top -8px
+      left -12px
+      width 20px
+      height 20px
+      line-height 20px
+      border-radius 10px
+      font-size 0.6em
