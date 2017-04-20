@@ -1,6 +1,7 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './TopHomeLinks.styl';
+import Link from '../../components/Link/Link';
 
 const TopHomePanel = props => {
   return (
@@ -17,11 +18,11 @@ const TopHomePanel = props => {
           </a>
         </li>
         <li className={styles['list__item']}>
-          <a className={styles['list__link']} href="#">
+          <Link className={styles['list__link']} to="/o-serwisie">
             <i className="fa fa-question-circle" aria-hidden="true">
             </i>
             <span className={styles['list__text']}>O serwisie</span>
-          </a>
+          </Link>
         </li>
         <li className={styles['list__item']}>
           <a className={styles['list__link']} href="#">

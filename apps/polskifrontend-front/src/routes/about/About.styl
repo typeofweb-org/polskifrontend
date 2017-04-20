@@ -1,0 +1,42 @@
+@import "../../styles/globals.styl"
+@import "../../styles/variables.styl"
+@import "../../styles/colors.styl"
+
+.container
+  width 100%
+  margin $global-margin * 2 auto 0
+  padding 0 $global-padding $global-margin
+
+  @media screen and (min-width: 768px)
+    width 750px
+
+  @media screen and (min-width: 992px)
+    width 970px
+
+  @media screen and (min-width: 1200px)
+    width 1170px
+
+  .text
+    text-align left
+    padding $global-padding
+    line-height 1.6em
+    font-size 1.2em
+
+.back
+  color $color-secondary
+  background $color-primary
+  border-radius 5px
+  padding 10px 20px
+  transition background $animation-time
+  text-decoration none
+  margin-bottom $global-margin
+  display inline-block
+
+  a
+    font-family $font-header
+    font-size 20px
+
+  i
+    font-size 20px
+    margin-right 10px
+    vertical-align top

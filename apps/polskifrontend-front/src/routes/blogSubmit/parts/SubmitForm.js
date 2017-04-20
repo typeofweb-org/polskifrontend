@@ -58,7 +58,7 @@ class SubmitForm extends React.Component {
         <Link className={style.back} onClick={this.props.onGoBackClick} to="/">
           <i className="fa fa-arrow-left">
           </i>
-          Powrót
+          Strona główna
         </Link>
         <ResponsivePanel className={style.container} header="Zgłoś serwis" description="Jeśli uważasz, że jakiś serwis (lub blog) powinien się tutaj znaleźć, podaj poniżej jego adres. Jeżeli się nada, zostanie dodany do naszej listy!">
           <form className={formClass} onSubmit={this.props.onSubmit}>
