@@ -157,10 +157,14 @@ router.post('/admin/blogs/:blogId/refresh', async (req, res) => {
     const rssHandler = new RssHandler(blog.rss);
     rssHandler.getParsedData(data => {
       const pubDate = new Date(data.article.pubDate);
+      let description = data.article.summary || data.article.description;
+      if (!description && data.article['media:group'] && data.article['media:group']['media:description']) {
+        description = data.article['media:group']['media:description']['#'];
+      }
       const article = new Article({
         title: data.article.title,
         href: data.article.link,
-        description: data.article.summary || data.article.description,
+        description,
         date: pubDate,
         _blog: blog._id
       });
@@ -202,10 +206,14 @@ router.post('/admin/blogs', async (req, res) => {
         const rssHandler = new RssHandler(createdBlog.rss);
         rssHandler.getParsedData(data => {
           const pubDate = new Date(data.article.pubDate);
+          let description = data.article.summary || data.article.description;
+          if (!description && data.article['media:group'] && data.article['media:group']['media:description']) {
+            description = data.article['media:group']['media:description']['#'];
+          }
           const article = new Article({
             title: data.article.title,
             href: data.article.link,
-            description: data.article.summary || data.article.description,
+            description,
             date: pubDate,
             _blog: blog._id
           });
