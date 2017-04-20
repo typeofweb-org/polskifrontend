@@ -3,6 +3,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Home.styl';
 import BlogTiles from './parts/BlogTiles';
 import BlogList from './parts/BlogList';
+import TopHomeLinks from './parts/TopHomeLinks';
 import TopHomePanel from './parts/TopHomePanel';
 import BlogListControlPanel from './parts/BlogListControlPanel';
 import { connect } from 'react-redux';
@@ -88,6 +89,7 @@ class Home extends React.Component {
         <div className={style.pusher}>
         </div>
         <TopHomePanel />
+        <TopHomeLinks />
         <BlogListControlPanel isTilesOptionSelected={isTilesOptionSelected}
                               isListOptionSelected={isListOptionSelected}
                               onTilesOptionClick={this.onTilesOptionClick.bind(this)}
