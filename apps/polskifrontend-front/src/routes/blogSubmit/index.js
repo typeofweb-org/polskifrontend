@@ -3,7 +3,7 @@ import BlogSubmit from './BlogSubmit';
 import Layout from '../../components/Layout/Layout';
 
 export default {
-  path: '/blog-submit',
+  path: '/zglos-serwis',
   async action() {
     return {
       title: 'Zgłoś serwis | Polski Front-End',

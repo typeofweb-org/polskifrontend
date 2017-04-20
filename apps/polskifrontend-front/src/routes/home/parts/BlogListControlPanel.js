@@ -19,7 +19,7 @@ const BlogListControlPanel = props => {
   return (
     <div className={styles.container}>
       <div className={`${styles.wrapper} ${styles['wrapper--left']}`}>
-        <Link className={wrapperClass} to="/blog-submit">
+        <Link className={wrapperClass} to="/zglos-serwis">
           <i className="fa fa-plus">
           </i>
           Zgłoś serwis
