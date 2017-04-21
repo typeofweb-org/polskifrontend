@@ -16,11 +16,17 @@
   @media screen and (min-width: 1200px)
     width 1170px
 
+  .responsive
+    width 100%
+
   .text
     text-align left
-    padding $global-padding
+    padding $global-padding * 0.5
     line-height 1.6em
     font-size 1.2em
+
+    @media screen and (min-width: 768px)
+      padding $global-padding
 
 .back
   color $color-secondary

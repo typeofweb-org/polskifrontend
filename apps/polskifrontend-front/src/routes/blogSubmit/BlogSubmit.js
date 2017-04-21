@@ -6,7 +6,6 @@ import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import SubmitForm from './parts/SubmitForm';
 import Message from '../../components/Indicators/Message';
-import CookieInfo from '../../components/Cookie/CookieInfo';
 
 class BlogSubmit extends React.Component {
   static propTypes = {
@@ -72,7 +71,6 @@ class BlogSubmit extends React.Component {
                     shouldCleanUp={submitState.shouldCleanUp}
         />
         <Message type="alert" message="Wysyłanie nie udane. Spróbuj ponownie!" isVisible={submitState.sendError} />
-        <CookieInfo />
       </div>
     );
   }

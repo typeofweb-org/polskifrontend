@@ -25,17 +25,17 @@ const TopHomePanel = props => {
           </Link>
         </li>
         <li className={styles['list__item']}>
-          <a className={styles['list__link']} href="#">
-            <i className="fa fa-facebook-square" aria-hidden="true">
-            </i>
-            <span className={styles['list__text']}>Facebook</span>
-          </a>
-        </li>
-        <li className={styles['list__item']}>
-          <a className={styles['list__link']} href="#">
+          <Link className={styles['list__link']} to="/zglos-uwagi">
             <i className="fa fa-commenting" aria-hidden="true">
             </i>
             <span className={styles['list__text']}>Zgłoś uwagi</span>
+          </Link>
+        </li>
+        <li className={styles['list__item']}>
+          <a className={styles['list__link']} href="https://www.facebook.com/polskifrontend/" target="_blank" title="Fanpage na Facebooku">
+            <i className="fa fa-facebook-square" aria-hidden="true">
+            </i>
+            <span className={styles['list__text']}>Facebook</span>
           </a>
         </li>
       </ul>

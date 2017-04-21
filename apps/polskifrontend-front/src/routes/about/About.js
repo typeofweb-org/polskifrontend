@@ -12,7 +12,7 @@ const About = () => {
         </i>
         Strona główna
       </Link>
-      <ResponsivePanel header="O serwisie" description="">
+      <ResponsivePanel className={styles.responsive} header="O serwisie" description="">
         <p className={styles.text}>Serwis <strong>Polski Front-End</strong> powstał w celu zebrania w jednym miejscu jak największej liczby stron, serwisów oraz blogów na temat szeroko rozumianego front-end developmentu. Co ważne, wszystkie zgromadzone tutaj serwisy tworzone są <strong>w języku polskim</strong>!</p>
         <p className={styles.text}>Autorem tej strony jestem ja, czyli <strong>Bartek Dybowski</strong>. Oprócz tego serwisu prowadzę również bloga <a href="https://nafrontendzie.pl" target="_blank" title="Na Frontendzie">Na Frontendzie</a>, na którym piszę na temat technologii webowych (a także świata IT ogólnie). Temat ten jest mi więc szczególnie szczególnie bliski i stąd właśnie pomysł na stworzenie tego serwisu.</p>
         <p className={styles.text}>Podstawowym założeniem "Polskiego Front-Endu" było zebranie tutaj <strong>całych blogów</strong>, a nie pojedynczych artykułów. Powoduje to, że selekcji treści mogę dokonywać jedynie na etapie dodawania danej strony do serwisu. Jako, że nie każdy pisze tylko i wyłącznie o front-endzie, to czasem może się tutaj pojawić wpis na temat, na przykład, PHP... Wydaje mi się jednak, że każdy blog czy strona, która pisze <strong>dużo o front-endzie</strong>, czy ogólniej o web developmencie, zasługuje by się tutaj znaleźć... Nawet jeśli front-end to nie jedyny poruszany tam temat.</p>

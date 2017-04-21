@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import Message from '../../components/Indicators/Message';
-import CookieInfo from '../../components/Cookie/CookieInfo';
 import * as settingsHelper from '../../core/helpers/settingsHelper';
 import * as dateHelper from '../../core/helpers/dateHelper';
 
@@ -110,7 +109,6 @@ class Home extends React.Component {
         <Message type="alert"
                  message="Błąd pobierania danych. Spróbuj ponownie!"
                  isVisible={blogListError || articlesError || allArticlesListError} />
-        <CookieInfo />
       </div>
     );
   }

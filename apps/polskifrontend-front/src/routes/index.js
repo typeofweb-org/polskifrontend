@@ -21,6 +21,7 @@ export default {
     require('./admin').default,
     require('./blogSubmit').default,
     require('./about').default,
+    require('./feedback').default,
 
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default

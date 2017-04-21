@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import TopHomePanel from './TopHomePanel';
 import TopHomeLinks from './TopHomeLinks';
+import CookieInfo from '../Cookie/CookieInfo';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -21,6 +22,7 @@ class Layout extends React.Component {
         <TopHomeLinks />
         {this.props.children}
         <Footer />
+        <CookieInfo />
       </div>
     );
   }

@@ -7,7 +7,7 @@ export default {
   async action() {
     return {
       title: 'Zgłoś serwis | Polski Front-End',
-      description: 'Jeśli znasz polski serwis lub blog o front-endzie - zgłoś go tutaj!',
+      description: 'Jeśli znasz polski serwis, stronę lub blog o front-endzie - zgłoś go tutaj!',
       component: <Layout><BlogSubmit /></Layout>
     };
   }
