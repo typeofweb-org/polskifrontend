@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
-import routes from 'routes';
+import routes from 'controllers';
 import cors from 'cors';
 import log from 'log';
 import config from 'config';

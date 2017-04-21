@@ -1,133 +1,17 @@
 import express from 'express';
-import { Blog, Article, User } from '../models';
-import jwt from 'jsonwebtoken';
-import app from '../main';
+import { Blog, Article } from '../models';
 import RssHandler from '../rss/rssHandler';
 import * as faviconHelper from '../utils/faviconHelper';
-import sendMail from '../utils/emailer';
 import slugify from '../utils/slugify';
 
 const router = new express.Router();
 
-router.get('/blogs/:page', async (req, res) => {
-  try {
-    const perPage = 6;
-    const page = req.params.page - 1;
-    const count = await Blog.count();
-    const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
-    const blogs = await Blog
-      .find()
-      .sort({ publishedDate: -1 })
-      .skip(perPage * page)
-      .limit(perPage);
-    res.send({ success: true, blogs, nextPage });
-  } catch (error) {
-    res.send({ success: false, message: error });
-  }
-});
-
-router.get('/articles/all/:page', async (req, res) => {
-  try {
-    const perPage = 50;
-    const page = req.params.page - 1;
-    const count = await Article.count();
-    const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
-    const articles = await Article
-      .find()
-      .populate('_blog')
-      .sort({ date: -1 })
-      .skip(perPage * page)
-      .limit(perPage);
-    res.send({ success: true, articles, nextPage });
-  } catch (error) {
-    res.send({ success: false, message: error });
-  }
-});
-
-router.get('/articles/:blog', async (req, res) => {
-  try {
-    const blog_id = req.params.blog;
-    const articles = await Article.find({_blog: blog_id}).sort({date: -1}).limit(5);
-    res.send({ success: true, articles });
-  } catch (error) {
-    res.send({ success: false, message: error });
-  }
-});
-
-router.post('/submit-blog', async (req, res) => {
-  try {
-    const body = `<p style="font-size: 1.4em;">Adres bloga: <a href="${req.body.blogName}">${req.body.blogName}</a>, email: ${req.body.email || 'nie podano'}</p>`;
-    const sendingResult = await sendMail(body);
-    res.send(sendingResult);
-  } catch (error) {
-    res.send({ success: false, message: error });
-  }
-});
-
-router.post('/authenticate', async (req, res) => {
-  // find the user
-  User.findOne({
-    user: req.body.user
-  }, (err, user) => {
-    if (err) {
-      throw err;
-    }
-
-    if (!user) {
-      res.json({ success: false, reason: 'cant-authenticate', message: 'Authentication failed.' });
-    } else if (user) {
-      // check if password matches
-      if (user.password !== req.body.password) {
-        res.json({ success: false, reason: 'cant-authenticate', message: 'Authentication failed.' });
-      } else {
-        // if user is found and password is right
-        // create a token
-        const token = jwt.sign(user, app.get('secret'), {
-          expiresIn: 18000 // expires in 24 hours
-        });
-
-        // return the information including token as JSON
-        res.json({
-          success: true,
-          token
-        });
-      }
-    }
-  });
-});
-
-router.use((req, res, next) => {
-  // check header or url parameters or post parameters for token
-  const token = req.headers['x-access-token'];
-
-  // decode token
-  if (token) {
-    // verifies secret and checks exp
-    jwt.verify(token, app.get('secret'), (err, decoded) => {
-      if (err) {
-        return res.json({ success: false, reason: 'bad-token', message: 'Failed to authenticate token.' });
-      }
-      // if everything is good, save to request for use in other routes
-      req.decoded = decoded;
-      next();
-    });
-  } else {
-    // if there is no token
-    // return an error
-    return res.status(403).send({
-      success: false,
-      reason: 'no-token',
-      message: 'No token provided.'
-    });
-  }
-});
-
-router.get('/admin/blogs', async (req, res) => {
+router.get('/blogs', async (req, res) => {
   const blogs = await Blog.find();
   return res.send({ blogs });
 });
 
-router.delete('/admin/blogs/:blogId', async (req, res) => {
+router.delete('/blogs/:blogId', async (req, res) => {
   const blogId = req.params.blogId;
   Blog.findById(blogId, (error, blog) => {
     if (error) {
@@ -145,7 +29,7 @@ router.delete('/admin/blogs/:blogId', async (req, res) => {
   });
 });
 
-router.post('/admin/blogs/:blogId/refresh', async (req, res) => {
+router.post('/blogs/:blogId/refresh', async (req, res) => {
   const blogId = req.params.blogId;
   Blog.findById(blogId, async (error, blog) => {
     await Article.remove({ _blog: blog._id });
@@ -185,7 +69,7 @@ router.post('/admin/blogs/:blogId/refresh', async (req, res) => {
   });
 });
 
-router.post('/admin/blogs', async (req, res) => {
+router.post('/blogs', async (req, res) => {
   const rssInstance = new RssHandler(req.body.rss);
   faviconHelper.getFaviconUrl(req.body.href).then(faviconUrl => {
     rssInstance.isRssAddressValid().then(async () => {

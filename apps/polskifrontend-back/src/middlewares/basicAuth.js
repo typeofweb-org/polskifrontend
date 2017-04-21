@@ -1,6 +1,6 @@
 import { getBasicAuthToken } from '../utils/authHelper';
 
-export async function ensureLogin(req, res, next) {
+export default async function basicAuth(req, res, next) {
   const token = req.headers.authorization;
   if (token && token === getBasicAuthToken()) {
     next();

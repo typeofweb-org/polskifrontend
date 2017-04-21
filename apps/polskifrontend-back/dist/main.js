@@ -14,9 +14,9 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _routes = require('./routes');
+var _controllers = require('./controllers');
 
-var _routes2 = _interopRequireDefault(_routes);
+var _controllers2 = _interopRequireDefault(_controllers);
 
 var _cors = require('cors');
 
@@ -66,7 +66,7 @@ app.use(_bodyParser2.default.json({
 app.set('secret', _config2.default.secret);
 process.env.JWT_SECRET = _config2.default.secret;
 
-app.use('/', _routes2.default);
+app.use('/', _controllers2.default);
 
 app.use(_utils.errorHandle);
 
