@@ -3,22 +3,24 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Article = exports.Blog = exports.User = undefined;
+exports.Articles = exports.Article = exports.Blogs = exports.Blog = exports.Users = undefined;
 
 var _user = require('./user');
 
-var _user2 = _interopRequireDefault(_user);
+var Users = _interopRequireWildcard(_user);
 
 var _blog = require('./blog');
 
-var _blog2 = _interopRequireDefault(_blog);
+var Blogs = _interopRequireWildcard(_blog);
 
 var _article = require('./article');
 
-var _article2 = _interopRequireDefault(_article);
+var Articles = _interopRequireWildcard(_article);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-exports.User = _user2.default;
-exports.Blog = _blog2.default;
-exports.Article = _article2.default;
+exports.Users = Users;
+exports.Blog = Blogs.default;
+exports.Blogs = Blogs;
+exports.Article = Articles.default;
+exports.Articles = Articles;

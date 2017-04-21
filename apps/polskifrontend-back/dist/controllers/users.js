@@ -26,13 +26,8 @@ const router = new _express2.default.Router();
 
 router.post('/authenticate', (() => {
   var _ref = _asyncToGenerator(function* (req, res) {
-    // find the user
-    _models.User.findOne({
-      user: req.body.user
-    }, function (err, user) {
-      if (err) {
-        throw err;
-      }
+    try {
+      const user = yield _models.Users.getUser(req.body.user);
 
       if (!user) {
         res.json({ success: false, reason: 'cant-authenticate', message: 'Authentication failed.' });
@@ -54,7 +49,9 @@ router.post('/authenticate', (() => {
           });
         }
       }
-    });
+    } catch (error) {
+      throw error;
+    }
   });
 
   return function (_x, _x2) {

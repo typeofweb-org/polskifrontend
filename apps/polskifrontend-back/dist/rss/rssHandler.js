@@ -43,28 +43,31 @@ class RssHandler {
       });
 
       feedparser.on('readable', () => {
-        resolve();
+        resolve(true);
       });
     });
   }
 
-  getParsedData(onItemRead) {
-    const feedRequest = (0, _request2.default)(this.feedAddress);
-    const feedparser = new _feedparser2.default();
+  getParsedData() {
+    return new Promise((resolve, reject) => {
+      const data = [];
+      const feedRequest = (0, _request2.default)(this.feedAddress);
+      const feedparser = new _feedparser2.default();
 
-    feedRequest.on('response', () => {
-      feedRequest.pipe(feedparser);
-    });
+      feedRequest.on('response', () => {
+        feedRequest.pipe(feedparser).on('end', () => resolve(data)).on('error', error => reject(error));
+      });
 
-    feedparser.on('readable', () => {
-      let item;
-      while (item = feedparser.read()) {
-        // eslint-disable-line no-cond-assign
-        onItemRead({
-          meta: feedparser.meta,
-          article: item
-        });
-      }
+      feedparser.on('readable', () => {
+        let item;
+        while (item = feedparser.read()) {
+          // eslint-disable-line no-cond-assign
+          data.push({
+            meta: feedparser.meta,
+            article: item
+          });
+        }
+      });
     });
   }
 }

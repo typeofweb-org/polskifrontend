@@ -34,7 +34,7 @@ const router = new _express2.default.Router();
 
 router.get('/blogs', (() => {
   var _ref = _asyncToGenerator(function* (req, res) {
-    const blogs = yield _models.Blog.find();
+    const blogs = yield _models.Blogs.getAllBlogs();
     return res.send({ blogs });
   });
 
@@ -46,22 +46,20 @@ router.get('/blogs', (() => {
 router.delete('/blogs/:blogId', (() => {
   var _ref2 = _asyncToGenerator(function* (req, res) {
     const blogId = req.params.blogId;
-    _models.Blog.findById(blogId, function (error, blog) {
-      if (error) {
-        return res.send({ success: false, reason: 'cant-find', message: `Unable to delete blog with ID: ${blogId}` });
+    try {
+      const blog = yield _models.Blogs.getById(blogId);
+
+      try {
+        yield _models.Blogs.remove(blog);
+      } catch (error) {
+        return res.send({ success: false, reason: 'cant-remove', message: `Unable to delete blog with ID: ${blogId}` });
       }
 
-      // hack to call pre middleware
-      blog.remove(function (err) {
-        if (err) {
-          return res.send({ success: false, reason: 'cant-remove', message: `Unable to delete blog with ID: ${blogId}` });
-        }
-
-        _models.Blog.find(function (error, blogs) {
-          return res.send({ success: true, blogs });
-        });
-      });
-    });
+      const blogs = yield _models.Blogs.getAllBlogs();
+      return res.send({ success: true, blogs });
+    } catch (error) {
+      return res.send({ success: false, reason: 'cant-find', message: `Unable to delete blog with ID: ${blogId}` });
+    }
   });
 
   return function (_x3, _x4) {
@@ -71,49 +69,23 @@ router.delete('/blogs/:blogId', (() => {
 
 router.post('/blogs/:blogId/refresh', (() => {
   var _ref3 = _asyncToGenerator(function* (req, res) {
-    const blogId = req.params.blogId;
-    _models.Blog.findById(blogId, (() => {
-      var _ref4 = _asyncToGenerator(function* (error, blog) {
-        yield _models.Article.remove({ _blog: blog._id });
+    try {
+      const blog = yield _models.Blogs.getById(req.params.blogId);
 
-        // reset blog last update date
-        blog.publishedDate = new Date(1900, 1, 1);
-        yield blog.save();
+      // remove all articles for this blog
+      yield _models.Articles.removeByBlogId(blog._id);
 
-        const rssHandler = new _rssHandler2.default(blog.rss);
-        rssHandler.getParsedData(function (data) {
-          const pubDate = new Date(data.article.pubDate);
-          let description = data.article.summary || data.article.description;
-          if (!description && data.article['media:group'] && data.article['media:group']['media:description']) {
-            description = data.article['media:group']['media:description']['#'];
-          }
-          const article = new _models.Article({
-            title: data.article.title,
-            href: data.article.link,
-            description,
-            date: pubDate,
-            _blog: blog._id
-          });
+      // reset blog last update date
+      blog.publishedDate = new Date(1900, 1, 1);
+      yield blog.save();
 
-          article.save(function (error) {
-            if (error) {
-              console.log(error);
-            }
-          });
+      // load rss and fill articles for this blog
+      yield _models.Articles.getArticlesForBlog(blog);
 
-          if (pubDate > blog.publishedDate) {
-            blog.publishedDate = pubDate;
-            blog.save();
-          }
-        });
-
-        res.send({ success: true });
-      });
-
-      return function (_x7, _x8) {
-        return _ref4.apply(this, arguments);
-      };
-    })());
+      res.send({ success: true });
+    } catch (error) {
+      res.send({ success: false, message: error });
+    }
   });
 
   return function (_x5, _x6) {
@@ -122,61 +94,42 @@ router.post('/blogs/:blogId/refresh', (() => {
 })());
 
 router.post('/blogs', (() => {
-  var _ref5 = _asyncToGenerator(function* (req, res) {
+  var _ref4 = _asyncToGenerator(function* (req, res) {
     const rssInstance = new _rssHandler2.default(req.body.rss);
-    faviconHelper.getFaviconUrl(req.body.href).then(function (faviconUrl) {
-      rssInstance.isRssAddressValid().then(_asyncToGenerator(function* () {
-        const slug = (0, _slugify2.default)(req.body.name);
-        const existingBlog = yield _models.Blog.findOne({ slug });
+    const faviconUrl = yield faviconHelper.getFaviconUrl(req.body.href);
 
-        if (existingBlog) {
-          // there is such blog in the database already
-          return res.send({ success: false, reason: 'slug-exists', message: 'There is such blog in the database' });
-        }
+    let rssValid = false;
+    try {
+      rssValid = yield rssInstance.isRssAddressValid();
+    } catch (error) {
+      return res.send({ success: false, reason: 'rss-invalid', message: 'Given rss address is not a valid RSS feed.' });
+    }
 
-        const blog = new _models.Blog(_extends({}, req.body, { slug, favicon: faviconUrl }));
-        blog.save(function (error, createdBlog) {
-          if (error) {
-            return res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
-          }
+    if (rssValid) {
+      const slug = (0, _slugify2.default)(req.body.name);
+      const existingBlog = yield _models.Blogs.getBySlug(slug);
 
-          const rssHandler = new _rssHandler2.default(createdBlog.rss);
-          rssHandler.getParsedData(function (data) {
-            const pubDate = new Date(data.article.pubDate);
-            let description = data.article.summary || data.article.description;
-            if (!description && data.article['media:group'] && data.article['media:group']['media:description']) {
-              description = data.article['media:group']['media:description']['#'];
-            }
-            const article = new _models.Article({
-              title: data.article.title,
-              href: data.article.link,
-              description,
-              date: pubDate,
-              _blog: blog._id
-            });
+      if (existingBlog) {
+        // there is such blog in the database already
+        return res.send({ success: false, reason: 'slug-exists', message: 'There is such blog in the database' });
+      }
 
-            article.save(function (error) {
-              if (error) {
-                console.log(error);
-              }
-            });
+      try {
+        const blog = yield _models.Blogs.add(_extends({}, req.body, { slug, favicon: faviconUrl }));
 
-            if (pubDate > createdBlog.publishedDate) {
-              createdBlog.publishedDate = pubDate;
-              createdBlog.save();
-            }
-          });
+        // load rss and fill articles for this blog
+        yield _models.Articles.getArticlesForBlog(blog);
 
-          return res.send({ success: true, blog: createdBlog });
-        });
-      })).catch(function () {
-        return res.send({ success: false, reason: 'rss-invalid', message: 'Given rss address is not a valid RSS feed.' });
-      });
-    });
+        return res.send({ success: true, blog });
+      } catch (error) {
+        console.log(error);
+        return res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
+      }
+    }
   });
 
-  return function (_x9, _x10) {
-    return _ref5.apply(this, arguments);
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 })());
 

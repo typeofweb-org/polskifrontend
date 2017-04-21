@@ -1,4 +1,4 @@
-import User from './user';
-import Blog from './blog';
-import Article from './article';
-export { User, Blog, Article };
+import * as Users from './user';
+import Blog, * as Blogs from './blog';
+import Article, * as Articles from './article';
+export { Users, Blog, Blogs, Article, Articles };

@@ -1,18 +1,13 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import app from '../main';
-import { User } from '../models';
+import { Users } from '../models';
 
 const router = new express.Router();
 
 router.post('/authenticate', async (req, res) => {
-  // find the user
-  User.findOne({
-    user: req.body.user
-  }, (err, user) => {
-    if (err) {
-      throw err;
-    }
+  try {
+    const user = await Users.getUser(req.body.user);
 
     if (!user) {
       res.json({ success: false, reason: 'cant-authenticate', message: 'Authentication failed.' });
@@ -34,7 +29,9 @@ router.post('/authenticate', async (req, res) => {
         });
       }
     }
-  });
+  } catch (error) {
+    throw error;
+  }
 });
 
 export default router;

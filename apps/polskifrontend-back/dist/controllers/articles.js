@@ -19,11 +19,7 @@ const router = new _express2.default.Router();
 router.get('/all/:page', (() => {
   var _ref = _asyncToGenerator(function* (req, res) {
     try {
-      const perPage = 50;
-      const page = req.params.page - 1;
-      const count = yield _models.Article.count();
-      const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
-      const articles = yield _models.Article.find().populate('_blog').sort({ date: -1 }).skip(perPage * page).limit(perPage);
+      const { articles, nextPage } = yield _models.Articles.getArticles(req.params.page - 1);
       res.send({ success: true, articles, nextPage });
     } catch (error) {
       res.send({ success: false, message: error });
@@ -38,8 +34,7 @@ router.get('/all/:page', (() => {
 router.get('/:blog', (() => {
   var _ref2 = _asyncToGenerator(function* (req, res) {
     try {
-      const blog_id = req.params.blog;
-      const articles = yield _models.Article.find({ _blog: blog_id }).sort({ date: -1 }).limit(5);
+      const articles = yield _models.Articles.getArticlesByBlogId(req.params.blog);
       res.send({ success: true, articles });
     } catch (error) {
       res.send({ success: false, message: error });

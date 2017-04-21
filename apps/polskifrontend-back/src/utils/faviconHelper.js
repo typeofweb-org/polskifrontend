@@ -1,6 +1,6 @@
 import fetchFavicon from 'favicon-getter';
 
-export function getFaviconUrl(url) {
+export async function getFaviconUrl(url) {
   return new Promise(resolve => {
     fetchFavicon(url).then((faviconUrl) => {
       resolve(faviconUrl);

@@ -13,4 +13,6 @@ UserSchema.options.toJSON.transform = (doc, ret) => {
 
 const User = mongoose.model('user', UserSchema);
 
-export default User;
+export async function getUser(user) {
+  return await User.findOne({ user });
+}
