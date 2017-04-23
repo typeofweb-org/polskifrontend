@@ -16,9 +16,8 @@ router.get('/:page', async (req, res) => {
 router.post('/submit', async (req, res) => {
   try {
     const body = `<p style="font-size: 1.4em;">
-      Adres bloga: 
-      <a href="${req.body.blogName}">${req.body.blogName}</a>, 
-      email: ${req.body.email || 'nie podano'}
+      Adres bloga: ${req.body.blogName},<br /> 
+      Email: ${req.body.email || 'nie podano'}
       </p>`;
     const sendingResult = await sendMail(body);
     res.send(sendingResult);

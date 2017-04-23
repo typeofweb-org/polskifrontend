@@ -6,6 +6,7 @@ import adminAuth from '../middlewares/adminAuth';
 import blogs from './blogs';
 import articles from './articles';
 import users from './users';
+import feedback from './feedback';
 import admin from './admin';
 
 const router = new express.Router();
@@ -17,6 +18,7 @@ router.use(basicAuth);
 router.use('/blogs', blogs);
 router.use('/articles', articles);
 router.use('/users', users);
+router.use('/feedback', feedback);
 
 // check logged in user
 router.use(adminAuth);
