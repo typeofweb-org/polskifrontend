@@ -20,6 +20,7 @@ export default {
     require('./login').default,
     require('./admin').default,
     require('./blogSubmit').default,
+    require('./news').default,
     require('./about').default,
     require('./feedback').default,
 

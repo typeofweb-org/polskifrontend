@@ -8,14 +8,14 @@ const TopHomePanel = props => {
     <div className={styles.container}>
       <ul className={styles.list}>
         <li className={styles['list__item']}>
-          <a className={styles['list__link']} href="#">
+          <Link className={styles['list__link']} to="/aktualnosci">
             <i className="fa fa-inbox" aria-hidden="true">
             </i>
             <span className={styles['list__text']}>Aktualności</span>
             <div className={styles['list__info']}>
               3
             </div>
-          </a>
+          </Link>
         </li>
         <li className={styles['list__item']}>
           <Link className={styles['list__link']} to="/o-serwisie">
