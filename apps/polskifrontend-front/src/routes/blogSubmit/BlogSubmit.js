@@ -8,9 +8,6 @@ import SubmitForm from './parts/SubmitForm';
 import Message from '../../components/Indicators/Message';
 
 class BlogSubmit extends React.Component {
-  static propTypes = {
-  };
-
   onUrlChange(event) {
     const { actions: { urlChanged } } = this.props;
     urlChanged(event.target.value || '');
@@ -70,7 +67,7 @@ class BlogSubmit extends React.Component {
                     sent={submitState.sent}
                     shouldCleanUp={submitState.shouldCleanUp}
         />
-        <Message type="alert" message="Wysyłanie nie udane. Spróbuj ponownie!" isVisible={submitState.sendError} />
+        <Message type="alert" message="Próba wysłania zgłoszenia nie udana. Spróbuj ponownie!" isVisible={submitState.sendError} />
       </div>
     );
   }

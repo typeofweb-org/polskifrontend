@@ -3,6 +3,7 @@ import { getBlogListEpic, getArticleListForBlog, switchToListViewEpic } from './
 import { loginEpic } from './login';
 import { getAdminBlogListEpic, deleteBlogEpic, addBlogEpic, blogRefreshEpic } from './admin';
 import { sendBlogRequestEpic } from './submit';
+import { sendFeedbackEpic } from './feedback';
 
 const rootEpic = combineEpics(
   getBlogListEpic,
@@ -13,7 +14,8 @@ const rootEpic = combineEpics(
   deleteBlogEpic,
   addBlogEpic,
   blogRefreshEpic,
-  sendBlogRequestEpic
+  sendBlogRequestEpic,
+  sendFeedbackEpic
 );
 
 export default rootEpic;
