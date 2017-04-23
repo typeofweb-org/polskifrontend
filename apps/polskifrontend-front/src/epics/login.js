@@ -7,7 +7,7 @@ export const loginEpic = action$ => {
   return action$.ofType(constants.LOGIN_INVOKE)
     .mergeMap(action =>
       ajax({
-        url: `${apiUrl}/authenticate`,
+        url: `${apiUrl}/users/authenticate`,
         body: { user: action.payload.user, password: action.payload.password },
         headers: { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' },
         method: 'POST',

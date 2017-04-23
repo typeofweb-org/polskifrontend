@@ -1,0 +1,119 @@
+@import "../../../styles/globals.styl"
+@import "../../../styles/variables.styl"
+@import "../../../styles/colors.styl"
+
+.back
+  color $color-secondary
+  background $color-primary
+  border-radius 5px
+  padding 10px 20px
+  transition background $animation-time
+  text-decoration none
+  margin $global-padding
+  display inline-block
+
+  a
+    font-family $font-header
+    font-size 20px
+
+  i
+    font-size 20px
+    margin-right 10px
+    vertical-align top
+
+.container
+  padding $global-padding
+
+  .form
+    text-align right
+    height 350px
+    @media screen and (min-width: 768px)
+      height 290px
+
+    &--invisible
+      display none
+
+    .fieldset
+      position relative
+
+      &__input, &__textarea
+        width 100%
+        display block
+        margin 0 0 $global-margin
+        transition border $animation-time, box-shadow $animation-time
+
+        &--invalid
+          border 1px solid $color-alert
+          box-shadow 0 0 1px 0 $color-alert
+
+          &:focus
+            border 1px solid $color-alert
+
+      &__textarea
+        height 132px
+        resize none
+
+      &__label
+        color $color-alert
+        position absolute
+        left 2px
+        bottom 4px
+        font-size 11px
+        visibility hidden
+        opacity 0
+        transition opacity $animation-time, visibility $animation-time
+
+        &--visible
+          opacity 1
+          visibility visible
+
+    &__captcha
+      @media screen and (min-width: 350px)
+        float right
+
+      @media screen and (min-width: 768px)
+        float left
+        width 50%
+
+      & > div > div
+        max-width 100% !important
+
+      iframe
+        max-width 100% !important
+
+    .buttons
+      @media screen and (min-width: 350px)
+        clear both
+      @media screen and (min-width: 768px)
+        clear none
+        position relative
+        width 50%
+        float right
+        height 78px
+
+      button
+        margin-top $global-margin
+        @media screen and (min-width: 768px)
+          position absolute
+          bottom 0
+          right 0
+
+  .sent
+    margin 0 auto
+    display none
+    height 258px
+    @media screen and (min-width: 768px)
+      height 198px
+
+    &__wrapper
+      display table-cell
+      vertical-align middle
+
+    &__text
+      font-family $font-header
+      font-size 26px
+      font-weight bold
+      margin-bottom $global-margin
+
+    &--visible
+      display table

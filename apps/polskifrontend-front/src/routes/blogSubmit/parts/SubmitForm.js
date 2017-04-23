@@ -60,7 +60,7 @@ class SubmitForm extends React.Component {
           </i>
           Strona główna
         </Link>
-        <ResponsivePanel className={style.container} header="Zgłoś serwis" description="Jeśli uważasz, że jakiś serwis (lub blog) powinien się tutaj znaleźć, podaj poniżej jego adres. Jeżeli się nada, zostanie dodany do naszej listy!">
+        <ResponsivePanel className={style.container} header="Zgłoś serwis" description="Jeśli uważasz, że jakiś serwis powinien się tutaj znaleźć, podaj poniżej jego adres. Być może dodamy go do naszej listy!">
           <form className={formClass} onSubmit={this.props.onSubmit}>
             <fieldset className={style.fieldset}>
               <input disabled={isSending} className={urlClass} id="url" type="text" placeholder="Podaj adres adres url" onChange={this.props.onUrlChange} ref="urlInput" />

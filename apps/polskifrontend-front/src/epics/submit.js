@@ -6,7 +6,7 @@ export const sendBlogRequestEpic = action$ => {
   return action$.ofType(constants.SUBMIT_BLOG_SEND)
     .mergeMap(action =>
       ajax({
-        url: `${apiUrl}/submit-blog`,
+        url: `${apiUrl}/blogs/submit`,
         body: action.payload,
         headers: { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' },
         method: 'POST',
