@@ -4,12 +4,13 @@ import styles from './News.styl';
 import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import NewsList from './parts/NewsList';
 
 class News extends React.Component {
   render() {
     return (
-      <div>
-        Aktualności
+      <div className={styles.container}>
+        <NewsList />
       </div>
     );
   }
