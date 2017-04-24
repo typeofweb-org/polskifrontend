@@ -39,6 +39,8 @@ class RssHandler {
       const feedRequest = request(this.feedAddress);
       const feedparser = new FeedParser();
 
+      feedRequest.on('error', (error) => console.log(error));
+
       feedRequest.on('response', () => {
         feedRequest
           .pipe(feedparser)
