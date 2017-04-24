@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './TilesArticles.styl';
 import dateFormat from 'dateformat';
-import he from 'he';
+import { decode } from 'he';
 import * as dateHelper from '../../../core/helpers/dateHelper';
 
 const TilesArticles = props => {
@@ -16,7 +16,7 @@ const TilesArticles = props => {
         itemClass = `${itemClass} ${clicked ? styles['item--clicked'] : ''}`;
         tagClass = `${tagClass} ${clicked ? styles['item__new--clicked'] : ''}`;
 
-        const description = article.description ? he.decode(article.description.replace(/(<([^>]+)>)/ig, '')) : '';
+        const description = article.description ? decode(article.description.replace(/(<([^>]+)>)/ig, '')) : '';
 
         return (
           <div className={itemClass} key={artIndex}>

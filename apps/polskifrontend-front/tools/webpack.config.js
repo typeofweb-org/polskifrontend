@@ -10,6 +10,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import AssetsPlugin from 'assets-webpack-plugin';
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import pkg from '../package.json';
 
@@ -67,6 +68,7 @@ const config = {
             ...isDebug ? [] : ['react-optimize'],
           ],
           plugins: [
+            ['lodash'],
             // Adds component stack to warning messages
             // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-source
             ...isDebug ? ['transform-react-jsx-source'] : [],
@@ -244,6 +246,7 @@ const clientConfig = {
   },
 
   plugins: [
+    new LodashModuleReplacementPlugin,
     // Define free variables
     // https://webpack.github.io/docs/list-of-plugins.html#defineplugin
     new webpack.DefinePlugin({

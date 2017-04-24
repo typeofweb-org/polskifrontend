@@ -1,12 +1,10 @@
-import { Map } from 'immutable';
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import actions from '../../actions/actions';
 
 export default function mapDispatchToProps(dispatch) {
-  const creators = Map()
-    .merge(...actions)
-    .filter(value => typeof value === 'function')
-    .toObject();
+  const merged = _.merge(...actions);
+  const creators = _.pickBy(merged, value => typeof value === 'function');
 
   return {
     actions: bindActionCreators(creators, dispatch),

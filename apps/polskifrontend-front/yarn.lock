@@ -522,6 +522,13 @@ babel-plugin-check-es2015-constants@^6.3.13:
   dependencies:
     babel-runtime "^6.22.0"
 
+babel-plugin-lodash:
+  version "3.2.11"
+  resolved "https://registry.yarnpkg.com/babel-plugin-lodash/-/babel-plugin-lodash-3.2.11.tgz#21c8fdec9fe1835efaa737873e3902bdd66d5701"
+  dependencies:
+    glob "^7.1.1"
+    lodash "^4.17.2"
+
 babel-plugin-rewire@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-rewire/-/babel-plugin-rewire-1.0.0.tgz#398d4dc7a01d6c682e221b197398c370731b3dd3"
@@ -3808,7 +3815,7 @@ imagemin@^5.2.2:
     promise.pipe "^3.0.0"
     replace-ext "0.0.1"
 
-immutable, immutable@^3.7.6, immutable@3.8.1:
+immutable@^3.7.6, immutable@3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
 
@@ -4528,6 +4535,12 @@ lodash, lodash@^4.0.0, lodash@^4.1.0, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.
 lodash-es@^4.2.0, lodash-es@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
+
+lodash-webpack-plugin:
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/lodash-webpack-plugin/-/lodash-webpack-plugin-0.11.2.tgz#fdb945b1ae94617172da172f20b60264cfbac635"
+  dependencies:
+    lodash "^4.17.4"
 
 lodash._arraycopy@^3.0.0:
   version "3.0.0"

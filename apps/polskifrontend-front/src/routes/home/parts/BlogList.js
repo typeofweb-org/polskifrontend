@@ -4,7 +4,7 @@ import styles from './BlogList.styl'
 import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
 import Loader from '../../../components/Indicators/Loader';
 import dateFormat from 'dateformat';
-import he from 'he';
+import { decode } from 'he';
 import Waypoint from 'react-waypoint';
 import ReactImageFallback from 'react-image-fallback';
 import noImage from '../../../../public/no_image_light.png';
@@ -22,7 +22,7 @@ const BlogList = props => {
           itemClass = `${itemClass} ${clicked ? styles['item--clicked'] : ''}`;
           tagClass = `${tagClass} ${clicked ? styles['item__new--clicked'] : ''}`;
 
-          const description = item.description ? he.decode(item.description.replace(/(<([^>]+)>)/ig, '')) : '';
+          const description = item.description ? decode(item.description.replace(/(<([^>]+)>)/ig, '')) : '';
 
           return (
             <div key={index}>
