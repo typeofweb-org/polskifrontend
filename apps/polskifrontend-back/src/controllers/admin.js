@@ -1,5 +1,5 @@
 import express from 'express';
-import { Blogs, Articles } from '../models';
+import { Blogs, Articles, Newses } from '../models';
 import RssHandler from '../rss/rssHandler';
 import * as faviconHelper from '../utils/faviconHelper';
 import slugify from '../utils/slugify';
@@ -80,6 +80,24 @@ router.post('/blogs', async (req, res) => {
       console.log(error);
       return res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
     }
+  }
+});
+
+router.get('/news', async (req, res) => {
+  try {
+    const newses = await Newses.getAll();
+    res.send({ success: true, newses });
+  } catch (error) {
+    res.send({ success: false, message: error });
+  }
+});
+
+router.post('/news', async (req, res) => {
+  try {
+    const news = await Newses.add(req.body);
+    res.send({ success: true, news });
+  } catch (error) {
+    res.send({ success: false, message: error });
   }
 });
 

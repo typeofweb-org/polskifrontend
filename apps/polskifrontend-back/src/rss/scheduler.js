@@ -3,7 +3,7 @@ import { Blogs, Articles } from '../models';
 import log from '../log';
 
 export function initRssParsingSchedule() {
-  schedule.scheduleJob('*/30 * * * *', async () => {
+  schedule.scheduleJob('*/15 * * * *', async () => {
     log.info('running scheduled job [RSS update]...');
     try {
       const blogs = await Blogs.getAllBlogs();
@@ -16,7 +16,7 @@ export function initRssParsingSchedule() {
         }
       });
     } catch (error) {
-      console.log(error);
+      log.error('Error getting all blogs');
     }
   });
 }
