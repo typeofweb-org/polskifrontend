@@ -63,12 +63,12 @@ class SubmitForm extends React.Component {
         <ResponsivePanel className={style.container} header="Zgłoś serwis" description="Jeśli uważasz, że jakiś serwis powinien się tutaj znaleźć, podaj poniżej jego adres. Być może dodamy go do naszej listy!">
           <form className={formClass} onSubmit={this.props.onSubmit}>
             <fieldset className={style.fieldset}>
-              <input disabled={isSending} className={urlClass} id="url" type="text" placeholder="Podaj adres adres url" onChange={this.props.onUrlChange} ref="urlInput" />
-              <label className={urlLabelClass} htmlFor="url">Adres URL jest wymagany i musi być poprawny</label>
+              <input disabled={isSending} className={urlClass} id="submit-blog-url" type="text" placeholder="Podaj adres adres url" onChange={this.props.onUrlChange} ref="urlInput" />
+              <label className={urlLabelClass} htmlFor="submit-blog-url">Adres URL jest wymagany i musi być poprawny</label>
             </fieldset>
             <fieldset className={style.fieldset}>
-              <input disabled={isSending} className={emailClass} type="email" placeholder="Podaj swój email (opcjonalnie)" onChange={this.props.onEmailChange} ref="emailInput" />
-              <label className={emailLabelClass} htmlFor="url">Podany email musi być poprawny</label>
+              <input disabled={isSending} className={emailClass} id="submit-blog-email" type="email" placeholder="Podaj swój email (opcjonalnie)" onChange={this.props.onEmailChange} ref="emailInput" />
+              <label className={emailLabelClass} htmlFor="submit-blog-email">Podany email musi być poprawny</label>
             </fieldset>
             <div className={style['form__captcha']}>
               <ReCAPTCHA sitekey="6Le2ABwUAAAAAMLjbtCsFtd2oymEMAAQVw8MZXWs" onChange={this.props.onCaptchaChange} ref="recaptcha"/>

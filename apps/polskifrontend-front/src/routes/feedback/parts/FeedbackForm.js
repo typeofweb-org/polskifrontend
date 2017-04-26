@@ -63,12 +63,12 @@ class FeedbackForm extends React.Component {
         <ResponsivePanel className={styles.container} header="Zgłoś uwagi" description="Jeśli masz jakieś uwagi co do działania serwisu lub propozycje zmian, skorzystaj z poniższego formularza.">
           <form className={formClass} onSubmit={this.props.onSubmit}>
             <fieldset className={styles.fieldset}>
-              <input disabled={isSending} className={emailClass} id="email" type="email" placeholder="Podaj swój email" onChange={this.props.onEmailChange} ref="emailInput" />
-              <label className={emailLabelClass} htmlFor="email">Email jest wymagany i musi być poprawny</label>
+              <input disabled={isSending} className={emailClass} id="feedback-email" type="email" placeholder="Podaj swój email" onChange={this.props.onEmailChange} ref="emailInput" />
+              <label className={emailLabelClass} htmlFor="feedback-email">Email jest wymagany i musi być poprawny</label>
             </fieldset>
             <fieldset className={styles.fieldset}>
-              <textarea disabled={isSending} className={feedbackClass} id="message" placeholder="Podaj treść zgłoszenia" onChange={this.props.onFeedbackChange} ref="feedbackInput" />
-              <label className={feedbackLabelClass} htmlFor="message">Treść zgłoszenia jest wymagana</label>
+              <textarea disabled={isSending} className={feedbackClass} id="feedback-message" placeholder="Podaj treść zgłoszenia" onChange={this.props.onFeedbackChange} ref="feedbackInput" />
+              <label className={feedbackLabelClass} htmlFor="feedback-message">Treść zgłoszenia jest wymagana</label>
             </fieldset>
             <div className={styles['form__captcha']}>
               <ReCAPTCHA sitekey="6Le2ABwUAAAAAMLjbtCsFtd2oymEMAAQVw8MZXWs" onChange={this.props.onCaptchaChange} ref="recaptcha"/>

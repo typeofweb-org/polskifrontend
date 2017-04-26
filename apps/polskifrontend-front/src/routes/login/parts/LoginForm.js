@@ -11,8 +11,8 @@ const LoginForm = props => {
       <div className={style.wrapper}>
         <p className={style['wrapper__description']}>Podaj nazwę użytkownika oraz hasło</p>
         <form className={style.form}>
-          <input className={style['form__input']} placeholder="użytkownik" type="text" onChange={onUserChange} />
-          <input className={style['form__input']} placeholder="hasło" type="password" onChange={onPasswordChange} />
+          <input id="login-user" className={style['form__input']} placeholder="użytkownik" type="text" onChange={onUserChange} />
+          <input id="login-password" className={style['form__input']} placeholder="hasło" type="password" onChange={onPasswordChange} />
           <button className={style['form__button']} disabled={buttonDisabled} onClick={onLoginClick}>Zaloguj</button>
         </form>
       </div>
