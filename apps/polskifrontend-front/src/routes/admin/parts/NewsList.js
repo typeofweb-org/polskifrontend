@@ -5,7 +5,7 @@ import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
 
 const NewsList = (props) => {
   return (
-    <ResponsivePanel className={style.container} header="Lista aktywności" description="Tutaj można usuwać i edytować dodane już aktualności">
+    <ResponsivePanel className={style.container} header="Lista aktualności" description="Tutaj można usuwać i edytować dodane już aktualności">
       Aktualności
     </ResponsivePanel>
   );
