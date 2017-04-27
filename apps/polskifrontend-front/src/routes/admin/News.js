@@ -9,6 +9,13 @@ import AddNews from './parts/AddNews';
 import NewsList from './parts/NewsList';
 
 class News extends React.Component {
+  componentDidMount() {
+    const { actions: { getAdminNewsList }, adminNewsState: { newsListLoading } } = this.props;
+    if (newsListLoading) {
+      getAdminNewsList();
+    }
+  }
+
   componentDidUpdate() {
     const { adminState: { tokenExpired } } = this.props;
 
@@ -30,7 +37,20 @@ class News extends React.Component {
 
   }
 
+  onDeleteClick() {
+
+  }
+
+  onEditClick() {
+
+  }
+
+  onRefreshClick() {
+
+  }
+
   render () {
+    const { adminNewsState: { newsList, newsListLoading } } = this.props;
     return (
       <div className={styles.container}>
         <AddNews onTitleChange={this.onTitleChange.bind(this)}
@@ -43,7 +63,13 @@ class News extends React.Component {
                  shouldCleanUp={false}
                  isLoading={false}
         />
-        <NewsList />
+        <NewsList newsList={newsList || []}
+                  newsListLoading={newsListLoading}
+                  onDeleteClick={this.onDeleteClick.bind(this)}
+                  onEditClick={this.onEditClick.bind(this)}
+                  onRefreshClick={this.onRefreshClick.bind(this)}
+                  refreshLoading={false}
+        />
       </div>
     );
   }

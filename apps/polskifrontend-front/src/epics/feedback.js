@@ -21,12 +21,14 @@ export const sendFeedbackEpic = action$ => {
 
         return {
           type: constants.FEEDBACK_SEND_SUCCESS,
-          payload: responseData.message
+          payload: {
+            newsList: responseData.response.newses
+          }
         };
       })
-        .catch(error => ({
-          type: constants.FEEDBACK_SEND_ERROR,
-          payload: error
-        }))
+      .catch(error => ({
+        type: constants.FEEDBACK_SEND_ERROR,
+        payload: error
+      }))
     );
 };
