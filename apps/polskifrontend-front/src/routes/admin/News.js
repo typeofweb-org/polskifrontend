@@ -25,16 +25,37 @@ class News extends React.Component {
     }
   }
 
-  onTitleChange() {
+  onTitleChange(event) {
+    event.preventDefault();
 
+    const { actions: { newNewsTitleChanged } } = this.props;
+    newNewsTitleChanged(event.currentTarget.value);
   }
 
-  onMessageChange() {
+  onMessageChange(event) {
+    event.preventDefault();
 
+    const { actions: { newNewsMessageChanged } } = this.props;
+    newNewsMessageChanged(event.currentTarget.value);
   }
 
-  onFormSubmit() {
+  onFormSubmit(event) {
+    event.preventDefault();
 
+    const {
+      actions: {
+        addNews
+      },
+      adminNewsState: {
+        newTitle,
+        newTitleValid,
+        newMessage,
+        newMessageValid
+      } } = this.props;
+
+    if (newTitleValid && newMessageValid) {
+      addNews({ title: newTitle, message: newMessage });
+    }
   }
 
   onDeleteClick() {
@@ -50,17 +71,30 @@ class News extends React.Component {
   }
 
   render () {
-    const { adminNewsState: { newsList, newsListLoading } } = this.props;
+    const {
+      adminNewsState: {
+        newsList,
+        newsListLoading,
+        newTitle,
+        newTitleValid,
+        newTitleDirty,
+        newMessage,
+        newMessageValid,
+        newMessageDirty
+      }
+    } = this.props;
+    const shouldCleanUp = newTitle === '' && newMessage === '';
+
     return (
       <div className={styles.container}>
         <AddNews onTitleChange={this.onTitleChange.bind(this)}
                  onMessageChange={this.onMessageChange.bind(this)}
                  onFormSubmit={this.onFormSubmit.bind(this)}
-                 titleValid={true}
-                 titleDirty={true}
-                 messageValid={true}
-                 messageDirty={true}
-                 shouldCleanUp={false}
+                 titleValid={newTitleValid}
+                 titleDirty={newTitleDirty}
+                 messageValid={newMessageValid}
+                 messageDirty={newMessageDirty}
+                 shouldCleanUp={shouldCleanUp}
                  isLoading={false}
         />
         <NewsList newsList={newsList || []}
