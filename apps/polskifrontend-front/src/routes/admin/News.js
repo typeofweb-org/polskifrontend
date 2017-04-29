@@ -18,7 +18,7 @@ class News extends React.Component {
   }
 
   componentDidUpdate() {
-    const { adminState: { tokenExpired } } = this.props;
+    const { adminNewsState: { tokenExpired } } = this.props;
 
     if (tokenExpired) {
       // redirect to login

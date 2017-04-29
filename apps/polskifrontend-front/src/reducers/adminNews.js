@@ -1,16 +1,21 @@
 import * as constants from '../constants';
 
-export const initialState = {
-  newsList: [],
-  newsListLoading: true,
-  newsListError: false,
-
+const initialFormState = {
   newTitle: '',
   newTitleValid: false,
   newTitleDirty: false,
   newMessage: '',
   newMessageValid: false,
   newMessageDirty: false,
+};
+
+export const initialState = {
+  tokenExpired: false,
+  newsList: [],
+  newsListLoading: true,
+  newsListError: false,
+
+  ...initialFormState,
 
   addNewsLoading: false,
   addNewsError: false
@@ -18,6 +23,11 @@ export const initialState = {
 
 export default function adminNewsReducer(state = initialState, action) {
   switch (action.type){
+    case constants.ADMIN_TOKEN_EXPIRED:
+      return { ...state, tokenExpired: true };
+    case constants.ADMIN_RESET_TOKEN:
+      return { ...state, tokenExpired: false };
+
     // news list loading
     case constants.ADMIN_NEWS_GET_NEWS:
       return { ...state, newsListLoading: true, newsListError: false };
@@ -34,7 +44,7 @@ export default function adminNewsReducer(state = initialState, action) {
     case constants.ADMIN_NEWS_ADD_NEWS:
       return { ...state, addNewsLoading: true, addNewsError: false };
     case constants.ADMIN_NEWS_ADD_NEWS_SUCCESS:
-      return { ...state, addNewsLoading: false, addNewsError: false, newsList: action.payload.newsList };
+      return { ...state, ...initialFormState, addNewsLoading: false, addNewsError: false, newsList: action.payload.newsList };
     case constants.ADMIN_NEWS_ADD_NEWS_ERROR:
       return { ...state, addNewsLoading: false, addNewsError: true };
 

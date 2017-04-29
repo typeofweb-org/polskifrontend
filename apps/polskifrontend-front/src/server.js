@@ -25,6 +25,7 @@ import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import getHomeInitialState from './store/serverSideInitializers/homeInitializer';
 import getAdminInitialState from './store/serverSideInitializers/adminInitializer';
+import getAdminNewsInitialState from './store/serverSideInitializers/adminNewsInitializer';
 import { port, auth } from './config';
 import 'rxjs';
 import cookie from 'react-cookie';
@@ -88,8 +89,9 @@ app.get('*', async (req, res, next) => {
 
     const homeState = await getHomeInitialState(settings);
     const adminState = await getAdminInitialState(authCookie);
+    const adminNewsState = await getAdminNewsInitialState(authCookie);
 
-    const store = configureStore({ homeState, adminState }, {
+    const store = configureStore({ homeState, adminState, adminNewsState }, {
       cookie: req.header.cookie
     });
 
