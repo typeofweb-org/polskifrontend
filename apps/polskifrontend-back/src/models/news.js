@@ -20,7 +20,15 @@ export async function add(params) {
 }
 
 export async function getAll() {
-  return await News.find();
+  return await News.find().sort({ date: -1 });
+}
+
+export async function getById(newsId) {
+  return await News.findById(newsId).exec();
+}
+
+export async function remove(news) {
+  return await news.remove();
 }
 
 export default News;

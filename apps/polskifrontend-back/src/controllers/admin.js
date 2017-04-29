@@ -101,4 +101,22 @@ router.post('/news', async (req, res) => {
   }
 });
 
+router.delete('/news/:newsId', async (req, res) => {
+  const newsId = req.params.newsId;
+  try {
+    const news = await Newses.getById(newsId);
+
+    try {
+      await Newses.remove(news);
+    } catch (error) {
+      return res.send({ success: false, reason: 'cant-remove', message: `Unable to delete news with ID: ${newsId}` });
+    }
+
+    const newses = await Newses.getAll();
+    return res.send({ success: true, newses });
+  } catch (error) {
+    return res.send({ success: false, reason: 'cant-find', message: `Unable to delete news with ID: ${newsId}` });
+  }
+});
+
 export default router;
