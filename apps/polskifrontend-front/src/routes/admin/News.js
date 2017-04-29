@@ -7,6 +7,7 @@ import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import AddNews from './parts/AddNews';
 import NewsList from './parts/NewsList';
+import Message from '../../components/Indicators/Message';
 
 class News extends React.Component {
   componentDidMount() {
@@ -80,10 +81,16 @@ class News extends React.Component {
         newTitleDirty,
         newMessage,
         newMessageValid,
-        newMessageDirty
+        newMessageDirty,
+        addNewsLoading,
+        addNewsError
       }
     } = this.props;
     const shouldCleanUp = newTitle === '' && newMessage === '';
+    let errorMessage = '';
+    if (addNewsError) {
+      errorMessage = 'Dodanie aktualności nie udane';
+    }
 
     return (
       <div className={styles.container}>
@@ -95,7 +102,7 @@ class News extends React.Component {
                  messageValid={newMessageValid}
                  messageDirty={newMessageDirty}
                  shouldCleanUp={shouldCleanUp}
-                 isLoading={false}
+                 isLoading={addNewsLoading}
         />
         <NewsList newsList={newsList || []}
                   newsListLoading={newsListLoading}
@@ -104,6 +111,7 @@ class News extends React.Component {
                   onRefreshClick={this.onRefreshClick.bind(this)}
                   refreshLoading={false}
         />
+        <Message type="alert" message={errorMessage} isVisible={addNewsError} />
       </div>
     );
   }

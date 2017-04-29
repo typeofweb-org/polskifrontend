@@ -22,7 +22,9 @@ export const getAdminNewsListEpic = action$ => {
 
           return {
             type: constants.ADMIN_NEWS_GET_NEWS_SUCCESS,
-            payload: responseData.response.newses
+            payload: {
+              newsList: responseData.response.newses
+            }
           };
         })
         .catch(error => ({
@@ -62,6 +64,7 @@ export const addNewsEpic = (action$, store) => {
         }
 
         const state = store.getState().adminNewsState;
+        console.log(state);
         const newsList = _.cloneDeep(state.newsList);
         newsList.push(responseData.response.news);
 
