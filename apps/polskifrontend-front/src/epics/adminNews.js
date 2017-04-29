@@ -64,9 +64,8 @@ export const addNewsEpic = (action$, store) => {
         }
 
         const state = store.getState().adminNewsState;
-        console.log(state);
-        const newsList = _.cloneDeep(state.newsList);
-        newsList.push(responseData.response.news);
+        let newsList = _.cloneDeep(state.newsList);
+        newsList.unshift(responseData.response.news);
 
         return {
           type: constants.ADMIN_NEWS_ADD_NEWS_SUCCESS,

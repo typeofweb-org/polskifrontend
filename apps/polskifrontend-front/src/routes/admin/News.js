@@ -59,16 +59,15 @@ class News extends React.Component {
     }
   }
 
-  onDeleteClick() {
-
+  onDeleteClick(id, event) {
+    event.preventDefault();
+    const { actions: { deleteBlogRequest } } = this.props;
+    deleteBlogRequest(id);
   }
 
-  onEditClick() {
-
-  }
-
-  onRefreshClick() {
-
+  onEditClick(id, event) {
+    event.preventDefault();
+    console.log(id);
   }
 
   render () {
@@ -108,8 +107,6 @@ class News extends React.Component {
                   newsListLoading={newsListLoading}
                   onDeleteClick={this.onDeleteClick.bind(this)}
                   onEditClick={this.onEditClick.bind(this)}
-                  onRefreshClick={this.onRefreshClick.bind(this)}
-                  refreshLoading={false}
         />
         <Message type="alert" message={errorMessage} isVisible={addNewsError} />
       </div>
