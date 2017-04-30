@@ -29,7 +29,7 @@ export function newNewsMessageChanged(value) {
   }
 }
 
-export function addNews(newsObject) {
+export function addAdminNews(newsObject) {
   return {
     type: constants.ADMIN_NEWS_ADD_NEWS,
     payload: {
@@ -37,4 +37,28 @@ export function addNews(newsObject) {
       message: newsObject.message
     }
   }
+}
+
+export function deleteAdminNewsRequest(newsId) {
+  return {
+    type: constants.ADMIN_NEWS_DELETE_NEWS_REQUEST,
+    payload: {
+      newsId
+    }
+  };
+}
+
+export function deleteAdminNewsCancel() {
+  return {
+    type: constants.ADMIN_NEWS_DELETE_NEWS_CANCEL
+  }
+}
+
+export function deleteAdminNews(newsId) {
+  return {
+    type: constants.ADMIN_NEWS_DELETE_NEWS,
+    payload: {
+      newsId
+    }
+  };
 }

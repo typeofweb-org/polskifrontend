@@ -8,6 +8,7 @@ import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import AddNews from './parts/AddNews';
 import NewsList from './parts/NewsList';
 import Message from '../../components/Indicators/Message';
+import Confirm from '../../components/Modals/Confirm';
 
 class News extends React.Component {
   componentDidMount() {
@@ -18,7 +19,7 @@ class News extends React.Component {
   }
 
   componentDidUpdate() {
-    const { adminNewsState: { tokenExpired } } = this.props;
+    const { adminState: { tokenExpired } } = this.props;
 
     if (tokenExpired) {
       // redirect to login
@@ -45,7 +46,7 @@ class News extends React.Component {
 
     const {
       actions: {
-        addNews
+        addAdminNews
       },
       adminNewsState: {
         newTitle,
@@ -55,19 +56,34 @@ class News extends React.Component {
       } } = this.props;
 
     if (newTitleValid && newMessageValid) {
-      addNews({ title: newTitle, message: newMessage });
+      addAdminNews({ title: newTitle, message: newMessage });
     }
   }
 
   onDeleteClick(id, event) {
     event.preventDefault();
-    const { actions: { deleteBlogRequest } } = this.props;
-    deleteBlogRequest(id);
+
+    const { actions: { deleteAdminNewsRequest } } = this.props;
+    deleteAdminNewsRequest(id);
   }
 
   onEditClick(id, event) {
     event.preventDefault();
     console.log(id);
+  }
+
+  onDeleteCancelClick(event) {
+    event.preventDefault();
+
+    const { actions: { deleteAdminNewsCancel } } = this.props;
+    deleteAdminNewsCancel();
+  }
+
+  onDeleteConfirmClick(event) {
+    event.preventDefault();
+
+    const { actions: { deleteAdminNews }, adminNewsState: { deleteNewsId } } = this.props;
+    deleteAdminNews(deleteNewsId);
   }
 
   render () {
@@ -82,13 +98,17 @@ class News extends React.Component {
         newMessageValid,
         newMessageDirty,
         addNewsLoading,
-        addNewsError
+        addNewsError,
+        deleteNewsRequested,
+        deleteNewsError
       }
     } = this.props;
     const shouldCleanUp = newTitle === '' && newMessage === '';
     let errorMessage = '';
     if (addNewsError) {
       errorMessage = 'Dodanie aktualności nie udane';
+    } else if (deleteNewsError) {
+      errorMessage = 'Nie udało się usunąć aktualności';
     }
 
     return (
@@ -108,7 +128,8 @@ class News extends React.Component {
                   onDeleteClick={this.onDeleteClick.bind(this)}
                   onEditClick={this.onEditClick.bind(this)}
         />
-        <Message type="alert" message={errorMessage} isVisible={addNewsError} />
+        <Confirm question="Czy jesteś pewien, że chcesz usunąć aktualność?" isVisible={deleteNewsRequested} onCancelClick={this.onDeleteCancelClick.bind(this)} onConfirmClick={this.onDeleteConfirmClick.bind(this)} />
+        <Message type="alert" message={errorMessage} isVisible={addNewsError || deleteNewsError} />
       </div>
     );
   }

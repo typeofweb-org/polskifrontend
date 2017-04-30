@@ -1,4 +1,4 @@
-import { initialState as adminState } from '../../reducers/admin';
+import { initialState as adminBlogsState } from '../../reducers/adminBlogs';
 import fetch from '../../core/fetch';
 import { apiUrl } from '../../config';
 
@@ -17,13 +17,19 @@ export default async function getAdminInitialState(authCookie) {
     const remoteData = await getData();
 
     if (remoteData.success === false && (remoteData.reason === 'bad-token' || remoteData.reason === 'no-token')) {
-      adminState.tokenExpired = true;
-      return adminState;
+      return {
+        tokenExpired: true,
+        adminBlogsState
+      };
     }
 
-    adminState.blogList = remoteData.blogs;
-    adminState.blogListLoading = false;
-    return adminState;
+    adminBlogsState.blogList = remoteData.blogs;
+    adminBlogsState.blogListLoading = false;
+
+    return {
+      tokenExpired: false,
+      adminBlogsState
+    };
   } catch(error) {
     console.log(error);
   }

@@ -10,7 +10,6 @@ const initialFormState = {
 };
 
 export const initialState = {
-  tokenExpired: false,
   newsList: [],
   newsListLoading: true,
   newsListError: false,
@@ -18,15 +17,16 @@ export const initialState = {
   ...initialFormState,
 
   addNewsLoading: false,
-  addNewsError: false
+  addNewsError: false,
+
+  deleteNewsRequested: false,
+  deleteNewsLoading: false,
+  deleteNewsError: false,
+  deleteNewsId: ''
 };
 
 export default function adminNewsReducer(state = initialState, action) {
-  switch (action.type){
-    case constants.ADMIN_TOKEN_EXPIRED:
-      return { ...state, tokenExpired: true };
-    case constants.ADMIN_RESET_TOKEN:
-      return { ...state, tokenExpired: false };
+  switch (action.type) {
 
     // news list loading
     case constants.ADMIN_NEWS_GET_NEWS:
@@ -47,6 +47,18 @@ export default function adminNewsReducer(state = initialState, action) {
       return { ...state, ...initialFormState, addNewsLoading: false, addNewsError: false, newsList: action.payload.newsList };
     case constants.ADMIN_NEWS_ADD_NEWS_ERROR:
       return { ...state, addNewsLoading: false, addNewsError: true };
+
+    // deleting news
+    case constants.ADMIN_NEWS_DELETE_NEWS_REQUEST:
+      return { ...state, deleteNewsRequested: true, deleteNewsId: action.payload.newsId };
+    case constants.ADMIN_NEWS_DELETE_NEWS_CANCEL:
+      return { ...state, deleteNewsRequested: false, deleteNewsId: '' };
+    case constants.ADMIN_NEWS_DELETE_NEWS:
+      return { ...state, deleteNewsLoading: true, deleteNewsError: false };
+    case constants.ADMIN_NEWS_DELETE_NEWS_SUCCESS:
+      return { ...state, newsList: action.payload.newsList, deleteNewsLoading: false, deleteNewsError: false, deleteNewsId: '' };
+    case constants.ADMIN_NEWS_DELETE_NEWS_ERROR:
+      return { ...state, deleteNewsLoading: false, deleteNewsError: true };
 
     default:
       return state;

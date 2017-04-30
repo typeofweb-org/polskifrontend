@@ -12,7 +12,7 @@ import Confirm from '../../components/Modals/Confirm';
 
 class Admin extends React.Component {
   componentDidMount() {
-    const { actions: { getAdminBlogList }, adminState: blogListLoading } = this.props
+    const { actions: { getAdminBlogList }, adminBlogsState: blogListLoading } = this.props
     if (blogListLoading) {
       getAdminBlogList();
     }
@@ -63,7 +63,7 @@ class Admin extends React.Component {
       actions: {
         addBlog
       },
-      adminState: {
+      adminBlogsState: {
         newBlogName,
         newBlogNameValid,
         newBlogUrl,
@@ -83,7 +83,7 @@ class Admin extends React.Component {
   }
 
   onDeleteConfirmClick() {
-    const { actions: { deleteBlog }, adminState: { deleteBlogId } } = this.props;
+    const { actions: { deleteBlog }, adminBlogsState: { deleteBlogId } } = this.props;
     deleteBlog(deleteBlogId);
   }
 
@@ -94,7 +94,7 @@ class Admin extends React.Component {
   }
 
   render() {
-    const { adminState: {
+    const { adminBlogsState: {
       blogList,
       blogListLoading,
       blogListError,

@@ -75,8 +75,45 @@ export const addNewsEpic = (action$, store) => {
         };
       })
       .catch(error => ({
-        type: constants.ADMIN_ADD_BLOG_ERROR,
+        type: constants.ADMIN_NEWS_ADD_NEWS_ERROR,
         payload: error
       }));
+    });
+};
+
+export const deleteAdminNewsEpic = (action$, store) => {
+  return action$.ofType(constants.ADMIN_NEWS_DELETE_NEWS)
+    .mergeMap(action => {
+      const headers = {
+        'authorization': 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==',
+        'x-access-token': loginHelper.getLoginToken()
+      };
+
+      return ajax.delete(`${apiUrl}/admin/news/${action.payload.newsId}`, headers)
+        .map(responseData => {
+          if (responseData.response.success === false && responseData.response.reason === 'bad-token') {
+            return {
+              type: constants.ADMIN_TOKEN_EXPIRED
+            };
+          }
+
+          if (responseData.response.success === false) {
+            return {
+              type: constants.ADMIN_NEWS_DELETE_NEWS_ERROR,
+              payload: responseData.response.message
+            };
+          }
+
+          return {
+            type: constants.ADMIN_NEWS_DELETE_NEWS_SUCCESS,
+            payload: {
+              newsList: responseData.response.newses
+            }
+          };
+        })
+        .catch(error => ({
+          type: constants.ADMIN_NEWS_DELETE_NEWS_ERROR,
+          payload: error
+        }))
     });
 };

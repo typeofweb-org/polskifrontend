@@ -17,13 +17,19 @@ export default async function getAdminNewsInitialState(authCookie) {
     const remoteData = await getData();
 
     if (remoteData.success === false && (remoteData.reason === 'bad-token' || remoteData.reason === 'no-token')) {
-      adminNewsState.tokenExpired = true;
-      return adminNewsState;
+      return {
+        tokenExpired: true,
+        adminNewsState
+      };
     }
 
     adminNewsState.newsList = remoteData.newses;
     adminNewsState.newsListLoading = false;
-    return adminNewsState;
+
+    return {
+      tokenExpired: false,
+      adminNewsState
+    };
   } catch(error) {
     console.log(error);
   }
