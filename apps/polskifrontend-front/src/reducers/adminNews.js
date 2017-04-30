@@ -56,7 +56,7 @@ export default function adminNewsReducer(state = initialState, action) {
     case constants.ADMIN_NEWS_DELETE_NEWS:
       return { ...state, deleteNewsLoading: true, deleteNewsError: false };
     case constants.ADMIN_NEWS_DELETE_NEWS_SUCCESS:
-      return { ...state, newsList: action.payload.newsList, deleteNewsLoading: false, deleteNewsError: false, deleteNewsId: '' };
+      return { ...state, newsList: action.payload.newsList, deleteNewsRequested: false, deleteNewsLoading: false, deleteNewsError: false, deleteNewsId: '' };
     case constants.ADMIN_NEWS_DELETE_NEWS_ERROR:
       return { ...state, deleteNewsLoading: false, deleteNewsError: true };
 
