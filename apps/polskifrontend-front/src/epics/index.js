@@ -5,6 +5,7 @@ import { getAdminBlogListEpic, deleteBlogEpic, addBlogEpic, blogRefreshEpic } fr
 import { getAdminNewsListEpic, addNewsEpic, deleteAdminNewsEpic } from './adminNews';
 import { sendBlogRequestEpic } from './submit';
 import { sendFeedbackEpic } from './feedback';
+import { getNewsPageEpic } from './news';
 
 const rootEpic = combineEpics(
   getBlogListEpic,
@@ -19,7 +20,8 @@ const rootEpic = combineEpics(
   sendFeedbackEpic,
   getAdminNewsListEpic,
   addNewsEpic,
-  deleteAdminNewsEpic
+  deleteAdminNewsEpic,
+  getNewsPageEpic
 );
 
 export default rootEpic;

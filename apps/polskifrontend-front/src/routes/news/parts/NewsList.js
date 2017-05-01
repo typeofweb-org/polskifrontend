@@ -3,6 +3,8 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './NewsList.styl';
 import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
 import Link from '../../../components/Link/Link';
+import Loader from '../../../components/Indicators/Loader';
+import Waypoint from 'react-waypoint';
 import dateFormat from 'dateformat';
 import * as dateHelper from '../../../core/helpers/dateHelper';
 
@@ -38,13 +40,21 @@ const NewsList = (props) => {
             </div>
           );
         })}
+        {props.nextPage !== -1 ? (
+          <Loader isLoading={props.isLoadingMore}>
+            <Waypoint onEnter={props.onScrolledBottom} scrollableAncestor="window" />
+          </Loader>
+        ) : null}
       </ResponsivePanel>
     </div>
   );
 };
 
 NewsList.propTypes = {
-  newsList: PropTypes.array.isRequired
+  newsList: PropTypes.array.isRequired,
+  nextPage: PropTypes.number.isRequired,
+  isLoadingMore: PropTypes.bool.isRequired,
+  onScrolledBottom: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(NewsList);

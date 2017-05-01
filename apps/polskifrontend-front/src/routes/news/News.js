@@ -7,11 +7,22 @@ import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import NewsList from './parts/NewsList';
 
 class News extends React.Component {
+  onScrolledBottom() {
+    const { actions: { getNewsPage }, newsState: { newsListNextPage, newsListLoading } } = this.props;
+    if (newsListLoading === false && newsListNextPage > 1) {
+      getNewsPage(newsListNextPage);
+    }
+  }
+
   render() {
-    const { newsState: { newsList } } = this.props;
+    const { newsState: { newsList, newsListNextPage, newsListLoading } } = this.props;
     return (
       <div className={styles.container}>
-        <NewsList newsList={newsList} />
+        <NewsList newsList={newsList}
+                  onScrolledBottom={this.onScrolledBottom.bind(this)}
+                  isLoadingMore={newsListLoading}
+                  nextPage={newsListNextPage}
+        />
       </div>
     );
   }
