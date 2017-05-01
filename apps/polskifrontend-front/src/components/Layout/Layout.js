@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import _ from 'lodash';
+import * as dateHelper from '../../core/helpers/dateHelper';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -20,11 +21,11 @@ class Layout extends React.Component {
 
   render() {
     const lastNewsVisit = settingsHelper.getSettings().lastNewsVisit;
+    const lastVisitDate = new Date(lastNewsVisit);
     const { newsState: { newsList } } = this.props;
     const filteredList = _.filter(newsList, item => {
       const newsDate = new Date(item.date);
-      const lastVisitDate = new Date(lastNewsVisit)
-      return newsDate > lastVisitDate;
+      return newsDate > lastVisitDate && dateHelper.isThisWeek(newsDate);
     });
 
     return (
