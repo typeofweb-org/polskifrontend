@@ -26,6 +26,7 @@ import configureStore from './store/configureStore';
 import getHomeInitialState from './store/serverSideInitializers/homeInitializer';
 import getAdminInitialState from './store/serverSideInitializers/adminBlogsInitializer';
 import getAdminNewsInitialState from './store/serverSideInitializers/adminNewsInitializer';
+import getNewsInitialState from './store/serverSideInitializers/newsInitializer';
 import { port, auth } from './config';
 import 'rxjs';
 import cookie from 'react-cookie';
@@ -89,17 +90,19 @@ app.get('*', async (req, res, next) => {
 
     const homeState = await getHomeInitialState(settings);
     const blogsState = await getAdminInitialState(authCookie);
-    const newsState = await getAdminNewsInitialState(authCookie);
+    const adminNewsState = await getAdminNewsInitialState(authCookie);
+    const newsState = await getNewsInitialState();
 
     const adminState = {
-      tokenExpired: blogsState.tokenExpired || newsState.tokenExpired
+      tokenExpired: blogsState.tokenExpired || adminNewsState.tokenExpired
     };
 
     const store = configureStore({
       homeState,
       adminState,
+      newsState,
       adminBlogsState: blogsState.adminBlogsState,
-      adminNewsState: newsState.adminNewsState
+      adminNewsState: adminNewsState.adminNewsState
     }, {
       cookie: req.header.cookie
     });

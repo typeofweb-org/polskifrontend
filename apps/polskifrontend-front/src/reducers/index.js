@@ -6,6 +6,7 @@ import adminBlogsReducer from './adminBlogs';
 import adminNewsReducer from './adminNews';
 import submitReducer from './submit';
 import feedbackReducer from './feedback';
+import newsReducer from './news';
 
 export default combineReducers({
   homeState: homeReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   adminBlogsState: adminBlogsReducer,
   adminNewsState: adminNewsReducer,
   submitState: submitReducer,
-  feedbackState: feedbackReducer
+  feedbackState: feedbackReducer,
+  newsState: newsReducer
 });

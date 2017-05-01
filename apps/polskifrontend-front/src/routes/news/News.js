@@ -8,9 +8,10 @@ import NewsList from './parts/NewsList';
 
 class News extends React.Component {
   render() {
+    const { newsState: { newsList } } = this.props;
     return (
       <div className={styles.container}>
-        <NewsList />
+        <NewsList newsList={newsList} />
       </div>
     );
   }

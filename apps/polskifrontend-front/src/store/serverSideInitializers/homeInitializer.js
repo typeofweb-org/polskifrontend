@@ -1,4 +1,3 @@
-import cookie from 'react-cookie';
 import { initialState as homeState } from '../../reducers/home';
 import fetch from '../../core/fetch';
 import { apiUrl } from '../../config';

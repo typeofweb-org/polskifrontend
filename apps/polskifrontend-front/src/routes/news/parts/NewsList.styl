@@ -23,3 +23,66 @@
 
 .container
   padding $global-padding
+
+  .item
+    border-bottom 1px dotted $color-tertiary
+    border-left 6px solid $color-tertiary
+    padding-left 10px
+    margin 20px 5px
+    text-align left
+    transition border-bottom $animation-time, border-left $animation-time
+
+    &__new
+      background $color-tertiary
+      color $color-secondary
+      padding 5px $global-padding
+      display none
+      border-radius 5px
+      font-weight normal
+      font-size 12px
+      vertical-align text-bottom
+      margin-right $global-padding
+      transition background $animation-time
+
+      &--visible
+        display inline-block
+
+      &--clicked
+        background $color-tertiary
+
+    &__header
+      display inline-block
+      max-width 100%
+      margin 7px 0
+      text-decoration none
+      font-size 20px
+      font-weight bold
+      font-family $font-header
+      color $color-primary
+      transition color $animation-time
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &:hover
+        color lighten($color-primary, 50%)
+
+      img
+        height 25px
+        vertical-align sub
+        margin-right 10px
+
+    .meta
+      padding-top $global-margin
+      color lighten($color-primary, 50%)
+      display inline
+
+      &__date
+        font-size 14px
+
+      &__message
+        font-size 1em
+        line-height 1.6em
+        color $color-primary
+        padding $global-padding 0
+        white-space pre-wrap
+        font-family $font-text

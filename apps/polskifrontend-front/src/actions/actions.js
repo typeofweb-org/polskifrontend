@@ -5,6 +5,7 @@ import * as adminBlogsActions from './adminBlogsActions';
 import * as adminNewsActions from './adminNewsActions';
 import * as submitActions from './submitActions';
 import * as feedbackActions from './feedbackActions';
+import * as newsActions from './newsActions';
 
 const actions = [
   homeActions,
@@ -13,7 +14,8 @@ const actions = [
   adminBlogsActions,
   adminNewsActions,
   submitActions,
-  feedbackActions
+  feedbackActions,
+  newsActions
 ];
 
 export default actions;
