@@ -31,4 +31,20 @@ export async function remove(news) {
   return await news.remove();
 }
 
+export async function getNewses(page) {
+  const perPage = 5;
+  const count = await News.count();
+  const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
+  const newses = await News
+    .find()
+    .sort({ date: -1 })
+    .skip(perPage * page)
+    .limit(perPage);
+
+  return {
+    newses,
+    nextPage
+  };
+}
+
 export default News;

@@ -7,6 +7,7 @@ import blogs from './blogs';
 import articles from './articles';
 import users from './users';
 import feedback from './feedback';
+import news from './news';
 import admin from './admin';
 
 const router = new express.Router();
@@ -19,6 +20,7 @@ router.use('/blogs', blogs);
 router.use('/articles', articles);
 router.use('/users', users);
 router.use('/feedback', feedback);
+router.use('/news', news);
 
 // check logged in user
 router.use(adminAuth);
