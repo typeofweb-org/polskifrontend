@@ -30,7 +30,7 @@ const NewsList = (props) => {
                 </h2>
                 <div className={styles['meta']}>
                   <p className={styles['meta__date']}>
-                    {dateFormat(item.date, 'dd-mm-yyyy hh:MM')}
+                    {dateFormat(item.date, 'dd-mm-yyyy')}
                   </p>
                   <pre className={styles['meta__message']}>
                     {item.message}

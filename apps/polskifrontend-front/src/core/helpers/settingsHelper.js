@@ -3,7 +3,8 @@ import cookie from 'react-cookie';
 const cookieName = 'PL_FRONT_END_USER_SETTINGS';
 const initialSettings = {
   tiles: true,
-  clickedLinks: []
+  clickedLinks: [],
+  lastNewsVisit: new Date(1900, 1, 1)
 };
 
 export function saveSettings(settings) {

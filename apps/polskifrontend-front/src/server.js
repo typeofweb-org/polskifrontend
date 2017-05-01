@@ -85,7 +85,7 @@ app.get('*', async (req, res, next) => {
   try {
     cookie.plugToRequest(req, res);
 
-    const settings = cookie.load('PL_FRONT_END_USER_SETTINGS') || { tiles: true, clickedLinks: [] };
+    const settings = cookie.load('PL_FRONT_END_USER_SETTINGS') || { tiles: true, clickedLinks: [], lastNewsVisit: new Date(1900, 1, 1) };
     const authCookie = cookie.load('PL_FRONT_END');
 
     const homeState = await getHomeInitialState(settings);

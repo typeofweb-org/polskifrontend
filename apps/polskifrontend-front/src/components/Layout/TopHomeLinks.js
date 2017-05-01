@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './TopHomeLinks.styl';
 import Link from '../../components/Link/Link';
 
-const TopHomePanel = props => {
+const TopHomeLinks = props => {
   return (
     <div className={styles.container}>
       <ul className={styles.list}>
@@ -12,9 +12,10 @@ const TopHomePanel = props => {
             <i className="fa fa-inbox" aria-hidden="true">
             </i>
             <span className={styles['list__text']}>Aktualności</span>
-            <div className={styles['list__info']}>
-              3
-            </div>
+            {props.newNewsCount === 0
+              ? null
+              : <div className={styles['list__info']}>{props.newNewsCount}</div>
+            }
           </Link>
         </li>
         <li className={styles['list__item']}>
@@ -43,4 +44,8 @@ const TopHomePanel = props => {
   );
 };
 
-export default withStyles(styles)(TopHomePanel);
+TopHomeLinks.propTypes = {
+  newNewsCount: PropTypes.number.isRequired
+};
+
+export default withStyles(styles)(TopHomeLinks);

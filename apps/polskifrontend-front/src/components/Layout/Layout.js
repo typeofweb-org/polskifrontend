@@ -6,20 +6,34 @@ import Footer from '../Footer/Footer';
 import TopHomePanel from './TopHomePanel';
 import TopHomeLinks from './TopHomeLinks';
 import CookieInfo from '../Cookie/CookieInfo';
+import * as settingsHelper from '../../core/helpers/settingsHelper';
+import { connect } from 'react-redux';
+import mapStateToProps from '../../core/redux/mapStateToProps';
+import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
+import _ from 'lodash';
 
 class Layout extends React.Component {
   static propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    newsList: PropTypes.array
   };
 
   render() {
+    const lastNewsVisit = settingsHelper.getSettings().lastNewsVisit;
+    const { newsState: { newsList } } = this.props;
+    const filteredList = _.filter(newsList, item => {
+      const newsDate = new Date(item.date);
+      const lastVisitDate = new Date(lastNewsVisit)
+      return newsDate > lastVisitDate;
+    });
+
     return (
       <div className={style.container}>
         <div className={style.pusher}>
         </div>
         <Header />
         <TopHomePanel />
-        <TopHomeLinks />
+        <TopHomeLinks newNewsCount={filteredList.length} />
         {this.props.children}
         <Footer />
         <CookieInfo />
@@ -28,4 +42,4 @@ class Layout extends React.Component {
   }
 }
 
-export default withStyles(style)(Layout);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Layout));
