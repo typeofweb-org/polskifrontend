@@ -1,6 +1,8 @@
 import path from 'path';
 import fetch from 'node-fetch';
 import { spawn } from './lib/cp';
+import { makeDir } from './lib/fs';
+import npmRunScript from 'npm-run-script';
 
 // Heroku
 const remote = {
@@ -20,7 +22,7 @@ const options = {
  */
 async function deploy() {
   // Initialize a new repository
-  // await makeDir('dist');
+  await makeDir('dist');
   await spawn('git', ['init', '--quiet'], options);
 
   // Changing a remote's URL
@@ -49,17 +51,7 @@ async function deploy() {
 
   // Build the project in RELEASE mode which
   // generates optimized and minimized bundles
-  // process.argv.push('--release');
-  // if (remote.static) process.argv.push('--static');
-  // await run(require('./build').default);
-  // if (process.argv.includes('--static')) {
-  //   await cleanDir('build/*', {
-  //     nosort: true,
-  //     dot: true,
-  //     ignore: ['build/.git', 'build/public'],
-  //   });
-  //   await moveDir('build/public', 'build');
-  // }
+  await runScript();
 
   // Push the contents of the build folder to the remote server via Git
   await spawn('git', ['add', '.', '--all'], options);
@@ -72,7 +64,17 @@ async function deploy() {
 
   // Check if the site was successfully deployed
   const response = await fetch(remote.website);
-  console.log(`${remote.website} => ${response.status} ${response.statusText}`);
+  console.log(`${remote.website} => ${response.status} ${response.statusText}`);;
+}
+
+async function runScript() {
+  return new Promise(resolve => {
+    const child = npmRunScript('npm run build && npm run copy');
+
+    child.once('exit', () => {
+      resolve();
+    });
+  });
 }
 
 export default deploy;
