@@ -20,7 +20,13 @@ const TilesArticles = props => {
 
         return (
           <div className={itemClass} key={artIndex}>
-            <a className={styles['item__link']} target="_blank" href={article.href} rel="nofollow" onMouseDown={props.onArticleClicked.bind(this, article.href, isTodayArticle)}>
+            <a className={styles['item__link']}
+               target="_blank"
+               href={article.href}
+               rel="nofollow"
+               onMouseDown={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
+               onTouchStart={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
+            >
               <span className={tagClass}>Nowość</span>
               {article.title}
             </a>
