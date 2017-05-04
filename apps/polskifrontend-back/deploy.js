@@ -7,9 +7,9 @@ import npmRunScript from 'npm-run-script';
 // Heroku
 const remote = {
   name: 'heroku',
-  url: 'https://git.heroku.com/polskifront-back-deploy-test.git',
+  url: 'https://git.heroku.com/polskifrontend-back.git',
   branch: 'master',
-  website: 'https://polskifront-back-deploy-test.herokuapp.com',
+  website: 'https://polskifrontend-back.herokuapp.com/',
 };
 
 const options = {
