@@ -12,6 +12,7 @@
     margin 20px 5px
     text-align left
     transition border-bottom $animation-time, border-left $animation-time
+    position relative
 
     &--today
       border-bottom 1px dotted $color-oposite
@@ -39,7 +40,7 @@
       &--clicked
         background $color-tertiary
 
-    &__link
+    &__header
       display inline-block
       max-width 100%
       margin 7px 0
@@ -49,16 +50,63 @@
       font-family $font-header
       color $color-primary
       transition color $animation-time
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      &:hover
-        color lighten($color-primary, 50%)
+      white-space nowrap
+      overflow hidden
+      text-overflow ellipsis
+      text-transform none
 
       img
         height 25px
         vertical-align sub
         margin-right 10px
+
+    &:hover, &:focus
+      .buttons
+        opacity 0.9
+        visibility visible
+
+    .buttons
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 100%
+      background $color-secondary
+      text-align center
+      opacity 0
+      visibility hidden
+      transition opacity $animation-time, visibility $animation-time
+
+      &__container
+        display table
+        width 100%
+        height 100%
+
+      &__wrapper
+        display table-cell
+        vertical-align middle
+
+      &__item
+        display inline-block
+        margin $global-padding
+        font-weight normal
+
+        @media screen and (min-width: 768px)
+          margin $global-margin
+          font-weight bold
+
+        i
+          display block
+          font-size 2em
+
+          @media screen and (min-width: 768px)
+            font-size 2.5em
+
+      &__text
+        font-size 0.5em
+
+        @media screen and (min-width: 768px)
+          font-size 1em
 
     .meta
       font-size 14px
@@ -67,9 +115,10 @@
       display inline
 
       &__date
-        a
+        span
           text-decoration none
           color $color-primary
+          font-weight bold
           text-transform uppercase
 
           &:hover

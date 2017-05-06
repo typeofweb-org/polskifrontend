@@ -7,7 +7,7 @@ import getArticlesInitialState from '../../store/serverSideInitializers/articles
 import * as constants from '../../constants';
 
 export default {
-  path: '/articles/:slug',
+  path: '/artykuly/:slug',
   async action(context) {
     const slug = context.params.slug;
     const state = context.store.getState().articlesState;

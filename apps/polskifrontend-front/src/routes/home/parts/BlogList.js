@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './BlogList.styl'
 import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
+import Link from '../../../components/Link/Link';
 import Loader from '../../../components/Indicators/Loader';
 import dateFormat from 'dateformat';
 import { decode } from 'he';
@@ -27,20 +28,44 @@ const BlogList = props => {
           return (
             <div key={index}>
               <div className={itemClass}>
-                <a className={styles['item__link']}
-                   href={item.href}
-                   rel="nofollow"
-                   target="_blank"
+                <div className={styles.buttons}>
+                  <div className={styles['buttons__container']}>
+                    <div className={styles['buttons__wrapper']}>
+                      <Link className={styles['buttons__item']} to={`/artykuly/${item.slug}`}>
+                        <i className="fa fa-external-link">
+                        </i>
+                        <span className={styles['buttons__text']}>Otwórz w serwisie</span>
+                      </Link>
+                      <a href={item.href}
+                         className={styles['buttons__item']}
+                         rel="nofollow"
+                         target="_blank"
+                      >
+                        <i className="fa fa-link">
+                        </i>
+                        <span className={styles['buttons__text']}>Otwórz oryginał</span>
+                      </a>
+                      {isTodayArticle && !clicked
+                        ? <a href="#" className={styles['buttons__item']} >
+                            <i className="fa fa-check">
+                            </i>
+                            <span className={styles['buttons__text']}>Oznacz jako czytany</span>
+                          </a>
+                        : null}
+                    </div>
+                  </div>
+                </div>
+                <h2 className={styles['item__header']}
                    onMouseDown={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                    onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                 >
                   <span className={tagClass}>Nowość</span>
                   <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} initialImage={noImage} />
                   {item.title}
-                </a>
+                </h2>
                 <div className={styles['meta']}>
                   <p className={styles['meta__date']}>
-                    <a href={item._blog.href} target="_blank" rel="nofollow">{item._blog.name}</a> | {dateFormat(item.date, 'dd-mm-yyyy')}
+                    <span>{item._blog.name}</span> | {dateFormat(item.date, 'dd-mm-yyyy')}
                   </p>
                   <p className={styles['meta__description']}>
                     {description}
