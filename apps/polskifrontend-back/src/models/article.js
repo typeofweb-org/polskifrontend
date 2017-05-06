@@ -24,7 +24,7 @@ const Article = mongoose.model('article', ArticleSchema);
 export async function updateSlug() {
   const articles = await Article.find();
   articles.forEach(article => {
-    article.slug = slug(article.title);
+    article.slug = slug(article.title, { lower: true });
     article.save();
   });
 }
@@ -72,6 +72,7 @@ export async function getArticlesForBlog(blog) {
         href: item.article.link,
         description,
         date: pubDate,
+        slug: slug(item.article.title, { lower: true }),
         _blog: blog._id
       });
 
