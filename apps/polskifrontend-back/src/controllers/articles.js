@@ -12,10 +12,12 @@ router.get('/all/:page', async (req, res) => {
   }
 });
 
-router.get('/:blog', async (req, res) => {
+router.get('/:slug', async (req, res) => {
   try {
-    const articles = await Articles.getArticlesByBlogId(req.params.blog);
-    res.send({ success: true, articles });
+    const slug = req.params.slug;
+    const article = await Articles.getBySlug(slug);
+
+    res.send({ success: true, article });
   } catch (error) {
     res.send({ success: false, message: error });
   }

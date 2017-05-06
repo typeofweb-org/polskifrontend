@@ -1,13 +1,22 @@
 import express from 'express';
 import sendMail from '../utils/emailer';
-import { Blogs } from '../models';
+import { Blogs, Articles } from '../models';
 
 const router = new express.Router();
 
-router.get('/:page', async (req, res) => {
+router.get('/all/:page', async (req, res) => {
   try {
     const { blogs, nextPage } = await Blogs.getBlogs(req.params.page - 1);
     res.send({ success: true, blogs, nextPage });
+  } catch (error) {
+    res.send({ success: false, message: error });
+  }
+});
+
+router.get('/:blog/articles', async (req, res) => {
+  try {
+    const articles = await Articles.getArticlesByBlogId(req.params.blog);
+    res.send({ success: true, articles });
   } catch (error) {
     res.send({ success: false, message: error });
   }

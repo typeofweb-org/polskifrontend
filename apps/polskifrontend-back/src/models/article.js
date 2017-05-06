@@ -54,6 +54,10 @@ export async function getArticlesByBlogId(blogId) {
   return await Article.find({ _blog: blogId }).sort({ date: -1 }).limit(5);
 }
 
+export async function getBySlug(slug) {
+  return await Article.findOne({ slug });
+}
+
 export async function removeByBlogId(blogId) {
   return await Article.remove({ _blog: blogId });
 }
