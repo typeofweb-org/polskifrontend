@@ -23,6 +23,7 @@ export default {
     require('./news').default,
     require('./about').default,
     require('./feedback').default,
+    require('./articles').default,
 
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default

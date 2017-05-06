@@ -21,6 +21,7 @@
     "cookie-parser": "^1.4.3",
     "core-js": "^2.4.1",
     "dateformat": "^2.0.0",
+    "detect-node": "^2.0.3",
     "express": "^4.14.1",
     "express-graphql": "^0.6.3",
     "express-jwt": "^5.1.0",

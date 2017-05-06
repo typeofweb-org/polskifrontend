@@ -8,14 +8,14 @@ export default async function getHomeInitialState(settings) {
   homeState.isListOptionSelected = !settings.tiles;
   homeState.clickedLinks = settings.clickedLinks || [];
 
-  const url = settings.tiles ? `${apiUrl}/blogs/1` : `${apiUrl}/articles/all/1`;
+  const url = settings.tiles ? `${apiUrl}/blogs/all/1` : `${apiUrl}/articles/all/1`;
   const getData = async () => {
     const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
     return await response.json();
   };
 
   const getArticles = async (blogId) => {
-    const response = await fetch(`${apiUrl}/articles/${blogId}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
+    const response = await fetch(`${apiUrl}/blogs/${blogId}/articles`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
     return await response.json();
   };
 
