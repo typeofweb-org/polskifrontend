@@ -29,6 +29,10 @@ export async function updateSlug() {
   });
 }
 
+export async function getAllArticles() {
+  return await Article.find();
+}
+
 export async function getArticles(page) {
   const perPage = 50;
   const count = await Article.count();
