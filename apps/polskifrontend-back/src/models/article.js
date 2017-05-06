@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import RssHandler from '../rss/rssHandler';
 import _ from 'lodash';
+import slug from 'slug';
 
 const Schema = mongoose.Schema;
 const ArticleSchema = new Schema({
@@ -9,6 +10,7 @@ const ArticleSchema = new Schema({
   description: String,
   summary: String,
   date: Date,
+  slug: String,
   _blog: { type: String, ref: 'blog' }
 });
 
@@ -18,6 +20,14 @@ ArticleSchema.options.toJSON.transform = (doc, ret) => {
 };
 
 const Article = mongoose.model('article', ArticleSchema);
+
+export async function updateSlug() {
+  const articles = await Article.find();
+  articles.forEach(article => {
+    article.slug = slug(article.title);
+    article.save();
+  });
+}
 
 export async function getArticles(page) {
   const perPage = 50;

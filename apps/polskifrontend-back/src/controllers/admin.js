@@ -6,6 +6,15 @@ import slugify from '../utils/slugify';
 
 const router = new express.Router();
 
+router.post('/articles/refresh', async (req, res) => {
+  try {
+    await Articles.updateSlug();
+    return res.send({ success: true });
+  } catch (error) {
+    return res.send({ success: false, message: error });
+  }
+});
+
 router.get('/blogs', async (req, res) => {
   const blogs = await Blogs.getAllBlogs();
   return res.send({ blogs });
