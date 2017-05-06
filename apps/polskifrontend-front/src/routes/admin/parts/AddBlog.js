@@ -10,6 +10,7 @@ class AddBlog extends React.Component {
     onUrlChange: PropTypes.func.isRequired,
     onRssChange: PropTypes.func.isRequired,
     onFormSubmit: PropTypes.func.isRequired,
+    onSlugRefresh: PropTypes.func.isRequired,
     nameValid: PropTypes.bool.isRequired,
     nameDirty: PropTypes.bool.isRequired,
     urlValid: PropTypes.bool.isRequired,
@@ -34,11 +35,16 @@ class AddBlog extends React.Component {
 
     return (
       <div className={style.container}>
-        <Link className={style.news} onClick={() => {}} to="/admin/news">
+        <Link className={style.news} to="/admin/news">
           <i className="fa fa-file">
           </i>
           Aktualności
         </Link>
+        <button className={style.slug} onClick={this.props.onSlugRefresh} disabled={this.props.addBlogLoading}>
+          <i className="fa fa-refresh">
+          </i>
+          Odśwież slugi
+        </button>
         <ResponsivePanel header="Dodaj bloga" description="Wypełnij poniższe pola aby dodać bloga">
           <form className={style.form} onSubmit={this.props.onFormSubmit}>
             <input id="blog-name" className={errorClass(this.props.nameValid || this.props.nameDirty === false)} disabled={this.props.addBlogLoading} placeholder="nazwa" onChange={this.props.onNameChange} ref="name" />

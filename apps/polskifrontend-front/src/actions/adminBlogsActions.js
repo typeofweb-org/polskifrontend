@@ -60,3 +60,9 @@ export function refreshBlog(id) {
     payload: id
   };
 }
+
+export function refreshSlug() {
+  return {
+    type: constants.ADMIN_SLUG_REFRESH
+  }
+}
