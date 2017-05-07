@@ -62,7 +62,8 @@
 
     &:hover, &:focus
       .buttons
-        opacity 0.9
+        background rgba(255, 255, 255, 0.9)
+        opacity 1
         visibility visible
 
     .buttons
@@ -71,11 +72,11 @@
       left 0
       width 100%
       height 100%
-      background $color-secondary
-      text-align center
+      background rgba(255, 255, 255, 0)
       opacity 0
+      text-align center
       visibility hidden
-      transition opacity $animation-time, visibility $animation-time
+      transition visibility $animation-time, background $animation-time, opacity $animation-time
 
       &__container
         display table
@@ -101,6 +102,12 @@
 
           @media screen and (min-width: 768px)
             font-size 2.5em
+
+        &--today
+          color $color-oposite
+
+        &--clicked
+          color $color-tertiary
 
       &__text
         font-size 0.5em

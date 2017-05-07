@@ -19,8 +19,10 @@ const BlogList = props => {
           const isTodayArticle = dateHelper.isToday(new Date(item.date));
           const clicked = props.clickedArticles.find(art => art.url === item.href);
           let itemClass = `${styles.item} ${isTodayArticle ? styles['item--today'] : ''}`;
+          let buttonItemClass = `${styles['buttons__item']} ${isTodayArticle ? styles['buttons__item--today'] : ''}`;
           let tagClass = `${styles['item__new']} ${isTodayArticle ? styles['item__new--visible'] : ''}`;
           itemClass = `${itemClass} ${clicked ? styles['item--clicked'] : ''}`;
+          buttonItemClass = `${buttonItemClass} ${clicked ? styles['buttons__item--clicked'] : ''}`;
           tagClass = `${tagClass} ${clicked ? styles['item__new--clicked'] : ''}`;
 
           const description = item.description ? decode(item.description.replace(/(<([^>]+)>)/ig, '')) : '';
@@ -31,22 +33,32 @@ const BlogList = props => {
                 <div className={styles.buttons}>
                   <div className={styles['buttons__container']}>
                     <div className={styles['buttons__wrapper']}>
-                      <Link className={styles['buttons__item']} to={`/artykuly/${item.slug}`}>
+                      <Link className={buttonItemClass}
+                            to={`/artykuly/${item.slug}`}
+                            onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                            onTouchEnd={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                      >
                         <i className="fa fa-external-link">
                         </i>
                         <span className={styles['buttons__text']}>Otwórz w serwisie</span>
                       </Link>
                       <a href={item.href}
-                         className={styles['buttons__item']}
+                         className={buttonItemClass}
                          rel="nofollow"
                          target="_blank"
+                         onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                         onTouchEnd={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                       >
                         <i className="fa fa-link">
                         </i>
                         <span className={styles['buttons__text']}>Otwórz oryginał</span>
                       </a>
                       {isTodayArticle && !clicked
-                        ? <a href="#" className={styles['buttons__item']} >
+                        ? <a href=""
+                             className={buttonItemClass}
+                             onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                             onClick={(event) => event.preventDefault()}
+                          >
                             <i className="fa fa-check">
                             </i>
                             <span className={styles['buttons__text']}>Oznacz jako czytany</span>
@@ -55,10 +67,7 @@ const BlogList = props => {
                     </div>
                   </div>
                 </div>
-                <h2 className={styles['item__header']}
-                   onMouseDown={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                   onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                >
+                <h2 className={styles['item__header']}>
                   <span className={tagClass}>Nowość</span>
                   <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} initialImage={noImage} />
                   {item.title}

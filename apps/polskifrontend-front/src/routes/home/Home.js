@@ -63,6 +63,8 @@ class Home extends React.Component {
 
       addLinkToClicked({ url, date: Date.now() });
     }
+
+    return false;
   }
 
   render() {
