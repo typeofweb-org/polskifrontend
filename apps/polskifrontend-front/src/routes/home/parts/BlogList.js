@@ -33,6 +33,17 @@ const BlogList = props => {
                 <div className={styles.buttons}>
                   <div className={styles['buttons__container']}>
                     <div className={styles['buttons__wrapper']}>
+                      {isTodayArticle && !clicked
+                        ? <a href=""
+                             className={buttonItemClass}
+                             onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                             onClick={(event) => event.preventDefault()}
+                        >
+                          <i className="fa fa-check">
+                          </i>
+                          <span className={styles['buttons__text']}>Oznacz jako czytany</span>
+                        </a>
+                        : null}
                       <Link className={buttonItemClass}
                             to={`/artykuly/${item.slug}`}
                             onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
@@ -53,17 +64,6 @@ const BlogList = props => {
                         </i>
                         <span className={styles['buttons__text']}>Otwórz oryginał</span>
                       </a>
-                      {isTodayArticle && !clicked
-                        ? <a href=""
-                             className={buttonItemClass}
-                             onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                             onClick={(event) => event.preventDefault()}
-                          >
-                            <i className="fa fa-check">
-                            </i>
-                            <span className={styles['buttons__text']}>Oznacz jako czytany</span>
-                          </a>
-                        : null}
                     </div>
                   </div>
                 </div>

@@ -62,9 +62,15 @@
 
     &:hover, &:focus
       .buttons
-        background rgba(255, 255, 255, 0.9)
+        background #fff
         opacity 1
         visibility visible
+
+        @media screen and (min-width: 768px)
+          background -webkit-linear-gradient(left, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 1) 60%, #fff 100%)
+          background -o-linear-gradient(left, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 1) 60%, #fff 100%)
+          background -moz-linear-gradient(left, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 1) 60%, #fff 100%)
+          background linear-gradient(left, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 1) 60%, #fff 100%)
 
     .buttons
       position absolute
@@ -72,11 +78,14 @@
       left 0
       width 100%
       height 100%
+      text-align center
       background rgba(255, 255, 255, 0)
       opacity 0
-      text-align center
       visibility hidden
       transition visibility $animation-time, background $animation-time, opacity $animation-time
+
+      @media screen and (min-width: 768px)
+        text-align right
 
       &__container
         display table
@@ -91,6 +100,7 @@
         display inline-block
         margin $global-padding
         font-weight normal
+        text-align center
 
         @media screen and (min-width: 768px)
           margin $global-margin
@@ -98,7 +108,7 @@
 
         i
           display block
-          font-size 2em
+          font-size 2.4em
 
           @media screen and (min-width: 768px)
             font-size 2.5em
@@ -110,7 +120,8 @@
           color $color-tertiary
 
       &__text
-        font-size 0.5em
+        font-size 0.49em
+        font-weight bold
 
         @media screen and (min-width: 768px)
           font-size 1em
