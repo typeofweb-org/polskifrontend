@@ -67,11 +67,11 @@ const BlogList = props => {
                     </div>
                   </div>
                 </div>
-                <h2 className={styles['item__header']}>
+                <h3 className={styles['item__header']}>
                   <span className={tagClass}>Nowość</span>
                   <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} initialImage={noImage} />
                   {item.title}
-                </h2>
+                </h3>
                 <div className={styles['meta']}>
                   <p className={styles['meta__date']}>
                     <span>{item._blog.name}</span> | {dateFormat(item.date, 'dd-mm-yyyy')}
