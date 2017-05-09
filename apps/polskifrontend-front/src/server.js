@@ -74,6 +74,24 @@ app.get('/sitemap.xml', async (req, res) => {
   res.send(sitemap.xml);
 });
 
+// feed handling
+app.get('/feed',  async (req, res) => {
+  const url = `${apiUrl}/misc/feed`;
+  const getData = async () => {
+    const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
+    return await response.json();
+  };
+
+  const rssData = await getData();
+
+  if (rssData.success === false) {
+    return res.status(503).end();
+  }
+
+  res.header('Content-Type', 'application/rss+xml');
+  res.send(rssData.feed);
+});
+
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------

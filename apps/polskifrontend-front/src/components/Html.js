@@ -44,6 +44,7 @@ class Html extends React.Component {
           <meta name="viewport" content="width=device-width" />
           <link rel="shortcut icon" href="/polskifrontend_icon.png" />
           <link rel="apple-touch-icon" href="/polskifrontend_icon.png" />
+          <link rel="alternate" type="application/rss+xml" title="Polski Front-End" href="http://www.polskifrontend.pl/feed" />
           {styles.map(style =>
             <style
               key={style.id}
