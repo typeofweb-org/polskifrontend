@@ -17,4 +17,6 @@ export default async function getArticlesInitialState(slug, state) {
   } else {
     state.articleError = true;
   }
+
+  return state;
 }

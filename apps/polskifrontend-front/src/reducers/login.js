@@ -24,7 +24,7 @@ export default function homeReducer(state = initialState, action) {
       return { ...state, userName: '', password: '', buttonDisabled: true, inputsDisabled: false };
     case constants.LOGIN_INVOKE_ERROR:
       return { ...state,  buttonDisabled: false, inputsDisabled: false, loginError: true };
+    default:
+      return { ...state };
   }
-
-  return state;
 }

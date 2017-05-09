@@ -27,6 +27,7 @@ import getHomeInitialState from './store/serverSideInitializers/homeInitializer'
 import getAdminInitialState from './store/serverSideInitializers/adminBlogsInitializer';
 import getAdminNewsInitialState from './store/serverSideInitializers/adminNewsInitializer';
 import getNewsInitialState from './store/serverSideInitializers/newsInitializer';
+import { initialState as articlesState } from './reducers/articles';
 import { port, auth, apiUrl } from './config';
 import 'rxjs';
 import cookie from 'react-cookie';
@@ -119,6 +120,7 @@ app.get('*', async (req, res, next) => {
       homeState,
       adminState,
       newsState,
+      articlesState,
       adminBlogsState: blogsState.adminBlogsState,
       adminNewsState: adminNewsState.adminNewsState
     }, {

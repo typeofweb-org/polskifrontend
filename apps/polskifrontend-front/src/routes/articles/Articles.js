@@ -28,13 +28,13 @@ class Articles extends React.Component {
     return (
       <div className={styles.container}>
         <HeaderSettings description={description} title={title} currentPath={context.path} />
-        <ArticleView blogName={blog.name}
-                     blogIcon={blog.favicon}
-                     blogHref={blog.href}
-                     date={article.date}
+        <ArticleView blogName={blog.name || ''}
+                     blogIcon={blog.favicon || ''}
+                     blogHref={blog.href || ''}
+                     date={article.date || ''}
                      description={article.description ? decode(article.description.replace(/(<([^>]+)>)/ig, '')).trim().substr(0, 600) + '...' : ''}
-                     href={article.href}
-                     title={article.title}
+                     href={article.href || ''}
+                     title={article.title || ''}
         />
       </div>
     );

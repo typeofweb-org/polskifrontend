@@ -61,6 +61,6 @@ export default function adminNewsReducer(state = initialState, action) {
       return { ...state, deleteNewsLoading: false, deleteNewsError: true };
 
     default:
-      return state;
+      return { ...state };
   }
 }

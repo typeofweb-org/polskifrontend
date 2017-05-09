@@ -25,6 +25,6 @@ export default function articlesReducer(state = initialState, action) {
     case constants.ARTICLES_GET_ARTICLE_ERROR:
       return { ...state, articleLoaded: false, articleLoading: false, articleError: true };
     default:
-      return state;
+      return { ...state };
   }
 }

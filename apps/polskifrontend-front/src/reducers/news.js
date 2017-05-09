@@ -22,6 +22,6 @@ export default function newsReducer(state = initialState, action) {
     case constants.NEWS_GET_NEWS_PAGE_ERROR:
       return { ...state, newsListLoading: false, newsListError: true };
     default:
-      return state;
+      return { ...state };
   }
 }

@@ -69,7 +69,7 @@ export default function homeReducer(state = initialState, action) {
       const links = _.cloneDeep(state.clickedLinks);
       links.push(action.payload);
       return { ...state, clickedLinks: links };
+    default:
+      return { ...state };
   }
-
-  return state
 }

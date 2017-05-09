@@ -106,7 +106,7 @@ export default function adminBlogsReducer(state = initialState, action) {
       return { ...state, refreshSlugLoading: false, refreshSlugError: false };
     case constants.ADMIN_SLUG_REFRESH_ERROR:
       return { ...state, refreshSlugLoading: false, refreshSlugError: true };
+    default:
+      return { ...state };
   }
-
-  return state;
 }

@@ -37,7 +37,7 @@ export default function submitReducer(state = initialState, action) {
 
     case constants.SUBMIT_RESET_STATE:
       return { ...initialState, shouldCleanUp: true };
+    default:
+      return { ...state };
   }
-
-  return state;
 }

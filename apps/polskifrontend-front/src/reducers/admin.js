@@ -11,6 +11,6 @@ export default function adminReducer(state = initialState, action) {
     case constants.ADMIN_RESET_TOKEN:
       return { ...state, tokenExpired: false };
     default:
-      return state;
+      return { ...state };
   }
 }

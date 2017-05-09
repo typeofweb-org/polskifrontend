@@ -37,7 +37,7 @@ export default function feedbackReducer(state = initialState, action) {
 
     case constants.FEEDBACK_RESET_STATE:
       return { ...initialState, shouldCleanUp: true };
+    default:
+      return { ...state };
   }
-
-  return state;
 }
