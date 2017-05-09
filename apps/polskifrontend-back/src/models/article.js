@@ -29,8 +29,8 @@ export async function updateSlug() {
   });
 }
 
-export async function getAllArticles() {
-  return await Article.find();
+export async function getAllArticles(limit = 0) {
+  return await Article.find().populate('_blog').sort({ date: -1 }).limit(limit);
 }
 
 export async function getArticles(page) {
