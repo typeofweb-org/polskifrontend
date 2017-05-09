@@ -5,11 +5,11 @@ export default {
 
   path: '/error',
 
-  action({ error }) {
+  action(context) {
+    const error = context.error;
+
     return {
-      title: error.name,
-      description: error.message,
-      component: <ErrorPage error={error} />,
+      component: <ErrorPage error={error} title={error.name} description={error.message} context={context} />,
       status: error.status || 500
     };
   }

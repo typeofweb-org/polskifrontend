@@ -11,7 +11,6 @@ import React, { PropTypes } from 'react';
 import serialize from 'serialize-javascript';
 import { analytics } from '../config';
 import 'rxjs';
-import ogImage from '../../public/polskifrontend_og.png';
 
 class Html extends React.Component {
   static propTypes = {
@@ -25,6 +24,7 @@ class Html extends React.Component {
     // eslint-disable-next-line react/forbid-prop-types
     state: PropTypes.object,
     children: PropTypes.string.isRequired,
+    helmet: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -34,21 +34,17 @@ class Html extends React.Component {
   };
 
   render() {
-    const { title, description, styles, scripts, state, children, fullUrl } = this.props;
+    const { styles, scripts, state, children, helmet } = this.props;
     return (
       <html className="no-js" lang="pl" style={{ position: 'relative', minHeight: '100%' }}>
         <head>
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-          <title>{title}</title>
-          <meta name="description" content={description} />
+          {helmet.title.toComponent()}
+          {helmet.meta.toComponent()}
           <meta name="viewport" content="width=device-width" />
-          <meta property="og:title" content={title} />
-          <meta property="og:url" content={fullUrl} />
-          <meta property="og:type" content="website" />
-          <meta property="og:image" content={`http://www.polskifrontend.pl${ogImage}`} />
-          <link rel="shortcut icon" href="polskifrontend_icon.png" />
-          <link rel="apple-touch-icon" href="polskifrontend_icon.png" />
+          <link rel="shortcut icon" href="/polskifrontend_icon.png" />
+          <link rel="apple-touch-icon" href="/polskifrontend_icon.png" />
           {styles.map(style =>
             <style
               key={style.id}

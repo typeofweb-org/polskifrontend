@@ -9,6 +9,7 @@ import AddNews from './parts/AddNews';
 import NewsList from './parts/NewsList';
 import Message from '../../components/Indicators/Message';
 import Confirm from '../../components/Modals/Confirm';
+import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class News extends React.Component {
   componentDidMount() {
@@ -103,6 +104,7 @@ class News extends React.Component {
         deleteNewsError
       }
     } = this.props;
+    const { context, description, title } = this.props;
     const shouldCleanUp = newTitle === '' && newMessage === '';
     let errorMessage = '';
     if (addNewsError) {
@@ -113,6 +115,7 @@ class News extends React.Component {
 
     return (
       <div className={styles.container}>
+        <HeaderSettings currentPath={context.path} description={description} title={title} />
         <AddNews onTitleChange={this.onTitleChange.bind(this)}
                  onMessageChange={this.onMessageChange.bind(this)}
                  onFormSubmit={this.onFormSubmit.bind(this)}

@@ -8,10 +8,13 @@ import { connect } from 'react-redux';
 import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import Message from '../../components/Indicators/Message';
+import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Login extends React.Component {
   static propTypes = {
-    routing: PropTypes.object
+    context: PropTypes.object,
+    description: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
   };
 
   onUserChange(event) {
@@ -48,10 +51,12 @@ class Login extends React.Component {
 
   render() {
     const { loginState: { buttonDisabled, loginError } } = this.props;
+    const { context, description, title } = this.props;
     const errorMessage = loginError ? 'Logowanie nie udane - spóbuj ponownie' : '';
 
     return (
       <div className={style.container}>
+        <HeaderSettings description={description} title={title} currentPath={context.path} />
         <LoginForm onUserChange={this.onUserChange.bind(this)}
                    onPasswordChange={this.onPasswordChange.bind(this)}
                    onLoginClick={this.onLoginClick.bind(this)}

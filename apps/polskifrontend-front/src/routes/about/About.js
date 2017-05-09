@@ -3,10 +3,12 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './About.styl';
 import ResponsivePanel from '../../components/Responsive/ResponsivePanel';
 import Link from '../../components/Link/Link';
+import HeaderSettings from '../../components/Layout/HeaderSettings';
 
-const About = () => {
+const About = (props) => {
   return (
     <div className={styles.container}>
+      <HeaderSettings description={props.description} title={props.title} currentPath={props.context.path}/>
       <Link className={styles.back} to="/">
         <i className="fa fa-arrow-left">
         </i>

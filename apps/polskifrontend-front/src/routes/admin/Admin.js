@@ -9,6 +9,7 @@ import AddBlog from './parts/AddBlog';
 import BlogList from './parts/BlogList';
 import Message from '../../components/Indicators/Message';
 import Confirm from '../../components/Modals/Confirm';
+import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Admin extends React.Component {
   componentDidMount() {
@@ -120,6 +121,7 @@ class Admin extends React.Component {
       refreshBlogLoading,
       refreshSlugLoading
     } } = this.props;
+    const { context, description, title } = this.props;
     let errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
     const shouldCleanUp = newBlogName === '' && newBlogUrl === '' && newBlogRss === '';
 
@@ -129,6 +131,7 @@ class Admin extends React.Component {
 
     return (
       <div className={style.container}>
+        <HeaderSettings currentPath={context.path} description={description} title={title} />
         <AddBlog onNameChange={this.onNameChange.bind(this)}
                  onUrlChange={this.onUrlChange.bind(this)}
                  onRssChange={this.onRssChange.bind(this)}

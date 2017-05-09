@@ -31,6 +31,7 @@ import { port, auth, apiUrl } from './config';
 import 'rxjs';
 import cookie from 'react-cookie';
 import fetch from './core/fetch';
+import { Helmet } from 'react-helmet';
 
 const app = express();
 
@@ -165,6 +166,8 @@ app.get('*', async (req, res, next) => {
     if (assets[route.chunk]) {
       data.scripts.push(assets[route.chunk].js);
     }
+
+    data.helmet = Helmet.renderStatic();
 
     cookie.plugToRequest(req, res);
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);

@@ -4,11 +4,16 @@ import About from './About';
 
 export default {
   path: '/o-serwisie',
-  async action() {
+  async action(context) {
+    const title = 'O serwisie | Polski Front-End';
+    const description = 'Zastanawiasz się czym jest serwis Polski Front-End? Na tej stronie znajdziesz odpowiedź.';
+
     return {
-      title: 'O serwisie | Polski Front-End',
-      description: 'Zastanawiasz się czym jest serwis Polski Front-End? Na tej stronie znajdziesz odpowiedź.',
-      component: <Layout><About /></Layout>
+      component: (
+        <Layout>
+          <About title={title} description={description} context={context} />
+        </Layout>
+      )
     };
   }
 };

@@ -4,11 +4,12 @@ import Layout from '../../components/Layout/Layout';
 
 export default {
   path: '/zglos-uwagi',
-  async action() {
+  async action(context) {
+    const title = 'Zgłoś uwagi | Polski Front-End';
+    const description = 'Jeśli masz jakiekolwiek uwagi dotyczące działania tego serwisu - zgłoś je tutaj!';
+
     return {
-      title: 'Zgłoś uwagi | Polski Front-End',
-      description: 'Jeśli masz jakiekolwiek uwagi dotyczące działania tego serwisu - zgłoś je tutaj!',
-      component: <Layout><Feedback /></Layout>
+      component: <Layout><Feedback context={context} description={description} title={title} /></Layout>
     };
   }
 };

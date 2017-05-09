@@ -16,9 +16,11 @@ export default {
 
         const Admin = await require.ensure([], require => require('./Admin').default, 'admin');
 
+        const title = 'Panel kontrolny | Polski Front-End';
+        const description = 'Panel kontrolny serwisu Polski Front-End';
+
         return {
-          title: 'Panel kontrolny | Polski Front-End',
-          component: <LayoutAdmin><Admin /></LayoutAdmin>
+          component: <LayoutAdmin><Admin contest={context} description={description} title={title} /></LayoutAdmin>
         };
       }
     },
@@ -33,9 +35,11 @@ export default {
 
         const News = await require.ensure([], require => require('./News').default, 'news');
 
+        const title = 'Panel kontrolny - aktualności | Polski Front-End';
+        const description = 'Strona aktualności panelu kontrolnego serwisu Polski Front-End';
+
         return {
-          title: 'Panel kontrolny - aktualności | Polski Front-End',
-          component: <LayoutAdmin><News /></LayoutAdmin>
+          component: <LayoutAdmin><News context={context} description={description} title={title} /></LayoutAdmin>
         };
       }
     }

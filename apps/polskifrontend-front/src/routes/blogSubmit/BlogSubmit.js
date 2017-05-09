@@ -6,6 +6,7 @@ import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import SubmitForm from './parts/SubmitForm';
 import Message from '../../components/Indicators/Message';
+import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class BlogSubmit extends React.Component {
   onUrlChange(event) {
@@ -48,10 +49,11 @@ class BlogSubmit extends React.Component {
   }
 
   render() {
-    const { submitState } = this.props;
+    const { submitState, description, title, context } = this.props;
 
     return (
       <div className={styles.container}>
+        <HeaderSettings description={description} title={title} currentPath={context.path} />
         <SubmitForm onUrlChange={this.onUrlChange.bind(this)}
                     onEmailChange={this.onEmailChange.bind(this)}
                     onCaptchaChange={this.onCapchaChange.bind(this)}

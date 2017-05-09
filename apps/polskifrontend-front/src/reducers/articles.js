@@ -9,6 +9,9 @@ export const initialState = {
 
 export default function articlesReducer(state = initialState, action) {
   switch (action.type) {
+    case constants.ARTICLES_CLEAR_DATA_LOADED:
+      return { ...state, articleLoaded: false };
+
     case constants.ARTICLES_GET_ARTICLE:
       return { ...state, articleLoading: true, articleError: false };
     case constants.ARTICLES_GET_ARTICLE_SUCCESS:

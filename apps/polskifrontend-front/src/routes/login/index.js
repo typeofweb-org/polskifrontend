@@ -9,9 +9,11 @@ export default {
     context.store.getState().adminState.tokenExpired = false;
     loginHelper.clearLoginToken();
 
+    const title = 'Zaloguj | Polski Front-End';
+    const description = 'Strona logowania do panelu administracyjnego serwisu Polski Front-End';
+
     return {
-      title: 'Zaloguj | Polski Front-End',
-      component: <LayoutAdmin><Login routing={context} /></LayoutAdmin>
+      component: <LayoutAdmin><Login context={context} description={description} title={title} /></LayoutAdmin>
     };
   }
 };

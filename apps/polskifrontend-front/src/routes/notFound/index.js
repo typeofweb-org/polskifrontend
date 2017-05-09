@@ -12,15 +12,15 @@ import Layout from '../../components/Layout/Layout';
 import NotFound from './NotFound';
 
 const title = 'Nie znaleziono strony';
+const description = 'Błąd 404 - strony, której szukasz nie znaleziono.';
 
 export default {
 
   path: '*',
 
-  action() {
+  action(context) {
     return {
-      title,
-      component: <Layout><NotFound title={title} /></Layout>,
+      component: <Layout><NotFound title={title} description={description} context={context} /></Layout>,
       status: 404
     };
   }

@@ -16,16 +16,18 @@ export default {
       // server side loading
       await getArticlesInitialState(slug, state);
     } else if (state.articleLoaded === false && isNode === false) {
+      console.log('dupa');
       // client side loading
       context.store.dispatch({
-        type: constants.ARTICLES_GET_ARTICLE
+        type: constants.ARTICLES_GET_ARTICLE,
+        payload: {
+          slug
+        }
       });
     }
 
     return {
-      title: `${state.article.title} | Polski Front-End`,
-      description: state.article.description ? decode(state.article.description.replace(/(<([^>]+)>)/ig, '')) : '',
-      component: <Layout><Articles /></Layout>
+      component: <Layout><Articles context={context} /></Layout>
     };
   }
 };

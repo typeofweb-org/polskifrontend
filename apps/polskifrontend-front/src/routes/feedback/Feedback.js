@@ -6,6 +6,7 @@ import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import FeedbackForm from './parts/FeedbackForm';
 import Message from '../../components/Indicators/Message';
+import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Feedback extends React.Component {
   onFeedbackChange(event) {
@@ -48,10 +49,11 @@ class Feedback extends React.Component {
   }
 
   render() {
-    const { feedbackState } = this.props;
+    const { feedbackState, description, title, context } = this.props;
 
     return (
       <div className={styles.container}>
+        <HeaderSettings description={description} title={title} currentPath={context.path}/>
         <FeedbackForm onFeedbackChange={this.onFeedbackChange.bind(this)}
                       onEmailChange={this.onEmailChange.bind(this)}
                       onCaptchaChange={this.onCapchaChange.bind(this)}

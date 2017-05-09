@@ -10,6 +10,7 @@ import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import Message from '../../components/Indicators/Message';
 import * as settingsHelper from '../../core/helpers/settingsHelper';
 import * as dateHelper from '../../core/helpers/dateHelper';
+import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Home extends React.Component {
   static propTypes = {
@@ -81,10 +82,11 @@ class Home extends React.Component {
       allArticlesNextPage,
       allArticlesListError,
       clickedLinks
-    } } = this.props;
+    }, description, title, context } = this.props;
 
     return (
       <div className={style.container}>
+        <HeaderSettings description={description} title={title} currentPath={context.path} />
         <BlogListControlPanel isTilesOptionSelected={isTilesOptionSelected}
                               isListOptionSelected={isListOptionSelected}
                               onTilesOptionClick={this.onTilesOptionClick.bind(this)}
