@@ -55,7 +55,7 @@ export async function getArticlesByBlogId(blogId) {
 }
 
 export async function getBySlug(slug) {
-  return await Article.findOne({ slug });
+  return await Article.findOne({ slug }).populate('_blog');
 }
 
 export async function removeByBlogId(blogId) {
