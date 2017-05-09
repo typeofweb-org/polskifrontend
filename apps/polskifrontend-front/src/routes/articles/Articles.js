@@ -19,7 +19,7 @@ class Articles extends React.Component {
   }
 
   render() {
-    const { articlesState: { article }, context } = this.props;
+    const { articlesState: { article, articleLoading }, context } = this.props;
     const title = `${article.title} | Polski Front-End`;
     const description = article.description ? decode(article.description.replace(/(<([^>]+)>)/ig, '')).substr(0, 140) + '...' : '';
 
@@ -34,6 +34,7 @@ class Articles extends React.Component {
                      date={article.date || ''}
                      description={article.description ? decode(article.description.replace(/(<([^>]+)>)/ig, '')).trim().substr(0, 600) + '...' : ''}
                      href={article.href || ''}
+                     isLoading={articleLoading}
                      title={article.title || ''}
         />
       </div>
