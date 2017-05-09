@@ -42,7 +42,7 @@ const TilesArticles = props => {
                         onMouseUp={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
                         onTouchEnd={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
                   >
-                    <i className="fa fa-external-link">
+                    <i className="fa fa-folder-o">
                     </i>
                     <span className={styles['buttons__text']}>Otwórz w serwisie</span>
                   </Link>

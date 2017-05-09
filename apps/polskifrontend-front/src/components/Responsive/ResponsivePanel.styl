@@ -16,6 +16,18 @@
     line-height 30px
     color $color-tertiary
 
+  &__favicon
+    height 30px
+    vertical-align text-bottom
+    margin-right 10px
+
+  &__link
+    color $color-tertiary
+    text-decoration none
+    transition color $animation-time
+    &:hover
+      color lighten($color-tertiary, 20%)
+
   .wrapper
     background $color-secondary
     padding $global-padding

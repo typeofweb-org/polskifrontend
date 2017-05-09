@@ -101,6 +101,10 @@
         margin $global-padding
         font-weight normal
         text-align center
+        transition color $animation-time
+
+        &:hover
+          color lighten($color-tertiary, 5%)
 
         @media screen and (min-width: 768px)
           margin $global-margin
@@ -108,16 +112,41 @@
 
         i
           display block
-          font-size 2.4em
-
-          @media screen and (min-width: 768px)
-            font-size 2.5em
+          font-size 1.6em
+          background $color-tertiary
+          border-radius 5px
+          color $color-secondary
+          width 40px
+          height 40px
+          margin 0 auto
+          line-height 40px
+          text-align center
+          margin-bottom 5px
+          transition background $animation-time
 
         &--today
           color $color-oposite
 
+          &:hover
+            color lighten($color-oposite, 15%)
+
+            i
+              background lighten($color-oposite, 15%)
+
+          i
+            background $color-oposite
+
         &--clicked
           color $color-tertiary
+
+          &:hover
+            color lighten($color-tertiary, 5%)
+
+            i
+              background lighten($color-tertiary, 5%)
+
+          i
+            background $color-tertiary
 
       &__text
         font-size 0.49em

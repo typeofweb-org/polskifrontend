@@ -6,6 +6,7 @@ import mapStateToProps from '../../core/redux/mapStateToProps';
 import mapDispatchToProps from '../../core/redux/mapDispatchToProps';
 import { decode } from 'he';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
+import ArticleView from './parts/ArticleView';
 
 class Articles extends React.Component {
   static propTypes = {
@@ -22,11 +23,19 @@ class Articles extends React.Component {
     const title = `${article.title} | Polski Front-End`;
     const description = article.description ? decode(article.description.replace(/(<([^>]+)>)/ig, '')).substr(0, 140) + '...' : '';
 
-    console.log(context);
+    const blog = article._blog || {};
+
     return (
       <div className={styles.container}>
         <HeaderSettings description={description} title={title} currentPath={context.path} />
-        Articles
+        <ArticleView blogName={blog.name}
+                     blogIcon={blog.favicon}
+                     blogHref={blog.href}
+                     date={article.date}
+                     description={article.description ? decode(article.description.replace(/(<([^>]+)>)/ig, '')).trim().substr(0, 600) + '...' : ''}
+                     href={article.href}
+                     title={article.title}
+        />
       </div>
     );
   }
