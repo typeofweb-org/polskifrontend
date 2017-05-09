@@ -1,6 +1,9 @@
 import * as constants from '../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { apiUrl } from '../config';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 export const getNewsPageEpic = (action$, store) => {
   return action$.ofType(constants.NEWS_GET_NEWS_PAGE)

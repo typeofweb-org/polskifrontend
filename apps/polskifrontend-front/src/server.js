@@ -29,7 +29,6 @@ import getAdminNewsInitialState from './store/serverSideInitializers/adminNewsIn
 import getNewsInitialState from './store/serverSideInitializers/newsInitializer';
 import { initialState as articlesState } from './reducers/articles';
 import { port, auth, apiUrl } from './config';
-import 'rxjs';
 import cookie from 'react-cookie';
 import fetch from './core/fetch';
 import { Helmet } from 'react-helmet';

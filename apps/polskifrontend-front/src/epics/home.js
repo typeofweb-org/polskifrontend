@@ -1,6 +1,9 @@
 import * as constants from '../constants';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { apiUrl } from '../config';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 export const getBlogListEpic = action$ => {
   return action$.ofType(constants.HOME_GET_BLOG_LIST)

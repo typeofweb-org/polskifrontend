@@ -3,6 +3,9 @@ import { ajax } from 'rxjs/observable/dom/ajax';
 import { apiUrl } from '../config';
 import * as loginHelper from '../core/helpers/loginHelper';
 import _ from 'lodash';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 export const getAdminNewsListEpic = action$ => {
   return action$.ofType(constants.ADMIN_NEWS_GET_NEWS)

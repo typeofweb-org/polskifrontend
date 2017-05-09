@@ -20,7 +20,7 @@ export default {
         const description = 'Panel kontrolny serwisu Polski Front-End';
 
         return {
-          component: <LayoutAdmin><Admin contest={context} description={description} title={title} /></LayoutAdmin>
+          component: <LayoutAdmin><Admin context={context} description={description} title={title} /></LayoutAdmin>
         };
       }
     },
