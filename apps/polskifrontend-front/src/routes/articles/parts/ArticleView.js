@@ -56,7 +56,7 @@ ArticleView.propTypes = {
   date: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,
-  isLoading: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired
 };
 
