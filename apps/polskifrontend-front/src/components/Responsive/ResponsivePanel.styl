@@ -3,17 +3,16 @@
 @import "../../styles/colors.styl"
 
 .container
-  background $color-primary
-  border-radius 5px
-  padding $global-padding
-  border-bottom 3px solid $color-tertiary
+  border-radius $global-radius
+  padding $global-padding 0
 
   &__title
-    margin 0 0 10px
-    padding 0
+    padding $global-margin 0
+    border-bottom 2px solid $color-primary
     text-align center
     line-height 30px
-    color $color-tertiary
+    color $color-primary
+    font-size 20px
 
   &__favicon
     height 30px
@@ -28,8 +27,6 @@
       color lighten($color-tertiary, 20%)
 
   .wrapper
-    background $color-secondary
-    padding $global-padding
     border-radius 2px
     text-align center
 

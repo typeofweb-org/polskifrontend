@@ -11,6 +11,7 @@ const BlogTiles = props => {
   return (
     <div className={style.container}>
       <Loader isLoading={props.blogListLoading}>
+        {props.children}
         {props.blogList.map((item, index) => {
           return (
             <div className={style['container__wrapper']} key={index}>

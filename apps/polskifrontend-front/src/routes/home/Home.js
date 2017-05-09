@@ -87,12 +87,6 @@ class Home extends React.Component {
     return (
       <div className={style.container}>
         <HeaderSettings description={description} title={title} currentPath={context.path} />
-        <BlogListControlPanel isTilesOptionSelected={isTilesOptionSelected}
-                              isListOptionSelected={isListOptionSelected}
-                              onTilesOptionClick={this.onTilesOptionClick.bind(this)}
-                              onListOptionClick={this.onListOptionClick.bind(this)}
-                              isLoading={blogListLoading || allArticlesListLoading}
-        />
         {isTilesOptionSelected ?
           <BlogTiles blogList={blogList || []}
                      blogListLoading={blogListLoading && blogListNextPage === 1}
@@ -101,7 +95,15 @@ class Home extends React.Component {
                      onScrolledBottom={this.onBlogListScrolledBottom.bind(this)}
                      onArticleClicked={this.onLinkClicked.bind(this)}
                      clickedArticles={clickedLinks}
-          /> :
+          >
+            <BlogListControlPanel isTilesOptionSelected={isTilesOptionSelected}
+                                  isListOptionSelected={isListOptionSelected}
+                                  onTilesOptionClick={this.onTilesOptionClick.bind(this)}
+                                  onListOptionClick={this.onListOptionClick.bind(this)}
+                                  isLoading={blogListLoading || allArticlesListLoading}
+            />
+          </BlogTiles>
+          :
           <BlogList articles={allArticlesList || []}
                     isLoading={allArticlesListLoading && allArticlesNextPage === 1}
                     isLoadingMore={allArticlesListLoading && allArticlesNextPage > 1}
@@ -109,7 +111,14 @@ class Home extends React.Component {
                     nextPage={allArticlesNextPage}
                     onArticleClicked={this.onLinkClicked.bind(this)}
                     clickedArticles={clickedLinks}
-          />}
+          >
+            <BlogListControlPanel isTilesOptionSelected={isTilesOptionSelected}
+                                  isListOptionSelected={isListOptionSelected}
+                                  onTilesOptionClick={this.onTilesOptionClick.bind(this)}
+                                  onListOptionClick={this.onListOptionClick.bind(this)}
+                                  isLoading={blogListLoading || allArticlesListLoading}
+            />
+          </BlogList>}
         <Message type="alert"
                  message="Błąd pobierania danych. Spróbuj ponownie!"
                  isVisible={blogListError || articlesError || allArticlesListError} />

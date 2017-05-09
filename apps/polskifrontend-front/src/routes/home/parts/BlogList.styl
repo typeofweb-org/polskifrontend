@@ -2,32 +2,35 @@
 @import "../../../styles/variables.styl"
 @import "../../../styles/colors.styl"
 
+.clear
+  clear both
+
 .container
-  padding $global-margin $global-padding
+  padding 0 $global-padding $global-margin
+  background transparent
 
   .item
-    border-bottom 1px dotted $color-tertiary
-    border-left 6px solid $color-tertiary
-    padding-left 10px
-    margin 20px 5px
+    border-left 4px solid $color-tertiary
+    padding $global-margin
+    margin $global-margin * 1.5 0 $global-margin
     text-align left
     transition border-bottom $animation-time, border-left $animation-time
     position relative
+    background $color-secondary
+    box-shadow 1px 1px 6px 1px lighten($color-primary, 80%)
 
     &--today
-      border-bottom 1px dotted $color-oposite
-      border-left 6px solid $color-oposite
+      border-left 4px solid $color-oposite
 
     &--clicked
-      border-bottom 1px dotted $color-tertiary
-      border-left 6px solid $color-tertiary
+      border-left 4px solid $color-tertiary
 
     &__new
       background $color-oposite
       color $color-secondary
       padding 5px $global-padding
       display none
-      border-radius 5px
+      border-radius $global-radius
       font-weight normal
       font-size 12px
       vertical-align text-bottom
@@ -40,52 +43,32 @@
       &--clicked
         background $color-tertiary
 
-    &__header
-      display inline-block
-      max-width 100%
-      margin 7px 0
-      text-decoration none
-      font-size 20px
-      font-weight bold
-      font-family $font-header
-      color $color-primary
-      transition color $animation-time
-      white-space nowrap
-      overflow hidden
-      text-overflow ellipsis
-      text-transform none
+    .article
+      width 100%
 
-      img
-        height 25px
-        vertical-align sub
-        margin-right 10px
+      &__header
+        display inline-block
+        max-width 100%
+        margin 0 0 $global-padding
+        text-decoration none
+        font-size 20px
+        font-weight bold
+        font-family $font-header
+        color $color-primary
+        transition color $animation-time
+        white-space nowrap
+        overflow hidden
+        text-overflow ellipsis
+        text-transform none
 
-    &:hover, &:focus
-      .buttons
-        background #fff
-        opacity 1
-        visibility visible
-
-        @media screen and (min-width: 768px)
-          background -webkit-linear-gradient(left, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 1) 60%, #fff 100%)
-          background -o-linear-gradient(left, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 1) 60%, #fff 100%)
-          background -moz-linear-gradient(left, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 1) 60%, #fff 100%)
-          background linear-gradient(left, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 1) 60%, #fff 100%)
+        img
+          height 25px
+          vertical-align sub
+          margin-right 10px
 
     .buttons
-      position absolute
-      top 0
-      left 0
       width 100%
-      height 100%
       text-align center
-      background rgba(255, 255, 255, 0)
-      opacity 0
-      visibility hidden
-      transition visibility $animation-time, background $animation-time, opacity $animation-time
-
-      @media screen and (min-width: 768px)
-        text-align right
 
       &__container
         display table
@@ -98,71 +81,38 @@
 
       &__item
         display inline-block
-        margin $global-padding
-        font-weight normal
+        font-size 1.3em
+        font-weight bold
+        text-decoration underline
+        margin $global-margin $global-padding 0
         text-align center
-        transition color $animation-time
-
-        &:hover
-          color lighten($color-tertiary, 5%)
+        transition background $animation-time
+        border-radius $global-radius
+        color $color-tertiary
 
         @media screen and (min-width: 768px)
-          margin $global-margin
           font-weight bold
 
         i
-          display block
-          font-size 1.6em
-          background $color-tertiary
-          border-radius 5px
-          color $color-secondary
-          width 40px
-          height 40px
-          margin 0 auto
-          line-height 40px
-          text-align center
-          margin-bottom 5px
-          transition background $animation-time
-
-        &--today
-          color $color-oposite
-
-          &:hover
-            color lighten($color-oposite, 15%)
-
-            i
-              background lighten($color-oposite, 15%)
-
-          i
-            background $color-oposite
-
-        &--clicked
+          margin-right 10px
+          display inline-block
           color $color-tertiary
-
-          &:hover
-            color lighten($color-tertiary, 5%)
-
-            i
-              background lighten($color-tertiary, 5%)
-
-          i
-            background $color-tertiary
+          text-align center
+          transition background $animation-time
 
       &__text
         display none
-        font-weight bold
-        font-size 1em
 
         @media screen and (min-width: 768px)
           display inline-block
 
     .meta
-      font-size 14px
       padding-top $global-margin
       color lighten($color-primary, 50%)
       display inline
 
       &__date
+        font-size 14px
         span
           text-decoration none
           color $color-primary
@@ -173,10 +123,10 @@
             text-decoration underline
 
       &__description
-        font-size 16px
+        font-size 1.1em
         line-height 1.3em
         color $color-primary
-        padding $global-padding 0
+        padding $global-padding 0 0
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

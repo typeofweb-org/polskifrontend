@@ -15,6 +15,7 @@ const BlogList = props => {
   return (
     <ResponsivePanel className={styles.container} header="Wszystkie artykuły" description="">
       <Loader isLoading={props.isLoading}>
+        {props.children}
         {props.articles.map((item, index) => {
           const isTodayArticle = dateHelper.isToday(new Date(item.date));
           const clicked = props.clickedArticles.find(art => art.url === item.href);
@@ -30,6 +31,21 @@ const BlogList = props => {
           return (
             <div key={index}>
               <div className={itemClass}>
+                <div className={styles.article}>
+                  <h3 className={styles['article__header']}>
+                    <span className={tagClass}>Nowość</span>
+                    <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} initialImage={noImage} />
+                    {item.title}
+                  </h3>
+                  <div className={styles['meta']}>
+                    <p className={styles['meta__date']}>
+                      <span>{item._blog.name}</span> | {dateFormat(item.date, 'dd-mm-yyyy')}
+                    </p>
+                    <p className={styles['meta__description']}>
+                      {description}
+                    </p>
+                  </div>
+                </div>
                 <div className={styles.buttons}>
                   <div className={styles['buttons__container']}>
                     <div className={styles['buttons__wrapper']}>
@@ -50,7 +66,7 @@ const BlogList = props => {
                             onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                             onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                       >
-                        <i className="fa fa-folder-o">
+                        <i className="fa fa-folder">
                         </i>
                         <span className={styles['buttons__text']}>Otwórz w serwisie</span>
                       </Link>
@@ -68,18 +84,7 @@ const BlogList = props => {
                     </div>
                   </div>
                 </div>
-                <h3 className={styles['item__header']}>
-                  <span className={tagClass}>Nowość</span>
-                  <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} initialImage={noImage} />
-                  {item.title}
-                </h3>
-                <div className={styles['meta']}>
-                  <p className={styles['meta__date']}>
-                    <span>{item._blog.name}</span> | {dateFormat(item.date, 'dd-mm-yyyy')}
-                  </p>
-                  <p className={styles['meta__description']}>
-                    {description}
-                  </p>
+                <div className={styles.clear}>
                 </div>
               </div>
             </div>);
