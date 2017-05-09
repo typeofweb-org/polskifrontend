@@ -37,6 +37,7 @@ const BlogList = props => {
                         ? <a href=""
                              className={buttonItemClass}
                              onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                             onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                              onClick={(event) => event.preventDefault()}
                         >
                           <i className="fa fa-check">
@@ -47,7 +48,7 @@ const BlogList = props => {
                       <Link className={buttonItemClass}
                             to={`/artykuly/${item.slug}`}
                             onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                            onTouchEnd={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                            onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                       >
                         <i className="fa fa-folder-o">
                         </i>
@@ -58,7 +59,7 @@ const BlogList = props => {
                          rel="nofollow"
                          target="_blank"
                          onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                         onTouchEnd={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                         onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                       >
                         <i className="fa fa-link">
                         </i>

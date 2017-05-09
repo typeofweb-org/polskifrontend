@@ -30,6 +30,7 @@ const TilesArticles = props => {
                     ? <a href=""
                          className={buttonItemClass}
                          onMouseUp={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
+                         onTouchStart={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
                          onClick={(event) => event.preventDefault()}
                     >
                       <i className="fa fa-check">
@@ -40,7 +41,7 @@ const TilesArticles = props => {
                   <Link className={buttonItemClass}
                         to={`/artykuly/${article.slug}`}
                         onMouseUp={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
-                        onTouchEnd={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
+                        onTouchStart={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
                   >
                     <i className="fa fa-folder-o">
                     </i>
@@ -51,7 +52,7 @@ const TilesArticles = props => {
                      rel="nofollow"
                      target="_blank"
                      onMouseUp={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
-                     onTouchEnd={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
+                     onTouchStart={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
                   >
                     <i className="fa fa-link">
                     </i>
