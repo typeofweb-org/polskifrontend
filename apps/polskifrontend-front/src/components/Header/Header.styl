@@ -5,7 +5,7 @@
   background $color-secondary
   height $header-height
   margin $header-height * -1
-  border-bottom 2px solid $color-primary
+  border-bottom 2px solid lighten($color-primary, 85%)
   text-align center
   position fixed
   top 0
@@ -18,9 +18,7 @@
     height 50px
     width auto
     transition height $animation-time
-
-  h1
-    padding 10px 0
+    margin 10px 0 0
 
   &--scrolled
     margin-top 0
@@ -28,13 +26,16 @@
 
   &__link
     text-decoration none
+    display inline
+    height $header-height
 
   &__title
     margin 0
+    height $header-height
     padding ($header-height - 3 - 70) * 0.5
     color $color-secondary
     font-size 2.6rem
-    display inline-block
+    display inline
 
   &--hidden
     visibility hidden

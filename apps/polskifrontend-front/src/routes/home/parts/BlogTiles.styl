@@ -16,13 +16,13 @@
     margin $global-margin 0 0
 
     @media screen and (min-width: 992px)
-      width calc(50% - 30px)
+      width calc(50% - 20px)
 
       &:nth-child(even)
-        margin-right $global-margin
+        margin-right $global-padding + 5px
 
       &:nth-child(odd)
-        margin-left $global-margin
+        margin-left $global-padding + 5px
 
   &__blog
     padding 0
