@@ -29,7 +29,12 @@ const BlogTiles = props => {
                     {item.name}
                   </a>
                 </h2>
-                <TilesArticles articles={item.articles || []} onArticleClicked={props.onArticleClicked} clickedArticles={props.clickedArticles} />
+                <TilesArticles articles={item.articles || []}
+                               blogHref={item.href}
+                               blogName={item.name}
+                               onArticleClicked={props.onArticleClicked}
+                               clickedArticles={props.clickedArticles}
+                />
               </section>
             </div>
           );

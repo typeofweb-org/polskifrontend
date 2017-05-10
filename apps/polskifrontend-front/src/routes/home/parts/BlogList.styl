@@ -99,10 +99,10 @@
 
       &__item
         display inline-block
-        font-size 1.2em
+        font-size 1.1em
         font-weight bold
         font-family $font-text
-        margin $global-margin $global-padding 0
+        margin $global-margin $global-padding - 5px 0
         text-align center
         transition color $animation-time
         border-radius $global-radius
@@ -116,17 +116,19 @@
             color lighten($color-tertiary, 5%)
 
         i
+          font-size 2em
           margin-right 10px
-          font-size 1.5em
           display inline-block
           color $color-tertiary
           text-align center
           transition color $animation-time
-          vertical-align text-top
+
+          @media screen and (min-width 768px)
+            font-size 1em
 
       &__text
         display none
-        text-decoration underline
+        text-transform uppercase
 
         @media screen and (min-width: 768px)
           display inline-block

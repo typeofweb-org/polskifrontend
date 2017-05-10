@@ -32,7 +32,11 @@ const TilesArticles = props => {
                 >{article.title}</Link>
               </h3>
               <div className={styles['meta']}>
-                <p className={styles['meta__date']}>{dateFormat(article.date, 'dd-mm-yyyy')}</p>
+                <p className={styles['meta__date']}>
+                  <span>
+                    <a href={props.blogHref} target="_blank" title={props.blogName}>{props.blogName}</a>
+                  </span> | {dateFormat(article.date, 'dd-mm-yyyy')}
+                </p>
                 <p className={styles['meta__description']}>
                   {`${description}...`}
                 </p>
@@ -85,6 +89,8 @@ const TilesArticles = props => {
 
 TilesArticles.propTypes = {
   articles: PropTypes.array.isRequired,
+  blogHref: PropTypes.string.isRequired,
+  blogName: PropTypes.string.isRequired,
   clickedArticles: PropTypes.array.isRequired,
   onArticleClicked: PropTypes.func.isRequired
 };
