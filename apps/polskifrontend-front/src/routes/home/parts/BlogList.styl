@@ -9,6 +9,9 @@
   padding 0 $global-padding $global-margin
   background transparent
 
+  @media screen and (min-width: 768px)
+    padding 0 0 $global-margin
+
   .item
     border-left 4px solid $color-tertiary
     padding $global-margin
@@ -29,7 +32,6 @@
     &__new
       background $color-oposite
       color $color-secondary
-      padding 5px $global-padding
       display none
       border-radius $global-radius
       font-weight normal
@@ -41,11 +43,13 @@
       &--visible
         display block
         margin-bottom $global-padding
+        padding $global-padding
 
         @media screen and (min-width: 768px)
           display inline-block
           margin-right $global-padding
           margin-bottom 0
+          padding 5px $global-padding
 
       &--clicked
         background $color-tertiary
