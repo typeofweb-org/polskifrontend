@@ -3,6 +3,9 @@
 @import "../../styles/colors.styl"
 
 .container
-  width 100%
-  margin 0 auto
+  padding 0 $global-padding $global-margin
+  background transparent
+
+  @media screen and (min-width: 768px)
+    padding 0 0 $global-margin
 

@@ -17,8 +17,7 @@ const TopHomePanel = props => {
             <RetinaImage src={[logo, logo2]} alt="Polski Front-End Logo" />
           </Link>
         </h2>
-        <h2 className={style['wrapper__title']}>Serwisy na temat front-endu</h2>
-        <p className={style['wrapper__description']}>Wszystkie w jednym miejscu. Po polsku!</p>
+        <h2 className={style['wrapper__title']}>Polskie serwisy na temat front-endu</h2>
       </div>
     </div>
   );

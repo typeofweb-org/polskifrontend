@@ -11,7 +11,7 @@ import * as dateHelper from '../../../core/helpers/dateHelper';
 const NewsList = (props) => {
   return (
     <div>
-      <ResponsivePanel className={styles.container} header="Aktualności" description="Poniżej znajdziesz ostatnie aktulaności dotyczące serwisu">
+      <ResponsivePanel className={styles.container} header="Aktualności" description="">
         <div className={styles.nav}>
           <Link className={styles.back} to="/">
             <i className="fa fa-arrow-left">

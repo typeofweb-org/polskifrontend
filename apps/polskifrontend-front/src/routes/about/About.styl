@@ -3,49 +3,60 @@
 @import "../../styles/colors.styl"
 
 .container
-  width 100%
-  margin $global-margin * 2 auto 0
   padding 0 $global-padding $global-margin
+  background transparent
 
   @media screen and (min-width: 768px)
-    width 750px
+    padding 0 0 $global-margin
 
-  @media screen and (min-width: 992px)
-    width 970px
-
-  @media screen and (min-width: 1200px)
-    width 1170px
-
-  .responsive
-    width 100%
-
-  .text
+  .nav
     text-align left
-    padding $global-padding * 0.5
-    line-height 1.6em
-    font-size 1.2em
+    margin-top $global-margin * 1.5
 
-    @media screen and (min-width: 768px)
-      padding $global-padding
+    .back
+      font-weight bold
+      display inline-block
+      padding $global-padding * 0.75
+      background $color-secondary
+      color $color-tertiary
+      border 3px solid $color-tertiary
+      border-radius $global-radius
+      text-decoration none
+      transition background $animation-time
 
-.back
-  color $color-secondary
-  background $color-primary
-  border-radius $global-radius
-  padding 10px 20px
-  transition background $animation-time
-  text-decoration none
-  margin-bottom $global-margin
-  display inline-block
+      @media screen and (min-width: 768px)
+        padding $global-padding ($global-padding * 2)
 
-  &:hover
-    background lighten($color-primary, 25%)
+      &:hover
+        background $color-tertiary
+        color $color-secondary
 
-  a
-    font-family $font-header
-    font-size 20px
+      &:active
+        background $color-secondary
 
-  i
-    font-size 20px
-    margin-right 10px
-    vertical-align top
+      i
+        font-size 20px
+        margin-right 10px
+        vertical-align top
+
+  .message
+    border-left 4px solid $color-tertiary
+    padding $global-margin
+    margin $global-margin * 1.5 0 $global-margin
+    text-align left
+    transition border-bottom $animation-time, border-left $animation-time
+    position relative
+    background $color-secondary
+    box-shadow 1px 1px 6px 1px lighten($color-primary, 80%)
+    border-radius $global-radius
+
+    h3
+      padding 0 0 $global-padding
+      text-transform none
+      font-size 20px
+
+    .text
+      text-align left
+      padding $global-padding 0
+      line-height 1.6em
+      font-size 1.1em
