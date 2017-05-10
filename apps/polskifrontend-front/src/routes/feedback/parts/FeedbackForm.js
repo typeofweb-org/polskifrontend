@@ -55,12 +55,14 @@ class FeedbackForm extends React.Component {
 
     return (
       <div>
-        <Link className={styles.back} onClick={this.props.onGoBackClick} to="/">
-          <i className="fa fa-arrow-left">
-          </i>
-          Strona główna
-        </Link>
-        <ResponsivePanel className={styles.container} header="Zgłoś uwagi" description="Jeśli masz jakieś uwagi co do działania serwisu lub propozycje zmian, skorzystaj z poniższego formularza.">
+        <ResponsivePanel className={styles.container} header="Zgłoś uwagi" description="">
+          <div className={styles.nav}>
+            <Link className={styles.back} onClick={this.props.onGoBackClick} to="/">
+              <i className="fa fa-arrow-left">
+              </i>
+              Strona główna
+            </Link>
+          </div>
           <form className={formClass} onSubmit={this.props.onSubmit}>
             <fieldset className={styles.fieldset}>
               <input disabled={isSending} className={emailClass} id="feedback-email" type="email" placeholder="Podaj swój email" onChange={this.props.onEmailChange} ref="emailInput" />
