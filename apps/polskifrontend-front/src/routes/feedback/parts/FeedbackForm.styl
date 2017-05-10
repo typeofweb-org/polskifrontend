@@ -29,6 +29,8 @@
 
       &:active
         background $color-secondary
+        color $color-tertiary
+        transition background 0s
 
       i
         font-size 20px
@@ -55,9 +57,9 @@
     box-shadow 1px 1px 6px 1px lighten($color-primary, 80%)
     border-radius $global-radius
 
-    height 440px
+    height 464px
     @media screen and (min-width: 768px)
-      height 370px
+      height 380px
 
     &--invisible
       display none
@@ -138,10 +140,10 @@
     background $color-secondary
     box-shadow 1px 1px 6px 1px lighten($color-primary, 80%)
     border-radius $global-radius
-    height 440px
     width 100%
+    height 464px
     @media screen and (min-width: 768px)
-      height 370px
+      height 380px
 
     &__wrapper
       display table-cell
@@ -149,7 +151,7 @@
 
     &__text
       font-family $font-header
-      font-size 26px
+      font-size 1.6em
       font-weight bold
       margin-bottom $global-margin
 
