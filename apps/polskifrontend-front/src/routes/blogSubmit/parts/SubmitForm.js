@@ -55,12 +55,14 @@ class SubmitForm extends React.Component {
 
     return (
       <div>
-        <Link className={style.back} onClick={this.props.onGoBackClick} to="/">
-          <i className="fa fa-arrow-left">
-          </i>
-          Strona główna
-        </Link>
-        <ResponsivePanel className={style.container} header="Zgłoś serwis" description="Jeśli uważasz, że jakiś serwis powinien się tutaj znaleźć, podaj poniżej jego adres. Być może dodamy go do naszej listy!">
+        <ResponsivePanel className={style.container} header="Zgłoś serwis" description="">
+          <div className={style.nav}>
+            <Link className={style.back} onClick={this.props.onGoBackClick} to="/">
+              <i className="fa fa-arrow-left">
+              </i>
+              Strona główna
+            </Link>
+          </div>
           <form className={formClass} onSubmit={this.props.onSubmit}>
             <fieldset className={style.fieldset}>
               <input disabled={isSending} className={urlClass} id="submit-blog-url" type="text" placeholder="Podaj adres adres url" onChange={this.props.onUrlChange} ref="urlInput" />
