@@ -12,26 +12,32 @@
     float left
 
     &--left
-      width 65%
+      width 60%
       float left
       text-align left
 
+      @media screen and (min-width: 768px)
+        width 65%
+
     &--right
-      width 35%
+      width 40%
       float left
       text-align right
+
+      @media screen and (min-width: 768px)
+        width 35%
 
     &__submit
       font-weight bold
       display inline-block
-      padding $global-padding
+      padding $global-padding * 0.75
       background $color-secondary
       color $color-tertiary
       border 3px solid $color-tertiary
       border-radius $global-radius
       margin-right 10px
       text-decoration none
-      transition background $animation-time, color $animation-time
+      transition background $animation-time
 
       @media screen and (min-width: 768px)
         padding $global-padding ($global-padding * 2)
@@ -39,6 +45,9 @@
       &:hover
         background $color-tertiary
         color $color-secondary
+
+      &:active
+        background $color-secondary
 
       &--disabled
         border 3px solid lighten($color-primary, 60%)
@@ -63,16 +72,17 @@
 
     &__link
       display inline-block
-      padding $global-padding
+      padding $global-padding * 0.75
       background $color-secondary
       border 3px solid $color-tertiary
       color $color-tertiary
-      margin-left $global-padding
+      margin-left $global-padding * 0.75
       border-radius $global-radius
-      transition background $animation-time, color $animation-time
+      transition background $animation-time
 
       @media screen and (min-width: 768px)
         padding $global-padding ($global-padding * 2)
+        margin-left $global-padding
 
       &:hover
         background $color-tertiary
@@ -88,15 +98,15 @@
         pointer-events none
         cursor default
 
-        &:hover
-          border 3px solid lighten($color-primary, 60%)
-          background $color-secondary
-          color lighten($color-primary, 60%)
+        //&:hover
+        //  border 3px solid lighten($color-primary, 60%)
+        //  background $color-secondary
+        //  color lighten($color-primary, 60%)
 
       &--active
         color lighten($color-primary, 50%)
         background $color-secondary
-        border 2px solid lighten($color-primary, 50%)
+        border 3px solid lighten($color-primary, 50%)
         pointer-events none
         cursor default
 

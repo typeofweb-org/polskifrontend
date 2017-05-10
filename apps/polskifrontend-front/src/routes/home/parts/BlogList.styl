@@ -34,11 +34,17 @@
       font-weight normal
       font-size 12px
       vertical-align text-bottom
-      margin-right $global-padding
       transition background $animation-time
+      text-align center
 
       &--visible
-        display inline-block
+        display block
+        margin-bottom $global-padding
+
+        @media screen and (min-width: 768px)
+          display inline-block
+          margin-right $global-padding
+          margin-bottom 0
 
       &--clicked
         background $color-tertiary
@@ -66,6 +72,13 @@
           vertical-align sub
           margin-right 10px
 
+        a
+          color $color-primary
+          transition color $animation-time
+
+          &:hover
+            color lighten($color-primary, 40%)
+
     .buttons
       width 100%
       text-align center
@@ -81,27 +94,34 @@
 
       &__item
         display inline-block
-        font-size 1.3em
+        font-size 1.2em
         font-weight bold
-        text-decoration underline
+        font-family $font-text
         margin $global-margin $global-padding 0
         text-align center
-        transition background $animation-time
+        transition color $animation-time
         border-radius $global-radius
         color $color-tertiary
 
-        @media screen and (min-width: 768px)
-          font-weight bold
+        &:hover
+          text-decoration underline
+          color lighten($color-tertiary, 5%)
+
+          i
+            color lighten($color-tertiary, 5%)
 
         i
           margin-right 10px
+          font-size 1.5em
           display inline-block
           color $color-tertiary
           text-align center
-          transition background $animation-time
+          transition color $animation-time
+          vertical-align text-top
 
       &__text
         display none
+        text-decoration underline
 
         @media screen and (min-width: 768px)
           display inline-block
@@ -113,7 +133,7 @@
 
       &__date
         font-size 14px
-        span
+        a
           text-decoration none
           color $color-primary
           font-weight bold

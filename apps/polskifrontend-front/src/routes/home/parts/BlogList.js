@@ -35,11 +35,16 @@ const BlogList = props => {
                   <h3 className={styles['article__header']}>
                     <span className={tagClass}>Nowość</span>
                     <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} initialImage={noImage} />
-                    {item.title}
+                    <Link to={`/artykuly/${item.slug}`}
+                          onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                          onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                    >{item.title}</Link>
                   </h3>
                   <div className={styles['meta']}>
                     <p className={styles['meta__date']}>
-                      <span>{item._blog.name}</span> | {dateFormat(item.date, 'dd-mm-yyyy')}
+                      <span>
+                        <a href={item._blog.href} target="_blank" title={item._blog.name}>{item._blog.name}</a>
+                        </span> | {dateFormat(item.date, 'dd-mm-yyyy')}
                     </p>
                     <p className={styles['meta__description']}>
                       {description}
