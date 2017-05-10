@@ -33,8 +33,8 @@ class Layout extends React.Component {
         <div className={style.pusher}>
         </div>
         <Header />
-        <TopHomePanel />
         <TopHomeLinks newNewsCount={filteredList.length} />
+        <TopHomePanel />
         {this.props.children}
         <Footer />
         <CookieInfo />

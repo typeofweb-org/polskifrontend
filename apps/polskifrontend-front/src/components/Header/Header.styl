@@ -2,31 +2,29 @@
 @import "../../styles/variables.styl"
 
 .header
-  background $color-primary
+  background $color-secondary
   height $header-height
-  border-bottom 3px solid $color-tertiary
+  margin $header-height * -1
+  border-bottom 2px solid $color-primary
   text-align center
   position fixed
   top 0
   left 0
   right 0
   z-index 100
-  transition height $animation-time, opacity $animation-time
+  transition margin-top $animation-time
 
   img
-    height 70px
+    height 50px
     width auto
     transition height $animation-time
 
+  h1
+    padding 10px 0
+
   &--scrolled
-    height $header-height * 0.75
+    margin-top 0
     -webkit-backface-visibility hidden
-
-    h1
-      padding ((($header-height * 0.75) - 3 - (70 * 0.75)) * 0.5)px
-
-    img
-      height 70px * 0.75
 
   &__link
     text-decoration none

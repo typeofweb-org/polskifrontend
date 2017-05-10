@@ -3,8 +3,8 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import RetinaImage from 'react-retina-image';
 import styles from './Header.styl';
 import Link from '../Link/Link';
-import logo from '../../../public/polskifrontend.png';
-import logo2 from '../../../public/polskifrontend@2x.png';
+import logo from '../../../public/polskifrontend_logo_black.png';
+import logo2 from '../../../public/polskifrontend_black@2x.png';
 
 class Header extends React.Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class Header extends React.Component {
     // how pixels is to top
     const target = event.target || event.srcElement;
     const scrollTop = target.documentElement.scrollTop || target.body.scrollTop || 0;
-    const scrolled = scrollTop > 150;
+    const scrolled = scrollTop > 250;
 
     this.setState({ scrolled });
   }

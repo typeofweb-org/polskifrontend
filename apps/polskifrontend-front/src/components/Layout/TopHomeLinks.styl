@@ -5,9 +5,10 @@
 .container
   width 100%
   padding $global-margin + 5px 0 $global-margin
-  border-bottom 1px solid darken($color-main-background, 5%)
+  border-bottom 1px solid $color-main-background
   background $color-secondary
   text-align center
+  z-index 100
 
   .list
 
@@ -20,9 +21,10 @@
       text-decoration none
       font-weight bold
       font-size 1.3em
-      font-family $font-header
+      font-family $font-text
       position relative
       transition color $animation-time
+      text-transform uppercase
 
       &:hover
         color lighten($color-tertiary, 5%)
