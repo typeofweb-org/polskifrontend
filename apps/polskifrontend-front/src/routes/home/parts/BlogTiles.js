@@ -5,11 +5,12 @@ import Loader from '../../../components/Indicators/Loader';
 import TilesArticles from './TilesArticles';
 import Waypoint from 'react-waypoint';
 import ReactImageFallback from 'react-image-fallback';
-import noImage from '../../../../public/no_image_dark.png';
+import noImage from '../../../../public/no_image_light.png';
+import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
 
 const BlogTiles = props => {
   return (
-    <div className={style.container}>
+    <ResponsivePanel className={style.container} header="Blogi - Strony - Serwisy" description="">
       <Loader isLoading={props.blogListLoading}>
         {props.children}
         {props.blogList.map((item, index) => {
@@ -41,7 +42,7 @@ const BlogTiles = props => {
           <Waypoint onEnter={props.onScrolledBottom} scrollableAncestor="window" />
         </Loader>
       ) : null}
-    </div>
+    </ResponsivePanel>
   );
 };
 

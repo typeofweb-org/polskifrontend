@@ -23,6 +23,21 @@ const TilesArticles = props => {
 
         return (
           <div className={itemClass} key={artIndex}>
+            <div className={styles.article}>
+              <h3 className={styles['article__header']}>
+                <span className={tagClass}>Nowość</span>
+                <Link to={`/artykuly/${article.slug}`}
+                      onMouseUp={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
+                      onTouchStart={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
+                >{article.title}</Link>
+              </h3>
+              <div className={styles['meta']}>
+                <p className={styles['meta__date']}>{dateFormat(article.date, 'dd-mm-yyyy')}</p>
+                <p className={styles['meta__description']}>
+                  {`${description} [...]`}
+                </p>
+              </div>
+            </div>
             <div className={styles.buttons}>
               <div className={styles['buttons__container']}>
                 <div className={styles['buttons__wrapper']}>
@@ -35,7 +50,7 @@ const TilesArticles = props => {
                     >
                       <i className="fa fa-check">
                       </i>
-                      <span className={styles['buttons__text']}>Oznacz jako czytany</span>
+                      <span className={styles['buttons__text']}>Przeczytany</span>
                     </a>
                     : null}
                   <Link className={buttonItemClass}
@@ -43,9 +58,9 @@ const TilesArticles = props => {
                         onMouseUp={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
                         onTouchStart={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
                   >
-                    <i className="fa fa-folder-o">
+                    <i className="fa fa-folder">
                     </i>
-                    <span className={styles['buttons__text']}>Otwórz w serwisie</span>
+                    <span className={styles['buttons__text']}>Otwórz</span>
                   </Link>
                   <a href={article.href}
                      className={buttonItemClass}
@@ -56,20 +71,10 @@ const TilesArticles = props => {
                   >
                     <i className="fa fa-link">
                     </i>
-                    <span className={styles['buttons__text']}>Otwórz oryginał</span>
+                    <span className={styles['buttons__text']}>Oryginał</span>
                   </a>
                 </div>
               </div>
-            </div>
-            <h3 className={styles['item__header']}>
-              <span className={tagClass}>Nowość</span>
-              {article.title}
-            </h3>
-            <div className={styles['meta']}>
-              <p className={styles['meta__date']}>{dateFormat(article.date, 'dd-mm-yyyy')}</p>
-              <p className={styles['meta__description']}>
-                {`${description} [...]`}
-              </p>
             </div>
           </div>
         )

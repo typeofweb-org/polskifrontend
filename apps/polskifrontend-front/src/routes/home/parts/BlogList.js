@@ -63,7 +63,7 @@ const BlogList = props => {
                         >
                           <i className="fa fa-check">
                           </i>
-                          <span className={styles['buttons__text']}>Oznacz jako czytany</span>
+                          <span className={styles['buttons__text']}>Przeczytany</span>
                         </a>
                         : null}
                       <Link className={buttonItemClass}
@@ -73,7 +73,7 @@ const BlogList = props => {
                       >
                         <i className="fa fa-folder">
                         </i>
-                        <span className={styles['buttons__text']}>Otwórz w serwisie</span>
+                        <span className={styles['buttons__text']}>Otwórz</span>
                       </Link>
                       <a href={item.href}
                          className={buttonItemClass}
@@ -84,7 +84,7 @@ const BlogList = props => {
                       >
                         <i className="fa fa-link">
                         </i>
-                        <span className={styles['buttons__text']}>Otwórz oryginał</span>
+                        <span className={styles['buttons__text']}>Oryginał</span>
                       </a>
                     </div>
                   </div>

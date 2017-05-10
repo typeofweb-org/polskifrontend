@@ -3,41 +3,37 @@
 @import "../../../styles/colors.styl"
 
 .container
-  width 100%
-  margin 0 auto
-  padding $global-padding 0
-
-  @media screen and (min-width: 768px)
-    width 750px
-
-  @media screen and (min-width: 992px)
-    width 970px
-
-  @media screen and (min-width: 1200px)
-    width 1170px
+  padding 0 $global-padding $global-margin
+  background transparent
 
   &__wrapper
-    width calc(100% - 20px)
+    width 100%
     float left
-    margin 10px
     box-sizing border-box
+    margin $global-margin 0 0
 
     @media screen and (min-width: 992px)
-      width calc(50% - 20px)
+      width calc(50% - 30px)
+
+      &:nth-child(even)
+        margin-right $global-margin
+
+      &:nth-child(odd)
+        margin-left $global-margin
 
   &__blog
-    padding $global-padding
-    background $color-primary
-    border-bottom 3px solid $color-tertiary
+    padding 0
+    background transparent
     border-radius $global-radius
 
   .title
-    margin 0 0 10px
-    padding 0
+    padding 0 0 $global-padding
     text-align center
+    border-bottom 2px solid $color-tertiary
+    font-size 20px
 
     &__favicon
-      height 30px
+      height 26px
       vertical-align text-bottom
       margin-right 10px
 
@@ -46,7 +42,7 @@
       text-decoration none
       transition color $animation-time
       &:hover
-        color lighten($color-tertiary, 20%)
+        color lighten($color-tertiary, 5%)
 
   &__clear
     clear both

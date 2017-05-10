@@ -97,16 +97,17 @@
         color lighten($color-primary, 60%)
         pointer-events none
         cursor default
+        transition background 0s
 
-        //&:hover
-        //  border 3px solid lighten($color-primary, 60%)
-        //  background $color-secondary
-        //  color lighten($color-primary, 60%)
+        &:hover
+          border 3px solid lighten($color-primary, 60%)
+          background $color-secondary
+          color lighten($color-primary, 60%)
 
       &--active
-        color lighten($color-primary, 50%)
+        color lighten($color-primary, 60%)
         background $color-secondary
-        border 3px solid lighten($color-primary, 50%)
+        border 3px solid lighten($color-primary, 60%)
         pointer-events none
         cursor default
 
