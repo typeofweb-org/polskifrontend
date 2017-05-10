@@ -17,11 +17,11 @@
   opacity 1
   transition visibility $animation-time, opacity $animation-time
 
-  @media screen and (min-width 768px)
+  @media screen and (min-width: 768px)
     bottom $global-margin
     left $global-margin
     max-width 300px
-    border-radius 5px
+    border-radius $global-radius
 
   &--invisible
     visibility hidden
@@ -35,7 +35,7 @@
     padding ($global-padding * 0.5) $global-padding
     background $color-primary
     color $color-secondary
-    border-radius 5px
+    border-radius $global-radius
     margin-right 10px
     text-decoration none
     transition background $animation-time

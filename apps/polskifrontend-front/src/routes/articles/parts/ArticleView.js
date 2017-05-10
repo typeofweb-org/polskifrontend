@@ -9,11 +9,6 @@ import Loader from '../../../components/Indicators/Loader';
 const ArticleView = (props) => {
   return (
     <div>
-      <Link className={styles.back} to="/">
-        <i className="fa fa-arrow-left">
-        </i>
-        Strona główna
-      </Link>
       <ResponsivePanel className={styles.container}
                        header={props.blogName}
                        description=""
@@ -21,6 +16,13 @@ const ArticleView = (props) => {
                        showImage
                        href={props.blogHref}
       >
+        <div className={styles.nav}>
+          <Link className={styles.back} to="/">
+            <i className="fa fa-arrow-left">
+            </i>
+            Strona główna
+          </Link>
+        </div>
         <Loader isLoading={props.isLoading}>
           <div className={styles.item}>
             <h2 className={styles['item__header']}>
@@ -34,14 +36,14 @@ const ArticleView = (props) => {
                 {props.description}
               </pre>
             </div>
-          </div>
-          <div className={styles.more}>
-            <h3 className={styles['more__header']}>Chcesz więcej? Przeczytaj w oryginale!</h3>
-            <a className={styles['more__link']} href={props.href} target="_blank" rel="nofollow" title={props.title}>
-              <i className="fa fa-link">
-              </i>
-              Przejdź do artykułu
-            </a>
+            <div className={styles.more}>
+              <h3 className={styles['more__header']}>Chcesz więcej? Przeczytaj w oryginale!</h3>
+              <a className={styles['more__link']} href={props.href} target="_blank" rel="nofollow" title={props.title}>
+                <i className="fa fa-link">
+                </i>
+                Przejdź do artykułu
+              </a>
+            </div>
           </div>
         </Loader>
       </ResponsivePanel>
