@@ -6,7 +6,7 @@
   min-height 1240px // TODO: change it proper value
 
   .item
-    border-left 4px solid $color-tertiary
+    border-left 4px solid lighten($color-primary, 60%)
     padding $global-margin
     margin $global-margin * 1.5 0 $global-margin
     text-align left
@@ -16,11 +16,14 @@
     box-shadow 1px 1px 6px 1px lighten($color-primary, 80%)
     border-radius $global-radius
 
+    &:first-child
+      margin-top $global-margin
+
     &--today
       border-left 4px solid $color-oposite
 
     &--clicked
-      border-left 4px solid $color-tertiary
+      border-left 4px solid lighten($color-primary, 60%)
 
     &__new
       background $color-oposite
@@ -96,7 +99,7 @@
         font-size 1.2em
         font-weight bold
         font-family $font-text
-        margin $global-margin $global-padding 0
+        margin $global-margin $global-padding - 5px 0
         text-align center
         transition color $animation-time
         border-radius $global-radius
@@ -126,9 +129,12 @@
           display inline-block
 
     .meta
-      padding-top $global-margin
+      padding-top 0
       color lighten($color-primary, 50%)
-      display inline
+      //display inline
+      height 97px
+      display inline-block
+      overflow hidden
 
       &__date
         font-size 14px
@@ -146,6 +152,6 @@
         line-height 1.3em
         color $color-primary
         padding $global-padding 0 0
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        //white-space: nowrap;
+        //overflow: hidden;
+        //text-overflow: ellipsis;

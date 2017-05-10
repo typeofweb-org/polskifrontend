@@ -5,7 +5,7 @@ import Loader from '../../../components/Indicators/Loader';
 import TilesArticles from './TilesArticles';
 import Waypoint from 'react-waypoint';
 import ReactImageFallback from 'react-image-fallback';
-import noImage from '../../../../public/no_image_light.png';
+import noImage from '../../../../public/no_image.png';
 import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
 
 const BlogTiles = props => {

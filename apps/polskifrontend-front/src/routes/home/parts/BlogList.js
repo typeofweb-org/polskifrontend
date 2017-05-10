@@ -8,7 +8,7 @@ import dateFormat from 'dateformat';
 import { decode } from 'he';
 import Waypoint from 'react-waypoint';
 import ReactImageFallback from 'react-image-fallback';
-import noImage from '../../../../public/no_image_light.png';
+import noImage from '../../../../public/no_image.png';
 import * as dateHelper from '../../../core/helpers/dateHelper';
 
 const BlogList = props => {
@@ -63,7 +63,7 @@ const BlogList = props => {
                         >
                           <i className="fa fa-check">
                           </i>
-                          <span className={styles['buttons__text']}>Przeczytany</span>
+                          <span className={styles['buttons__text']}>Czytany</span>
                         </a>
                         : null}
                       <Link className={buttonItemClass}

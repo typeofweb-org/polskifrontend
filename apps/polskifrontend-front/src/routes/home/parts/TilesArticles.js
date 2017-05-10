@@ -19,7 +19,7 @@ const TilesArticles = props => {
         buttonItemClass = `${buttonItemClass} ${clicked ? styles['buttons__item--clicked'] : ''}`;
         tagClass = `${tagClass} ${clicked ? styles['item__new--clicked'] : ''}`;
 
-        const description = article.description ? decode(article.description.replace(/(<([^>]+)>)/ig, '')) : '';
+        const description = article.description ? decode(article.description.replace(/(<([^>]+)>)/ig, '')).substr(0, 150) : '';
 
         return (
           <div className={itemClass} key={artIndex}>
@@ -34,7 +34,7 @@ const TilesArticles = props => {
               <div className={styles['meta']}>
                 <p className={styles['meta__date']}>{dateFormat(article.date, 'dd-mm-yyyy')}</p>
                 <p className={styles['meta__description']}>
-                  {`${description} [...]`}
+                  {`${description}...`}
                 </p>
               </div>
             </div>
@@ -50,7 +50,7 @@ const TilesArticles = props => {
                     >
                       <i className="fa fa-check">
                       </i>
-                      <span className={styles['buttons__text']}>Przeczytany</span>
+                      <span className={styles['buttons__text']}>Czytany</span>
                     </a>
                     : null}
                   <Link className={buttonItemClass}
