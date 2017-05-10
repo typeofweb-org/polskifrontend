@@ -44,7 +44,7 @@ const BlogList = props => {
                     <p className={styles['meta__date']}>
                       <span>
                         <a href={item._blog.href} target="_blank" title={item._blog.name}>{item._blog.name}</a>
-                        </span> | {dateFormat(item.date, 'dd-mm-yyyy')}
+                      </span> | {dateFormat(item.date, 'dd-mm-yyyy')}
                     </p>
                     <p className={styles['meta__description']}>
                       {description}
