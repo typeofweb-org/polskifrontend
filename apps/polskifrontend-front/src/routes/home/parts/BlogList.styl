@@ -23,12 +23,6 @@
     box-shadow 1px 1px 6px 1px lighten($color-primary, 80%)
     border-radius $global-radius
 
-    &--today
-      border-left 3px solid $color-oposite
-
-    &--clicked
-      border-left 3px solid lighten($color-primary, 60%)
-
     &__new
       background $color-oposite
       color $color-secondary
@@ -120,6 +114,24 @@
 
           @media screen and (min-width 768px)
             font-size 1em
+
+        &--today
+          color $color-oposite
+          i
+            color $color-oposite
+          &:hover
+            color lighten($color-oposite, 25%)
+            i
+              color lighten($color-oposite, 25%)
+
+        &--clicked
+          color $color-tertiary
+          i
+            color $color-tertiary
+          &:hover
+            color lighten($color-tertiary, 5%)
+            i
+              color lighten($color-tertiary, 5%)
 
       &__text
         display none
