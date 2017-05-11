@@ -5,6 +5,8 @@ import dateFormat from 'dateformat';
 import { decode } from 'he';
 import * as dateHelper from '../../../core/helpers/dateHelper';
 import Link from '../../../components/Link/Link';
+import noImage from '../../../../public/no_image.png';
+import ReactImageFallback from 'react-image-fallback';
 
 const TilesArticles = props => {
   return (
@@ -25,7 +27,7 @@ const TilesArticles = props => {
           <div className={itemClass} key={artIndex}>
             <div className={styles.article}>
               <h3 className={styles['article__header']}>
-                <span className={tagClass}>Nowość</span>
+                <span className={tagClass}>Nowe</span>
                 <Link to={`/artykuly/${article.slug}`}
                       onMouseUp={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
                       onTouchStart={props.onArticleClicked.bind(this, article.href, isTodayArticle)}
@@ -33,6 +35,7 @@ const TilesArticles = props => {
               </h3>
               <div className={styles['meta']}>
                 <p className={styles['meta__date']}>
+                  <ReactImageFallback src={props.favicon} fallbackImage={noImage} initialImage={noImage} />
                   <span>
                     <a href={props.blogHref} target="_blank" title={props.blogName}>{props.blogName}</a>
                   </span> | {dateFormat(article.date, 'dd-mm-yyyy')}
@@ -92,6 +95,7 @@ TilesArticles.propTypes = {
   blogHref: PropTypes.string.isRequired,
   blogName: PropTypes.string.isRequired,
   clickedArticles: PropTypes.array.isRequired,
+  favicon: PropTypes.string.isRequired,
   onArticleClicked: PropTypes.func.isRequired
 };
 

@@ -34,6 +34,7 @@ const BlogTiles = props => {
                                blogName={item.name}
                                onArticleClicked={props.onArticleClicked}
                                clickedArticles={props.clickedArticles}
+                               favicon={item.favicon}
                 />
               </section>
             </div>
@@ -58,7 +59,7 @@ BlogTiles.propTypes = {
   onScrolledBottom: PropTypes.func.isRequired,
   nextPage: PropTypes.number.isRequired,
   onArticleClicked: PropTypes.func.isRequired,
-  clickedArticles: PropTypes.array.isRequired
+  clickedArticles: PropTypes.array.isRequired,
 };
 
 export default withStyles(style)(BlogTiles);

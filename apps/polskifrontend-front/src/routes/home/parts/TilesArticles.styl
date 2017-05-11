@@ -69,17 +69,9 @@
         text-overflow ellipsis
         text-transform none
 
-        img
-          height 25px
-          vertical-align sub
-          margin-right 10px
-
         a
           color $color-primary
           transition color $animation-time
-
-          &:hover
-            color lighten($color-primary, 40%)
 
     .buttons
       width 100%
@@ -133,18 +125,32 @@
     .meta
       padding-top 0
       color lighten($color-primary, 50%)
-      //display inline
-      height 97px
+      height 103px
       display inline-block
       overflow hidden
 
       &__date
         font-size 14px
+
+        img
+          height 23px
+          vertical-align text-bottom
+          margin-right 7px
+
+          &:hover
+            color lighten($color-primary, 40%)
+
         a
           text-decoration none
           color $color-primary
           font-weight bold
           text-transform uppercase
+          max-width 100px
+          overflow hidden
+
+          @media screen and (min-width 768px)
+            max-width auto
+            overflow auto
 
           &:hover
             text-decoration underline
@@ -154,6 +160,3 @@
         line-height 1.3em
         color $color-primary
         padding $global-padding 0 0
-        //white-space: nowrap;
-        //overflow: hidden;
-        //text-overflow: ellipsis;
