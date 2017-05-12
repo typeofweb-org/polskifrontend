@@ -3,7 +3,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './ResponsivePanel.styl';
 import ResponsiveContainer from './ResponsiveContainer';
 import ReactImageFallback from 'react-image-fallback';
-import noImage from '../../../public/no_image_dark.png';
+import noImage from '../../../public/no_image.png';
 
 function getHeaderContent(props) {
   return (
