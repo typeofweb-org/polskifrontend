@@ -29,68 +29,66 @@ const BlogList = props => {
           const description = item.description ? decode(item.description.replace(/(<([^>]+)>)/ig, '')) : '';
 
           return (
-            <div key={index}>
-              <div className={itemClass}>
-                <div className={styles.article}>
-                  <h3 className={styles['article__header']}>
-                    <span className={tagClass}>Nowe</span>
-                    <Link to={`/artykuly/${item.slug}`}
+            <div className={itemClass} key={index}>
+              <div className={styles.article}>
+                <h3 className={styles['article__header']}>
+                  <span className={tagClass}>Nowe</span>
+                  <Link to={`/artykuly/${item.slug}`}
+                        onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                        onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                  >{item.title}</Link>
+                </h3>
+                <div className={styles['meta']}>
+                  <p className={styles['meta__date']}>
+                    <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} initialImage={noImage} />
+                    <span>
+                      <a href={item._blog.href} target="_blank" title={item._blog.name}>{item._blog.name}</a>
+                    </span> | {dateFormat(item.date, 'dd-mm-yyyy')}
+                  </p>
+                  <p className={styles['meta__description']}>
+                    {description}
+                  </p>
+                </div>
+              </div>
+              <div className={styles.buttons}>
+                <div className={styles['buttons__container']}>
+                  <div className={styles['buttons__wrapper']}>
+                    {isTodayArticle && !clicked
+                      ? <a href=""
+                           className={buttonItemClass}
+                           onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                           onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                           onClick={(event) => event.preventDefault()}
+                      >
+                        <i className="fa fa-check">
+                        </i>
+                        <span className={styles['buttons__text']}>Czytany</span>
+                      </a>
+                      : null}
+                    <Link className={buttonItemClass}
+                          to={`/artykuly/${item.slug}`}
                           onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                           onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                    >{item.title}</Link>
-                  </h3>
-                  <div className={styles['meta']}>
-                    <p className={styles['meta__date']}>
-                      <ReactImageFallback src={item._blog.favicon} fallbackImage={noImage} initialImage={noImage} />
-                      <span>
-                        <a href={item._blog.href} target="_blank" title={item._blog.name}>{item._blog.name}</a>
-                      </span> | {dateFormat(item.date, 'dd-mm-yyyy')}
-                    </p>
-                    <p className={styles['meta__description']}>
-                      {description}
-                    </p>
+                    >
+                      <i className="fa fa-folder">
+                      </i>
+                      <span className={styles['buttons__text']}>Otwórz</span>
+                    </Link>
+                    <a href={item.href}
+                       className={buttonItemClass}
+                       rel="nofollow"
+                       target="_blank"
+                       onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                       onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
+                    >
+                      <i className="fa fa-link">
+                      </i>
+                      <span className={styles['buttons__text']}>Oryginał</span>
+                    </a>
                   </div>
                 </div>
-                <div className={styles.buttons}>
-                  <div className={styles['buttons__container']}>
-                    <div className={styles['buttons__wrapper']}>
-                      {isTodayArticle && !clicked
-                        ? <a href=""
-                             className={buttonItemClass}
-                             onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                             onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                             onClick={(event) => event.preventDefault()}
-                        >
-                          <i className="fa fa-check">
-                          </i>
-                          <span className={styles['buttons__text']}>Czytany</span>
-                        </a>
-                        : null}
-                      <Link className={buttonItemClass}
-                            to={`/artykuly/${item.slug}`}
-                            onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                            onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                      >
-                        <i className="fa fa-folder">
-                        </i>
-                        <span className={styles['buttons__text']}>Otwórz</span>
-                      </Link>
-                      <a href={item.href}
-                         className={buttonItemClass}
-                         rel="nofollow"
-                         target="_blank"
-                         onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                         onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
-                      >
-                        <i className="fa fa-link">
-                        </i>
-                        <span className={styles['buttons__text']}>Oryginał</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.clear}>
-                </div>
+              </div>
+              <div className={styles.clear}>
               </div>
             </div>);
         })}

@@ -15,8 +15,14 @@
     box-sizing border-box
     margin $global-margin 0 0
 
+    &:nth-child(2)
+      margin-top $global-margin * 1.5
+
     @media screen and (min-width: 992px)
       width calc(50% - 20px)
+
+      &:nth-child(3)
+        margin-top $global-margin * 1.5
 
       &:nth-child(even)
         margin-right $global-padding + 5px
