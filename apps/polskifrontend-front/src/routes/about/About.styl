@@ -22,6 +22,7 @@
       border 3px solid $color-tertiary
       border-radius $global-radius
       text-decoration none
+      text-transform uppercase
       transition background $animation-time
 
       @media screen and (min-width: 768px)
@@ -37,9 +38,8 @@
         transition background 0s
 
       i
-        font-size 20px
         margin-right 10px
-        vertical-align top
+        vertical-align baseline
 
   .message
     border-left 3px solid lighten($color-primary, 60%)
