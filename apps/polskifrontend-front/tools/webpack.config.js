@@ -80,7 +80,7 @@ const config = {
       },
       {
         test: /\.css/,
-        include: /node_modules/,
+        include: /(node_modules|fonts)/,
         use: [
           {
             loader: 'isomorphic-style-loader',
@@ -109,7 +109,7 @@ const config = {
       },
       {
         test: /\.css/,
-        exclude: /node_modules/,
+        exclude: /(node_modules|fonts)/,
         use: [
           {
             loader: 'isomorphic-style-loader',

@@ -19,11 +19,11 @@ const NewsList = (props) => {
             <p className={style['item__message']}>{item.message}</p>
             <div className={style.buttons}>
               <a className={`${style['buttons__item']} ${style['buttons__item--special']}`} onClick={onDeleteClick.bind(this, item['_id'])} href="#">
-                <i className="fa fa-trash-o">
+                <i className="icon-trash">
                 </i>
               </a>
               <a className={`${style['buttons__item']}`} onClick={onEditClick.bind(this, item['_id'])} href="#">
-                <i className="fa fa-pencil-square-o">
+                <i className="icon-edit">
                 </i>
               </a>
             </div>

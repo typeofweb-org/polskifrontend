@@ -13,7 +13,7 @@ const NewsList = (props) => {
     <ResponsivePanel className={styles.container} header="Aktualności" description="">
       <div className={styles.nav}>
         <Link className={styles.back} to="/">
-          <i className="fa fa-arrow-left">
+          <i className="icon-left-big">
           </i>
           Strona główna
         </Link>

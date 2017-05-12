@@ -36,12 +36,12 @@ class AddBlog extends React.Component {
     return (
       <div className={style.container}>
         <Link className={style.news} to="/admin/news">
-          <i className="fa fa-file">
+          <i className="icon-doc-inv">
           </i>
           Aktualności
         </Link>
         <button className={style.slug} onClick={this.props.onSlugRefresh} disabled={this.props.addBlogLoading}>
-          <i className="fa fa-refresh">
+          <i className="icon-arrows-cw">
           </i>
           Odśwież slugi
         </button>

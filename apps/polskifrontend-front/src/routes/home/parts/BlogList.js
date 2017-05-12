@@ -60,7 +60,7 @@ const BlogList = props => {
                            onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                            onClick={(event) => event.preventDefault()}
                       >
-                        <i className="fa fa-check">
+                        <i className="icon-ok-circled">
                         </i>
                         <span className={styles['buttons__text']}>Czytany</span>
                       </a>
@@ -70,7 +70,7 @@ const BlogList = props => {
                           onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                           onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                     >
-                      <i className="fa fa-folder">
+                      <i className="icon-folder-open">
                       </i>
                       <span className={styles['buttons__text']}>Otwórz</span>
                     </Link>
@@ -81,7 +81,7 @@ const BlogList = props => {
                        onMouseUp={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                        onTouchStart={props.onArticleClicked.bind(this, item.href, isTodayArticle)}
                     >
-                      <i className="fa fa-link">
+                      <i className="icon-link-ext-alt">
                       </i>
                       <span className={styles['buttons__text']}>Oryginał</span>
                     </a>

@@ -88,7 +88,6 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
     "file-loader": "^0.10.0",
-    "font-awesome": "^4.7.0",
     "front-matter": "^2.1.2",
     "glob": "^7.1.1",
     "image-webpack-loader": "^3.3.0",

@@ -18,7 +18,7 @@ const ArticleView = (props) => {
       >
         <div className={styles.nav}>
           <Link className={styles.back} to="/">
-            <i className="fa fa-arrow-left">
+            <i className="icon-left-big">
             </i>
             Strona główna
           </Link>
@@ -39,7 +39,7 @@ const ArticleView = (props) => {
             <div className={styles.more}>
               <h3 className={styles['more__header']}>Chcesz więcej? Przeczytaj w oryginale!</h3>
               <a className={styles['more__link']} href={props.href} target="_blank" rel="nofollow" title={props.title}>
-                <i className="fa fa-link">
+                <i className="icon-link-ext-alt">
                 </i>
                 Przejdź do artykułu
               </a>

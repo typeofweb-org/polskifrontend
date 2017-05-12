@@ -20,18 +20,18 @@ const BlogListControlPanel = props => {
     <div className={styles.container}>
       <div className={`${styles.wrapper} ${styles['wrapper--left']}`}>
         <Link className={wrapperClass} to="/zglos-serwis">
-          <i className="fa fa-plus">
+          <i className="icon-plus">
           </i>
           Zgłoś serwis
         </Link>
       </div>
       <div className={`${styles.wrapper} ${styles['wrapper--right']}`}>
         <a className={tilesOptionClass} onClick={props.onTilesOptionClick} href="#">
-          <i className="fa fa-th-large">
+          <i className="icon-th-large">
           </i>
         </a>
         <a className={listOptionClass} onClick={props.onListOptionClick} href="#">
-          <i className="fa fa-bars">
+          <i className="icon-menu">
           </i>
         </a>
       </div>

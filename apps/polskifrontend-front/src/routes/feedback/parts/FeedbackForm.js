@@ -58,7 +58,7 @@ class FeedbackForm extends React.Component {
         <ResponsivePanel className={styles.container} header="Zgłoś uwagi" description="">
           <div className={styles.nav}>
             <Link className={styles.back} onClick={this.props.onGoBackClick} to="/">
-              <i className="fa fa-arrow-left">
+              <i className="icon-left-big">
               </i>
               Strona główna
             </Link>

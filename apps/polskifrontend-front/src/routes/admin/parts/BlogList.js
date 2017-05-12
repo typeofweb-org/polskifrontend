@@ -19,15 +19,15 @@ const BlogList = props => {
             <p className={style['item__url']}><a target="_blank" href={item.rss}>{item.rss}</a></p>
             <div className={style.buttons}>
               <a className={`${style['buttons__item']} ${style['buttons__item--refresh']} ${refreshClass}`} onClick={onRefreshClick.bind(this, item['_id'])} href="#">
-                <i className="fa fa-refresh">
+                <i className="icon-arrows-cw">
                 </i>
               </a>
               <a className={`${style['buttons__item']} ${style['buttons__item--special']} ${refreshClass}`} onClick={onDeleteClick.bind(this, item['_id'])} href="#">
-                <i className="fa fa-trash-o">
+                <i className="icon-trash">
                 </i>
               </a>
               <a className={`${style['buttons__item']} ${refreshClass}`} onClick={onEditClick.bind(this, item['_id'])} href="#">
-                <i className="fa fa-pencil-square-o">
+                <i className="icon-edit">
                 </i>
               </a>
             </div>

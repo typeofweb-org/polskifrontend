@@ -12,7 +12,7 @@ const About = (props) => {
       <ResponsivePanel header="O serwisie" description="">
         <div className={styles.nav}>
           <Link className={styles.back} to="/">
-            <i className="fa fa-arrow-left">
+            <i className="icon-left-big">
             </i>
             Strona główna
           </Link>

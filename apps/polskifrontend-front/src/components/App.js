@@ -1,5 +1,5 @@
 import React, { Children, PropTypes } from 'react';
-import fontAwesome from 'font-awesome/css/font-awesome.css';
+import fontAwesome from '../../fonts/awesome.css';
 import fonts from '../styles/fonts.styl';
 
 const ContextType = {
