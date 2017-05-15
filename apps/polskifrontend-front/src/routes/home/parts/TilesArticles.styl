@@ -3,7 +3,9 @@
 @import "../../../styles/colors.styl"
 
 .items
-  min-height 1240px // TODO: change it proper value
+  min-height 1400px // TODO: change it proper value
+  position relative
+  margin-bottom $global-margin
 
   .item
     border-left 3px solid lighten($color-primary, 60%)
@@ -15,6 +17,10 @@
     background $color-secondary
     box-shadow 1px 1px 6px 1px lighten($color-primary, 80%)
     border-radius $global-radius
+    min-height 259px
+
+    &:last-child
+      margin-bottom 0
 
     &__new
       background $color-oposite
