@@ -1,6 +1,5 @@
 import React, { Children, PropTypes } from 'react';
 import fontAwesome from '../../fonts/awesome.css';
-import fonts from '../styles/fonts.styl';
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -52,12 +51,10 @@ class App extends React.PureComponent {
 
   componentWillMount() {
     const { insertCss } = this.props.context;
-    this.removeFonts = insertCss(fonts);
     this.removeFontAwesome = insertCss(fontAwesome);
   }
 
   componentWillUnmount() {
-    this.removeFonts();
     this.removeFontAwesome();
   }
 

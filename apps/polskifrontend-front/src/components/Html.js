@@ -45,6 +45,7 @@ class Html extends React.Component {
           <link rel="shortcut icon" href="/polskifrontend_icon.png" />
           <link rel="apple-touch-icon" href="/polskifrontend_icon.png" />
           <link rel="alternate" type="application/rss+xml" title="Polski Front-End" href="http://www.polskifrontend.pl/feed" />
+          <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600|Cabin:400,700&subset=latin-ext" rel="stylesheet" />
           {styles.map(style =>
             <style
               key={style.id}
