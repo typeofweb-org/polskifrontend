@@ -47,7 +47,7 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 // -----------------------------------------------------------------------------
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: 2592000,
+  maxAge: 2592000000,
   setHeaders: (res) => {
     res.set("Expires", new Date(Date.now() + 2592000000).toUTCString());
   }
