@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import Article from './article';
+import { getFaviconUrl } from '../utils/faviconHelper';
+import imageUpload from '../helpers/imageUploader';
 
 const Schema = mongoose.Schema;
 const BlogSchema = new Schema({
@@ -60,6 +62,22 @@ export async function remove(blog) {
 export async function add(params) {
   const blog = new Blog(params);
   return await blog.save();
+}
+
+export async function updateFavicon() {
+  const blogs = await Blog.find();
+  blogs.forEach(async blog => {
+    const faviconUrl = await getFaviconUrl(blog.href);
+    let faviconUploadResult = { secure_url: '' };
+    try {
+      faviconUploadResult = await imageUpload(faviconUrl);
+    } catch (error) {
+      faviconUploadResult.secure_url = '';
+    }
+
+    blog.favicon = faviconUploadResult.secure_url;
+    blog.save();
+  });
 }
 
 export default Blog;
