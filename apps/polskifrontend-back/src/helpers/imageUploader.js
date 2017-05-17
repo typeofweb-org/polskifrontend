@@ -5,7 +5,7 @@ export default function imageUpload(imageUrl) {
     cloudinary.uploader.upload(imageUrl, result => {
       resolve(result);
     }, {
-      public_id: 'favicon',
+      public_id: `favicon_${Date.now()}`,
       secure: true,
       width: 40,
       height: 40,
