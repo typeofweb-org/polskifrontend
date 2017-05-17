@@ -100,6 +100,12 @@ class Admin extends React.Component {
     refreshSlug();
   }
 
+  onFaviconRefresh(event) {
+    event.preventDefault();
+    const { actions: { refreshFavicons } } = this.props;
+    refreshFavicons();
+  }
+
   render() {
     const { adminBlogsState: {
       blogList,
@@ -119,7 +125,8 @@ class Admin extends React.Component {
       addBlogErrorMessage,
       deleteBlogRequested,
       refreshBlogLoading,
-      refreshSlugLoading
+      refreshSlugLoading,
+      refreshFaviconLoading
     } } = this.props;
     const { context, description, title } = this.props;
     let errorMessage = blogListError ? 'Błąd pobierania blogów - spróbuj odświezyć stronę' : '';
@@ -137,6 +144,7 @@ class Admin extends React.Component {
                  onRssChange={this.onRssChange.bind(this)}
                  onFormSubmit={this.onAddFormSubmit.bind(this)}
                  onSlugRefresh={this.onSlugRefreshClick.bind(this)}
+                 onFaviconRefresh={this.onFaviconRefresh.bind(this)}
                  nameValid={newBlogNameValid}
                  nameDirty={newBlogNameDirty}
                  urlValid={newBlogUrlValid}
@@ -144,14 +152,14 @@ class Admin extends React.Component {
                  rssValid={newBlogRssValid}
                  rssDirty={newBlogRssDirty}
                  shouldCleanUp={shouldCleanUp}
-                 addBlogLoading={addBlogLoading || refreshSlugLoading}
+                 addBlogLoading={addBlogLoading || refreshSlugLoading || refreshFaviconLoading}
         />
         <BlogList blogList={blogList}
                   blogListLoading={blogListLoading}
                   onDeleteClick={this.onDeleteClick.bind(this)}
                   onEditClick={this.onEditClick.bind(this)}
                   onRefreshClick={this.onRefreshClick.bind(this)}
-                  refreshLoading={refreshBlogLoading || refreshSlugLoading}
+                  refreshLoading={refreshBlogLoading || refreshSlugLoading || refreshFaviconLoading}
         />
         <Confirm question="Czy jesteś pewien, że chcesz usunąć bloga?" isVisible={deleteBlogRequested} onCancelClick={this.onDeleteCancelClick.bind(this)} onConfirmClick={this.onDeleteConfirmClick.bind(this)} />
         <Message type="alert" message={errorMessage} isVisible={blogListError || addBlogError} />

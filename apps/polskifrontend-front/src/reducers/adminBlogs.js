@@ -34,7 +34,10 @@ export const initialState = {
   refreshBlogError: false,
 
   refreshSlugLoading: false,
-  refreshSlugError: false
+  refreshSlugError: false,
+
+  refreshFaviconLoading: false,
+  refreshFaviconError: false
 };
 
 export default function adminBlogsReducer(state = initialState, action) {
@@ -106,6 +109,13 @@ export default function adminBlogsReducer(state = initialState, action) {
       return { ...state, refreshSlugLoading: false, refreshSlugError: false };
     case constants.ADMIN_SLUG_REFRESH_ERROR:
       return { ...state, refreshSlugLoading: false, refreshSlugError: true };
+
+    case constants.ADMIN_FAVICON_REFRESH:
+      return { ...state, refreshFaviconLoading: true, refreshFaviconError: false };
+    case constants.ADMIN_FAVICON_REFRESH_SUCCESS:
+      return { ...state, refreshFaviconLoading: false, refreshFaviconError: false };
+    case constants.ADMIN_FAVICON_REFRESH_ERROR:
+      return { ...state, refreshFaviconLoading: false, refreshFaviconError: true };
     default:
       return { ...state };
   }

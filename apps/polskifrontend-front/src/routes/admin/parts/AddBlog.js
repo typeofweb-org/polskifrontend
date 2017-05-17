@@ -11,6 +11,7 @@ class AddBlog extends React.Component {
     onRssChange: PropTypes.func.isRequired,
     onFormSubmit: PropTypes.func.isRequired,
     onSlugRefresh: PropTypes.func.isRequired,
+    onFaviconRefresh: PropTypes.func.isRequired,
     nameValid: PropTypes.bool.isRequired,
     nameDirty: PropTypes.bool.isRequired,
     urlValid: PropTypes.bool.isRequired,
@@ -44,6 +45,11 @@ class AddBlog extends React.Component {
           <i className="icon-arrows-cw">
           </i>
           Odśwież slugi
+        </button>
+        <button className={style.slug} onClick={this.props.onFaviconRefresh} disabled={this.props.addBlogLoading}>
+          <i className="icon-arrows-cw">
+          </i>
+          Odśwież favicons
         </button>
         <ResponsivePanel header="Dodaj bloga" description="Wypełnij poniższe pola aby dodać bloga">
           <form className={style.form} onSubmit={this.props.onFormSubmit}>

@@ -66,3 +66,9 @@ export function refreshSlug() {
     type: constants.ADMIN_SLUG_REFRESH
   }
 }
+
+export function refreshFavicons() {
+  return {
+    type: constants.ADMIN_FAVICON_REFRESH
+  }
+}

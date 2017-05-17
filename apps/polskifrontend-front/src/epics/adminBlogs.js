@@ -156,3 +156,26 @@ export const slugRefreshEpic = action$ => {
         }))
     });
 };
+
+export const faviconRefreshEpic = action$ => {
+  return action$.ofType(constants.ADMIN_FAVICON_REFRESH)
+    .mergeMap(action => {
+      const headers = {
+        'authorization': 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==',
+        'x-access-token': loginHelper.getLoginToken()
+      };
+
+      return ajax({
+          url: `${apiUrl}/admin/blogs/refresh`,
+          headers: headers,
+          method: 'POST',
+          responseType: 'json'
+        })
+        .map(responseData => ({
+          type: constants.ADMIN_FAVICON_REFRESH_SUCCESS
+        }))
+        .catch(error => ({
+          type: constants.ADMIN_FAVICON_REFRESH_ERROR
+        }))
+    });
+};
