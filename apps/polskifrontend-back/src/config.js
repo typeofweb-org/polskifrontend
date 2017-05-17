@@ -1,6 +1,11 @@
 const env = process.env.NODE_ENV;
 const common = {
-  port: 8880
+  port: 8880,
+  cloudinary: {
+    cloud_name: 'polskifrontend',
+    api_key: '532329827338836',
+    api_secret: '9ScQuBAigRt1SDdWN68ogHx_9qY'
+  }
 };
 const config = {
   develop: {

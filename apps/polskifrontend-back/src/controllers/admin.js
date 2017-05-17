@@ -3,6 +3,7 @@ import { Blogs, Articles, Newses } from '../models';
 import RssHandler from '../rss/rssHandler';
 import * as faviconHelper from '../utils/faviconHelper';
 import slugify from '../utils/slugify';
+import imageUpload from '../helpers/imageUploader';
 
 const router = new express.Router();
 
@@ -62,6 +63,8 @@ router.post('/blogs', async (req, res) => {
   const rssInstance = new RssHandler(req.body.rss);
   const faviconUrl = await faviconHelper.getFaviconUrl(req.body.href);
 
+  const faviconUploadResult = await imageUpload(faviconUrl);
+
   let rssValid = false;
   try {
     rssValid = await rssInstance.isRssAddressValid();
@@ -79,7 +82,7 @@ router.post('/blogs', async (req, res) => {
     }
 
     try {
-      const blog = await Blogs.add({ ...req.body, slug, favicon: faviconUrl });
+      const blog = await Blogs.add({ ...req.body, slug, favicon: faviconUploadResult.secure_url });
 
       // load rss and fill articles for this blog
       await Articles.getArticlesForBlog(blog);

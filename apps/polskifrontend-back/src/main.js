@@ -7,8 +7,11 @@ import log from 'log';
 import config from 'config';
 import { errorHandle, db } from 'utils';
 import * as scheduler from './rss/scheduler';
+import cloudinary from 'cloudinary';
 
 db.init();
+
+cloudinary.config(config.cloudinary);
 
 // error handle
 process.on('unhandledRejection', err => {
