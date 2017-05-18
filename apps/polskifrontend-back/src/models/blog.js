@@ -36,7 +36,7 @@ export async function getBySlug(slug) {
 }
 
 export async function getBlogs(page) {
-  const perPage = 6;
+  const perPage = 4;
   const count = await Blog.count();
   const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
   const blogs = await Blog

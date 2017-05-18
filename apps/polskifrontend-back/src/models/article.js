@@ -34,7 +34,7 @@ export async function getAllArticles(limit = 0) {
 }
 
 export async function getArticles(page) {
-  const perPage = 50;
+  const perPage = 20;
   const count = await Article.count();
   const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
   const articles = await Article
