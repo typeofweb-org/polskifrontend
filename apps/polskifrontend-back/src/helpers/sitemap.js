@@ -4,7 +4,7 @@ import { Articles } from '../models';
 export default async function getSitemap() {
   try {
     const result = sitemap.createSitemap({
-      hostname: 'http://www.polskifrontend.pl',
+      hostname: 'https://www.polskifrontend.pl',
       cacheTime: 60000,
       urls: [
         { url: '/', changefreq: 'daily', priority: 1 },

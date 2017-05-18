@@ -6,9 +6,9 @@ export default async function getSitemap() {
     const feed = new RSS({
       title: 'Polski Front-End',
       description: 'Serwis skupiający strony, blogi i serwisy na temat Front-Endu. Tylko w języku polskim!',
-      feed_url: 'http://www.polskifrontend.pl/feed',
-      site_url: 'http://www.polskifrontend.pl/',
-      image_url: 'http://www.polskifrontend.pl/polskifrontend_icon.png',
+      feed_url: 'https://www.polskifrontend.pl/feed',
+      site_url: 'https://www.polskifrontend.pl/',
+      image_url: 'https://www.polskifrontend.pl/polskifrontend_icon.png',
       webMaster: 'Bartłomiej Dybowski',
       language: 'pl_PL'
     });
@@ -18,7 +18,7 @@ export default async function getSitemap() {
       feed.item({
         title: article.title,
         description: article.description,
-        url: `http://www.polskifrontend.pl/artykuly/${article.slug}`,
+        url: `https://www.polskifrontend.pl/artykuly/${article.slug}`,
         guid: article.id,
         author: article._blog.name,
         date: article.date
