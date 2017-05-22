@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Article from './article';
 import { getFaviconUrl } from '../utils/faviconHelper';
 import imageUpload from '../helpers/imageUploader';
+import _ from 'lodash';
 
 const Schema = mongoose.Schema;
 const BlogSchema = new Schema({
@@ -11,10 +12,16 @@ const BlogSchema = new Schema({
   rss: String,
   favicon: { type: String, default: '' },
   slug: String,
-  publishedDate: { type: Date, default: new Date('01/01/1900') }
+  publishedDate: { type: Date, default: new Date('01/01/1900') },
+});
+BlogSchema.virtual('articles', {
+  ref: 'article',
+  localField: '_id',
+  foreignField: '_blog'
 });
 
 BlogSchema.options.toJSON = BlogSchema.options.toJSON || {};
+BlogSchema.options.toJSON.virtuals = true;
 BlogSchema.options.toJSON.transform = (doc, ret) => {
   return ret;
 };
@@ -41,9 +48,16 @@ export async function getBlogs(page) {
   const nextPage = count <= (page + 1) * perPage ? -1 : page + 2;
   const blogs = await Blog
     .find()
+    .populate({ path: 'articles' })
     .sort({ publishedDate: -1 })
     .skip(perPage * page)
     .limit(perPage);
+
+  // because of bug in mongoose, sort and limit populated data manually
+  blogs.forEach(blog => {
+    blog.articles = _.orderBy(blog.articles, ['date'], 'desc');
+    blog.articles = _.take(blog.articles, 5);
+  });
 
   return {
     blogs,

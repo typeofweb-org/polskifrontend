@@ -13,15 +13,6 @@ router.get('/all/:page', async (req, res) => {
   }
 });
 
-router.get('/:blog/articles', async (req, res) => {
-  try {
-    const articles = await Articles.getArticlesByBlogId(req.params.blog);
-    res.send({ success: true, articles });
-  } catch (error) {
-    res.send({ success: false, message: error });
-  }
-});
-
 router.post('/submit', async (req, res) => {
   try {
     const body = `<p style="font-size: 1.4em;">
