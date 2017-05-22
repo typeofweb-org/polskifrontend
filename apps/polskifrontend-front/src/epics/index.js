@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
-import { getBlogListEpic, getArticleListForBlog, switchToListViewEpic } from './home';
+import { getBlogListEpic, switchToListViewEpic } from './home';
 import { loginEpic } from './login';
 import { getAdminBlogListEpic, deleteBlogEpic, addBlogEpic, blogRefreshEpic, slugRefreshEpic, faviconRefreshEpic } from './adminBlogs';
 import { getAdminNewsListEpic, addNewsEpic, deleteAdminNewsEpic } from './adminNews';
@@ -10,7 +10,6 @@ import { articlesGetArticleEpic } from './articles';
 
 const rootEpic = combineEpics(
   getBlogListEpic,
-  getArticleListForBlog,
   switchToListViewEpic,
   loginEpic,
   getAdminBlogListEpic,

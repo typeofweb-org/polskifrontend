@@ -99,21 +99,21 @@ app.get('*', async (req, res, next) => {
   // redirects
   if (!__DEV__) {
     if (req.hostname.indexOf('polskifrontend-front.herokuapp.com') > -1) {
-      res.redirect(301, 'http://www.polskifrontend.pl' + req.originalUrl);
+      res.redirect(301, 'https://www.polskifrontend.pl' + req.originalUrl);
     }
 
-    // const checkHost = req.get('host').substring(0, 4);
-    // const condition = req.get('x-forwarded-proto') !== "https" || checkHost !== 'www.' || ( req.get('host').indexOf('www.') < 0);
-    // if (condition) {
-    //   res.set('x-forwarded-proto', 'https');
-    //
-    //   if (checkHost === 'www.' && ( req.get('host').indexOf('www.') >= 0)) {
-    //     res.redirect('https://' + req.get('host') + req.url);
-    //   }
-    //   else {
-    //     res.redirect('https://www.' + req.get('host') + req.url);
-    //   }
-    // }
+    const checkHost = req.get('host').substring(0, 4);
+    const condition = req.get('x-forwarded-proto') !== "https" || checkHost !== 'www.' || ( req.get('host').indexOf('www.') < 0);
+    if (condition) {
+      res.set('x-forwarded-proto', 'https');
+
+      if (checkHost === 'www.' && ( req.get('host').indexOf('www.') >= 0)) {
+        res.redirect(301, 'https://' + req.get('host') + req.url);
+      }
+      else {
+        res.redirect(301, 'https://www.' + req.get('host') + req.url);
+      }
+    }
   }
 
   // try to get settings form cookie

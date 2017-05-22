@@ -39,16 +39,6 @@ export default function homeReducer(state = initialState, action) {
       return { ...state, blogList: newBlogList, blogListNextPage: action.payload.nextPage, blogListLoading: false, isTilesOptionSelected: true, isListOptionSelected: false };
     case constants.HOME_GET_BLOG_LIST_ERROR:
       return { ...state, blogListLoading: false, blogListError: true };
-    case constants.HOME_GET_ARTICLES_FOR_BLOG:
-      return { ...state, articlesLoading: true, articlesError: false };
-    case constants.HOME_GET_ARTICLES_FOR_BLOG_SUCCESS:
-      const blogListCopy = _.cloneDeep(state.blogList);
-      const filteredList = _.filter(blogListCopy, item => item._id === action.payload.blogId);
-      _.map(filteredList, item => item.articles = action.payload.articles || []);
-
-      return { ...state, articlesLoading: false, blogList: blogListCopy };
-    case constants.HOME_GET_ARTICLES_FOR_BLOG_ERROR:
-      return { ...state, articlesLoading: false, articlesError: true };
 
     case constants.HOME_SWITCH_TO_LIST_VIEW:
       return { ...state, allArticlesListLoading: true, allArticlesList: action.payload === 1 ? [] : state.allArticlesList, allArticlesListError: false };

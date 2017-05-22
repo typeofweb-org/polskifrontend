@@ -14,20 +14,11 @@ export default async function getHomeInitialState(settings) {
     return await response.json();
   };
 
-  const getArticles = async (blogId) => {
-    const response = await fetch(`${apiUrl}/blogs/${blogId}/articles`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
-    return await response.json();
-  };
-
   const remoteData = await getData();
   if (remoteData.success) {
     if (settings.tiles) {
       homeState.blogList = remoteData.blogs;
       homeState.blogListNextPage = remoteData.nextPage;
-      for (let blog of homeState.blogList) {
-        const articlesData = await getArticles(blog._id);
-        blog.articles = await articlesData.success ? articlesData.articles : [];
-      }
     } else {
       homeState.allArticlesList = remoteData.articles;
       homeState.allArticlesNextPage = remoteData.nextPage;
