@@ -1,6 +1,9 @@
 {
   "name": "polskifrontend-back",
   "version": "1.1.0",
+  "engines": {
+    "node": "6.11.1"
+  },
   "description": "",
   "scripts": {
     "clean": "rimraf dist",
