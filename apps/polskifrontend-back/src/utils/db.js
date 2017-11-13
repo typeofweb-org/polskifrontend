@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import log from 'log';
 import config from '../config';
 
+mongoose.Promise = global.Promise;
+
 const { host, host1, host2, database, user, password, port } = config.mongodb;
 let status = 'DISCONNETED';
 

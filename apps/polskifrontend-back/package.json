@@ -27,8 +27,8 @@
   "dependencies": {
     "babel-cli": "^6.6.5",
     "babel-core": "^6.5.2",
-    "babel-eslint": "^6.0.4",
-    "babel-plugin-module-resolver": "^2.5.0",
+    "babel-eslint": "^8.0.2",
+    "babel-plugin-module-resolver": "^3.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.16.0",
     "babel-preset-env": "^1.2.2",
@@ -54,6 +54,7 @@
     "nodemailer": "^4.0.0",
     "nodemon": "^1.11.0",
     "npm": "^3.10.8",
+    "npmlog": "^4.1.2",
     "randomstring": "^1.1.5",
     "request": "^2.81.0",
     "rimraf": "^2.6.2",
