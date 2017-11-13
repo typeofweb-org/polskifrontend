@@ -1,8 +1,8 @@
 {
   "name": "polskifrontend-back",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "engines": {
-    "node": "6.11.1"
+    "node": "8.9.0"
   },
   "description": "",
   "scripts": {
@@ -19,7 +19,7 @@
   "author": "Bartlomiej Dybowski",
   "devDependencies": {
     "cpx": "^1.5.0",
-    "glob": "^7.1.1",
+    "glob": "7.1.2",
     "mkdirp": "^0.5.1",
     "node-fetch": "^1.6.3",
     "npm-run-script": "^0.0.4"
@@ -34,34 +34,35 @@
     "babel-preset-env": "^1.2.2",
     "body-parser": "^1.15.0",
     "chai": "^3.5.0",
-    "cloudinary": "^1.9.0",
-    "cors": "^2.7.1",
+    "cloudinary": "1.9.1",
+    "cors": "^2.8.4",
     "eslint": "^2.4.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-import": "^1.3.0",
+    "eslint-plugin-react": "^4.2.3",
     "express": "^4.13.4",
     "favicon-getter": "^1.1.3",
     "feedparser": "^2.1.0",
     "feedparser-promised": "^1.2.1",
-    "install": "^0.8.1",
+    "install": "^0.10.1",
     "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.4",
     "loglevel": "^1.4.0",
     "mocha": "^3.2.0",
     "mongoose": "^4.7.0",
-    "node-schedule": "^1.2.1",
+    "node-schedule": "1.2.5",
     "nodemailer": "^4.0.0",
     "nodemon": "^1.11.0",
     "npm": "^3.10.8",
     "randomstring": "^1.1.5",
     "request": "^2.81.0",
-    "rimraf": "^2.5.2",
+    "rimraf": "^2.6.2",
     "rss": "^1.2.2",
     "sha1": "^1.1.1",
     "sitemap": "^1.12.0",
     "slug": "^0.9.1",
     "supertest": "^2.0.1",
-    "swagger-jsdoc": "^1.8.2"
+    "swagger-jsdoc": "^1.9.7"
   },
   "license": "MIT"
 }

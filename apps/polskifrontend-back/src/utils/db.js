@@ -11,7 +11,7 @@ const init = () => {
     if (user && password && port) {
       mongoUrl = `mongodb://${user}:${password}@${host1}:${port},${host2}:${port}/${database}?replicaSet=rs-ds157280`;
     }
-    mongoose.connect(mongoUrl);
+    mongoose.connect(mongoUrl, { useMongoClient: true });
     status = 'CONNECTING';
     const db = mongoose.connection;
     return new Promise((resolve, reject) => {
