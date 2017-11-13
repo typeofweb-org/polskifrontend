@@ -4,6 +4,6 @@ const password = 'abcdfrbk340341fdsfvds';
 
 export function getBasicAuthToken() {
   // Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==
-  const token = new Buffer(`${username}:${password}`).toString('base64');
+  const token = Buffer.from(`${username}:${password}`).toString('base64');
   return `Basic ${token}`;
 }

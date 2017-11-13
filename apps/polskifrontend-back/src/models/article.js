@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
-import RssHandler from '../rss/rssHandler';
 import _ from 'lodash';
 import slug from 'slug';
+import mongoose from 'mongoose';
+import RssHandler from '../rss/rssHandler';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 const ArticleSchema = new Schema({
   title: String,
   href: String,
@@ -15,22 +15,21 @@ const ArticleSchema = new Schema({
 });
 
 ArticleSchema.options.toJSON = ArticleSchema.options.toJSON || {};
-ArticleSchema.options.toJSON.transform = (doc, ret) => {
-  return ret;
-};
+ArticleSchema.options.toJSON.transform = (doc, ret) => ret;
 
 const Article = mongoose.model('article', ArticleSchema);
 
 export async function updateSlug() {
   const articles = await Article.find();
-  articles.forEach(article => {
+  articles.forEach((article) => {
     article.slug = slug(article.title, { lower: true });
     article.save();
   });
 }
 
 export async function getAllArticles(limit = 0) {
-  return await Article.find().populate('_blog').sort({ date: -1 }).limit(limit);
+  const articles = await Article.find().populate('_blog').sort({ date: -1 }).limit(limit);
+  return articles;
 }
 
 export async function getArticles(page) {
@@ -51,22 +50,25 @@ export async function getArticles(page) {
 }
 
 export async function getArticlesByBlogId(blogId) {
-  return await Article.find({ _blog: blogId }).sort({ date: -1 }).limit(5);
+  const articles = await Article.find({ _blog: blogId }).sort({ date: -1 }).limit(5);
+  return articles;
 }
 
 export async function getBySlug(slug) {
-  return await Article.findOne({ slug }).populate('_blog');
+  const article = await Article.findOne({ slug }).populate('_blog');
+  return article;
 }
 
 export async function removeByBlogId(blogId) {
-  return await Article.remove({ _blog: blogId });
+  const result = await Article.remove({ _blog: blogId });
+  return result;
 }
 
 export async function getArticlesForBlog(blog) {
   const rssHandler = new RssHandler(blog.rss);
   const data = await rssHandler.getParsedData();
 
-  _.orderBy(data, 'article.pubDate', 'asc').forEach(item => {
+  _.orderBy(data, 'article.pubDate', 'asc').forEach((item) => {
     const pubDate = new Date(item.article.pubDate);
 
     if (pubDate > blog.publishedDate) {
@@ -84,7 +86,7 @@ export async function getArticlesForBlog(blog) {
         _blog: blog._id
       });
 
-      article.save(error => {
+      article.save((error) => {
         if (error) {
           console.log(error);
         }

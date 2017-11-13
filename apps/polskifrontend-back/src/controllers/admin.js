@@ -22,7 +22,7 @@ router.get('/blogs', async (req, res) => {
 });
 
 router.delete('/blogs/:blogId', async (req, res) => {
-  const blogId = req.params.blogId;
+  const { blogId } = req.params;
   try {
     const blog = await Blogs.getById(blogId);
 
@@ -128,7 +128,7 @@ router.post('/news', async (req, res) => {
 });
 
 router.delete('/news/:newsId', async (req, res) => {
-  const newsId = req.params.newsId;
+  const { newsId } = req.params;
   try {
     const news = await Newses.getById(newsId);
 

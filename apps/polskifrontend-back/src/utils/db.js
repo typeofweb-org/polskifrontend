@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import log from 'log';
+import log from '../log';
 import config from '../config';
 
 mongoose.Promise = global.Promise;
@@ -17,7 +17,7 @@ const init = () => {
     status = 'CONNECTING';
     const db = mongoose.connection;
     return new Promise((resolve, reject) => {
-      db.on('error', err => {
+      db.on('error', (err) => {
         status = 'DISCONNETED';
         log.error(err);
         reject(err);

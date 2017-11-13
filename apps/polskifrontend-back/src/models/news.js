@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 const NewsSchema = new Schema({
   title: String,
   message: String,
@@ -8,27 +8,29 @@ const NewsSchema = new Schema({
 });
 
 NewsSchema.options.toJSON = NewsSchema.options.toJSON || {};
-NewsSchema.options.toJSON.transform = (doc, ret) => {
-  return ret;
-};
+NewsSchema.options.toJSON.transform = (doc, ret) => ret;
 
 const News = mongoose.model('news', NewsSchema);
 
 export async function add(params) {
   const news = new News({ ...params, date: Date.now() });
-  return await news.save();
+  const result = await news.save();
+  return result;
 }
 
 export async function getAll() {
-  return await News.find().sort({ date: -1 });
+  const news = await News.find().sort({ date: -1 });
+  return news;
 }
 
 export async function getById(newsId) {
-  return await News.findById(newsId).exec();
+  const news = await News.findById(newsId).exec();
+  return news;
 }
 
 export async function remove(news) {
-  return await news.remove();
+  const result = await news.remove();
+  return result;
 }
 
 export async function getNewses(page) {

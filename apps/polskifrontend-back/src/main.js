@@ -1,24 +1,24 @@
 import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
-import routes from 'controllers';
 import cors from 'cors';
-import log from 'log';
-import config from 'config';
-import { errorHandle, db } from 'utils';
-import * as scheduler from './rss/scheduler';
 import cloudinary from 'cloudinary';
+import log from './log';
+import routes from './controllers';
+import config from './config';
+import { errorHandle, db } from './utils';
+import * as scheduler from './rss/scheduler';
 
 db.init();
 
 cloudinary.config(config.cloudinary);
 
 // error handle
-process.on('unhandledRejection', err => {
+process.on('unhandledRejection', (err) => {
   throw err;
 });
 
-process.on('uncaughtException', err => {
+process.on('uncaughtException', (err) => {
   log.error('uncaughtException:', err);
 });
 

@@ -7,7 +7,7 @@ export function initRssParsingSchedule() {
     log.info('running scheduled job [RSS update]...');
     try {
       const blogs = await Blogs.getAllBlogs();
-      blogs.forEach(async blog => {
+      blogs.forEach(async (blog) => {
         try {
           await Articles.getArticlesForBlog(blog);
         } catch (error) {

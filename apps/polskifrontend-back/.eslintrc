@@ -24,7 +24,13 @@
     "no-shadow":0,
     "no-use-before-define": 0,
     "no-loop-func": 0,
-    "quote-props": 0
+    "quote-props": 0,
+    "no-underscore-dangle": 0,
+    "no-restricted-syntax": 0,
+    "func-names": 0,
+    "import/prefer-default-export": 0,
+    "prefer-promise-reject-errors": 0,
+    "object-curly-newline": 0
   },
   "settings": {
     "import/parser": "babel-eslint"

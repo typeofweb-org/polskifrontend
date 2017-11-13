@@ -1,3 +1,4 @@
+/* eslint-disable no-multi-spaces, no-useless-escape */
 export default function slugify(text) {
   return text.toString().toLowerCase()
     .replace(/\s+/g, '-')           // Replace spaces with -

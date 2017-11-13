@@ -1,10 +1,10 @@
+import _ from 'lodash';
 import mongoose from 'mongoose';
 import Article from './article';
 import { getFaviconUrl } from '../utils/faviconHelper';
 import imageUpload from '../helpers/imageUploader';
-import _ from 'lodash';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 const BlogSchema = new Schema({
   id: String,
   name: String,
@@ -22,9 +22,7 @@ BlogSchema.virtual('articles', {
 
 BlogSchema.options.toJSON = BlogSchema.options.toJSON || {};
 BlogSchema.options.toJSON.virtuals = true;
-BlogSchema.options.toJSON.transform = (doc, ret) => {
-  return ret;
-};
+BlogSchema.options.toJSON.transform = (doc, ret) => ret;
 
 BlogSchema.pre('remove', function (next) {
   // 'this' is the blog being removed
@@ -35,11 +33,13 @@ BlogSchema.pre('remove', function (next) {
 const Blog = mongoose.model('blog', BlogSchema);
 
 export async function getById(blogId) {
-  return await Blog.findById(blogId).exec();
+  const blog = await Blog.findById(blogId).exec();
+  return blog;
 }
 
 export async function getBySlug(slug) {
-  return await Blog.findOne({ slug });
+  const blog = await Blog.findOne({ slug });
+  return blog;
 }
 
 export async function getBlogs(page) {
@@ -54,7 +54,7 @@ export async function getBlogs(page) {
     .limit(perPage);
 
   // because of bug in mongoose, sort and limit populated data manually
-  blogs.forEach(blog => {
+  blogs.forEach((blog) => {
     blog.articles = _.orderBy(blog.articles, ['date'], 'desc');
     blog.articles = _.take(blog.articles, 5);
   });
@@ -66,21 +66,24 @@ export async function getBlogs(page) {
 }
 
 export async function getAllBlogs() {
-  return await Blog.find();
+  const blog = await Blog.find();
+  return blog;
 }
 
 export async function remove(blog) {
-  return await blog.remove();
+  const result = await blog.remove();
+  return result;
 }
 
 export async function add(params) {
   const blog = new Blog(params);
-  return await blog.save();
+  const result = await blog.save();
+  return result;
 }
 
 export async function updateFavicon() {
   const blogs = await Blog.find();
-  blogs.forEach(async blog => {
+  blogs.forEach(async (blog) => {
     const faviconUrl = await getFaviconUrl(blog.href);
     let faviconUploadResult = { secure_url: '' };
     try {

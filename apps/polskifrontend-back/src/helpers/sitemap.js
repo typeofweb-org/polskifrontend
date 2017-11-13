@@ -16,7 +16,7 @@ export default async function getSitemap() {
     });
     const articles = await Articles.getAllArticles();
 
-    articles.forEach(article => {
+    articles.forEach((article) => {
       result.urls.push({
         url: `/artykuly/${article.slug}`,
         changefreq: 'monthly',

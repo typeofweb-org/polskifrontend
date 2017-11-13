@@ -15,7 +15,7 @@ class RssHandler {
         reject({ error: 'bad-request' });
       });
 
-      feedRequest.on('response', response => {
+      feedRequest.on('response', (response) => {
         if (response.statusCode !== 200) {
           reject({ error: 'bad-status' });
         } else {
@@ -39,7 +39,7 @@ class RssHandler {
       const feedRequest = request(this.feedAddress);
       const feedparser = new FeedParser();
 
-      feedRequest.on('error', (error) => console.log(error));
+      feedRequest.on('error', error => console.log(error));
 
       feedRequest.on('response', () => {
         feedRequest

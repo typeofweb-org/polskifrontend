@@ -14,7 +14,7 @@ router.get('/all/:page', async (req, res) => {
 
 router.get('/:slug', async (req, res) => {
   try {
-    const slug = req.params.slug;
+    const { slug } = req.params;
     const article = await Articles.getBySlug(slug);
 
     res.send({ success: true, article });

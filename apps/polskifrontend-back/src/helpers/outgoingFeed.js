@@ -14,7 +14,7 @@ export default async function getSitemap() {
     });
     const articles = await Articles.getAllArticles(30);
 
-    articles.forEach(article => {
+    articles.forEach((article) => {
       feed.item({
         title: article.title,
         description: article.description,

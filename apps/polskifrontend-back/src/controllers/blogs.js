@@ -1,6 +1,6 @@
 import express from 'express';
 import sendMail from '../utils/emailer';
-import { Blogs, Articles } from '../models';
+import { Blogs } from '../models';
 
 const router = new express.Router();
 
