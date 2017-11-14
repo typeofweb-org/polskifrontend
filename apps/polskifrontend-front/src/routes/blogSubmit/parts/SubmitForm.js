@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './SubmitForm.styl';
 import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
@@ -7,20 +8,20 @@ import Link from '../../../components/Link/Link';
 
 class SubmitForm extends React.Component {
   static propTypes = {
-    onUrlChange: PropTypes.func.isRequired,
-    onEmailChange: PropTypes.func.isRequired,
+    captcha: PropTypes.string,
+    emailDirty: PropTypes.bool.isRequired,
+    emailValid: PropTypes.bool.isRequired,
+    isSending: PropTypes.bool.isRequired,
     onCaptchaChange: PropTypes.func.isRequired,
+    onEmailChange: PropTypes.func.isRequired,
+    onGoBackClick: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onSubmitAgain: PropTypes.func.isRequired,
-    onGoBackClick: PropTypes.func.isRequired,
-    urlValid: PropTypes.bool.isRequired,
-    urlDirty: PropTypes.bool.isRequired,
-    emailValid: PropTypes.bool.isRequired,
-    emailDirty: PropTypes.bool.isRequired,
-    captcha: PropTypes.string,
-    isSending: PropTypes.bool.isRequired,
+    onUrlChange: PropTypes.func.isRequired,
     sent: PropTypes.bool.isRequired,
-    shouldCleanUp: PropTypes.bool.isRequired
+    shouldCleanUp: PropTypes.bool.isRequired,
+    urlDirty: PropTypes.bool.isRequired,
+    urlValid: PropTypes.bool.isRequired
   };
 
   componentDidUpdate() {

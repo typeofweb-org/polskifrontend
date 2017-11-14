@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './Confirm.styl';
 import ResponsivePanel from '../../components/Responsive/ResponsivePanel';
@@ -25,10 +26,10 @@ const Confirm = props => {
 
 Confirm.propTypes = {
   header: PropTypes.string,
-  question: PropTypes.string.isRequired,
+  isVisible: PropTypes.bool.isRequired,
   onCancelClick: PropTypes.func.isRequired,
   onConfirmClick: PropTypes.func.isRequired,
-  isVisible: PropTypes.bool.isRequired
+  question: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(Confirm);

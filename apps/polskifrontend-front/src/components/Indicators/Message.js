@@ -1,12 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Message.styl';
 
 class Message extends React.Component {
   static propTypes = {
-    type: PropTypes.oneOf(['alert', 'message', 'info']).isRequired,
+    isVisible: PropTypes.bool.isRequired,
     message: PropTypes.string.isRequired,
-    isVisible: PropTypes.bool.isRequired
+    type: PropTypes.oneOf(['alert', 'message', 'info']).isRequired
   };
 
   constructor(props) {
@@ -17,7 +18,7 @@ class Message extends React.Component {
 
   componentDidMount() {
     if (this.props.isVisible) {
-      this.setState({
+      this.setState({ // eslint-disable-line
         isMessageVisible: this.props.isVisible
       });
     }
@@ -28,17 +29,17 @@ class Message extends React.Component {
     const { isVisible } = this.props;
 
     if (this.currentTimout) {
-      clearTimeout(this.currentTimout);
+      clearTimeout(this.currentTimout); // eslint-disable-line
     }
 
     if (prevProps.isVisible !== isVisible) {
-      this.setState({
+      this.setState({ // eslint-disable-line
         isMessageVisible: isVisible
       });
     }
 
     if (prevState.isMessageVisible === false && isMessageVisible) {
-      this.currentTimout = setTimeout(() => {
+      this.currentTimout = setTimeout(() => { // eslint-disable-line
         this.setState({
           isMessageVisible: false
         });
@@ -50,7 +51,7 @@ class Message extends React.Component {
     const { type, message } = this.props;
     let classNames = style.container;
 
-    switch(type) {
+    switch (type) {
       case 'alert':
         classNames = `${style.container} ${style['container--alert']}`;
         break;

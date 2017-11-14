@@ -117,6 +117,6 @@ export const deleteAdminNewsEpic = (action$, store) => {
         .catch(error => ({
           type: constants.ADMIN_NEWS_DELETE_NEWS_ERROR,
           payload: error
-        }))
+        }));
     });
 };

@@ -1,4 +1,5 @@
-import React, { Children, PropTypes } from 'react';
+import React, { Children } from 'react';
+import PropTypes from 'prop-types';
 import fontAwesome from '../../fonts/awesome.css';
 
 const ContextType = {
@@ -10,8 +11,8 @@ const ContextType = {
   store: PropTypes.shape({
     subscribe: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired,
-    getState: PropTypes.func.isRequired,
-  }).isRequired,
+    getState: PropTypes.func.isRequired
+  }).isRequired
 };
 
 /**
@@ -39,8 +40,8 @@ const ContextType = {
 class App extends React.PureComponent {
 
   static propTypes = {
-    context: PropTypes.shape(ContextType).isRequired,
     children: PropTypes.element.isRequired,
+    context: PropTypes.shape(ContextType).isRequired
   };
 
   static childContextTypes = ContextType;

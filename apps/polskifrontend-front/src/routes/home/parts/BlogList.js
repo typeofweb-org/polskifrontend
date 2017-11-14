@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import styles from './BlogList.styl'
+import styles from './BlogList.styl';
 import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
 import Link from '../../../components/Link/Link';
 import Loader from '../../../components/Indicators/Loader';
@@ -104,12 +104,13 @@ const BlogList = props => {
 
 BlogList.propTypes = {
   articles: PropTypes.array.isRequired,
+  children: PropTypes.element.isRequired,
   clickedArticles: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isLoadingMore: PropTypes.bool.isRequired,
-  onScrolledBottom: PropTypes.func.isRequired,
+  nextPage: PropTypes.number.isRequired,
   onArticleClicked: PropTypes.func.isRequired,
-  nextPage: PropTypes.number.isRequired
+  onScrolledBottom: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(BlogList);

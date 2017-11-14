@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './LoginForm.styl';
 
@@ -21,10 +22,10 @@ const LoginForm = props => {
 };
 
 LoginForm.propTypes = {
-  onUserChange: PropTypes.func.isRequired,
-  onPasswordChange: PropTypes.func.isRequired,
+  buttonDisabled: PropTypes.bool.isRequired,
   onLoginClick: PropTypes.func.isRequired,
-  buttonDisabled: PropTypes.bool.isRequired
+  onPasswordChange: PropTypes.func.isRequired,
+  onUserChange: PropTypes.func.isRequired
 };
 
 export default withStyles(style)(LoginForm);

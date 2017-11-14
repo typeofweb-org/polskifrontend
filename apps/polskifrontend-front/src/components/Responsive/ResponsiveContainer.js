@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './ResponsiveContainer.styl';
 
@@ -13,6 +14,7 @@ const ResponsiveContainer = props => {
 };
 
 ResponsiveContainer.propTypes = {
+  children: PropTypes.element.isRequired,
   className: PropTypes.any
 };
 

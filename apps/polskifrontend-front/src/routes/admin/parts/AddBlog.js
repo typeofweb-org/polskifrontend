@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './AddBlog.styl';
 import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
@@ -6,20 +7,20 @@ import Link from '../../../components/Link/Link';
 
 class AddBlog extends React.Component {
   static propTypes = {
-    onNameChange: PropTypes.func.isRequired,
-    onUrlChange: PropTypes.func.isRequired,
-    onRssChange: PropTypes.func.isRequired,
-    onFormSubmit: PropTypes.func.isRequired,
-    onSlugRefresh: PropTypes.func.isRequired,
-    onFaviconRefresh: PropTypes.func.isRequired,
-    nameValid: PropTypes.bool.isRequired,
+    addBlogLoading: PropTypes.bool.isRequired,
     nameDirty: PropTypes.bool.isRequired,
-    urlValid: PropTypes.bool.isRequired,
-    urlDirty: PropTypes.bool.isRequired,
-    rssValid: PropTypes.bool.isRequired,
+    nameValid: PropTypes.bool.isRequired,
+    onFaviconRefresh: PropTypes.func.isRequired,
+    onFormSubmit: PropTypes.func.isRequired,
+    onNameChange: PropTypes.func.isRequired,
+    onRssChange: PropTypes.func.isRequired,
+    onSlugRefresh: PropTypes.func.isRequired,
+    onUrlChange: PropTypes.func.isRequired,
     rssDirty: PropTypes.bool.isRequired,
+    rssValid: PropTypes.bool.isRequired,
     shouldCleanUp: PropTypes.bool.isRequired,
-    addBlogLoading: PropTypes.bool.isRequired
+    urlDirty: PropTypes.bool.isRequired,
+    urlValid: PropTypes.bool.isRequired
   };
 
   componentDidUpdate() {

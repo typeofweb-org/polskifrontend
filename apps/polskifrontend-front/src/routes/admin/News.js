@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './News.styl';
 import { connect } from 'react-redux';
@@ -12,6 +13,15 @@ import Confirm from '../../components/Modals/Confirm';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class News extends React.Component {
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    adminNewsState: PropTypes.object.isRequired,
+    adminState: PropTypes.object.isRequired,
+    context: PropTypes.object.isRequired,
+    description: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+  };
+
   componentDidMount() {
     const { actions: { getAdminNewsList }, adminNewsState: { newsListLoading } } = this.props;
     if (newsListLoading) {
@@ -70,7 +80,7 @@ class News extends React.Component {
 
   onEditClick(id, event) {
     event.preventDefault();
-    console.log(id);
+    console.log(id); // eslint-disable-line
   }
 
   onDeleteCancelClick(event) {
@@ -87,7 +97,7 @@ class News extends React.Component {
     deleteAdminNews(deleteNewsId);
   }
 
-  render () {
+  render() {
     const {
       adminNewsState: {
         newsList,

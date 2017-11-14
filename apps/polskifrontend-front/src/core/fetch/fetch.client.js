@@ -7,6 +7,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+/* eslint-disable no-undef */
+
 import 'whatwg-fetch';
 
 export default self.fetch.bind(self);

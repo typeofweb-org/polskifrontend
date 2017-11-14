@@ -7,6 +7,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+/* eslint-disable no-undef */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
@@ -16,7 +18,7 @@ import { createPath } from 'history/PathUtils';
 import history from './core/history';
 import App from './components/App';
 import configureStore from './store/configureStore';
-import { updateMeta } from './core/DOMUtils';
+// import { updateMeta } from './core/DOMUtils';
 import { ErrorReporter, deepForceUpdate } from './core/devUtils';
 
 // Global (context) variables that can be easily accessed from any React component
@@ -31,7 +33,7 @@ const context = {
   },
   // Initialize a new Redux store
   // http://redux.js.org/docs/basics/UsageWithReact.html
-  store: configureStore(window.APP_STATE, { history }),
+  store: configureStore(window.APP_STATE, { history })
 };
 
 // Switch off the native scroll restoration behavior and handle it manually
@@ -43,7 +45,9 @@ if (window.history && 'scrollRestoration' in window.history) {
 
 let onRenderComplete = function initialRenderComplete() {
   const elem = document.getElementById('css');
-  if (elem) elem.parentNode.removeChild(elem);
+  if (elem) {
+    elem.parentNode.removeChild(elem);
+  }
   onRenderComplete = function renderComplete(route, location) {
     // document.title = route.title;
     //
@@ -97,7 +101,7 @@ async function onLocationChange(location, action) {
   // Remember the latest scroll position for the previous location
   scrollPositionsHistory[currentLocation.key] = {
     scrollX: window.pageXOffset,
-    scrollY: window.pageYOffset,
+    scrollY: window.pageYOffset
   };
   // Delete stored scroll position for next page if any
   if (action === 'PUSH') {
@@ -112,7 +116,7 @@ async function onLocationChange(location, action) {
     const route = await UniversalRouter.resolve(routes, {
       ...context,
       path: location.pathname,
-      query: queryString.parse(location.search),
+      query: queryString.parse(location.search)
     });
 
     // Prevent multiple page renders during the routing process

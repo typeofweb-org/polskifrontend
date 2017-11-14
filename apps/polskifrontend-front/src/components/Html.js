@@ -7,29 +7,30 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import serialize from 'serialize-javascript';
 import { analytics } from '../config';
 
 class Html extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    children: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    styles: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      cssText: PropTypes.string.isRequired,
-    }).isRequired),
+    helmet: PropTypes.object.isRequired,
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
     // eslint-disable-next-line react/forbid-prop-types
     state: PropTypes.object,
-    children: PropTypes.string.isRequired,
-    helmet: PropTypes.object.isRequired
+    styles: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      cssText: PropTypes.string.isRequired
+    }).isRequired),
+    title: PropTypes.string.isRequired
   };
 
   static defaultProps = {
     styles: [],
     scripts: [],
-    state: null,
+    state: null
   };
 
   render() {
@@ -46,13 +47,12 @@ class Html extends React.Component {
           <link rel="apple-touch-icon" href="/polskifrontend_icon.png" />
           <link rel="alternate" type="application/rss+xml" title="Polski Front-End" href="http://www.polskifrontend.pl/feed" />
           <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600|Cabin:400,700&subset=latin-ext" rel="stylesheet" />
-          {styles.map(style =>
-            <style
-              key={style.id}
-              id={style.id}
-              // eslint-disable-next-line react/no-danger
-              dangerouslySetInnerHTML={{ __html: style.cssText }}
-            />,
+          {styles.map(style => (
+            <style key={style.id}
+                   id={style.id}
+                   // eslint-disable-next-line react/no-danger
+                   dangerouslySetInnerHTML={{ __html: style.cssText }}
+            />),
           )}
         </head>
         <body>

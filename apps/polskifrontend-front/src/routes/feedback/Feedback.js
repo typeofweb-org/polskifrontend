@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './Feedback.styl';
 import { connect } from 'react-redux';
@@ -9,6 +10,14 @@ import Message from '../../components/Indicators/Message';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Feedback extends React.Component {
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    context: PropTypes.object.isRequired,
+    description: PropTypes.string.isRequired,
+    feedbackState: PropTypes.object.isRequired,
+    title: PropTypes.string.isRequired
+  };
+
   onFeedbackChange(event) {
     const { actions: { feedbackTextChanged } } = this.props;
     feedbackTextChanged(event.target.value || '');
@@ -44,7 +53,7 @@ class Feedback extends React.Component {
   }
 
   onGoBackClick() {
-    const { actions: { resetFeedbackState} } = this.props;
+    const { actions: { resetFeedbackState } } = this.props;
     resetFeedbackState();
   }
 

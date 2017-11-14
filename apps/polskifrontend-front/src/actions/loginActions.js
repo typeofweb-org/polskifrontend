@@ -4,14 +4,14 @@ export function userChange(newValue) {
   return {
     type: constants.LOGIN_USER_CHANGED,
     payload: newValue
-  }
+  };
 }
 
 export function passwordChange(newValue) {
   return {
     type: constants.LOGIN_PASSWORD_CHANGED,
     payload: newValue
-  }
+  };
 }
 
 export function login(user, password) {
@@ -21,5 +21,5 @@ export function login(user, password) {
       user,
       password
     }
-  }
+  };
 }

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './FeedbackForm.styl';
 import Link from '../../../components/Link/Link';
@@ -7,18 +8,18 @@ import ReCAPTCHA from 'react-google-recaptcha';
 
 class FeedbackForm extends React.Component {
   static propTypes = {
-    onFeedbackChange: PropTypes.func.isRequired,
-    onEmailChange: PropTypes.func.isRequired,
+    captcha: PropTypes.string,
+    emailDirty: PropTypes.bool.isRequired,
+    emailValid: PropTypes.bool.isRequired,
+    feedbackDirty: PropTypes.bool.isRequired,
+    feedbackValid: PropTypes.bool.isRequired,
+    isSending: PropTypes.bool.isRequired,
     onCaptchaChange: PropTypes.func.isRequired,
+    onEmailChange: PropTypes.func.isRequired,
+    onFeedbackChange: PropTypes.func.isRequired,
+    onGoBackClick: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onSubmitAgain: PropTypes.func.isRequired,
-    onGoBackClick: PropTypes.func.isRequired,
-    feedbackValid: PropTypes.bool.isRequired,
-    feedbackDirty: PropTypes.bool.isRequired,
-    emailValid: PropTypes.bool.isRequired,
-    emailDirty: PropTypes.bool.isRequired,
-    captcha: PropTypes.string,
-    isSending: PropTypes.bool.isRequired,
     sent: PropTypes.bool.isRequired,
     shouldCleanUp: PropTypes.bool.isRequired
   };

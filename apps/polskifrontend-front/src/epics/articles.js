@@ -22,7 +22,7 @@ export const articlesGetArticleEpic = (action$) => {
             payload: {
               article: responseData.response.article
             }
-          }
+          };
         })
         .catch(error => ({
           type: constants.ARTICLES_GET_ARTICLE_ERROR,

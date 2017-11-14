@@ -84,7 +84,7 @@ const TilesArticles = props => {
               </div>
             </div>
           </div>
-        )
+        );
       })}
     </div>
   );

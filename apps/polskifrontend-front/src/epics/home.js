@@ -51,7 +51,7 @@ export const switchToListViewEpic = action$ => {
               articles: responseData.response.articles,
               nextPage: responseData.response.nextPage
             }
-          }
+          };
         })
         .catch(error => ({
           type: constants.HOME_SWITCH_TO_LIST_VIEW_ERROR,

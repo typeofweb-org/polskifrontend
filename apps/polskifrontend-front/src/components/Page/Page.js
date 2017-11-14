@@ -1,11 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Page.styl';
 
 class Page extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
-    html: PropTypes.string.isRequired
+    html: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
   };
 
   render() {

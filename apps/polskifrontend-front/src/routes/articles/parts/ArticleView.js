@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './ArticleView.styl';
 import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
@@ -52,9 +53,9 @@ const ArticleView = (props) => {
 };
 
 ArticleView.propTypes = {
-  blogName: PropTypes.string.isRequired,
-  blogIcon: PropTypes.string.isRequired,
   blogHref: PropTypes.string.isRequired,
+  blogIcon: PropTypes.string.isRequired,
+  blogName: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,

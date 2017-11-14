@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './Articles.styl';
 import { connect } from 'react-redux';
@@ -10,6 +11,8 @@ import ArticleView from './parts/ArticleView';
 
 class Articles extends React.Component {
   static propTypes = {
+    actions: PropTypes.object.isRequired,
+    articlesState: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired
   };
 

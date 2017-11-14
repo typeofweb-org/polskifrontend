@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './BlogSubmit.styl';
 import { connect } from 'react-redux';
@@ -9,6 +10,14 @@ import Message from '../../components/Indicators/Message';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class BlogSubmit extends React.Component {
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    context: PropTypes.object.isRequired,
+    description: PropTypes.string.isRequired,
+    submitState: PropTypes.object.isRequired,
+    title: PropTypes.string.isRequired
+  };
+
   onUrlChange(event) {
     const { actions: { urlChanged } } = this.props;
     urlChanged(event.target.value || '');
@@ -31,7 +40,7 @@ class BlogSubmit extends React.Component {
       sendBlogRequest
     }, submitState } = this.props;
 
-    if (submitState.urlValid && (submitState.emailValid || submitState.emailDirty === false ) && submitState.captcha !== null) {
+    if (submitState.urlValid && (submitState.emailValid || submitState.emailDirty === false) && submitState.captcha !== null) {
       sendBlogRequest(submitState.url, submitState.email);
     }
   }
@@ -39,12 +48,12 @@ class BlogSubmit extends React.Component {
   onSubmitAgain(event) {
     event.preventDefault();
 
-    const { actions: { resetSubmitState} } = this.props;
+    const { actions: { resetSubmitState } } = this.props;
     resetSubmitState();
   }
 
   onGoBackClick() {
-    const { actions: { resetSubmitState} } = this.props;
+    const { actions: { resetSubmitState } } = this.props;
     resetSubmitState();
   }
 

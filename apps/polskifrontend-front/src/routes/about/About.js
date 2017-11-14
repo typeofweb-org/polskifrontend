@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './About.styl';
 import ResponsivePanel from '../../components/Responsive/ResponsivePanel';
@@ -28,6 +29,12 @@ const About = (props) => {
       </ResponsivePanel>
     </div>
   );
+};
+
+About.propTypes = {
+  context: PropTypes.object.isRequired,
+  description: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(About);

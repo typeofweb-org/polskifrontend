@@ -7,6 +7,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+/* eslint-disable */
+
 import path from 'path';
 import cp from 'child_process';
 import webpackConfig from './webpack.config';
@@ -17,7 +19,7 @@ const RUNNING_REGEXP = /The server is running at http:\/\/(.*?)\//;
 let server;
 let pending = true;
 const [, serverConfig] = webpackConfig;
-const serverPath = path.join(serverConfig.output.path, serverConfig.output.filename);
+const serverPath = path.join(serverConfig.output.path, /*serverConfig.output.filename*/'server.js');
 
 // Launch or restart the Node.js server
 function runServer() {

@@ -1,15 +1,19 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './ErrorPage.styl';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class ErrorPage extends React.Component {
   static propTypes = {
+    context: PropTypes.object.isRequired,
+    description: PropTypes.string.isRequired,
     error: PropTypes.shape({
       name: PropTypes.string.isRequired,
       message: PropTypes.string.isRequired,
       stack: PropTypes.string.isRequired
-    }).isRequired
+    }).isRequired,
+    title: PropTypes.string.isRequired
   };
 
   render() {

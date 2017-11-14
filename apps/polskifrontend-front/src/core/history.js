@@ -7,6 +7,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+/* eslint-disable no-undef */
+
 import createBrowserHistory from 'history/createBrowserHistory';
 
 // Navigation manager, e.g. history.push('/home')

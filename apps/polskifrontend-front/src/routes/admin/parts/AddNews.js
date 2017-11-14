@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './AddNews.styl';
 import ResponsivePanel from '../../../components/Responsive/ResponsivePanel';
@@ -6,15 +7,15 @@ import Link from '../../../components/Link/Link';
 
 class AddNews extends React.Component {
   static propTypes = {
-    onTitleChange: PropTypes.func.isRequired,
-    onMessageChange: PropTypes.func.isRequired,
-    onFormSubmit: PropTypes.func.isRequired,
-    titleValid: PropTypes.bool.isRequired,
-    titleDirty: PropTypes.bool.isRequired,
-    messageValid: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     messageDirty: PropTypes.bool.isRequired,
+    messageValid: PropTypes.bool.isRequired,
+    onFormSubmit: PropTypes.func.isRequired,
+    onMessageChange: PropTypes.func.isRequired,
+    onTitleChange: PropTypes.func.isRequired,
     shouldCleanUp: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired
+    titleDirty: PropTypes.bool.isRequired,
+    titleValid: PropTypes.bool.isRequired
   };
 
   componentDidUpdate() {

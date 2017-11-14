@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Loader.styl';
 import image from '../../../public/30.svg';
@@ -16,6 +17,7 @@ const Loader = props => {
 };
 
 Loader.propTypes = {
+  children: PropTypes.element.isRequired,
   isLoading: PropTypes.bool.isRequired
 };
 

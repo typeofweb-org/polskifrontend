@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Layout.styl';
 import Header from '../Header/Header';
@@ -16,7 +17,8 @@ import * as dateHelper from '../../core/helpers/dateHelper';
 class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    newsList: PropTypes.array
+    newsList: PropTypes.array,
+    newsState: PropTypes.object.isRequired
   };
 
   render() {

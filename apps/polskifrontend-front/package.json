@@ -37,10 +37,10 @@
     "pretty-error": "^2.0.2",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
-    "react": "^16.1.0",
+    "react": "^16.1.1",
     "react-async-script": "^0.9.1",
     "react-cookie": "^2.1.1",
-    "react-dom": "^16.1.0",
+    "react-dom": "^16.1.1",
     "react-google-recaptcha": "^0.9.7",
     "react-helmet": "^5.0.3",
     "react-image-fallback": "^7.0.1",
@@ -161,7 +161,7 @@
     }
   },
   "scripts": {
-    "lint:js": "eslint src tools",
+    "lint:js": "eslint src",
     "lint:css": "stylelint \"src/**/*.{css,less,scss,sss}\"",
     "lint:staged": "lint-staged",
     "lint": "yarn run lint:js && yarn run lint:css",

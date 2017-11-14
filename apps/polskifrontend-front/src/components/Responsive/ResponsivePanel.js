@@ -1,26 +1,27 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './ResponsivePanel.styl';
 import ResponsiveContainer from './ResponsiveContainer';
 import ReactImageFallback from 'react-image-fallback';
 import noImage from '../../../public/no_image.png';
 
-function getHeaderContent(props) {
+function getHeaderContent(properties) {
   return (
     <div>
-      {props.showImage && props.image ?
-        <ReactImageFallback alt={`${props.header} - ikona`}
+      {properties.showImage && properties.image ?
+        <ReactImageFallback alt={`${properties.header} - ikona`}
                             className={style['container__favicon']}
-                            src={props.image}
+                            src={properties.image}
                             fallbackImage={noImage}
                             initialImage={noImage} />
         : null}
-      {props.header}
+      {properties.header}
     </div>
   );
 }
 
-const ResponsivePanel = props => {
+const ResponsivePanel = (props) => {
   return (
     <ResponsiveContainer className={props.className}>
       <div className={style.container}>
@@ -42,12 +43,13 @@ const ResponsivePanel = props => {
 };
 
 ResponsivePanel.propTypes = {
-  header: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
   className: PropTypes.any,
+  description: PropTypes.string.isRequired,
+  header: PropTypes.string.isRequired,
+  href: PropTypes.string,
   image: PropTypes.string,
-  showImage: PropTypes.bool,
-  href: PropTypes.string
+  showImage: PropTypes.bool
 };
 
 export default withStyles(style)(ResponsivePanel);

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Login.styl';
 import LoginForm from './parts/LoginForm';
@@ -12,8 +13,11 @@ import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Login extends React.Component {
   static propTypes = {
+    actions: PropTypes.object.isRequired,
+    adminState: PropTypes.object.isRequired,
     context: PropTypes.object,
     description: PropTypes.string.isRequired,
+    loginState: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired
   };
 

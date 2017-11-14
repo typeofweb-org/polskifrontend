@@ -6,7 +6,7 @@ const initialFormState = {
   newTitleDirty: false,
   newMessage: '',
   newMessageValid: false,
-  newMessageDirty: false,
+  newMessageDirty: false
 };
 
 export const initialState = {

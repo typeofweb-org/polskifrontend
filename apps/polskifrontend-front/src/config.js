@@ -17,8 +17,8 @@ export const databaseUrl = process.env.DATABASE_URL || 'sqlite:database.sqlite';
 export const analytics = {
   // https://analytics.google.com/
   google: {
-    trackingId: 'UA-35451047-5', // UA-XXXXX-X
-  },
+    trackingId: 'UA-35451047-5' // UA-XXXXX-X
+  }
 };
 
 const api = {

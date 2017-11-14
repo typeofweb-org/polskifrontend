@@ -65,7 +65,7 @@ export const deleteBlogEpic = action$ => {
         .catch(error => ({
           type: constants.ADMIN_DELETE_BLOG_ERROR,
           payload: error
-        }))
+        }));
     });
 };
 
@@ -106,7 +106,7 @@ export const addBlogEpic = action$ => {
         .catch(error => ({
           type: constants.ADMIN_ADD_BLOG_ERROR,
           payload: error
-        }))
+        }));
     });
 };
 
@@ -130,7 +130,7 @@ export const blogRefreshEpic = action$ => {
         .catch(error => ({
           type: constants.ADMIN_BLOG_REFRESH_ERROR,
           payload: error
-        }))
+        }));
     });
 };
 
@@ -151,9 +151,10 @@ export const slugRefreshEpic = action$ => {
         .map(responseData => ({
           type: constants.ADMIN_SLUG_REFRESH_SUCCESS
         }))
-        .catch(error => ({
-          type: constants.ADMIN_SLUG_REFRESH_ERROR
-        }))
+        .catch((error) => ({
+          type: constants.ADMIN_SLUG_REFRESH_ERROR,
+          payload: { error }
+        }));
     });
 };
 
@@ -174,8 +175,9 @@ export const faviconRefreshEpic = action$ => {
         .map(responseData => ({
           type: constants.ADMIN_FAVICON_REFRESH_SUCCESS
         }))
-        .catch(error => ({
-          type: constants.ADMIN_FAVICON_REFRESH_ERROR
-        }))
+        .catch((error) => ({
+          type: constants.ADMIN_FAVICON_REFRESH_ERROR,
+          payload: { error }
+        }));
     });
 };

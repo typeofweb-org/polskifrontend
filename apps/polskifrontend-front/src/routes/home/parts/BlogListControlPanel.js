@@ -42,11 +42,11 @@ const BlogListControlPanel = props => {
 };
 
 BlogListControlPanel.propTypes = {
-  onListOptionClick: PropTypes.func.isRequired,
-  onTilesOptionClick: PropTypes.func.isRequired,
   isListOptionSelected: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   isTilesOptionSelected: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  onListOptionClick: PropTypes.func.isRequired,
+  onTilesOptionClick: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(BlogListControlPanel);

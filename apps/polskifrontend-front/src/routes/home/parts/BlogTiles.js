@@ -53,11 +53,12 @@ const BlogTiles = props => {
 BlogTiles.propTypes = {
   blogList: PropTypes.array.isRequired,
   blogListLoading: PropTypes.bool.isRequired,
+  children: PropTypes.element.isRequired,
+  clickedArticles: PropTypes.array.isRequired,
   isLoadingMore: PropTypes.bool.isRequired,
-  onScrolledBottom: PropTypes.func.isRequired,
   nextPage: PropTypes.number.isRequired,
   onArticleClicked: PropTypes.func.isRequired,
-  clickedArticles: PropTypes.array.isRequired,
+  onScrolledBottom: PropTypes.func.isRequired
 };
 
 export default withStyles(style)(BlogTiles);

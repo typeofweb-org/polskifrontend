@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Admin.styl';
 import { connect } from 'react-redux';
@@ -12,8 +13,17 @@ import Confirm from '../../components/Modals/Confirm';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Admin extends React.Component {
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    adminBlogsState: PropTypes.object.isRequired,
+    adminState: PropTypes.object.isRequired,
+    context: PropTypes.object.isRequired,
+    description: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+  };
+
   componentDidMount() {
-    const { actions: { getAdminBlogList }, adminBlogsState: blogListLoading } = this.props
+    const { actions: { getAdminBlogList }, adminBlogsState: blogListLoading } = this.props;
     if (blogListLoading) {
       getAdminBlogList();
     }
@@ -36,7 +46,7 @@ class Admin extends React.Component {
 
   onEditClick(id, event) {
     event.preventDefault();
-    console.log(id);
+    console.log(id); // eslint-disable-line
   }
 
   onNameChange(event) {

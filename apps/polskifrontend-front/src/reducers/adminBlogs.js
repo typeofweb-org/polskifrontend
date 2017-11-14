@@ -10,7 +10,7 @@ const initialFormState = {
   newBlogUrlDirty: false,
   newBlogRss: '',
   newBlogRssValid: false,
-  newBlogRssDirty: false,
+  newBlogRssDirty: false
 };
 
 export const initialState = {
@@ -78,7 +78,7 @@ export default function adminBlogsReducer(state = initialState, action) {
       return { ...state, ...initialFormState, addBlogLoading: false, addBlogError: false, blogList: currentBlogList };
     case constants.ADMIN_ADD_BLOG_ERROR:
       const reason = action.payload;
-      let message ;
+      let message;
       switch (reason) {
         case 'rss-invalid':
           message = 'Podany adres RSS jest nie prawidłowy';

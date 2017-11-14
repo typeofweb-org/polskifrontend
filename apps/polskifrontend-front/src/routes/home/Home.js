@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './Home.styl';
 import BlogTiles from './parts/BlogTiles';
@@ -14,8 +15,11 @@ import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class Home extends React.Component {
   static propTypes = {
-    actions: PropTypes.object,
-    homeState: PropTypes.object
+    actions: PropTypes.object.isRequired,
+    context: PropTypes.object.isRequired,
+    description: PropTypes.string.isRequired,
+    homeState: PropTypes.object.isRequired,
+    title: PropTypes.string.isRequired
   };
 
   onListOptionClick(event) {

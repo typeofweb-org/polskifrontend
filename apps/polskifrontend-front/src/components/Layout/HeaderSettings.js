@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import ogImage from '../../../public/polskifrontend_og.png';
 
@@ -16,9 +17,9 @@ const HeaderSettings = (props) => {
 };
 
 HeaderSettings.propTypes = {
+  currentPath: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  currentPath: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired
 };
 
 export default HeaderSettings;

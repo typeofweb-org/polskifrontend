@@ -7,7 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-/* eslint-disable global-require */
+/* eslint-disable global-require, no-undef */
 
 if (module.hot || __DEV__) {
   module.exports = {
@@ -17,6 +17,6 @@ if (module.hot || __DEV__) {
 
     // Force-updates React component tree recursively
     // https://github.com/gaearon/react-deep-force-update
-    deepForceUpdate: require('react-deep-force-update'),
+    deepForceUpdate: require('react-deep-force-update')
   };
 }

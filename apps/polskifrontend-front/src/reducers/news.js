@@ -4,13 +4,13 @@ export const initialState = {
   newsList: [],
   newsListNextPage: 1,
   newsListLoading: false,
-  newsListError: false,
+  newsListError: false
 };
 
 export default function newsReducer(state = initialState, action) {
   switch (action.type) {
     case constants.NEWS_GET_NEWS_PAGE:
-      return {...state, newsListLoading: true, newsListError: false };
+      return { ...state, newsListLoading: true, newsListError: false };
     case constants.NEWS_GET_NEWS_PAGE_SUCCESS:
       return {
         ...state,

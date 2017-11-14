@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import style from './TopHomePanel.styl';
 import RetinaImage from 'react-retina-image';
 import logo from '../../../public/polskifrontend_logo_black.png';
 import logo2 from '../../../public/polskifrontend_black@2x.png';
-import Link from "../Link/Link";
+import Link from '../Link/Link';
 
-const TopHomePanel = props => {
+const TopHomePanel = (props) => {
   return (
     <div className={style.container}>
       <div className={style['container__green']}>

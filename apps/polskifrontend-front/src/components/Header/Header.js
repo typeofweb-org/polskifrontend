@@ -6,6 +6,8 @@ import Link from '../Link/Link';
 import logo from '../../../public/polskifrontend_logo_black.png';
 import logo2 from '../../../public/polskifrontend_black@2x.png';
 
+/* eslint-disable no-undef */
+
 class Header extends React.Component {
   constructor(props) {
     super(props);

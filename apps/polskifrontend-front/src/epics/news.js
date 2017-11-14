@@ -27,7 +27,7 @@ export const getNewsPageEpic = (action$, store) => {
               newsList,
               nextPage: responseData.response.nextPage
             }
-          }
+          };
         })
         .catch(error => ({
           type: constants.NEWS_GET_NEWS_PAGE_ERROR,

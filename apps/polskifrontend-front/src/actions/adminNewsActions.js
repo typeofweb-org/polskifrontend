@@ -26,7 +26,7 @@ export function newNewsMessageChanged(value) {
       isValid,
       value
     }
-  }
+  };
 }
 
 export function addAdminNews(newsObject) {
@@ -36,7 +36,7 @@ export function addAdminNews(newsObject) {
       title: newsObject.title,
       message: newsObject.message
     }
-  }
+  };
 }
 
 export function deleteAdminNewsRequest(newsId) {
@@ -51,7 +51,7 @@ export function deleteAdminNewsRequest(newsId) {
 export function deleteAdminNewsCancel() {
   return {
     type: constants.ADMIN_NEWS_DELETE_NEWS_CANCEL
-  }
+  };
 }
 
 export function deleteAdminNews(newsId) {
