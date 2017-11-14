@@ -10,7 +10,7 @@ import * as dateHelper from '../../../core/helpers/dateHelper';
 
 const NewsList = (props) => {
   return (
-    <ResponsivePanel className={styles.container} header="Aktualności" description="">
+    <ResponsivePanel className={styles.container} description="" header="Aktualności">
       <div className={styles.nav}>
         <Link className={styles.back} to="/">
           <i className="icon-left-big">
@@ -49,9 +49,9 @@ const NewsList = (props) => {
 };
 
 NewsList.propTypes = {
+  isLoadingMore: PropTypes.bool.isRequired,
   newsList: PropTypes.array.isRequired,
   nextPage: PropTypes.number.isRequired,
-  isLoadingMore: PropTypes.bool.isRequired,
   onScrolledBottom: PropTypes.func.isRequired
 };
 

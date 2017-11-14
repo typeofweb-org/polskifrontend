@@ -23,9 +23,7 @@
     "eol-last": 2,
     "eqeqeq": [2, "allow-null"],
     "guard-for-in": 0,
-    "indent": [2, 2, {
-      "SwitchCase": 1
-    }],
+    "indent": 0,
     "key-spacing": 0,
     "keyword-spacing": [2, {"before": true, "after": true}],
     "new-cap": [2, {"capIsNew": false, "newIsCap": true}],
@@ -132,15 +130,12 @@
     "import/default": 0,
     "import/export": 2,
     "import/first": 0,
-    "import/prefer-default-export": 0,
+    "import/prefer-default-export": 0
   },
   "plugins": [
     "import",
     "react"
   ],
-  "ecmaFeatures": {
-    "jsx": true
-  },
   "settings": {
     "import/ignore": [
       "node_modules",

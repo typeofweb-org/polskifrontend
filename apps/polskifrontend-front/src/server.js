@@ -1,11 +1,4 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
+/* eslint-disable no-undef */
 
 import path from 'path';
 import express from 'express';
@@ -28,7 +21,7 @@ import getAdminInitialState from './store/serverSideInitializers/adminBlogsIniti
 import getAdminNewsInitialState from './store/serverSideInitializers/adminNewsInitializer';
 import getNewsInitialState from './store/serverSideInitializers/newsInitializer';
 import { initialState as articlesState } from './reducers/articles';
-import { port, auth, apiUrl } from './config';
+import { port, apiUrl } from './config';
 import cookie from 'react-cookie';
 import fetch from './core/fetch';
 import { Helmet } from 'react-helmet';
@@ -49,7 +42,7 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, 'public'), {
   maxAge: 2592000000,
   setHeaders: (res) => {
-    res.set("Expires", new Date(Date.now() + 2592000000).toUTCString());
+    res.set('Expires', new Date(Date.now() + 2592000000).toUTCString());
   }
 }));
 app.use(cookieParser());
@@ -57,9 +50,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // sitemap handling
-app.get('/sitemap.xml', async (req, res) => {
+app.get('/sitemap.xml', async(req, res) => {
   const url = `${apiUrl}/misc/sitemap`;
-  const getData = async () => {
+  const getData = async() => {
     const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
     return await response.json();
   };
@@ -75,9 +68,9 @@ app.get('/sitemap.xml', async (req, res) => {
 });
 
 // feed handling
-app.get('/feed',  async (req, res) => {
+app.get('/feed',  async(req, res) => {
   const url = `${apiUrl}/misc/feed`;
-  const getData = async () => {
+  const getData = async() => {
     const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
     return await response.json();
   };
@@ -95,7 +88,7 @@ app.get('/feed',  async (req, res) => {
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
-app.get('*', async (req, res, next) => {
+app.get('*', async(req, res, next) => {
   // redirects
   if (!__DEV__) {
     if (req.hostname.indexOf('polskifrontend-front.herokuapp.com') > -1) {
@@ -103,14 +96,13 @@ app.get('*', async (req, res, next) => {
     }
 
     const checkHost = req.get('host').substring(0, 4);
-    const condition = req.get('x-forwarded-proto') !== "https" || checkHost !== 'www.' || ( req.get('host').indexOf('www.') < 0);
+    const condition = req.get('x-forwarded-proto') !== 'https' || checkHost !== 'www.' || (req.get('host').indexOf('www.') < 0);
     if (condition) {
       res.set('x-forwarded-proto', 'https');
 
-      if (checkHost === 'www.' && ( req.get('host').indexOf('www.') >= 0)) {
+      if (checkHost === 'www.' && (req.get('host').indexOf('www.') >= 0)) {
         res.redirect(301, 'https://' + req.get('host') + req.url);
-      }
-      else {
+      } else {
         res.redirect(301, 'https://www.' + req.get('host') + req.url);
       }
     }
@@ -208,9 +200,9 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   console.log(pe.render(err)); // eslint-disable-line no-console
   const html = ReactDOM.renderToStaticMarkup(
     <Html
-      title="Internal Server Error"
       description={err.message}
       styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
+      title="Internal Server Error"
     >
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
     </Html>,

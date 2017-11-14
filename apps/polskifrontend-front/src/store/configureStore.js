@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
@@ -23,7 +24,7 @@ export default function configureStore(initialState, helpersConfig) {
 
     enhancer = compose(
       applyMiddleware(...middleware),
-      devToolsExtension,
+      devToolsExtension
     );
   } else {
     enhancer = applyMiddleware(...middleware);
@@ -36,7 +37,7 @@ export default function configureStore(initialState, helpersConfig) {
   if (__DEV__ && module.hot) {
     module.hot.accept('../reducers', () =>
       // eslint-disable-next-line global-require
-      store.replaceReducer(require('../reducers').default),
+      store.replaceReducer(require('../reducers').default)
     );
   }
 

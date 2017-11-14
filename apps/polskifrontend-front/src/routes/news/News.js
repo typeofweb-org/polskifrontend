@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './News.styl';
 import { connect } from 'react-redux';
@@ -8,6 +9,14 @@ import NewsList from './parts/NewsList';
 import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class News extends React.Component {
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    context: PropTypes.object.isRequired,
+    description: PropTypes.object.isRequired,
+    newsState: PropTypes.object.isRequired,
+    title: PropTypes.string.isRequired
+  };
+
   onScrolledBottom() {
     const { actions: { getNewsPage }, newsState: { newsListNextPage, newsListLoading } } = this.props;
     if (newsListLoading === false && newsListNextPage > 1) {
@@ -20,11 +29,11 @@ class News extends React.Component {
     const { description, title, context } = this.props;
     return (
       <div className={styles.container}>
-        <HeaderSettings description={description} title={title} currentPath={context.path} />
-        <NewsList newsList={newsList}
-                  onScrolledBottom={this.onScrolledBottom.bind(this)}
-                  isLoadingMore={newsListLoading}
+        <HeaderSettings currentPath={context.path} description={description} title={title} />
+        <NewsList isLoadingMore={newsListLoading}
+                  newsList={newsList}
                   nextPage={newsListNextPage}
+                  onScrolledBottom={this.onScrolledBottom.bind(this)}
         />
       </div>
     );

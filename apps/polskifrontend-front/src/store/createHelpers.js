@@ -1,7 +1,7 @@
 import fetch from '../core/fetch';
 
 function createFetchKnowingCookie({ cookie }) {
-  if (!process.env.BROWSER) {
+  if (!process.env.BROWSER) { // eslint-disable-line no-undef
     return (url, options = {}) => {
       const isLocalUrl = /^\/($|[^/])/.test(url);
 
@@ -10,7 +10,7 @@ function createFetchKnowingCookie({ cookie }) {
       if (isLocalUrl && options.credentials === 'include') {
         const headers = {
           ...options.headers,
-          cookie,
+          cookie
         };
         return fetch(url, { ...options, headers });
       }
@@ -27,6 +27,6 @@ export default function createHelpers(config) {
 
   return {
     fetch: fetchKnowingCookie,
-    history: config.history,
+    history: config.history
   };
 }

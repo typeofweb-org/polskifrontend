@@ -2,7 +2,7 @@ import { inspect } from 'util';
 
 function inspectObject(object) {
   return inspect(object, {
-    colors: true,
+    colors: true
   });
 }
 
@@ -19,7 +19,7 @@ const actionFormatters = {
     `queryId:${a.queryId}\n   ${singleLine(inspectObject(a.result))}`,
 
   APOLLO_QUERY_STOP: a =>
-    `queryId:${a.queryId}`,
+    `queryId:${a.queryId}`
 };
 
 // Server side redux action logger
@@ -38,7 +38,7 @@ export default function createLogger() {
       formattedPayload = inspectObject(action);
     }
 
-    console.log(` * ${action.type}: ${formattedPayload}`); // eslint-disable-line no-console
+    console.log(` * ${action.type}: ${formattedPayload}`); // eslint-disable-line no-console, no-undef
     return next(action);
   };
 }

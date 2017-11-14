@@ -5,15 +5,15 @@ import HeaderSettings from '../../components/Layout/HeaderSettings';
 
 class NotFound extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    context: PropTypes.object.isRequired,
     description: PropTypes.string.isRequired,
-    context: PropTypes.object.isRequired
+    title: PropTypes.string.isRequired
   };
 
   render() {
     return (
       <div className={style.container}>
-        <HeaderSettings description={this.props.description} title={this.props.title} currentPath={this.props.context.path} />
+        <HeaderSettings currentPath={this.props.context.path} description={this.props.description} title={this.props.title} />
         <h2>404 - nie znaleziono strony</h2>
         <p className={style['container__text']}>Niestety strona, na którą próbowałeś(aś) wejść nie istnieje</p>
       </div>

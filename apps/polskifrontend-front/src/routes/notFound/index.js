@@ -16,11 +16,11 @@ const description = 'Błąd 404 - strony, której szukasz nie znaleziono.';
 
 export default {
 
-  path: '*',
+  path: '(.*)',
 
   action(context) {
     return {
-      component: <Layout><NotFound title={title} description={description} context={context} /></Layout>,
+      component: <Layout><NotFound context={context} description={description} title={title} /></Layout>,
       status: 404
     };
   }

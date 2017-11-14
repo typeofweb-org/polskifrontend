@@ -9,7 +9,7 @@ export default async function getHomeInitialState(settings) {
   homeState.clickedLinks = settings.clickedLinks || [];
 
   const url = settings.tiles ? `${apiUrl}/blogs/all/1` : `${apiUrl}/articles/all/1`;
-  const getData = async () => {
+  const getData = async() => {
     const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
     return await response.json();
   };

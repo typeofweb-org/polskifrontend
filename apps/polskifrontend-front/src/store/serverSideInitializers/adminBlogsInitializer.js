@@ -3,7 +3,7 @@ import fetch from '../../core/fetch';
 import { apiUrl } from '../../config';
 
 export default async function getAdminInitialState(authCookie) {
-  const getData = async () => {
+  const getData = async() => {
 
     const headers = {
       'x-access-token': authCookie,
@@ -30,7 +30,7 @@ export default async function getAdminInitialState(authCookie) {
       tokenExpired: false,
       adminBlogsState
     };
-  } catch(error) {
-    console.log(error);
+  } catch (error) {
+    console.log(error); // eslint-disable-line no-undef, no-console
   }
 }

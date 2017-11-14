@@ -3,7 +3,7 @@ import { apiUrl } from '../../config';
 
 export default async function getArticlesInitialState(slug, state) {
   const url = `${apiUrl}/articles/${slug}`;
-  const getData = async () => {
+  const getData = async() => {
     const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
     return await response.json();
   };

@@ -15,7 +15,7 @@ export default {
     const description = 'Aktualności dotyczące serwisu Polski Front-End - dowiedz się, co nowego!';
 
     return {
-      component: <Layout><News description={description} title={title} context={context} /></Layout>
+      component: <Layout><News context={context} description={description} title={title} /></Layout>
     };
   }
 };

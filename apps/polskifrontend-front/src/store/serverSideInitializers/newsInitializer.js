@@ -4,7 +4,7 @@ import { apiUrl } from '../../config';
 
 export default async function getNewsInitialState() {
   const url = `${apiUrl}/news/1`;
-  const getData = async () => {
+  const getData = async() => {
     const response = await fetch(url, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' });
     return await response.json();
   };
