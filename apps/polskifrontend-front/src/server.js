@@ -3,17 +3,17 @@
 import path from 'path';
 import express from 'express';
 import compression from 'compression';
-import cookieParser from 'cookie-parser';
+// import cookieParser from 'cookie-parser';
+import cookiesMiddleware from 'universal-cookie-express';
 import bodyParser from 'body-parser';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import UniversalRouter from 'universal-router';
+import router from './router';
 import PrettyError from 'pretty-error';
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.styl';
-import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import getHomeInitialState from './store/serverSideInitializers/homeInitializer';
@@ -22,9 +22,9 @@ import getAdminNewsInitialState from './store/serverSideInitializers/adminNewsIn
 import getNewsInitialState from './store/serverSideInitializers/newsInitializer';
 import { initialState as articlesState } from './reducers/articles';
 import { port, apiUrl } from './config';
-import cookie from 'react-cookie';
 import fetch from './core/fetch';
 import { Helmet } from 'react-helmet';
+import * as cookies from './core/helpers/cookieHelper';
 
 const app = express();
 
@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public'), {
     res.set('Expires', new Date(Date.now() + 2592000000).toUTCString());
   }
 }));
-app.use(cookieParser());
+app.use(cookiesMiddleware());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -111,10 +111,8 @@ app.get('*', async(req, res, next) => {
   // try to get settings form cookie
   // const settings = req.cookies.PL_FRONT_END_USER_SETTINGS ? JSON.parse(req.cookies.PL_FRONT_END_USER_SETTINGS) : { tiles: true };
   try {
-    cookie.plugToRequest(req, res);
-
-    const settings = cookie.load('PL_FRONT_END_USER_SETTINGS') || { tiles: true, clickedLinks: [], lastNewsVisit: new Date(1900, 1, 1) };
-    const authCookie = cookie.load('PL_FRONT_END');
+    const settings = cookies.get('PL_FRONT_END_USER_SETTINGS') || { tiles: true, clickedLinks: [], lastNewsVisit: new Date(1900, 1, 1) };
+    const authCookie = cookies.get('PL_FRONT_END');
 
     const homeState = await getHomeInitialState(settings);
     const blogsState = await getAdminInitialState(authCookie);
@@ -137,6 +135,7 @@ app.get('*', async(req, res, next) => {
     });
 
     const css = new Set();
+    cookies.setUpCookie(req.universalCookies);
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
@@ -152,9 +151,9 @@ app.get('*', async(req, res, next) => {
       store
     };
 
-    const route = await UniversalRouter.resolve(routes, {
+    const route = await router.resolve({
       ...context,
-      path: req.path,
+      pathname: req.path,
       query: req.query
     });
 
@@ -180,7 +179,6 @@ app.get('*', async(req, res, next) => {
 
     data.helmet = Helmet.renderStatic();
 
-    cookie.plugToRequest(req, res);
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(route.status || 200);
     res.send(`<!doctype html>${html}`);
@@ -203,6 +201,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
       description={err.message}
       styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
       title="Internal Server Error"
+      helmet={Helmet.renderStatic()}
     >
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
     </Html>,

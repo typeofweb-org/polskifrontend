@@ -1,19 +1,19 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './CookieInfo.styl';
-import cookie from 'react-cookie';
+import * as cookies from '../../core/helpers/cookieHelper';
 
 class CookieInfo extends React.Component {
   constructor(props) {
     super(props);
-    const shouldBeClosed = cookie.load('cookie-accepted');
+    const shouldBeClosed = cookies.get('cookie-accepted');
     this.state = { shouldBeClosed: shouldBeClosed || false };
   }
 
   onOkClick(event) {
     event.preventDefault();
 
-    cookie.save('cookie-accepted', true, { path: '/', expires: new Date(2050, 1, 1) });
+    cookies.set(true, 'cookie-accepted', { path: '/', expires: new Date(2050, 1, 1) });
     this.setState({
       shouldBeClosed: true
     });

@@ -1,7 +1,7 @@
-import reduxLogger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 
-export default function createLogger() {
-  return reduxLogger({
+export default function logger() {
+  return createLogger({
     collapsed: true
   });
 }

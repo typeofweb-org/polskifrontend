@@ -1,4 +1,4 @@
-import cookie from 'react-cookie';
+import * as cookies from './cookieHelper';
 
 const cookieName = 'PL_FRONT_END_USER_SETTINGS';
 const initialSettings = {
@@ -8,14 +8,14 @@ const initialSettings = {
 };
 
 export function saveSettings(settings) {
-  cookie.save(cookieName, settings, { path: '/', expires: new Date(2050, 1, 1) });
+  cookies.set(settings, cookieName, { path: '/', expires: new Date(2050, 1, 1) });
 }
 
 export function getSettings() {
-  const data = cookie.load(cookieName);
+  const data = cookies.get(cookieName);
   return data || initialSettings;
 }
 
 export function clearSettings() {
-  cookie.remove(cookieName, { path: '/' });
+  cookies.remove(cookieName);
 }

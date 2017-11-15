@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /**
  * React Starter Kit (https://www.reactstarterkit.com/)
  *
@@ -7,19 +9,22 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-/* eslint-disable no-undef */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
-import UniversalRouter from 'universal-router';
+import router from './router';
 import queryString from 'query-string';
 import { createPath } from 'history/PathUtils';
 import history from './core/history';
 import App from './components/App';
 import configureStore from './store/configureStore';
-// import { updateMeta } from './core/DOMUtils';
+import { updateMeta } from './core/DOMUtils';
 import { ErrorReporter, deepForceUpdate } from './core/devUtils';
+import { setUpCookie } from './core/helpers/cookieHelper';
+
+setUpCookie();
+
+const store = configureStore(window.APP_STATE, { history });
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
@@ -33,7 +38,7 @@ const context = {
   },
   // Initialize a new Redux store
   // http://redux.js.org/docs/basics/UsageWithReact.html
-  store: configureStore(window.APP_STATE, { history })
+  store
 };
 
 // Switch off the native scroll restoration behavior and handle it manually
@@ -45,13 +50,11 @@ if (window.history && 'scrollRestoration' in window.history) {
 
 let onRenderComplete = function initialRenderComplete() {
   const elem = document.getElementById('css');
-  if (elem) {
-    elem.parentNode.removeChild(elem);
-  }
+  if (elem) elem.parentNode.removeChild(elem);
   onRenderComplete = function renderComplete(route, location) {
-    // document.title = route.title;
-    //
-    // updateMeta('description', route.description);
+    document.title = route.title;
+
+    updateMeta('description', route.description);
     // Update necessary tags in <head> at runtime here, ie:
     // updateMeta('keywords', route.keywords);
     // updateCustomMeta('og:url', route.canonicalUrl);
@@ -94,14 +97,14 @@ FastClick.attach(document.body);
 const container = document.getElementById('app');
 let appInstance;
 let currentLocation = history.location;
-let routes = require('./routes').default;
+// let routes = require('./routes').default;
 
 // Re-render the app when window.location changes
 async function onLocationChange(location, action) {
   // Remember the latest scroll position for the previous location
   scrollPositionsHistory[currentLocation.key] = {
     scrollX: window.pageXOffset,
-    scrollY: window.pageYOffset
+    scrollY: window.pageYOffset,
   };
   // Delete stored scroll position for next page if any
   if (action === 'PUSH') {
@@ -113,10 +116,10 @@ async function onLocationChange(location, action) {
     // Traverses the list of routes in the order they are defined until
     // it finds the first route that matches provided URL path string
     // and whose action method returns anything other than `undefined`.
-    const route = await UniversalRouter.resolve(routes, {
+    const route = await router.resolve({
       ...context,
-      path: location.pathname,
-      query: queryString.parse(location.search)
+      pathname: location.pathname,
+      query: queryString.parse(location.search),
     });
 
     // Prevent multiple page renders during the routing process
@@ -129,7 +132,7 @@ async function onLocationChange(location, action) {
       return;
     }
 
-    appInstance = ReactDOM.render(
+    appInstance = ReactDOM[action ? 'render' : 'hydrate'](
       <App context={context}>{route.component}</App>,
       container,
       () => onRenderComplete(route, location),
@@ -139,7 +142,7 @@ async function onLocationChange(location, action) {
     if (__DEV__) {
       appInstance = null;
       document.title = `Error: ${error.message}`;
-      ReactDOM.render(<ErrorReporter error={error} />, container);
+      ReactDOM.hydrate(<ErrorReporter error={error} />, container);
       throw error;
     }
 
@@ -163,25 +166,16 @@ if (__DEV__) {
   window.addEventListener('error', (event) => {
     appInstance = null;
     document.title = `Runtime Error: ${event.error.message}`;
-    ReactDOM.render(<ErrorReporter error={event.error} />, container);
+    ReactDOM.hydrate(<ErrorReporter error={event.error} />, container);
   });
 }
 
 // Enable Hot Module Replacement (HMR)
 if (module.hot) {
   module.hot.accept('./routes', () => {
-    routes = require('./routes').default; // eslint-disable-line global-require
-
     if (appInstance) {
-      try {
-        // Force-update the whole tree, including components that refuse to update
-        deepForceUpdate(appInstance);
-      } catch (error) {
-        appInstance = null;
-        document.title = `Hot Update Error: ${error.message}`;
-        ReactDOM.render(<ErrorReporter error={error} />, container);
-        return;
-      }
+      // Force-update the whole tree, including components that refuse to update
+      deepForceUpdate(appInstance);
     }
 
     onLocationChange(currentLocation);
