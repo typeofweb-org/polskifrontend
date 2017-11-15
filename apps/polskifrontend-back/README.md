@@ -7,9 +7,17 @@ A simple template for building a node restful api service
 - express
 - mongodb
 - mocha
-- swagger-jsdoc
 
-## mongodb config
+## Config
+
+Rename `src/config.example.js` file to `src/config.js`. Fulfill all the necessary data in the file:
+
+* cloudinary API login data - [check this website](https://cloudinary.com/console)
+* local mongodb data (please see below for more details)
+* remote mongodb data (check your Heroku account)
+
+### mongodb config
+
 ``` bash
 # mongodb config
 # config locate in: src/config.js
@@ -35,19 +43,25 @@ yarn
 ## Run app
 
 ```bash
-npm run serve
+yarn serve
 ```
 
 ## Build for production
 
 ```bash
-npm run build
+yarn build
 ```
 
 ## Run tests
 
 ```bash
-npm run test
+yarn test
+```
+
+## Deployment
+
+```bash
+yarn deploy
 ```
 
 ## DOC

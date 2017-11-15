@@ -1,8 +1,8 @@
 import path from 'path';
+import npmRunScript from 'npm-run-script';
 import fetch from 'node-fetch';
 import { spawn } from './lib/cp';
 import { makeDir } from './lib/fs';
-import npmRunScript from 'npm-run-script';
 
 // Heroku
 const remote = {
