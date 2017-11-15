@@ -43,7 +43,7 @@ const ResponsivePanel = (props) => {
 };
 
 ResponsivePanel.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.any.isRequired,
   className: PropTypes.any,
   description: PropTypes.string.isRequired,
   header: PropTypes.string.isRequired,

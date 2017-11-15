@@ -52,11 +52,13 @@ class App extends React.PureComponent {
 
   componentWillMount() {
     const { insertCss } = this.props.context;
-    this.removeFontAwesome = insertCss(fontAwesome);
+    this.removeCss = insertCss(fontAwesome);
   }
 
   componentWillUnmount() {
-    this.removeFontAwesome();
+    if (this.removeCss) {
+      setTimeout(this.removeCss, 0); // eslint-disable-line
+    }
   }
 
   render() {

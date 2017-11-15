@@ -17,7 +17,7 @@ const Loader = props => {
 };
 
 Loader.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.any.isRequired,
   isLoading: PropTypes.bool.isRequired
 };
 

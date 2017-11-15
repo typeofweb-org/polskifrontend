@@ -12,7 +12,7 @@ class News extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
-    description: PropTypes.object.isRequired,
+    description: PropTypes.string.isRequired,
     newsState: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired
   };
