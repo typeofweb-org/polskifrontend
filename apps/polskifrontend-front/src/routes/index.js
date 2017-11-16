@@ -12,7 +12,7 @@
 // The top-level (parent) route
 export default {
 
-  path: '/',
+  path: '',
 
   // Keep in mind, routes are evaluated in order
   children: [

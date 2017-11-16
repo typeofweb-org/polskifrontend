@@ -13,10 +13,6 @@ const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('-
 
 const reScript = /\.(js|jsx|mjs)$/;
 const reStyle = /\.(css|less|styl|scss|sass|sss)$/;
-// const reImage = /\.(bmp|gif|jpg|jpeg|png|svg)$/;
-// const staticAssetName = isDebug
-//   ? '[path][name].[ext]?[hash:8]'
-//   : '[hash:8].[ext]';
 
 // CSS Nano options http://cssnano.co/
 const minimizeCssOptions = {
@@ -315,14 +311,6 @@ const serverConfig = {
   module: {
     ...config.module,
 
-    // Override babel-preset-env configuration for Node.js
-    // rules: config.module.rules.map(rule => (rule.loader !== 'babel-loader' ? rule : {
-    //   ...rule,
-    //   query: {
-    //     ...rule.query,
-    //     presets: rule.query.presets.map(preset => (preset[0] !== 'env' ? preset : ['env', {
-    //       targets: {
-    //         node: pkg.engines.node.replace(/^\D+/g, '')
     rules: config.module.rules.map((rule) => {
       if (rule.loader === 'babel-loader') {
         return {
@@ -338,12 +326,6 @@ const serverConfig = {
               debug: false,
             }])),
           },
-          //       modules: false,
-          //       useBuiltIns: false,
-          //       debug: false
-          //     }]))
-          //   }
-          // }))
         };
       }
 
@@ -363,13 +345,6 @@ const serverConfig = {
   },
 
   externals: [
-    // /^\.\/assets\.json$/,
-    // (context, request, callback) => {
-    //   const isExternal =
-    //     request.match(/^[@a-z][a-z/.\-0-9]*$/i) &&
-    //     !request.match(/\.(css|less|scss|sss)$/i);
-    //   callback(null, Boolean(isExternal));
-    // }
     './assets.json',
     nodeExternals({
       whitelist: [

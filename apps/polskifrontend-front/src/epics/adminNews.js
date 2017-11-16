@@ -17,7 +17,8 @@ export const getAdminNewsListEpic = action$ => {
 
       return ajax.get(`${apiUrl}/admin/news`, headers)
         .map(responseData => {
-          if (responseData.response.success === false && responseData.response.reason === 'bad-token') {
+          const { success, reason, newses } = responseData.response.reason;
+          if (success === false && reason === 'bad-token') {
             return {
               type: constants.ADMIN_TOKEN_EXPIRED
             };
@@ -26,7 +27,7 @@ export const getAdminNewsListEpic = action$ => {
           return {
             type: constants.ADMIN_NEWS_GET_NEWS_SUCCESS,
             payload: {
-              newsList: responseData.response.newses
+              newsList: newses
             }
           };
         })
@@ -53,7 +54,8 @@ export const addNewsEpic = (action$, store) => {
         responseType: 'json'
       })
       .map(responseData => {
-        if (responseData.response.success === false && responseData.response.reason === 'bad-token') {
+        const { success, reason, message, news } = responseData.response;
+        if (success === false && reason === 'bad-token') {
           return {
             type: constants.ADMIN_TOKEN_EXPIRED
           };
@@ -62,13 +64,15 @@ export const addNewsEpic = (action$, store) => {
         if (responseData.response.success === false) {
           return {
             type: constants.ADMIN_NEWS_ADD_NEWS_ERROR,
-            payload: responseData.response.message
+            payload: {
+              message
+            }
           };
         }
 
         const state = store.getState().adminNewsState;
         let newsList = _.cloneDeep(state.newsList);
-        newsList.unshift(responseData.response.news);
+        newsList.unshift(news);
 
         return {
           type: constants.ADMIN_NEWS_ADD_NEWS_SUCCESS,
@@ -79,12 +83,14 @@ export const addNewsEpic = (action$, store) => {
       })
       .catch(error => ({
         type: constants.ADMIN_NEWS_ADD_NEWS_ERROR,
-        payload: error
+        payload: {
+          error
+        }
       }));
     });
 };
 
-export const deleteAdminNewsEpic = (action$, store) => {
+export const deleteAdminNewsEpic = (action$) => {
   return action$.ofType(constants.ADMIN_NEWS_DELETE_NEWS)
     .mergeMap(action => {
       const headers = {
@@ -94,29 +100,36 @@ export const deleteAdminNewsEpic = (action$, store) => {
 
       return ajax.delete(`${apiUrl}/admin/news/${action.payload.newsId}`, headers)
         .map(responseData => {
-          if (responseData.response.success === false && responseData.response.reason === 'bad-token') {
+          const { success, reason, message, newses } = responseData.response;
+          if (success === false && reason === 'bad-token') {
             return {
               type: constants.ADMIN_TOKEN_EXPIRED
             };
           }
 
-          if (responseData.response.success === false) {
+          if (success === false) {
             return {
               type: constants.ADMIN_NEWS_DELETE_NEWS_ERROR,
-              payload: responseData.response.message
+              payload: {
+                message
+              }
             };
           }
 
           return {
             type: constants.ADMIN_NEWS_DELETE_NEWS_SUCCESS,
             payload: {
-              newsList: responseData.response.newses
+              newsList: {
+                newses
+              }
             }
           };
         })
         .catch(error => ({
           type: constants.ADMIN_NEWS_DELETE_NEWS_ERROR,
-          payload: error
+          payload: {
+            error
+          }
         }));
     });
 };

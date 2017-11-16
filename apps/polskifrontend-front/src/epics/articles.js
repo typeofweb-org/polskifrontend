@@ -14,14 +14,16 @@ export const articlesGetArticleEpic = (action$) => {
           if (success === false) {
             return {
               type: constants.ARTICLES_GET_ARTICLE_ERROR,
-              payload: message
+              payload: {
+                message
+              }
             };
           }
 
           return {
             type: constants.ARTICLES_GET_ARTICLE_SUCCESS,
             payload: {
-              article: article
+              article
             }
           };
         })

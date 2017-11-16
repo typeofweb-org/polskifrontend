@@ -215,10 +215,19 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 // Launch the server
 // -----------------------------------------------------------------------------
 /* eslint-disable no-console */
-// models.sync().catch(err => console.error(err.stack)).then(() => {
+if (!module.hot) {
+  app.listen(port, () => {
+    console.info(`The server is running at http://localhost:${port}/`);
+  });
+}
+
 //
-// });
-app.listen(port, () => {
-  console.log(`The server is running at http://localhost:${port}/`);
-});
+// Hot Module Replacement
+// -----------------------------------------------------------------------------
+if (module.hot) {
+  app.hot = module.hot;
+  module.hot.accept('./router');
+}
+
+export default app;
 /* eslint-enable no-console */

@@ -173,7 +173,7 @@ if (__DEV__) {
 // Enable Hot Module Replacement (HMR)
 if (module.hot) {
   module.hot.accept('./routes', () => {
-    if (appInstance) {
+    if (appInstance && appInstance.updater.isMounted(appInstance)) {
       // Force-update the whole tree, including components that refuse to update
       deepForceUpdate(appInstance);
     }
