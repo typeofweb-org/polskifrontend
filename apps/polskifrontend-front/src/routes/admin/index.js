@@ -6,7 +6,7 @@ export default {
   path: '/admin',
   children: [
     {
-      path: '/',
+      path: '',
       async action(context) {
         const state = context.store.getState().adminState;
         const token = loginHelper.getLoginToken();

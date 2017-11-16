@@ -32,13 +32,13 @@
 
   &__button
     display inline-block
+    line-height 1.5
     padding ($global-padding * 0.5) $global-padding
     background $color-primary
     color $color-secondary
-    border-radius $global-radius
-    margin-right 10px
-    text-decoration none
+    border-radius $global-radius * 2
     transition background $animation-time
 
     &:hover
       background lighten($color-primary, 25%)
+      cursor pointer
