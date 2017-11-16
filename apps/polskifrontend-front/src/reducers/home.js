@@ -25,18 +25,10 @@ export const initialState = {
 
 export default function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case constants.HOME_GET_BLOG_LIST:
-      return { ...state, blogListLoading: true, blogList: action.payload === 1 ? [] : state.blogList, blogListError: false };
+    case constants.HOME_GET_BLOG_LIST_REQUEST:
+      return { ...state, blogListLoading: true, blogList: action.payload.blogList, blogListError: false };
     case constants.HOME_GET_BLOG_LIST_SUCCESS:
-      const newBlogList = _.cloneDeep(state.blogList);
-      newBlogList.push(...action.payload.blogs);
-
-      // store this setting in cookie
-      const tilesSettings = settingsHelper.getSettings();
-      tilesSettings.tiles = true;
-      settingsHelper.saveSettings(tilesSettings);
-
-      return { ...state, blogList: newBlogList, blogListNextPage: action.payload.nextPage, blogListLoading: false, isTilesOptionSelected: true, isListOptionSelected: false };
+      return { ...state, blogList: action.payload.blogs, blogListNextPage: action.payload.nextPage, blogListLoading: false, isTilesOptionSelected: true, isListOptionSelected: false };
     case constants.HOME_GET_BLOG_LIST_ERROR:
       return { ...state, blogListLoading: false, blogListError: true };
 
