@@ -111,6 +111,8 @@ app.get('*', async(req, res, next) => {
   // try to get settings form cookie
   // const settings = req.cookies.PL_FRONT_END_USER_SETTINGS ? JSON.parse(req.cookies.PL_FRONT_END_USER_SETTINGS) : { tiles: true };
   try {
+    cookies.setUpCookie(req.universalCookies);
+
     const settings = cookies.get('PL_FRONT_END_USER_SETTINGS') || { tiles: true, clickedLinks: [], lastNewsVisit: new Date(1900, 1, 1) };
     const authCookie = cookies.get('PL_FRONT_END');
 
@@ -135,7 +137,6 @@ app.get('*', async(req, res, next) => {
     });
 
     const css = new Set();
-    cookies.setUpCookie(req.universalCookies);
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
