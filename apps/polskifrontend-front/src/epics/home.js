@@ -50,7 +50,7 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
           return {
             type: constants.HOME_GET_BLOG_LIST_SUCCESS,
             payload: {
-              blogs,
+              blogs: newBlogList,
               nextPage
             }
           };
@@ -64,28 +64,76 @@ export const getBlogListRequestEpic = (action$, { getState }) => {
     );
 };
 
-export const switchToListViewEpic = action$ => {
+export const switchToListViewEpic = (action$, { getState }) => {
   return action$.ofType(constants.HOME_SWITCH_TO_LIST_VIEW)
+    .mergeMap((action) => {
+      const { page } = action.payload;
+      const state = getState().homeState;
+
+      return Observable.of({ // eslint-disable-line no-undef
+        type: constants.HOME_SWITCH_TO_LIST_VIEW_REQUEST,
+        payload: {
+          page,
+          articlesList: page === 1 ? [] : state.allArticlesList
+        }
+      });
+    });
+};
+
+export const switchToListViewRequestEpic = (action$, { getState }) => {
+  return action$.ofType(constants.HOME_SWITCH_TO_LIST_VIEW_REQUEST)
     .mergeMap(action =>
-      ajax.get(`${apiUrl}/articles/all/${action.payload}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' }))
+      ajax.get(`${apiUrl}/articles/all/${action.payload.page}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' }))
         .map(responseData => {
-          if (responseData.response.success === false) {
+          const { success, message, articles, nextPage } = responseData.response;
+          if (success === false) {
             return {
               type: constants.HOME_SWITCH_TO_LIST_VIEW_ERROR,
-              payload: responseData.response.message
+              payload: {
+                message
+              }
             };
           }
+
+          const state = getState().homeState;
+          const newArticlesList = _.cloneDeep(state.allArticlesList);
+          newArticlesList.push(...articles);
+
+          // store this setting in cookie
+          const listSettings = settingsHelper.getSettings();
+          listSettings.tiles = false;
+          settingsHelper.saveSettings(listSettings);
 
           return {
             type: constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS,
             payload: {
-              articles: responseData.response.articles,
-              nextPage: responseData.response.nextPage
+              articles: newArticlesList,
+              nextPage
             }
           };
         })
         .catch(error => ({
           type: constants.HOME_SWITCH_TO_LIST_VIEW_ERROR,
-          payload: error
+          payload: {
+            error
+          }
         }));
+};
+
+export const addLinkToClickedEpic = (action$, { getState }) => {
+  return action$.ofType(constants.HOME_ADD_LINK_TO_CLICKED)
+    .mergeMap((action) => {
+      const state = getState().homeState;
+      const links = _.cloneDeep(state.clickedLinks);
+      const { url } = action.payload;
+
+      links.push(url);
+
+      return Observable.of({ // eslint-disable-line no-undef
+        type: constants.HOME_UPDATE_CLICKED_LIST,
+        payload: {
+          links
+        }
+      });
+    });
 };

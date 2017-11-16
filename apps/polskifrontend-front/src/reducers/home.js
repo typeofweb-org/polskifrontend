@@ -1,6 +1,4 @@
 import * as constants from '../constants';
-import _ from 'lodash';
-import * as settingsHelper from '../core/helpers/settingsHelper';
 
 export const initialState = {
   blogList: [],
@@ -32,25 +30,15 @@ export default function homeReducer(state = initialState, action) {
     case constants.HOME_GET_BLOG_LIST_ERROR:
       return { ...state, blogListLoading: false, blogListError: true };
 
-    case constants.HOME_SWITCH_TO_LIST_VIEW:
-      return { ...state, allArticlesListLoading: true, allArticlesList: action.payload === 1 ? [] : state.allArticlesList, allArticlesListError: false };
+    case constants.HOME_SWITCH_TO_LIST_VIEW_REQUEST:
+      return { ...state, allArticlesListLoading: true, allArticlesList: action.payload.articlesList, allArticlesListError: false };
     case constants.HOME_SWITCH_TO_LIST_VIEW_SUCCESS:
-      const newArticlesList = _.cloneDeep(state.allArticlesList);
-      newArticlesList.push(...action.payload.articles);
-
-      // store this setting in cookie
-      const listSettings = settingsHelper.getSettings();
-      listSettings.tiles = false;
-      settingsHelper.saveSettings(listSettings);
-
-      return { ...state, allArticlesList: newArticlesList, allArticlesNextPage: action.payload.nextPage, allArticlesListLoading: false, isTilesOptionSelected: false, isListOptionSelected: true };
+      return { ...state, allArticlesList: action.payload.articles, allArticlesNextPage: action.payload.nextPage, allArticlesListLoading: false, isTilesOptionSelected: false, isListOptionSelected: true };
     case constants.HOME_SWITCH_TO_LIST_VIEW_ERROR:
       return { ...state, allArticlesListLoading: false, allArticlesListError: true };
 
-    case constants.HOME_ADD_LINK_TO_CLICKED:
-      const links = _.cloneDeep(state.clickedLinks);
-      links.push(action.payload);
-      return { ...state, clickedLinks: links };
+    case constants.HOME_UPDATE_CLICKED_LIST:
+      return { ...state, clickedLinks: action.payload.links };
     default:
       return { ...state };
   }

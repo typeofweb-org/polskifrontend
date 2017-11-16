@@ -9,23 +9,20 @@ export function getBlogList(page) {
   };
 }
 
-export function blogProposalChange(value) {
-  return {
-    type: constants.HOME_BLOG_PROPOSAL_URL_CHANGE,
-    payload: value
-  };
-}
-
 export function switchToListView(page) {
   return {
     type: constants.HOME_SWITCH_TO_LIST_VIEW,
-    payload: page
+    payload: {
+      page
+    }
   };
 }
 
 export function addLinkToClicked(url) {
   return {
     type: constants.HOME_ADD_LINK_TO_CLICKED,
-    payload: url
+    payload: {
+      url
+    }
   };
 }

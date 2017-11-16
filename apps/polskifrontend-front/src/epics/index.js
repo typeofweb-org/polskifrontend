@@ -2,7 +2,9 @@ import { combineEpics } from 'redux-observable';
 import {
   getBlogListEpic,
   getBlogListRequestEpic,
-  switchToListViewEpic } from './home';
+  switchToListViewEpic,
+  switchToListViewRequestEpic,
+  addLinkToClickedEpic } from './home';
 import {
   userChangeEpic,
   passwordChangeEpic,
@@ -30,6 +32,8 @@ const rootEpic = combineEpics(
   getBlogListEpic,
   getBlogListRequestEpic,
   switchToListViewEpic,
+  switchToListViewRequestEpic,
+  addLinkToClickedEpic,
   userChangeEpic,
   passwordChangeEpic,
   loginEpic,
