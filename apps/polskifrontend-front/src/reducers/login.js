@@ -1,5 +1,4 @@
 import * as constants from '../constants';
-import sha1 from 'sha1';
 
 const initialState = {
   userName: '',
@@ -11,12 +10,10 @@ const initialState = {
 
 export default function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case constants.LOGIN_USER_CHANGED:
-      const usrEnabled = action.payload !== '' && state.password !== '';
-      return { ...state, userName: action.payload, buttonDisabled: !usrEnabled };
-    case constants.LOGIN_PASSWORD_CHANGED:
-      const pwdEnabled = state.userName !== '' && action.payload !== '';
-      return { ...state, password: sha1(action.payload), buttonDisabled: !pwdEnabled };
+    case constants.LOGIN_USER_CHANGED_VALID:
+      return { ...state, userName: action.payload.newValue, buttonDisabled: !action.payload.formFilled };
+    case constants.LOGIN_PASSWORD_CHANGED_VALID:
+      return { ...state, password: action.payload.password, buttonDisabled: !action.payload.formFilled };
 
     case constants.LOGIN_INVOKE:
       return { ...state, buttonDisabled: true, inputsDisabled: true, loginError: false };

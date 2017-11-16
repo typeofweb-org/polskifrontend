@@ -3,14 +3,18 @@ import * as constants from '../constants';
 export function userChange(newValue) {
   return {
     type: constants.LOGIN_USER_CHANGED,
-    payload: newValue
+    payload: {
+      newValue
+    }
   };
 }
 
 export function passwordChange(newValue) {
   return {
     type: constants.LOGIN_PASSWORD_CHANGED,
-    payload: newValue
+    payload: {
+      newValue
+    }
   };
 }
 
