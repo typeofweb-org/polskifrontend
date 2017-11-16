@@ -1,5 +1,4 @@
 import * as constants from '../constants';
-import * as validators from '../core/helpers/validators';
 
 const initialState = {
   url: '',
@@ -17,16 +16,14 @@ const initialState = {
 
 export default function submitReducer(state = initialState, action) {
   switch (action.type) {
-    case constants.SUBMIT_URL_CHANGED:
-      const newUrl = action.payload;
-      const isUrlValid = validators.isRequired(newUrl) && validators.isUrlValid(newUrl);
+    case constants.SUBMIT_URL_CHANGED_VALID:
+      const { newUrl, isUrlValid } = action.payload;
       return { ...state, url: newUrl, urlDirty: true, urlValid: isUrlValid, shouldCleanUp: false };
-    case constants.SUBMIT_EMAIL_CHANGED:
-      const newEmail = action.payload;
-      const isEmailValid = newEmail === '' || validators.isEmailValid(newEmail);
+    case constants.SUBMIT_EMAIL_CHANGED_VALID:
+      const { newEmail, isEmailValid } = action.payload;
       return { ...state, email: newEmail, emailDirty: true, emailValid: isEmailValid, shouldCleanUp: false };
     case constants.SUBMIT_CAPTCHA_CHANGED:
-      return { ...state, captcha: action.payload, shouldCleanUp: false };
+      return { ...state, captcha: action.payload.captcha, shouldCleanUp: false };
 
     case constants.SUBMIT_BLOG_SEND:
       return { ...state, sending: true, sendError: false, shouldCleanUp: false };

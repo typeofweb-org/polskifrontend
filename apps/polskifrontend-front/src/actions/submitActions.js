@@ -3,21 +3,27 @@ import * as constants from '../constants';
 export function urlChanged(value) {
   return {
     type: constants.SUBMIT_URL_CHANGED,
-    payload: value
+    payload: {
+      newUrl: value
+    }
   };
 }
 
 export function emailChanged(value) {
   return {
     type: constants.SUBMIT_EMAIL_CHANGED,
-    payload: value
+    payload: {
+      newEmail: value
+    }
   };
 }
 
 export function captchaChanged(value) {
   return {
     type: constants.SUBMIT_CAPTCHA_CHANGED,
-    payload: value
+    payload: {
+      captcha: value
+    }
   };
 }
 
