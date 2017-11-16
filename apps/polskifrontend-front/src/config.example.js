@@ -5,16 +5,16 @@ export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 export const analytics = {
   // https://analytics.google.com/
   google: {
-    trackingId: 'UA-35451047-5' // UA-XXXXX-X
+    trackingId: 'UA-XXXXXXXX-X' // UA-XXXXX-X
   }
 };
 
 const api = {
   dev: {
-    url: 'http://localhost:8880'
+    url: 'http://localhost:port'
   },
   prod: {
-    url: 'https://polskifrontend-back.herokuapp.com'
+    url: 'http://example.remote.srv'
   }
 };
 

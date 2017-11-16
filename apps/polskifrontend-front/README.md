@@ -69,7 +69,11 @@ or by using [Yeoman generator](https://www.npmjs.com/package/generator-react-ful
 This will install both run-time project dependencies and developer tools listed
 in [package.json](../package.json) file.
 
-#### 3. Run `yarn start`
+#### 3. Setup config settings 
+
+Rename `src/config.example.js` file to `src/config.js` and setup Google Analytics tracking Id and dev/prod API URL's.
+
+#### 4. Run `yarn start`
 
 This command will build the app from the source files (`/src`) into the output
 `/build` folder. As soon as the initial build completes, it will start the
