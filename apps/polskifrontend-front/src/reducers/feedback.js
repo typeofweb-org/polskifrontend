@@ -1,5 +1,4 @@
 import * as constants from '../constants';
-import * as validators from '../core/helpers/validators';
 
 const initialState = {
   email: '',
@@ -17,16 +16,24 @@ const initialState = {
 
 export default function feedbackReducer(state = initialState, action) {
   switch (action.type) {
-    case constants.FEEDBACK_TEXT_CHANGED:
-      const newFeedback = action.payload;
-      const isFeedbackValid = validators.isRequired(newFeedback);
-      return { ...state, feedback: newFeedback, feedbackDirty: true, feedbackValid: isFeedbackValid, shouldCleanUp: false };
-    case constants.FEEDBACK_EMAIL_CHANGED:
-      const newEmail = action.payload;
-      const isEmailValid = newEmail === '' || validators.isEmailValid(newEmail);
-      return { ...state, email: newEmail, emailDirty: true, emailValid: isEmailValid, shouldCleanUp: false };
+    case constants.FEEDBACK_TEXT_CHANGED_VALID:
+      return {
+        ...state,
+        feedback: action.payload.value,
+        feedbackDirty: true,
+        feedbackValid: action.payload.isValid,
+        shouldCleanUp: false
+      };
+    case constants.FEEDBACK_EMAIL_CHANGED_VALID:
+      return {
+        ...state,
+        email: action.payload.value,
+        emailDirty: true,
+        emailValid: action.payload.isValid,
+        shouldCleanUp: false
+      };
     case constants.FEEDBACK_CAPTCHA_CHANGED:
-      return { ...state, captcha: action.payload, shouldCleanUp: false };
+      return { ...state, captcha: action.payload.value, shouldCleanUp: false };
 
     case constants.FEEDBACK_SEND:
       return { ...state, sending: true, sendError: false, shouldCleanUp: false };

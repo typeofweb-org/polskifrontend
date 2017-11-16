@@ -1,22 +1,29 @@
 import * as constants from '../constants';
 
-export function feedbackEmailChanged(value) {
-  return {
-    type: constants.FEEDBACK_EMAIL_CHANGED,
-    payload: value
-  };
-}
 export function feedbackTextChanged(value) {
   return {
     type: constants.FEEDBACK_TEXT_CHANGED,
-    payload: value
+    payload: {
+      value
+    }
+  };
+}
+
+export function feedbackEmailChanged(value) {
+  return {
+    type: constants.FEEDBACK_EMAIL_CHANGED,
+    payload: {
+      value
+    }
   };
 }
 
 export function feedbackCaptchaChanged(value) {
   return {
     type: constants.FEEDBACK_CAPTCHA_CHANGED,
-    payload: value
+    payload: {
+      value
+    }
   };
 }
 

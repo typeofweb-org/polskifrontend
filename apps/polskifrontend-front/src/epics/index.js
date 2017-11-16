@@ -24,7 +24,10 @@ import {
   urlChangedEpic,
   emailChangedEpic,
   sendBlogRequestEpic } from './submit';
-import { sendFeedbackEpic } from './feedback';
+import {
+  feedbackTextChangedEpic,
+  feedbackEmailChangedEpic,
+  sendFeedbackEpic } from './feedback';
 import { getNewsPageEpic } from './news';
 import { articlesGetArticleEpic } from './articles';
 
@@ -46,6 +49,8 @@ const rootEpic = combineEpics(
   urlChangedEpic,
   emailChangedEpic,
   sendBlogRequestEpic,
+  feedbackTextChangedEpic,
+  feedbackEmailChangedEpic,
   sendFeedbackEpic,
   getAdminNewsListEpic,
   addNewsEpic,
