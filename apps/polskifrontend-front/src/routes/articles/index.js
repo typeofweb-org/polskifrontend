@@ -3,7 +3,7 @@ import isNode from 'detect-node';
 import Articles from './Articles';
 import Layout from '../../components/Layout/Layout';
 import getArticlesInitialState from '../../store/serverSideInitializers/articlesInitializer';
-import * as constants from '../../constants';
+import * as actions from '../../actions/articlesActions';
 
 export default {
   path: '/artykuly/:slug',
@@ -16,12 +16,7 @@ export default {
       await getArticlesInitialState(slug, state);
     } else if (state.articleLoaded === false && isNode === false) {
       // client side loading
-      context.store.dispatch({
-        type: constants.ARTICLES_GET_ARTICLE,
-        payload: {
-          slug
-        }
-      });
+      context.store.dispatch(actions.articlesGetArticle(slug));
     }
 
     return {

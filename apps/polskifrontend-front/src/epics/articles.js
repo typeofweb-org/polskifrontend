@@ -10,22 +10,25 @@ export const articlesGetArticleEpic = (action$) => {
     .mergeMap(action =>
       ajax.get(`${apiUrl}/articles/${action.payload.slug}`, { authorization: 'Basic YnVyY3p1OmFiY2RmcmJrMzQwMzQxZmRzZnZkcw==' }))
         .map(responseData => {
-          if (responseData.response.success === false) {
+          const { success, message, article } = responseData.response;
+          if (success === false) {
             return {
               type: constants.ARTICLES_GET_ARTICLE_ERROR,
-              payload: responseData.response.message
+              payload: message
             };
           }
 
           return {
             type: constants.ARTICLES_GET_ARTICLE_SUCCESS,
             payload: {
-              article: responseData.response.article
+              article: article
             }
           };
         })
         .catch(error => ({
           type: constants.ARTICLES_GET_ARTICLE_ERROR,
-          payload: error
+          payload: {
+            error
+          }
         }));
 };
