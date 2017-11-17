@@ -163,6 +163,9 @@ class Admin extends React.Component {
                  rssDirty={newBlogRssDirty}
                  shouldCleanUp={shouldCleanUp}
                  addBlogLoading={addBlogLoading || refreshSlugLoading || refreshFaviconLoading}
+                 newBlogName={newBlogName}
+                 newBlogUrl={newBlogUrl}
+                 newBlogRss={newBlogRss}
         />
         <BlogList blogList={blogList}
                   blogListLoading={blogListLoading}

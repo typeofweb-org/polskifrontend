@@ -10,6 +10,9 @@ class AddBlog extends React.Component {
     addBlogLoading: PropTypes.bool.isRequired,
     nameDirty: PropTypes.bool.isRequired,
     nameValid: PropTypes.bool.isRequired,
+    newBlogName: PropTypes.string,
+    newBlogRss: PropTypes.string,
+    newBlogUrl: PropTypes.string,
     onFaviconRefresh: PropTypes.func.isRequired,
     onFormSubmit: PropTypes.func.isRequired,
     onNameChange: PropTypes.func.isRequired,
@@ -54,9 +57,9 @@ class AddBlog extends React.Component {
         </button>
         <ResponsivePanel header="Dodaj bloga" description="Wypełnij poniższe pola aby dodać bloga">
           <form className={style.form} onSubmit={this.props.onFormSubmit}>
-            <input id="blog-name" className={errorClass(this.props.nameValid || this.props.nameDirty === false)} disabled={this.props.addBlogLoading} placeholder="nazwa" onChange={this.props.onNameChange} ref="name" />
-            <input id="blog-url" className={errorClass(this.props.urlValid || this.props.urlDirty === false)} disabled={this.props.addBlogLoading} placeholder="adres url" onChange={this.props.onUrlChange} ref="url" />
-            <input id="blog-rss" className={errorClass(this.props.rssValid || this.props.rssDirty === false)} disabled={this.props.addBlogLoading} placeholder="kanał rss" onChange={this.props.onRssChange} ref="rss" />
+            <input id="blog-name" className={errorClass(this.props.nameValid || this.props.nameDirty === false)} disabled={this.props.addBlogLoading} placeholder="nazwa" onChange={this.props.onNameChange} ref="name" value={this.props.newBlogName} />
+            <input id="blog-url" className={errorClass(this.props.urlValid || this.props.urlDirty === false)} disabled={this.props.addBlogLoading} placeholder="adres url" onChange={this.props.onUrlChange} ref="url" value={this.props.newBlogUrl} />
+            <input id="blog-rss" className={errorClass(this.props.rssValid || this.props.rssDirty === false)} disabled={this.props.addBlogLoading} placeholder="kanał rss" onChange={this.props.onRssChange} ref="rss" value={this.props.newBlogRss} />
             <button type="submit" disabled={disabled || this.props.addBlogLoading} className={style['form__button']}>Dodaj</button>
           </form>
         </ResponsivePanel>

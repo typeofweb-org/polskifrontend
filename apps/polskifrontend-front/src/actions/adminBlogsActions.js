@@ -9,7 +9,9 @@ export function getAdminBlogList() {
 export function deleteBlogRequest(blogId) {
   return {
     type: constants.ADMIN_DELETE_BLOG_REQUEST,
-    payload: blogId
+    payload: {
+      blogId
+    }
   };
 }
 
@@ -22,42 +24,54 @@ export function deleteBlogRequestCancel() {
 export function deleteBlog(blogId) {
   return {
     type: constants.ADMIN_DELETE_BLOG,
-    payload: blogId
+    payload: {
+      blogId
+    }
   };
 }
 
 export function newBlogNameChanged(newName) {
   return {
     type: constants.ADMIN_NEW_BLOG_NAME_CHANGED,
-    payload: newName
+    payload: {
+      newName
+    }
   };
 }
 
 export function newBlogUrlChanged(newUrl) {
   return {
     type: constants.ADMIN_NEW_BLOG_URL_CHANGED,
-    payload: newUrl
+    payload: {
+      newUrl
+    }
   };
 }
 
 export function newBlogRssChanged(newRss) {
   return {
     type: constants.ADMIN_NEW_BLOG_RSS_CHANGED,
-    payload: newRss
+    payload: {
+      newRss
+    }
   };
 }
 
 export function addBlog(data) {
   return {
     type: constants.ADMIN_ADD_BLOG,
-    payload: data
+    payload: {
+      data
+    }
   };
 }
 
 export function refreshBlog(id) {
   return {
     type: constants.ADMIN_BLOG_REFRESH,
-    payload: id
+    payload: {
+      blogId: id
+    }
   };
 }
 

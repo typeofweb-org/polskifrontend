@@ -15,7 +15,10 @@ import {
   addBlogEpic,
   blogRefreshEpic,
   slugRefreshEpic,
-  faviconRefreshEpic } from './adminBlogs';
+  faviconRefreshEpic,
+  newBlogNameChangedEpic,
+  newBlogUrlChangedEpic,
+  newBlogRssChangedEpic } from './adminBlogs';
 import {
   getAdminNewsListEpic,
   addNewsEpic,
@@ -46,6 +49,9 @@ const rootEpic = combineEpics(
   blogRefreshEpic,
   slugRefreshEpic,
   faviconRefreshEpic,
+  newBlogNameChangedEpic,
+  newBlogUrlChangedEpic,
+  newBlogRssChangedEpic,
   urlChangedEpic,
   emailChangedEpic,
   sendBlogRequestEpic,
