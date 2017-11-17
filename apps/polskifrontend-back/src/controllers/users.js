@@ -18,7 +18,7 @@ router.post('/authenticate', async (req, res) => {
       } else {
         // if user is found and password is right
         // create a token
-        const token = jwt.sign(user, app.get('secret'), {
+        const token = jwt.sign(user.toJSON(), app.get('secret'), {
           expiresIn: 18000 // expires in 24 hours
         });
 
