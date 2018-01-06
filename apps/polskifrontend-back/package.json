@@ -9,12 +9,12 @@
     "clean": "rimraf dist",
     "copy": "cpx package.json dist",
     "build": "NODE_ENV=production babel src --out-dir dist",
-    "deploy": "npm run deploy:run",
+    "deploy": "yarn deploy:run",
     "deploy:run": "babel-node ./run deploy",
     "eslint": "eslint ./src",
     "start": "NODE_ENV=production node main",
     "start:babel": "babel-node src/main",
-    "serve": "npm run eslint && NODE_ENV=develop nodemon --watch src --exec npm run start:babel -L",
+    "serve": "yarn eslint && NODE_ENV=develop nodemon --watch src --exec yarn start:babel -L",
     "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.js --bail -t 2000000"
   },
   "author": "Bartlomiej Dybowski",
@@ -50,10 +50,12 @@
     "loglevel": "^1.4.0",
     "mocha": "^4.0.1",
     "mongoose": "^4.7.0",
+    "node-fetch": "^1.6.3",
     "node-schedule": "1.2.5",
     "nodemailer": "^4.0.0",
     "nodemon": "^1.11.0",
     "npm": "^5.5.1",
+    "npm-run-script": "^0.0.4",
     "npmlog": "^4.1.2",
     "randomstring": "^1.1.5",
     "request": "^2.81.0",
@@ -63,9 +65,7 @@
     "sitemap": "^1.12.0",
     "slug": "^0.9.1",
     "supertest": "^3.0.0",
-    "swagger-jsdoc": "^1.9.7",
-    "npm-run-script": "^0.0.4",
-    "node-fetch": "^1.6.3"
+    "swagger-jsdoc": "^1.9.7"
   },
   "license": "MIT"
 }

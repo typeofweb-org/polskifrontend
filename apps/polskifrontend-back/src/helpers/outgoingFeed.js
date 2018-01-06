@@ -1,7 +1,7 @@
 import RSS from 'rss';
 import { Articles } from '../models';
 
-export default async function getSitemap() {
+export default async function getOngoingFeed() {
   try {
     const feed = new RSS({
       title: 'Polski Front-End',
@@ -9,7 +9,7 @@ export default async function getSitemap() {
       feed_url: 'https://www.polskifrontend.pl/feed',
       site_url: 'https://www.polskifrontend.pl/',
       image_url: 'https://www.polskifrontend.pl/polskifrontend_icon.png',
-      webMaster: 'Bartłomiej Dybowski',
+      webMaster: 'kontakt@nafrontendzie.pl',
       language: 'pl_PL'
     });
     const articles = await Articles.getAllArticles(30);
