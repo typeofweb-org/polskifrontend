@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
       Treść: <br />
       <i>${req.body.feedback}</i>
       </p>`;
-    const sendingResult = await sendMail(body, subject);
+    const sendingResult = await sendMail(body, req.body.email, subject);
     res.send(sendingResult);
   } catch (error) {
     res.send({ success: false, message: error });

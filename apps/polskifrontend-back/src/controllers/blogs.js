@@ -19,7 +19,7 @@ router.post('/submit', async (req, res) => {
       Adres bloga: ${req.body.blogName},<br /> 
       Email: ${req.body.email || 'nie podano'}
       </p>`;
-    const sendingResult = await sendMail(body);
+    const sendingResult = await sendMail(body, req.body.email);
     res.send(sendingResult);
   } catch (error) {
     res.send({ success: false, message: error });

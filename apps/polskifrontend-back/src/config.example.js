@@ -11,7 +11,8 @@ const config = {
   develop: {
     mongodb: {
       host: '127.0.0.1',
-      database: 'local_database_name'
+      database: 'local_database_name',
+      port: 27017
     },
     secret: 'some_secret'
   },

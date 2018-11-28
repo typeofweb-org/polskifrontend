@@ -4,16 +4,17 @@ const transporter = nodemailer.createTransport({
   port: 587,
   host: 'smtp.zenbox.pl',
   auth: {
-    user: 'request@frontendinsights.com',
-    pass: 'LlDM0*8q#fg^'
+    user: 'kontakt@polskifrontend.pl',
+    pass: 'F50tjgNNtWC4'
   },
   secure: false
 });
 
-export default function sendEmail(body, subject = 'Nowa prośba o dodanie bloga!!') {
+export default function sendEmail(body, replyTo, subject = 'Nowa prośba o dodanie bloga!!') {
   const options = {
-    from: 'request@frontendinsights.com',
-    to: 'kontakt@nafrontendzie.pl',
+    from: 'kontakt@polskifrontend.pl',
+    to: 'kontakt@polskifrontend.pl',
+    replyTo,
     subject,
     html: body
   };
