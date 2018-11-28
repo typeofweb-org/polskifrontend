@@ -1,14 +1,7 @@
 import nodemailer from 'nodemailer';
+import config from '../config';
 
-const transporter = nodemailer.createTransport({
-  port: 587,
-  host: 'smtp.zenbox.pl',
-  auth: {
-    user: 'kontakt@polskifrontend.pl',
-    pass: 'F50tjgNNtWC4'
-  },
-  secure: false
-});
+const transporter = nodemailer.createTransport(config.nodemailer);
 
 export default function sendEmail(body, replyTo, subject = 'Nowa prośba o dodanie bloga!!') {
   const options = {

@@ -5,6 +5,15 @@ const common = {
     cloud_name: 'cloudinary_name',
     api_key: 'XXXXXXXXXXXXXXX',
     api_secret: 'XXXXXXXXXXXXXXXXXXXXXXXXXXX'
+  },
+  nodemailer: {
+    port: 587,
+    host: 'some_smtp_host',
+    auth: {
+      user: 'some_smtp_user',
+      pass: 'some_smtp_password'
+    },
+    secure: false
   }
 };
 const config = {
