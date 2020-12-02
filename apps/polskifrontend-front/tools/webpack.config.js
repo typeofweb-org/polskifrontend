@@ -319,7 +319,7 @@ const serverConfig = {
             ...rule.query,
             presets: rule.query.presets.map(preset => (preset[0] !== 'env' ? preset : ['env', {
               targets: {
-                node: pkg.engines.node.match(/(\d+\.?)+/)[0],
+                node: 12,
               },
               modules: false,
               useBuiltIns: false,
