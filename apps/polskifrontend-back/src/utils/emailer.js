@@ -3,10 +3,10 @@ import config from '../config';
 
 const transporter = nodemailer.createTransport(config.nodemailer);
 
-export default function sendEmail(body, replyTo, subject = 'Nowa prośba o dodanie bloga!!') {
+export default function sendEmail(body, replyTo, subject = '[polskifrontend] Nowa prośba o dodanie bloga!') {
   const options = {
-    from: 'kontakt@polskifrontend.pl',
-    to: 'kontakt@polskifrontend.pl',
+    from: 'polskifrontend@typeofweb.com',
+    to: 'hi@typeofweb.com',
     replyTo,
     subject,
     html: body
