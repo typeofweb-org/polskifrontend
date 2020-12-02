@@ -1,6 +1,6 @@
 /* eslint-disable max-len, no-undef */
 export const port = process.env.PORT || 3000;
-export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
+export const host = process.env.WEBSITE_HOSTNAME || 'www.polskifrontend.pl' || `localhost:${port}`;
 
 export const analytics = {
   // https://analytics.google.com/
