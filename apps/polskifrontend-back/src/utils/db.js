@@ -4,18 +4,18 @@ import config from '../config';
 
 mongoose.Promise = global.Promise;
 
-const { host, host1, host2, database, user, password, port } = config.mongodb;
+const { host, database, user, password, port } = config.mongodb;
 let status = 'DISCONNETED';
 
 const init = () => {
   if (status === 'DISCONNETED') {
-    let mongoUrl = `mongodb://${host}/${database}`;
-    if (port) {
-      mongoUrl = `mongodb://${host}:${port}/${database}`;
-    }
-    if (user && password && port) {
-      mongoUrl = `mongodb://${user}:${password}@${host1}:${port},${host2}:${port}/${database}?replicaSet=rs-ds157280`;
-    }
+    const mongoUrl = `mongodb://${user}:${password}@${host}:${port}/${database}`;
+    // if (port) {
+    //   mongoUrl = `mongodb://${user}:${password}@${host}:${port}/${database}`;
+    // }
+    // if (user && password && port) {
+    //   mongoUrl = `mongodb://${user}:${password}@${host1}:${port},${host2}:${port}/${database}?replicaSet=rs-ds157280`;
+    // }
     mongoose.connect(mongoUrl, { useMongoClient: true });
     status = 'CONNECTING';
     const db = mongoose.connection;
