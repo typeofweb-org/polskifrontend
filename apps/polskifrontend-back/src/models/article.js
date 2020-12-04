@@ -88,7 +88,7 @@ export async function getArticlesForBlog(blog) {
 
       article.save((error) => {
         if (error) {
-          console.log(error);
+          console.log('getArticlesForBlog error', error);
         }
       });
 

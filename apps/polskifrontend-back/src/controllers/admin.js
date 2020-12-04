@@ -93,7 +93,7 @@ router.post('/blogs', async (req, res) => {
 
       return res.send({ success: true, blog });
     } catch (error) {
-      console.log(error);
+      console.log('post blogs error', error);
       return res.send({ success: false, reason: 'cant-add', message: 'New blog entity adding failed' });
     }
   }
