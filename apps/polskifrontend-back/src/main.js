@@ -28,15 +28,8 @@ app.use(cors({
   origin: [
     'http://localhost:3000',
     'http://localhost:3001',
-    'http://192.168.0.159:3001',
-    'https://polskifrontend-front.herokuapp.com',
-    'http://www.polskifrontend.pl',
     'https://www.polskifrontend.pl',
-    'http://polskifrontend.pl',
-    'https://polskifrontend.pl'
   ],
-  methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Access-Token'
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({
