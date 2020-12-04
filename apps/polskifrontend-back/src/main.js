@@ -15,6 +15,7 @@ cloudinary.config(config.cloudinary);
 
 // error handle
 process.on('unhandledRejection', (err) => {
+  log.error('unhandledRejection:', err);
   throw err;
 });
 

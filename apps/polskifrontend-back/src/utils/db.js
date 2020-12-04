@@ -22,7 +22,7 @@ const init = () => {
     return new Promise((resolve, reject) => {
       db.on('error', (err) => {
         status = 'DISCONNETED';
-        log.error(err);
+        log.error('db error', err);
         reject(err);
       });
       db.once('open', () => {
