@@ -1,9 +1,22 @@
+npm-debug.log
+.next
+out
+previous-size-snapshot.json
+current-size-snapshot.json
+size-snapshot.json
+analyze.next
+.deployment-url
+.basebranch
+package-lock.json
+spmdb/
+spmlogs/
+newrelic.js
+
+
 node_modules
 .tmp
 .idea
-.idea/
 .DS_Store
-.env
 .version
 dist
 .history
@@ -67,8 +80,11 @@ jspm_packages/
 # dotenv environment variables file
 .env
 .env.dev
+apps/www/.env.staging
+apps/www/.env.production
 
 *.tsbuildinfo
-.version
-apps/www/.next
-yarn.lock
+
+# cypress
+
+apps/types/types.ts

@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /admin
-Disallow: /login
-
-Sitemap: http://www.polskifrontend.pl/sitemap.xml

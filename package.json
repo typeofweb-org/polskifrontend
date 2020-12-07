@@ -1,8 +1,11 @@
 {
   "name": "polskifrontend-monorepo",
-  "version": "1.0.0",
   "scripts": {
-    "build": "lerna run build --stream"
+    "dev": "yarn --frozen-lockfile && lerna bootstrap && lerna run dev --parallel",
+    "eslint": "lerna run eslint --stream",
+    "test": "lerna run test --stream",
+    "test:ci": "lerna run test_:ci --stream",
+    "tsc": "lerna run tsc --stream"
   },
   "author": "Michał Miszczyszyn - Type of Web <hi@typeofweb.com> (https://typeofweb.com/)",
   "contributors": [
@@ -12,11 +15,38 @@
   "license": "AGPL-3.0-only",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "@typescript-eslint/eslint-plugin": "4.6.1",
+    "@typescript-eslint/parser": "4.6.1",
+    "concurrently": "5.3.0",
+    "cross-env": "7.0.2",
+    "eslint-config-prettier": "6.15.0",
+    "eslint-plugin-functional": "3.1.0",
+    "eslint-plugin-import": "2.22.1",
+    "husky": "4.3.0",
+    "lerna": "3.22.1",
+    "lint-staged": "10.5.1",
+    "prettier": "2.1.2",
+    "rimraf": "3.0.2",
+    "ts-node": "9.0.0",
+    "typescript": "4.0.5"
   },
   "workspaces": {
     "packages": [
       "apps/*"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "yarn prettier --write"
+    ],
+    "*.{json,md,yaml,yml}": [
+      "yarn prettier --write"
     ]
   }
 }
