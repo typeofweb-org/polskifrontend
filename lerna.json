@@ -1,9 +1,5 @@
 {
+  "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "2.0.0",
-  "command": {
-    "bootstrap": {
-      "mutex": "network:13419"
-    }
-  }
+  "version": "2.0.0"
 }

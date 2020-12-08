@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+  // previewFeatures = []
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+model User {
+  id String @default(cuid()) @id
+  name String?
+  email String @unique
+  password String
+  
+  role UserRole @default(USER)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Session {
+  id String @id
+  validUntil DateTime
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+
+model Article {
+  id String @default(cuid()) @id
+  title String
+  href String
+  description String
+  publishedAt DateTime
+  slug String
+
+  blogId String
+  blog Blog @relation(fields: [blogId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([slug, blogId])
+}
+
+model Blog {
+  id String @default(cuid()) @id
+  name String
+  href String @unique
+  rss String @unique
+  slug String
+  publishedDate DateTime
+  favicon String
+  
+  addedById String
+  addedBy User @relation(fields: [addedById], references: [id])
+   
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model NewsItem {
+  id String @default(cuid()) @id
+  title String
+  message String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}

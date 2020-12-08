@@ -71,4 +71,4 @@ jspm_packages/
 *.tsbuildinfo
 .version
 apps/www/.next
-yarn.lock
+package-lock.json
