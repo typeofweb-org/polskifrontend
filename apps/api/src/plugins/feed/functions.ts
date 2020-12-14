@@ -5,7 +5,7 @@ import Iconv from 'iconv-lite';
 import ms from 'ms';
 import fetch from 'node-fetch';
 import { EMPTY, from, of } from 'rxjs';
-import { catchError, map, takeWhile, mergeMap, groupBy, last, timeout } from 'rxjs/operators';
+import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
 
 import { prisma } from '../../db';
@@ -46,7 +46,7 @@ function getFeedStreamFor(blog: Blog) {
       logger.debug(`Translated ${blog.name}`);
       const feedparser = new FeedParser({});
       return streamToRx<FeedParser>(responseStream.pipe(feedparser)).pipe(
-        takeWhile((item) => Boolean(item.pubdate && item.pubdate > blog.lastUpdateDate)),
+        filter((item) => Boolean(item.pubdate && item.pubdate > blog.lastUpdateDate)),
       );
     }),
   );
