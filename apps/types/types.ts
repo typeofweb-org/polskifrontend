@@ -33,6 +33,8 @@ export interface definitions {
 
   postAuthRegisterDefaultResponse: string;
 
+  patchFeedUpdateDefaultResponse: string;
+
   pathsDefinitions: {
     '/auth/me': {
       GET: {
@@ -55,6 +57,11 @@ export interface definitions {
       POST: {
         requestBody: definitions['Model2'];
 
+        response: string;
+      };
+    };
+    '/feed/update': {
+      PATCH: {
         response: string;
       };
     };

@@ -9,6 +9,7 @@ import pkg from '../package.json';
 
 import { getConfig, isProd, isStaging } from './config';
 import { AuthPlugin } from './plugins/auth';
+import { FeedPlugin } from './plugins/feed';
 import { isPrismaError } from './prisma/prisma-helpers';
 
 const getServer = () => {
@@ -74,6 +75,17 @@ export const getServerWithPlugins = async () => {
     {
       routes: {
         prefix: '/auth',
+      },
+    },
+  );
+
+  await server.register(
+    {
+      plugin: FeedPlugin,
+    },
+    {
+      routes: {
+        prefix: '/feed',
       },
     },
   );

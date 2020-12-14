@@ -41,7 +41,7 @@ model Article {
   id String @default(cuid()) @id
   title String
   href String
-  description String
+  description String?
   publishedAt DateTime
   slug String
 
@@ -59,9 +59,11 @@ model Blog {
   name String
   href String @unique
   rss String @unique
-  slug String
-  publishedDate DateTime
-  favicon String
+  slug String?
+  lastUpdateDate DateTime
+  favicon String?
+
+  articles Article[]
   
   addedById String
   addedBy User @relation(fields: [addedById], references: [id])

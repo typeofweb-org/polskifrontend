@@ -1,8 +1,13 @@
+import 'abort-controller/polyfill';
 import type { PrismaClient } from '@prisma/client';
 import Dotenv from 'dotenv';
+import fetch from 'node-fetch';
 
 import { initDb, prisma } from './db';
 import { getServerWithPlugins } from './server';
+
+// @ts-ignore
+global.fetch = fetch;
 
 Dotenv.config();
 
