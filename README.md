@@ -1,3 +1,3 @@
-# Polski Frontend monorepo
+# Polski Frontend
 
 TBD

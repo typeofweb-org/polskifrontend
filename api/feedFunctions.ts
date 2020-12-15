@@ -1,16 +1,14 @@
-/* eslint-disable functional/no-this-expression */
 import type { Blog, Prisma } from '@prisma/client';
 import FeedParser from 'feedparser';
 import Iconv from 'iconv-lite';
 import ms from 'ms';
-import fetch from 'node-fetch';
 import { EMPTY, from, of } from 'rxjs';
 import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
+import { prisma } from './db';
 
-import { prisma } from '../../db';
-import { logger } from '../../logger';
-import { streamToRx } from '../../rxjs-utils';
+import { logger } from './logger';
+import { streamToRx } from './rxjs-utils';
 
 const MAX_CONCURRENCY = 5;
 const MAX_FETCHING_TIME = ms('6 s');
@@ -42,7 +40,10 @@ function getFeedStreamFor(blog: Blog) {
     mergeMap((res) => {
       logger.debug(`Got stream for blog ${blog.name}`);
       const charset = getContentTypeParams(res.headers.get('content-type') || '').charset;
-      const responseStream = maybeTranslate(res.body, charset);
+      const responseStream = maybeTranslate(
+        (res.body as unknown) as NodeJS.ReadableStream,
+        charset,
+      );
       logger.debug(`Translated ${blog.name}`);
       const feedparser = new FeedParser({});
       return streamToRx<FeedParser>(responseStream.pipe(feedparser)).pipe(

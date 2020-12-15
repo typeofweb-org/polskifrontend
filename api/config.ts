@@ -1,6 +1,6 @@
 import { parse } from 'url';
 
-import type { Nil } from '@polskifrontend/types';
+type Nil<T> = T | null | undefined;
 
 type NameToType = {
   readonly COOKIE_DOMAIN: string;
