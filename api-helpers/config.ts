@@ -15,6 +15,7 @@ type NameToType = {
   readonly HOST: string;
   readonly NODE_ENV: 'production' | 'development';
   readonly PORT: number;
+  readonly SSH_PRIVATE_KEY: string;
 };
 
 function getConfigForName<T extends keyof NameToType>(name: T): Nil<NameToType[T]>;

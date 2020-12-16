@@ -9,12 +9,12 @@
     "build": "next build",
     "start": "next start",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "test": "jest --detectOpenHandles --forceExit",
+    "test": "jest --detectOpenHandles --forceExit --passWithNoTests",
     "test:ci": "jest",
     "tsc": "tsc --noEmit"
   },
   "prisma": {
-    "schema": "./api/prisma/schema.prisma"
+    "schema": "./api-helpers/prisma/schema.prisma"
   },
   "author": "Michał Miszczyszyn - Type of Web <hi@typeofweb.com> (https://typeofweb.com/)",
   "contributors": [
@@ -40,6 +40,7 @@
     "react-query": "3.2.0",
     "rxjs": "6.6.3",
     "slugify": "1.4.6",
+    "tunnel-ssh": "4.1.4",
     "yup": "0.32.8"
   },
   "devDependencies": {
@@ -57,6 +58,7 @@
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
     "@types/testing-library__react": "10.2.0",
+    "@types/tunnel-ssh": "4.1.0",
     "@types/yup": "0.29.10",
     "@typescript-eslint/eslint-plugin": "4.10.0",
     "@typescript-eslint/parser": "4.10.0",

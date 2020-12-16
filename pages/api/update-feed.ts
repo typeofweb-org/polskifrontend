@@ -1,9 +1,11 @@
-import { string, object } from 'yup';
-import { withAsync, withValidation } from '../../api/with-validation';
 import Crypto from 'crypto';
-import { getConfig } from '../../api/config';
+
 import Boom from '@hapi/boom';
-import { updateFeeds } from '../../api/feedFunctions';
+import { string, object } from 'yup';
+
+import { withAsync, withValidation } from '../../api-helpers/api-hofs';
+import { getConfig } from '../../api-helpers/config';
+import { updateFeeds } from '../../api-helpers/feedFunctions';
 
 export default withAsync(
   withValidation({

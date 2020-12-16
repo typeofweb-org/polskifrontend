@@ -3,6 +3,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { object } from 'yup';
 import type { AnySchema, ObjectSchema, InferType } from 'yup';
 
+import { closeConnection, openConnection } from './db';
 import { logger } from './logger';
 
 type SomeSchema = Record<string, AnySchema<any, any, any>>;
@@ -44,6 +45,7 @@ export const withAsync = (
   handler: (req: NextApiRequest, res: NextApiResponse) => Promise<unknown>,
 ): NextApiHandler => async (req, res) => {
   try {
+    await openConnection();
     const result = await handler(req, res);
     if (res.writableEnded) {
       return;
@@ -65,7 +67,10 @@ export const withAsync = (
       Object.entries(err.output.headers).forEach(([key, val]) => res.setHeader(key, val));
       return res.status(err.output.statusCode).json(err.output.payload);
     } else {
+      logger.error(err);
       return res.status(500).json(err);
     }
+  } finally {
+    await closeConnection()?.catch((err) => logger.error(err));
   }
 };
