@@ -3,7 +3,7 @@ import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { object } from 'yup';
 import type { AnySchema, ObjectSchema, InferType } from 'yup';
 
-import { closeConnection, openConnection, prisma } from './db';
+import { closeConnection, openConnection } from './db';
 import { logger } from './logger';
 
 type SomeSchema = Record<string, AnySchema<any, any, any>>;
@@ -71,6 +71,6 @@ export const withAsync = (
       return res.status(500).json(err);
     }
   } finally {
-    await closeConnection()?.catch(logger.error);
+    await closeConnection()?.catch((err) => logger.error(err));
   }
 };

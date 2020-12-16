@@ -3,9 +3,9 @@ import Crypto from 'crypto';
 import Boom from '@hapi/boom';
 import { string, object } from 'yup';
 
-import { withAsync, withValidation } from '../../api/api-hofs';
-import { getConfig } from '../../api/config';
-import { updateFeeds } from '../../api/feedFunctions';
+import { withAsync, withValidation } from '../../api-helpers/api-hofs';
+import { getConfig } from '../../api-helpers/config';
+import { updateFeeds } from '../../api-helpers/feedFunctions';
 
 export default withAsync(
   withValidation({

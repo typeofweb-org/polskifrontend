@@ -26,7 +26,7 @@
 /coverage
 /node_modules
 /out/
-api/migrate-mongodb.ts
+api-helpers/migrate-mongodb.ts
 bower_components
 build/Release
 coverage

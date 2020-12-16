@@ -27,7 +27,7 @@ export const openConnection = () => {
   ++mutableOpenConnections;
   if (
     mutableOpenConnections > 1 ||
-    !getConfig('SSH_PRIVATE_KEY').startsWith('-----BEGIN RSA PRIVATE KEY-----')
+    !getConfig('SSH_PRIVATE_KEY').includes('-----BEGIN RSA PRIVATE KEY-----')
   ) {
     return Promise.resolve(prisma);
   }
