@@ -38,6 +38,8 @@ function getConfigForName(name: keyof NameToType): Nil<NameToType[keyof NameToTy
       return val || parsed.pathname?.slice(1);
     case 'DB_HOSTNAME':
       return val || parsed.hostname;
+    case 'SSH_PRIVATE_KEY':
+      return JSON.parse(val!) as string;
   }
   return val;
 }
