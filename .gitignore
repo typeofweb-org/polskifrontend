@@ -42,3 +42,6 @@ pids
 test-results.xml
 yarn-error.log*
 yarn.lock
+
+key
+key.pub

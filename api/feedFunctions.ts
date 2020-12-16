@@ -5,8 +5,8 @@ import ms from 'ms';
 import { EMPTY, from, of } from 'rxjs';
 import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
-import { prisma } from './db';
 
+import { prisma } from './db';
 import { logger } from './logger';
 import { streamToRx } from './rxjs-utils';
 
