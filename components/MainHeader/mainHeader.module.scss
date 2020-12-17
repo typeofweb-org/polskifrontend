@@ -1,0 +1,12 @@
+.headerList {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+}
+
+.headerItem {
+  margin: 0 1rem;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}

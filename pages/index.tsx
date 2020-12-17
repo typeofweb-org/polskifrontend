@@ -1,3 +1,9 @@
+import { Layout } from '../components/Layout';
+
 export default function HomePage() {
-  return <h1>Siema!</h1>;
+  return (
+    <Layout>
+      <h1>Siema!</h1>
+    </Layout>
+  );
 }

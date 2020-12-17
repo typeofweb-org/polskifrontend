@@ -1,0 +1,28 @@
+:root {
+  --brand-color-main: #5ab783;
+  --brand-color-lighter: #{lighten(#5ab783, 20%)};
+}
+
+body {
+  font-family: 'Titillium Web', sans-serif;
+}
+
+a {
+  color: var(--brand-color-main);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--brand-color-lighter);
+  }
+  &:focus {
+    outline: 1px dashed var(--brand-color-main);
+  }
+  @supports selector(a:focus-within) {
+    &:focus {
+      outline: none;
+    }
+    &:focus-within {
+      outline: 1px dashed var(--brand-color-main);
+    }
+  }
+}
