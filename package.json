@@ -84,6 +84,7 @@
     "jest-extended": "0.11.5",
     "jest-watch-typeahead": "0.6.1",
     "lint-staged": "10.5.3",
+    "mongodb": "3.6.3",
     "msw": "0.24.2",
     "node-sass": "5.0.0",
     "pino-pretty": "4.3.0",
