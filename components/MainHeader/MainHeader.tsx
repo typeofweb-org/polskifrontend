@@ -9,7 +9,7 @@ export const MainHeader = () => {
         <a title="Przejdź na stronę główną">
           <h1 className={styles.title}>
             <span className="sr-only">Polski front-end</span>
-            <img src="/logo.svg" alt="Logo polskifrontend" />
+            <img src="/logo.svg" alt="" />
           </h1>
         </a>
       </Link>
