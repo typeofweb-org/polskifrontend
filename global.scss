@@ -8,6 +8,11 @@ body {
   font-family: 'Titillium Web', sans-serif;
 }
 
+[class^='icon-'],
+[class*=' icon-'] {
+  white-space: nowrap;
+}
+
 a {
   color: var(--brand-color-main);
   text-decoration: none;
