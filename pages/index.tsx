@@ -3,7 +3,8 @@ import type { InferGetStaticPropsType } from 'next';
 import { closeConnection, openConnection } from '../api-helpers/db';
 import { Layout } from '../components/Layout';
 
-export default function HomePage({ blogs }: InferGetStaticPropsType<typeof getStaticProps>) {
+type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
+export default function HomePage({ blogs }: HomePageProps) {
   return (
     <Layout>
       <h1>Siema!</h1>
