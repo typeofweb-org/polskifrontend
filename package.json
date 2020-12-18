@@ -10,7 +10,7 @@
     "start": "next start",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests",
-    "test:ci": "jest",
+    "test:ci": "jest --passWithNoTests",
     "tsc": "tsc --noEmit"
   },
   "prisma": {
