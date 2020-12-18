@@ -1,0 +1,141 @@
+{
+  "IcoMoonType": "selection",
+  "icons": [
+    {
+      "icon": {
+        "paths": [
+          "M512 786.286v-109.714c0-10.286-8-18.286-18.286-18.286h-109.714c-10.286 0-18.286 8-18.286 18.286v109.714c0 10.286 8 18.286 18.286 18.286h109.714c10.286 0 18.286-8 18.286-18.286zM658.286 402.286c0-104.571-109.714-182.857-208-182.857-93.143 0-162.857 40-212 121.714-5.143 8-2.857 18.286 4.571 24l75.429 57.143c2.857 2.286 6.857 3.429 10.857 3.429 5.143 0 10.857-2.286 14.286-6.857 26.857-34.286 38.286-44.571 49.143-52.571 9.714-6.857 28.571-13.714 49.143-13.714 36.571 0 70.286 23.429 70.286 48.571 0 29.714-15.429 44.571-50.286 60.571-40.571 18.286-96 65.714-96 121.143v20.571c0 10.286 8 18.286 18.286 18.286h109.714c10.286 0 18.286-8 18.286-18.286v0c0-13.143 16.571-41.143 43.429-56.571 43.429-24.571 102.857-57.714 102.857-144.571zM877.714 512c0 242.286-196.571 438.857-438.857 438.857s-438.857-196.571-438.857-438.857 196.571-438.857 438.857-438.857 438.857 196.571 438.857 438.857z"
+        ],
+        "attrs": [{}],
+        "width": 878,
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": ["question-circle"],
+        "grid": 14
+      },
+      "attrs": [{}],
+      "properties": {
+        "order": 1,
+        "id": 0,
+        "name": "question-circle",
+        "prevSize": 28,
+        "code": 59648,
+        "ligatures": "question-circle"
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M1016.988 652.010l-256-320c-6.074-7.592-15.266-12.010-24.988-12.010h-448c-9.72 0-18.916 4.418-24.988 12.010l-256 320c-4.538 5.674-7.012 12.724-7.012 19.99v288c0 35.346 28.654 64 64 64h896c35.348 0 64-28.654 64-64v-288c0-7.266-2.472-14.316-7.012-19.99zM960 704h-224l-128 128h-192l-128-128h-224v-20.776l239.38-299.224h417.24l239.38 299.224v20.776z"
+        ],
+        "attrs": [{}],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": ["drawer", "box", "inbox", "archive", "category"],
+        "grid": 16
+      },
+      "attrs": [{}],
+      "properties": {
+        "order": 1,
+        "id": 2,
+        "name": "drawer, box, inbox, archive, category",
+        "prevSize": 32,
+        "code": 59649,
+        "ligatures": "inbox"
+      },
+      "setIdx": 1,
+      "setId": 0,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M512 64c282.77 0 512 186.25 512 416 0 229.752-229.23 416-512 416-27.156 0-53.81-1.734-79.824-5.044-109.978 109.978-241.25 129.7-368.176 132.596v-26.916c68.536-33.578 128-94.74 128-164.636 0-9.754-0.758-19.33-2.164-28.696-115.796-76.264-189.836-192.754-189.836-323.304 0-229.75 229.23-416 512-416z"
+        ],
+        "attrs": [{}],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": ["bubble", "comment", "chat", "talk"],
+        "grid": 16
+      },
+      "attrs": [{}],
+      "properties": {
+        "order": 1,
+        "id": 1,
+        "name": "bubble, comment, chat, talk",
+        "prevSize": 32,
+        "code": 59650,
+        "ligatures": "comment"
+      },
+      "setIdx": 1,
+      "setId": 0,
+      "iconIdx": 1
+    },
+    {
+      "icon": {
+        "paths": [
+          "M928 0h-832c-52.8 0-96 43.2-96 96v832c0 52.8 43.2 96 96 96h416v-448h-128v-128h128v-64c0-105.8 86.2-192 192-192h128v128h-128c-35.2 0-64 28.8-64 64v64h192l-32 128h-160v448h288c52.8 0 96-43.2 96-96v-832c0-52.8-43.2-96-96-96z"
+        ],
+        "attrs": [{}],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": ["facebook", "brand", "social"],
+        "grid": 16
+      },
+      "attrs": [{}],
+      "properties": {
+        "order": 1,
+        "id": 0,
+        "name": "facebook, brand, social",
+        "prevSize": 32,
+        "code": 59651,
+        "ligatures": "facebook"
+      },
+      "setIdx": 1,
+      "setId": 0,
+      "iconIdx": 2
+    }
+  ],
+  "height": 1024,
+  "metadata": { "name": "icomoon" },
+  "preferences": {
+    "showGlyphs": true,
+    "showCodes": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": { "fontFamily": "icomoon", "majorVersion": 1, "minorVersion": 0 },
+      "metrics": { "emSize": 1024, "baseline": 6.25, "whitespace": 50 },
+      "embed": false,
+      "noie8": true,
+      "ie7": false,
+      "showSelector": false,
+      "showMetrics": false,
+      "showMetadata": false,
+      "showVersion": false
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": true,
+      "useClassSelector": true,
+      "color": 0,
+      "bgColor": 16777215,
+      "name": "icomoon",
+      "classSelector": ".icon",
+      "height": 32,
+      "columns": 16,
+      "margin": 16,
+      "autoHost": true
+    },
+    "historySize": 50,
+    "quickUsageToken": {
+      "polskifrontend": "ZWM4OTViYjA0YzM3YmNlYjc2NTcxOTg1NTFhZmI1ZDgjMSMxNjA4MjI2MDY5IyMj"
+    },
+    "showLiga": true
+  }
+}
