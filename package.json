@@ -41,6 +41,7 @@
     "react-query": "3.2.0",
     "rxjs": "6.6.3",
     "slugify": "1.4.6",
+    "superjson": "1.4.1",
     "tunnel-ssh": "4.1.4",
     "yup": "0.32.8"
   },
@@ -65,6 +66,7 @@
     "@typescript-eslint/parser": "4.10.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.6.3",
+    "babel-plugin-superjson-next": "0.1.8",
     "concurrently": "5.3.0",
     "cross-env": "7.0.3",
     "dotenv": "8.2.0",
