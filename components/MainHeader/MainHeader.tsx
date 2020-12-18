@@ -21,9 +21,9 @@ export const MainHeader = () => {
         {links.map(({ label, href, openInNewWindow, icon }) => (
           <li className={styles.headerItem} key={href}>
             <Link href={href}>
-              <a {...(openInNewWindow && { target: '_blank' })}>
-                <span className="icon-">{icon}</span>
-                {label}
+              <a {...(openInNewWindow && { target: '_blank' })} title={label}>
+                <span className={`icon- ${styles.icon}`}>{icon}</span>
+                <span className={styles.label}>{label}</span>
               </a>
             </Link>
           </li>

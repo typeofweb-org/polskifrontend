@@ -2,6 +2,13 @@
   display: flex;
   list-style-type: none;
   justify-content: center;
+  margin: 0;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--gray-border);
+
+  @media screen and (min-width: 45rem) {
+    padding: 2.2rem 0;
+  }
 }
 
 .headerItem {
@@ -9,4 +16,17 @@
   font-size: 1.25rem;
   text-transform: uppercase;
   font-weight: 700;
+}
+
+.label {
+  display: none;
+  @media screen and (min-width: 45rem) {
+    display: initial;
+  }
+}
+
+.icon {
+  margin-right: 5px;
+  line-height: 1.15;
+  vertical-align: bottom;
 }
