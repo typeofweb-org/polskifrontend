@@ -2,11 +2,13 @@ import type { InferGetStaticPropsType } from 'next';
 
 import { closeConnection, openConnection } from '../api-helpers/db';
 import { Layout } from '../components/Layout';
+import { MainTiles } from '../components/MainTiles/MainTiles';
 
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
 export default function HomePage({ blogs }: HomePageProps) {
   return (
     <Layout>
+      <MainTiles />
       <h1>Siema!</h1>
       <ul>
         {blogs.map((blog) => (

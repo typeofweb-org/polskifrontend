@@ -1,9 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:
-    url('fonts/icomoon.ttf?j1zk2a') format('truetype'),
-    url('fonts/icomoon.woff?j1zk2a') format('woff'),
-    url('fonts/icomoon.svg?j1zk2a#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?xxmd4a');
+  src:  url('fonts/icomoon.eot?xxmd4a#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?xxmd4a') format('truetype'),
+    url('fonts/icomoon.woff?xxmd4a') format('woff'),
+    url('fonts/icomoon.svg?xxmd4a#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -18,22 +19,18 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  
-  /* Enable Ligatures ================ */
-  letter-spacing: 0;
-  -webkit-font-feature-settings: "liga";
-  -moz-font-feature-settings: "liga=1";
-  -moz-font-feature-settings: "liga";
-  -ms-font-feature-settings: "liga" 1;
-  font-feature-settings: "liga";
-  -webkit-font-variant-ligatures: discretionary-ligatures;
-  font-variant-ligatures: discretionary-ligatures;
 
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-menu:before {
+  content: "\e904";
+}
+.icon-th-large:before {
+  content: "\e905";
+}
 .icon-question-circle:before {
   content: "\e900";
 }
@@ -72,4 +69,7 @@
 }
 .icon-social:before {
   content: "\e903";
+}
+.icon-plus:before {
+  content: "\ea0a";
 }
