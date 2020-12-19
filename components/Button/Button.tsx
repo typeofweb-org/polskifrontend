@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React from 'react';
+import { memo, forwardRef } from 'react';
 
 import styles from './button.module.scss';
 
@@ -11,13 +11,13 @@ type ButtonProps = {
   readonly onClick?: () => void;
 };
 
-export const Button = React.memo<ButtonProps>(
-  ({ as: As = 'button', icon, children, onClick, disabled }) => {
+export const Button = memo<ButtonProps>(
+  forwardRef(({ as: As = 'button', icon, children, onClick, disabled }, ref) => {
     return (
-      <As className={styles.button} onClick={onClick} disabled={disabled}>
+      <As className={styles.button} onClick={onClick} disabled={disabled} ref={ref}>
         {icon && <span className={clsx(icon, children && styles.icon)}></span>}
         {children}
       </As>
     );
-  },
+  }),
 );

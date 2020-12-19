@@ -1,12 +1,18 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import type { ChangeEvent } from 'react';
+import { useCallback, useState } from 'react';
 
 import { Button } from '../Button/Button';
+import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
 
 import styles from './mainTiles.module.scss';
 
 export const MainTiles = () => {
   const [displayStyle, setDisplayStyle] = useState<'GRID' | 'LIST'>('GRID');
+  const changeDisplayStyle = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setDisplayStyle(e.target.value as 'GRID' | 'LIST'),
+    [],
+  );
   return (
     <section className={styles.section}>
       <h2 className={styles.heading}>Wszystkie artykuły</h2>
@@ -16,18 +22,7 @@ export const MainTiles = () => {
             Zgłoś serwis
           </Button>
         </Link>
-        <div className={styles.wrapper}>
-          <Button
-            icon="icon-th-large"
-            disabled={displayStyle === 'GRID'}
-            onClick={() => setDisplayStyle('GRID')}
-          />
-          <Button
-            icon="icon-menu"
-            disabled={displayStyle === 'LIST'}
-            onClick={() => setDisplayStyle('LIST')}
-          />
-        </div>
+        <DisplayStyleSwitch value={displayStyle} onChange={changeDisplayStyle} />
       </div>
     </section>
   );

@@ -4,8 +4,8 @@
   align-items: center;
   padding: 0.7rem;
   border-radius: 4px;
-  border: 3px solid var(--brand-color-button);
-  color: var(--brand-color-button);
+  border: 3px solid var(--brand-color-main);
+  color: var(--brand-color-main);
   background-color: #ffffff;
   transition: background 200ms;
   text-transform: uppercase;
@@ -14,17 +14,7 @@
 
   &:hover {
     color: #fff;
-    background-color: var(--brand-color-button);
-  }
-
-  &:disabled {
-    color: var(--button-color-inactive);
-    border: 3px solid var(--button-color-inactive);
-    background-color: #ffffff;
-  }
-
-  &:nth-child(2) {
-    margin-left: 1rem;
+    background-color: var(--brand-color-main);
   }
 
   @media screen and (min-width: 45rem) {
