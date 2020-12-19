@@ -12,7 +12,7 @@ type ButtonProps = {
 };
 
 export const Button = memo<ButtonProps>(
-  forwardRef(({ as: As = 'button', icon, children, onClick, disabled }, ref) => {
+  forwardRef<any, ButtonProps>(({ as: As = 'button', icon, children, onClick, disabled }, ref) => {
     return (
       <As className={styles.button} onClick={onClick} disabled={disabled} ref={ref}>
         {icon && <span className={clsx(icon, children && styles.icon)}></span>}
