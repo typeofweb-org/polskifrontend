@@ -60,6 +60,15 @@
         "code",
         "review"
       ]
+    },
+    {
+      "login": "nanoDW",
+      "name": "nanoDW",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/37413661?v=4",
+      "profile": "https://github.com/nanoDW",
+      "contributions": [
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 3

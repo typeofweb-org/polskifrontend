@@ -2,7 +2,7 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -30,6 +30,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://jb1905.github.io/portfolio/"><img src="https://avatars2.githubusercontent.com/u/28870390?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Jakub Biesiada</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=JB1905" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/AdamSiekierski"><img src="https://avatars0.githubusercontent.com/u/24841038?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Adam Siekierski</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=AdamSiekierski" title="Code">💻</a> <a href="https://github.com/typeofweb/polskifrontend/pulls?q=is%3Apr+reviewed-by%3AAdamSiekierski" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/nanoDW"><img src="https://avatars2.githubusercontent.com/u/37413661?v=4?s=70" width="70px;" alt=""/><br /><sub><b>nanoDW</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/pulls?q=is%3Apr+reviewed-by%3AnanoDW" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
