@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { useDidMount } from './useDidMount';
 
@@ -14,14 +14,17 @@ export function useLocalStorage(key: string, defaultValue: string) {
     }
   });
 
-  function setStoredValue(val: string) {
-    setValue(val);
-    try {
-      localStorage.setItem(key, val);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  const setStoredValue = useCallback(
+    (val: string) => {
+      setValue(val);
+      try {
+        localStorage.setItem(key, val);
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [key],
+  );
 
   return [value, setStoredValue] as const;
 }
