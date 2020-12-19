@@ -1,0 +1,25 @@
+{
+  "projectName": "polskifrontend",
+  "projectOwner": "typeofweb",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 70,
+  "commit": true,
+  "commitConvention": "gitmoji",
+  "contributors": [
+    {
+      "login": "burczu",
+      "name": "Bartłomiej Dybowski",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/7771498?v=4",
+      "profile": "https://nafrontendzie.pl/",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 3
+}
