@@ -7,10 +7,12 @@ const copyrightYear = new Date().getFullYear();
 export const Footer = () => {
   return (
     <footer className={styles.footer}>
-      Copyright@{copyrightYear} -{' '}
-      <Link href="https://nafrontendzie.pl">
-        <a target="_blank">Na Frontendzie</a>
-      </Link>
+      <p>
+        Copyright@{copyrightYear} –{' '}
+        <Link href="https://typeofweb.com">
+          <a target="_blank">Type of Web</a>
+        </Link>
+      </p>
     </footer>
   );
 };
