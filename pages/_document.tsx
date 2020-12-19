@@ -5,10 +5,11 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
-            href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600|Cabin:400,700&amp;subset=latin-ext"
+            href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap"
             rel="stylesheet"
-          />
+          ></link>
         </Head>
         <body>
           <Main />
