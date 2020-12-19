@@ -1,0 +1,84 @@
+{
+  "projectName": "polskifrontend",
+  "projectOwner": "typeofweb",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 70,
+  "commit": true,
+  "commitConvention": "gitmoji",
+  "contributors": [
+    {
+      "login": "burczu",
+      "name": "Bartłomiej Dybowski",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/7771498?v=4",
+      "profile": "https://nafrontendzie.pl/",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "mmiszy",
+      "name": "Michał Miszczyszyn",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1338731?v=4",
+      "profile": "https://typeofweb.com/",
+      "contributions": [
+        "code",
+        "maintenance",
+        "projectManagement",
+        "review"
+      ]
+    },
+    {
+      "login": "drillprop",
+      "name": "Bartosz Dryl",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/51168865?v=4",
+      "profile": "https://github.com/drillprop",
+      "contributions": [
+        "code",
+        "review"
+      ]
+    },
+    {
+      "login": "JB1905",
+      "name": "Jakub Biesiada",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/28870390?v=4",
+      "profile": "https://jb1905.github.io/portfolio/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "AdamSiekierski",
+      "name": "Adam Siekierski",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/24841038?v=4",
+      "profile": "https://github.com/AdamSiekierski",
+      "contributions": [
+        "code",
+        "review"
+      ]
+    },
+    {
+      "login": "nanoDW",
+      "name": "nanoDW",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/37413661?v=4",
+      "profile": "https://github.com/nanoDW",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "takatejr",
+      "name": "takatejr",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/58137383?v=4",
+      "profile": "https://github.com/takatejr",
+      "contributions": [
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 3
+}

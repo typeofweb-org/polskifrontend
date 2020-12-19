@@ -66,6 +66,7 @@
     "@types/yup": "0.29.10",
     "@typescript-eslint/eslint-plugin": "4.10.0",
     "@typescript-eslint/parser": "4.10.0",
+    "all-contributors-cli": "6.19.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.6.3",
     "babel-plugin-superjson-next": "0.1.8",
