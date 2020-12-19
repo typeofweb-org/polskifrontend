@@ -6,19 +6,27 @@
     "project": "tsconfig.json"
   },
   "ignorePatterns": "next.config.js",
-  "plugins": ["functional", "@typescript-eslint"],
+  "plugins": ["functional", "@typescript-eslint", "jsx-a11y", "css-modules"],
   "extends": [
     "prettier",
     "plugin:import/errors",
     "plugin:import/typescript",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "react-app",
+    "plugin:jsx-a11y/recommended",
+    "plugin:css-modules/recommended"
   ],
   "rules": {
     "no-const-assign": "error",
     "no-param-reassign": "error",
     "prefer-const": "error",
     "no-var": "error",
+    "require-await": "error",
+    "react-hooks/exhaustive-deps": ["error"],
+    "react/display-name": "error",
+    "jsx-a11y/anchor-is-valid": "off",
     "import/no-anonymous-default-export": "error",
+    "import/no-default-export": "error",
     "import/dynamic-import-chunkname": "error",
     "import/order": ["error", { "newlines-between": "always", "alphabetize": { "order": "asc" } }],
     "import/no-duplicates": "error",
@@ -39,7 +47,6 @@
         ]
       }
     ],
-    "import/no-default-export": "error",
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/consistent-type-imports": "error",
     "functional/no-let": [
@@ -51,8 +58,7 @@
     ],
     "functional/prefer-readonly-type": "error",
     "functional/no-this-expression": "error",
-    "functional/no-loop-statement": "error",
-    "require-await": "error"
+    "functional/no-loop-statement": "error"
   },
   "overrides": [
     {
