@@ -8,13 +8,13 @@
   &:checked + label {
     border: 3px solid var(--brand-color-main);
     color: var(--brand-color-main);
-    background-color: #ffffff;
+    background-color: var(--white);
   }
 
   &:not(:checked) + label {
     &:hover {
       border: 3px solid var(--gray);
-      color: #ffffff;
+      color: var(--white);
       background-color: var(--gray);
     }
   }
@@ -29,7 +29,7 @@
   border-radius: 4px;
   border: 3px solid var(--gray);
   color: var(--gray);
-  background-color: #ffffff;
+  background-color: var(--white);
   transition: background 200ms;
   text-transform: uppercase;
   font-weight: 700;
