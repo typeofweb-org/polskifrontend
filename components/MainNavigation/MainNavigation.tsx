@@ -22,7 +22,7 @@ export const MainNavigation = () => {
           <li className={styles.navigationItem} key={href}>
             <Link href={href}>
               <a {...(openInNewTab && { target: '_blank' })} title={label}>
-                <span className={`icon- ${styles.icon}`}>{icon}</span>
+                <span className={`icon-${icon} ${styles.icon}`}></span>
                 <span className={styles.label}>{label}</span>
               </a>
             </Link>
