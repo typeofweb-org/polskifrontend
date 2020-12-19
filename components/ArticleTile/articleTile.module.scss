@@ -8,6 +8,12 @@
   box-shadow: 1px 1px 6px 1px var(--gray-shadow);
   border-radius: 3px;
   min-height: 259px;
+  overflow-wrap: break-word;
+
+  @media screen and (max-width: 45rem) {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
 }
 .articleTitle {
   margin-top: 0;
