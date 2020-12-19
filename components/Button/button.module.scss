@@ -1,0 +1,37 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem;
+  border-radius: 4px;
+  border: 3px solid var(--brand-color-button);
+  color: var(--brand-color-button);
+  background-color: #ffffff;
+  transition: background 200ms;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+    background-color: var(--brand-color-button);
+  }
+
+  &:disabled {
+    color: var(--button-color-inactive);
+    border: 3px solid var(--button-color-inactive);
+    background-color: #ffffff;
+  }
+
+  &:nth-child(2) {
+    margin-left: 1rem;
+  }
+
+  @media screen and (min-width: 45rem) {
+    padding: 1rem 2rem;
+  }
+}
+
+.icon {
+  margin-right: 0.5rem;
+}

@@ -166,9 +166,11 @@
     "showSVGs": true,
     "fontPref": {
       "prefix": "icon-",
-      "metadata": { "fontFamily": "icomoon" },
+      "metadata": { "fontFamily": "icomoon", "majorVersion": 1, "minorVersion": 0 },
       "metrics": { "emSize": 1024, "baseline": 6.25, "whitespace": 50 },
-      "embed": false
+      "embed": false,
+      "showMetrics": false,
+      "showMetadata": false
     },
     "imagePref": {
       "prefix": "icon-",
@@ -176,7 +178,8 @@
       "useClassSelector": true,
       "color": 0,
       "bgColor": 16777215,
-      "classSelector": ".icon"
+      "classSelector": ".icon",
+      "name": "icomoon"
     },
     "historySize": 50,
     "showCodes": true,

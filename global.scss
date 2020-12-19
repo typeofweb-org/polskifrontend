@@ -1,7 +1,10 @@
 :root {
   --brand-color-main: #5ab783;
   --brand-color-lighter: #{lighten(#5ab783, 20%)};
+  --brand-color-button: #10c982;
+  --button-color-inactive: #999;
   --gray-border: #f2f2f2;
+  --gray-text: #595959;
   --gray-shadow: #cccccc;
 }
 

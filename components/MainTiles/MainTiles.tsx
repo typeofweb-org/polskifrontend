@@ -1,6 +1,7 @@
-import clsx from 'clsx';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useState } from 'react';
+
+import { Button } from '../Button/Button';
 
 import styles from './mainTiles.module.scss';
 
@@ -11,26 +12,21 @@ export const MainTiles = () => {
       <h2 className={styles.heading}>Wszystkie artykuły</h2>
       <div className={styles.container}>
         <Link href="/zglos-serwis">
-          <a className={styles.button}>
-            <span className={clsx('icon-plus', styles.icon)}></span>
+          <Button as="a" icon="icon-plus">
             Zgłoś serwis
-          </a>
+          </Button>
         </Link>
         <div className={styles.wrapper}>
-          <button
-            className={styles.button}
-            onClick={() => setDisplayStyle('GRID')}
+          <Button
+            icon="icon-th-large"
             disabled={displayStyle === 'GRID'}
-          >
-            <span className="icon-th-large"></span>
-          </button>
-          <button
-            className={styles.button}
-            onClick={() => setDisplayStyle('LIST')}
+            onClick={() => setDisplayStyle('GRID')}
+          />
+          <Button
+            icon="icon-menu"
             disabled={displayStyle === 'LIST'}
-          >
-            <span className="icon-menu"></span>
-          </button>
+            onClick={() => setDisplayStyle('LIST')}
+          />
         </div>
       </div>
     </section>
