@@ -1,27 +1,18 @@
 import Link from 'next/link';
 
-import { formatDate } from '../../utils';
+import type { HomePageArticle, HomePageBlog } from '../../types';
+import { formatDate } from '../../utils/date-utils';
 
 import style from './articleTile.module.scss';
 
 type ArticleTileProps = {
-  readonly title: string;
-  readonly blogName: string;
-  readonly publishedAt: Date;
-  readonly excerpt: string;
-  readonly url: string;
-  readonly slug: string;
-  readonly favicon?: string;
+  readonly article: HomePageArticle;
+  readonly blog: HomePageBlog;
 };
 
 export const ArticleTile = ({
-  title,
-  blogName,
-  publishedAt,
-  excerpt,
-  url,
-  slug,
-  favicon,
+  article: { title, publishedAt, excerpt, href, slug },
+  blog: { name: blogName, favicon },
 }: ArticleTileProps) => {
   const dateTime = publishedAt.toISOString();
   const readableDate = formatDate(publishedAt);
@@ -35,7 +26,7 @@ export const ArticleTile = ({
           </a>
         </Link>
         <p className={style.meta}>
-          <img src={favicon} width={16} height={16} className={style.favicon} />
+          <img src={favicon || undefined} width={16} height={16} className={style.favicon} alt="" />
           {blogName}{' '}
           <time className={style.articleDate} dateTime={dateTime}>
             {readableDate}
@@ -53,7 +44,7 @@ export const ArticleTile = ({
             </Link>
           </li>
           <li className={style.footerItem}>
-            <Link href={url}>
+            <Link href={href}>
               <a target="_blank" className={style.footerLink}>
                 <span className={`icon- ${style.icon}`}>new-tab</span>ORYGINAŁ
               </a>

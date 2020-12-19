@@ -1,12 +1,12 @@
-import { AllHtmlEntities } from 'html-entities';
 import type { InferGetStaticPropsType } from 'next';
-import Xss from 'xss';
 
 import { closeConnection, openConnection } from '../api-helpers/db';
 import { ArticleTile } from '../components/ArticleTile/ArticleTile';
 import { Layout } from '../components/Layout';
+import { createExcerpt } from '../utils/excerpt-utils';
 
-type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
+export type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
+
 export default function HomePage({ blogs }: HomePageProps) {
   return (
     <Layout>
@@ -18,15 +18,7 @@ export default function HomePage({ blogs }: HomePageProps) {
             <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
               {blog.articles.map((article) => (
                 <li key={article.id}>
-                  <ArticleTile
-                    title={article.title}
-                    blogName={blog.name}
-                    publishedAt={article.publishedAt}
-                    excerpt={article.excerpt}
-                    url={article.href}
-                    slug={article.slug}
-                    favicon={blog.favicon || undefined}
-                  />
+                  <ArticleTile article={article} blog={blog} />
                 </li>
               ))}
             </ul>
@@ -40,26 +32,6 @@ export default function HomePage({ blogs }: HomePageProps) {
 const BLOGS_PER_PAGE = 4;
 const ARTICLES_PER_BLOG = 5;
 const REVALIDATION_TIME = 15 * 60; // 15 minutes
-const EXCERPT_MAX_WORDS = 50;
-
-function removeShortWordsFromTheEndReducer(
-  { done, text }: { readonly done: boolean; readonly text: string },
-  lastWord: string,
-) {
-  if (done || lastWord.length >= 3) {
-    return { done: true, text: lastWord + ' ' + text };
-  }
-  return { done: false, text };
-}
-
-function createExcerpt(text: string) {
-  return AllHtmlEntities.decode(Xss(text, { stripIgnoreTag: true, whiteList: {} }))
-    .trim()
-    .split(/\s+/)
-    .filter((word) => word)
-    .slice(0, EXCERPT_MAX_WORDS)
-    .reduceRight(removeShortWordsFromTheEndReducer, { done: false, text: '' }).text;
-}
 
 export const getStaticProps = async () => {
   try {
