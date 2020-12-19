@@ -1,19 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-export function useLocalStorage(
-  key: string,
-  defaultValue: string,
-): readonly [string | null, (val: string) => void] {
+import { useDidMount } from './useDidMount';
+
+export function useLocalStorage(key: string, defaultValue: string) {
   const [value, setValue] = useState<string | null>(null);
 
-  useEffect(() => {
-    setValue(localStorage.getItem(key) || defaultValue);
-  }, []);
+  useDidMount(() => {
+    try {
+      const savedValue = localStorage.getItem(key);
+      setValue(savedValue || defaultValue);
+    } catch {
+      setValue(defaultValue);
+    }
+  });
 
   function setStoredValue(val: string) {
     setValue(val);
-    localStorage.setItem(key, val);
+    try {
+      localStorage.setItem(key, val);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  return [value, setStoredValue];
+  return [value, setStoredValue] as const;
 }
