@@ -50,6 +50,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "AdamSiekierski",
+      "name": "Adam Siekierski",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/24841038?v=4",
+      "profile": "https://github.com/AdamSiekierski",
+      "contributions": [
+        "code",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 3
