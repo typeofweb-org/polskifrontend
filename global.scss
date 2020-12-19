@@ -5,8 +5,9 @@
   --gray-border: #f2f2f2;
   --gray-shadow: #cccccc;
   --gray-dark-border: #999999;
-  --black: #000;
-  --white: #fff;
+  --white: #ffffff;
+  --black: #000000;
+  --black-lighter: #{lighten(#000000, 20%)};
 }
 
 html {
