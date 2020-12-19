@@ -114,7 +114,7 @@
       "eslint --fix",
       "yarn prettier --write"
     ],
-    "*.{json,md,yaml,yml}": [
+    "*.{json,md,yaml,yml,scss,css}": [
       "yarn prettier --write"
     ]
   }
