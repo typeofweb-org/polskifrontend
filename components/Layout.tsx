@@ -1,3 +1,4 @@
+import { CookiesPopup } from './CookiesPopup/CookiesPopup';
 import { MainHeader } from './MainHeader/MainHeader';
 import { MainNavigation } from './MainNavigation/MainNavigation';
 
@@ -10,6 +11,7 @@ export const Layout: React.FC = ({ children }) => {
       </header>
       <main>{children}</main>
       <footer></footer>
+      <CookiesPopup />
     </div>
   );
 };

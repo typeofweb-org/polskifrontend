@@ -3,6 +3,9 @@
   --brand-color-lighter: #{lighten(#5ab783, 20%)};
   --gray-border: #f2f2f2;
   --gray-shadow: #cccccc;
+  --white: #ffffff;
+  --black: #000000;
+  --black-lighter: #{lighten(#000000, 20%)};
 }
 
 body {
