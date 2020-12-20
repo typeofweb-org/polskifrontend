@@ -43,6 +43,7 @@
     "rxjs": "6.6.3",
     "slugify": "1.4.6",
     "superjson": "1.4.1",
+    "tcp-port-used": "1.0.2",
     "tunnel-ssh": "4.1.4",
     "xss": "1.0.8",
     "yup": "0.32.8"
@@ -61,6 +62,7 @@
     "@types/pino": "6.3.4",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
+    "@types/tcp-port-used": "1.0.0",
     "@types/testing-library__react": "10.2.0",
     "@types/tunnel-ssh": "4.1.0",
     "@types/yup": "0.29.10",

@@ -2,6 +2,7 @@ import type { Server } from 'net';
 
 import { PrismaClient } from '@prisma/client';
 import type { PrismaClientOptions } from '@prisma/client/runtime';
+import TcpPortUsed from 'tcp-port-used';
 import Tunnel from 'tunnel-ssh';
 
 import { getConfig } from './config';
@@ -23,13 +24,18 @@ export const closeConnection = () => {
   return undefined;
 };
 
-export const openConnection = () => {
+export const openConnection = async () => {
   ++mutableOpenConnections;
   if (
     mutableOpenConnections > 1 ||
     !getConfig('SSH_PRIVATE_KEY').includes('-----BEGIN RSA PRIVATE KEY-----')
   ) {
-    return Promise.resolve(prisma);
+    return prisma;
+  }
+
+  if (await TcpPortUsed.check(8543, '127.0.0.1')) {
+    logger.info('PORT IN USE');
+    return prisma;
   }
 
   return new Promise<PrismaClient>((resolve, reject) => {
@@ -42,11 +48,11 @@ export const openConnection = () => {
         localPort: 8543,
         privateKey: getConfig('SSH_PRIVATE_KEY'),
         keepAlive: true,
-        keepaliveCountMax: 1,
+        // keepaliveCountMax: 1,
       },
       (err, server) => {
         if (err) {
-          logger.error({ err });
+          // logger.error({ err });
           // return reject(err);
         }
         mutableServer = server;
