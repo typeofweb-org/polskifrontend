@@ -1,22 +1,15 @@
-import Link from 'next/link';
 import type { LinkProps } from 'next/link';
-import type { AnchorHTMLAttributes, RefObject } from 'react';
+import Link from 'next/link';
+import type { AnchorHTMLAttributes } from 'react';
 import { forwardRef, memo } from 'react';
-
-type AnchorRef =
-  | string
-  | RefObject<HTMLAnchorElement>
-  | ((instance: HTMLAnchorElement | null) => void)
-  | null
-  | undefined;
 
 type LinkAnchorProps = LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>;
 
 export const LinkAnchor = memo<LinkAnchorProps>(
-  forwardRef(
+  forwardRef<HTMLAnchorElement, LinkAnchorProps>(
     (
       { href, as, replace, scroll, shallow, passHref, prefetch, locale, children, ...anchorProps },
-      ref: AnchorRef,
+      ref,
     ) => {
       return (
         <Link
