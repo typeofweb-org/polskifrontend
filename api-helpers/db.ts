@@ -46,7 +46,8 @@ export const openConnection = () => {
       },
       (err, server) => {
         if (err) {
-          return reject(err);
+          logger.error({ err });
+          // return reject(err);
         }
         mutableServer = server;
 
@@ -55,9 +56,9 @@ export const openConnection = () => {
             err?.message === 'This socket has been ended by the other party' ||
             err?.message === 'read ECONNRESET'
           ) {
-            return logger.info(err);
+            // return logger.info(err);
           }
-          return logger.error(err);
+          // return logger.error(err);
         });
 
         prisma

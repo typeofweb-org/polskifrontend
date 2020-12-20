@@ -13,4 +13,6 @@ config.redirects = async () => {
   ];
 };
 
+config.target = 'serverless';
+
 module.exports = config;
