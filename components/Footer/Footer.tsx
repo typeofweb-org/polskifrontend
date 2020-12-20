@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LinkAnchor } from '../LinkAnchor/LinkAnchor';
 
 import styles from './footer.module.scss';
 
@@ -9,9 +9,9 @@ export const Footer = () => {
     <footer className={styles.footer}>
       <p>
         Copyright@{copyrightYear} –{' '}
-        <Link href="https://typeofweb.com">
-          <a target="_blank">Type of Web</a>
-        </Link>
+        <LinkAnchor href="https://typeofweb.com" target="_blank">
+          Type of Web
+        </LinkAnchor>
       </p>
     </footer>
   );

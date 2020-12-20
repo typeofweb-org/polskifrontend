@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { LinkAnchor } from '../LinkAnchor/LinkAnchor';
 
 import styles from './mainNavigation.module.scss';
 
@@ -20,12 +20,10 @@ export const MainNavigation = () => {
       <ul className={styles.navigationList}>
         {links.map(({ label, href, openInNewTab, icon }) => (
           <li className={styles.navigationItem} key={href}>
-            <Link href={href}>
-              <a {...(openInNewTab && { target: '_blank' })} title={label}>
-                <span className={`icon-${icon} ${styles.icon}`}></span>
-                <span className={styles.label}>{label}</span>
-              </a>
-            </Link>
+            <LinkAnchor href={href} {...(openInNewTab && { target: '_blank' })} title={label}>
+              <span className={`icon-${icon} ${styles.icon}`}></span>
+              <span className={styles.label}>{label}</span>
+            </LinkAnchor>
           </li>
         ))}
       </ul>

@@ -1,7 +1,6 @@
-import Link from 'next/link';
-
 import type { HomePageArticle, HomePageBlog } from '../../types';
 import { formatDate } from '../../utils/date-utils';
+import { LinkAnchor } from '../LinkAnchor/LinkAnchor';
 
 import style from './articleTile.module.scss';
 
@@ -20,11 +19,9 @@ export const ArticleTile = ({
   return (
     <article className={style.articleTile}>
       <header>
-        <Link href={`/artykuly/${slug}`}>
-          <a className={style.articleTitleLink}>
-            <h3 className={style.articleTitle}>{title}</h3>
-          </a>
-        </Link>
+        <LinkAnchor className={style.articleTitleLink} href={`/artykuly/${slug}`}>
+          <h3 className={style.articleTitle}>{title}</h3>
+        </LinkAnchor>
         <p className={style.meta}>
           <img src={favicon || undefined} width={16} height={16} className={style.favicon} alt="" />
           {blogName}{' '}
@@ -37,18 +34,14 @@ export const ArticleTile = ({
       <footer className={style.footer}>
         <ul className={style.footerList}>
           <li className={style.footerItem}>
-            <Link href={`/artykuly/${slug}`}>
-              <a className={style.footerLink}>
-                <span className={`icon- ${style.icon}`}>folder-open</span>OTWÓRZ
-              </a>
-            </Link>
+            <LinkAnchor className={style.footerLink} href={`/artykuly/${slug}`}>
+              <span className={`icon- ${style.icon}`}>folder-open</span>OTWÓRZ
+            </LinkAnchor>
           </li>
           <li className={style.footerItem}>
-            <Link href={href}>
-              <a target="_blank" className={style.footerLink}>
-                <span className={`icon- ${style.icon}`}>new-tab</span>ORYGINAŁ
-              </a>
-            </Link>
+            <LinkAnchor target="_blank" className={style.footerLink} href={href}>
+              <span className={`icon- ${style.icon}`}>new-tab</span>ORYGINAŁ
+            </LinkAnchor>
           </li>
         </ul>
       </footer>
