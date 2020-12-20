@@ -5,7 +5,7 @@ import { memo } from 'react';
 import styles from './displayStyleSwitch.module.scss';
 
 type DisplayStyleSwitchProps = {
-  readonly value: 'GRID' | 'LIST';
+  readonly value: 'grid' | 'list';
   readonly onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -15,8 +15,8 @@ export const DisplayStyleSwitch = memo<DisplayStyleSwitchProps>(({ value, onChan
       <label>
         <input
           className={clsx('sr-only', styles.input)}
-          value="GRID"
-          checked={value === 'GRID'}
+          value="grid"
+          checked={value === 'grid'}
           type="radio"
           name="displayStyle"
           onChange={onChange}
@@ -29,8 +29,8 @@ export const DisplayStyleSwitch = memo<DisplayStyleSwitchProps>(({ value, onChan
       <label>
         <input
           className={clsx('sr-only', styles.input)}
-          value="LIST"
-          checked={value === 'LIST'}
+          value="list"
+          checked={value === 'list'}
           type="radio"
           name="displayStyle"
           onChange={onChange}

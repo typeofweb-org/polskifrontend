@@ -1,3 +1,4 @@
+import type { Article } from '@prisma/client';
 import { AllHtmlEntities } from 'html-entities';
 import Xss from 'xss';
 
@@ -20,4 +21,11 @@ export function createExcerpt(text: string) {
     .filter((word) => word)
     .slice(0, EXCERPT_MAX_WORDS)
     .reduceRight(removeShortWordsFromTheEndReducer, { done: false, text: '' }).text;
+}
+
+export function addExcerptToArticle<T extends Article>(article: T) {
+  return {
+    ...article,
+    excerpt: article.description ? createExcerpt(article.description) : '',
+  };
 }
