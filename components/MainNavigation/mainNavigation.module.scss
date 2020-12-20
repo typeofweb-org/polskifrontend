@@ -6,7 +6,7 @@
   padding: 1rem 0;
   border-bottom: 1px solid var(--gray-border);
 
-  @media screen and (min-width: 45rem) {
+  @media screen and (min-width: 45em) {
     padding: 2.2rem 0;
   }
 }
@@ -20,7 +20,7 @@
 
 .label {
   display: none;
-  @media screen and (min-width: 45rem) {
+  @media screen and (min-width: 45em) {
     display: initial;
   }
 }
