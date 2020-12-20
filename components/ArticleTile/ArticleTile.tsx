@@ -7,7 +7,7 @@ import style from './articleTile.module.scss';
 
 type ArticleTileProps = {
   readonly article: HomePageArticle;
-  readonly blog: HomePageBlog;
+  readonly blog: Omit<HomePageBlog, 'articles'>;
 };
 
 export const ArticleTile = ({
