@@ -17,7 +17,7 @@ export const MainTiles = () => {
     <section className={styles.section}>
       <h2 className={styles.heading}>Wszystkie artykuły</h2>
       <div className={styles.container}>
-        <Link href="/zglos-serwis">
+        <Link href="/zglos-serwis" passHref>
           <Button as="a" icon="icon-plus">
             Zgłoś serwis
           </Button>
