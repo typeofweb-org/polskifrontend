@@ -1,0 +1,20 @@
+.section {
+  max-width: 73rem;
+  margin: 0 auto;
+}
+
+.heading {
+  padding: 2rem 0 1rem;
+  border-bottom: 2px solid var(--gray-border);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--gray-text);
+  font-size: 1.25rem;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+}

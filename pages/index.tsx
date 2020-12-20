@@ -1,8 +1,8 @@
 import type { InferGetStaticPropsType } from 'next';
 
 import { closeConnection, openConnection } from '../api-helpers/db';
-import { ArticleTile } from '../components/ArticleTile/ArticleTile';
 import { Layout } from '../components/Layout';
+import { MainTiles } from '../components/MainTiles/MainTiles';
 import { createExcerpt } from '../utils/excerpt-utils';
 
 export type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
@@ -10,21 +10,7 @@ export type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
 export default function HomePage({ blogs }: HomePageProps) {
   return (
     <Layout>
-      <h1>Siema!</h1>
-      <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
-        {blogs.map((blog) => (
-          <li key={blog.id}>
-            {blog.name}
-            <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
-              {blog.articles.map((article) => (
-                <li key={article.id}>
-                  <ArticleTile article={article} blog={blog} />
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
+      <MainTiles blogs={blogs} />
     </Layout>
   );
 }
