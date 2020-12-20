@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.7rem;
+  padding: 0.7em;
   border-radius: 4px;
   border: 3px solid var(--brand-color-main);
   color: var(--brand-color-main);
@@ -17,11 +17,11 @@
     background-color: var(--brand-color-main);
   }
 
-  @media screen and (min-width: 45rem) {
-    padding: 1rem 2rem;
+  @media screen and (min-width: 45em) {
+    padding: 1em 2em;
   }
 }
 
 .icon {
-  margin-right: 0.5rem;
+  margin-right: 0.5em;
 }
