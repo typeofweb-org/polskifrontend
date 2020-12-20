@@ -1,8 +1,9 @@
-import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
-import type { ChangeEvent } from 'react';
+import { useRouter } from 'next/router';
+import type { ChangeEventHandler } from 'react';
 import { useCallback, memo } from 'react';
 
+import { useDidMount } from '../../hooks/useDidMount';
 import type { HomePageProps } from '../../pages/[displayStyle]';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
@@ -15,12 +16,17 @@ type MainTilesProps = HomePageProps;
 
 export const MainTiles = memo<MainTilesProps>((props) => {
   const router = useRouter();
-  const changeDisplayStyle = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      return router.push(`/${e.currentTarget.value}`, undefined, { shallow: false });
+  const changeDisplayStyle = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    (e) => {
+      return router.replace(`/${e.currentTarget.value}`, undefined, { shallow: false });
     },
     [router],
   );
+
+  useDidMount(() => {
+    void router.prefetch(`/grid`);
+    void router.prefetch(`/list`);
+  });
 
   return (
     <section className={styles.section}>

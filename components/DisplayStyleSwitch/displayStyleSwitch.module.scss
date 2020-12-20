@@ -12,10 +12,24 @@
   }
 
   &:not(:checked) + span {
+    cursor: pointer;
+
     &:hover {
       border: 3px solid var(--gray);
       color: var(--white);
       background-color: var(--gray);
+    }
+  }
+
+  &:focus + span {
+    outline: 2px dashed var(--brand-color-main);
+  }
+  @supports selector(input:focus-within) {
+    &:focus + span {
+      outline: none;
+    }
+    &:focus-within + span {
+      outline: 2px dashed var(--brand-color-main);
     }
   }
 }
@@ -33,7 +47,6 @@
   transition: background 200ms;
   text-transform: uppercase;
   font-weight: 700;
-  cursor: pointer;
 
   @media screen and (min-width: 45em) {
     padding: 1rem 2rem;

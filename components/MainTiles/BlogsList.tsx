@@ -3,13 +3,15 @@ import { memo } from 'react';
 import type { HomePageProps } from '../../pages/[displayStyle]';
 import { ArticleTile } from '../ArticleTile/ArticleTile';
 
+import styles from './blogsList.module.scss';
+
 type BlogsListProps = {
   readonly articles: NonNullable<HomePageProps['articles']>;
 };
 
 export const BlogsList = memo<BlogsListProps>(({ articles }) => {
   return (
-    <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
+    <ul className={styles.list}>
       {articles.map((article) => (
         <li key={article.id}>
           <ArticleTile article={article} blog={article.blog} />
