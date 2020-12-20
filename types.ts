@@ -4,8 +4,8 @@ import type { GetStaticPathsContext, GetStaticPropsContext } from 'next';
 
 import type { HomePageProps } from './pages/[displayStyle]';
 
-export type HomePageBlog = HomePageProps['blogs'][number];
-export type HomePageArticle = HomePageBlog['articles'][number];
+export type HomePageBlog = NonNullable<HomePageProps['blogs']>[number];
+export type HomePageArticle = NonNullable<HomePageBlog['articles']>[number];
 
 // make params more typesafe
 type GetStaticPathsResult2<P extends ParsedUrlQuery = ParsedUrlQuery> = {
