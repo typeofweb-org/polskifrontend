@@ -5,7 +5,7 @@ import { forwardRef, memo } from 'react';
 
 type LinkAnchorProps = LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>;
 
-export const LinkAnchor = memo<LinkAnchorProps>(
+export const LinkAnchor = memo(
   forwardRef<HTMLAnchorElement, LinkAnchorProps>(
     (
       { href, as, replace, scroll, shallow, passHref, prefetch, locale, children, ...anchorProps },
