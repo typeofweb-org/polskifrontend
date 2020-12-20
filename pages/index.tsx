@@ -3,25 +3,14 @@ import type { InferGetStaticPropsType } from 'next';
 import { closeConnection, openConnection } from '../api-helpers/db';
 import { Layout } from '../components/Layout';
 import { MainTiles } from '../components/MainTiles/MainTiles';
+import { createExcerpt } from '../utils/excerpt-utils';
 
-type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
+export type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
+
 export default function HomePage({ blogs }: HomePageProps) {
   return (
     <Layout>
-      <MainTiles />
-      <h1>Siema!</h1>
-      <ul>
-        {blogs.map((blog) => (
-          <li key={blog.id}>
-            {blog.name}
-            <ul>
-              {blog.articles.map((article) => (
-                <li key={article.id}>{article.title}</li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
+      <MainTiles blogs={blogs} />
     </Layout>
   );
 }
@@ -35,7 +24,7 @@ export const getStaticProps = async () => {
     const prisma = await openConnection();
 
     // data for tiles/grid
-    const blogs = await prisma.blog.findMany({
+    const blogsFromDb = await prisma.blog.findMany({
       take: BLOGS_PER_PAGE,
       orderBy: {
         lastUpdateDate: 'desc',
@@ -48,6 +37,18 @@ export const getStaticProps = async () => {
           },
         },
       },
+    });
+
+    const blogs = blogsFromDb.map((blog) => {
+      return {
+        ...blog,
+        articles: blog.articles.map((article) => {
+          return {
+            ...article,
+            excerpt: article.description ? createExcerpt(article.description) : '',
+          };
+        }),
+      };
     });
 
     return { props: { blogs }, revalidate: REVALIDATION_TIME };

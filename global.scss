@@ -1,10 +1,18 @@
 :root {
   --brand-color-main: #5ab783;
   --brand-color-lighter: #{lighten(#5ab783, 20%)};
+  --brand-color-secondary: #e12899;
   --gray: #595959;
   --gray-border: #f2f2f2;
   --gray-shadow: #cccccc;
+  --gray-dark-border: #999999;
   --white: #ffffff;
+  --black: #000000;
+  --black-lighter: #{lighten(#000000, 20%)};
+}
+
+html {
+  line-height: 1.3;
 }
 
 body {
@@ -19,19 +27,20 @@ body {
 a {
   color: var(--brand-color-main);
   text-decoration: none;
+  transition: color 0.2s, outline 0.2s;
 
   &:hover {
     color: var(--brand-color-lighter);
   }
   &:focus {
-    outline: 1px dashed var(--brand-color-main);
+    outline: 2px dashed var(--brand-color-main);
   }
   @supports selector(a:focus-within) {
     &:focus {
       outline: none;
     }
     &:focus-within {
-      outline: 1px dashed var(--brand-color-main);
+      outline: 2px dashed var(--brand-color-main);
     }
   }
 }

@@ -12,32 +12,35 @@ type DisplayStyleSwitchProps = {
 export const DisplayStyleSwitch = memo<DisplayStyleSwitchProps>(({ value, onChange }) => {
   return (
     <div className={styles.container}>
-      <input
-        className={clsx('sr-only', styles.input)}
-        value="GRID"
-        checked={value === 'GRID'}
-        type="radio"
-        name="displayStyle"
-        id="GRID"
-        onChange={onChange}
-      />
-      <label className={styles.label} htmlFor="GRID">
-        <span className="icon-th-large"></span>
-        <span className="sr-only">Display articles as a grid</span>
+      <label>
+        <input
+          className={clsx('sr-only', styles.input)}
+          value="GRID"
+          checked={value === 'GRID'}
+          type="radio"
+          name="displayStyle"
+          onChange={onChange}
+        />
+        <span className={styles.span}>
+          <span className="icon-th-large"></span>
+          <span className="sr-only">Display articles as a grid</span>
+        </span>
       </label>
-      <input
-        className={clsx('sr-only', styles.input)}
-        value="LIST"
-        checked={value === 'LIST'}
-        type="radio"
-        name="displayStyle"
-        id="LIST"
-        onChange={onChange}
-      />
-      <label className={styles.label} htmlFor="LIST">
-        <span className="icon-menu"></span>
-        <span className="sr-only">Display articles as a list</span>
+      <label>
+        <input
+          className={clsx('sr-only', styles.input)}
+          value="LIST"
+          checked={value === 'LIST'}
+          type="radio"
+          name="displayStyle"
+          onChange={onChange}
+        />
+        <span className={styles.span}>
+          <span className="icon-menu"></span>
+          <span className="sr-only">Display articles as a list</span>
+        </span>
       </label>
     </div>
   );
 });
+DisplayStyleSwitch.displayName = 'DisplayStyleSwitch';

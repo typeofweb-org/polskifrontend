@@ -5,13 +5,13 @@
 }
 
 .input {
-  &:checked + label {
+  &:checked + span {
     border: 3px solid var(--brand-color-main);
     color: var(--brand-color-main);
     background-color: var(--white);
   }
 
-  &:not(:checked) + label {
+  &:not(:checked) + span {
     &:hover {
       border: 3px solid var(--gray);
       color: var(--white);
@@ -20,7 +20,7 @@
   }
 }
 
-.label {
+.span {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,16 +1,15 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?waivs1');
-  src:  url('fonts/icomoon.eot?waivs1#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?waivs1') format('truetype'),
-    url('fonts/icomoon.woff?waivs1') format('woff'),
-    url('fonts/icomoon.svg?waivs1#icomoon') format('svg');
+  src: url('fonts/icomoon.ttf?23bc01') format('truetype'),
+    url('fonts/icomoon.woff?23bc01') format('woff'),
+    url('fonts/icomoon.svg?23bc01#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^='icon-'],
+[class*=' icon-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: never;
@@ -20,56 +19,81 @@
   text-transform: none;
   line-height: 1;
 
+  /* Enable Ligatures ================ */
+  letter-spacing: 0;
+  -webkit-font-feature-settings: 'liga';
+  -moz-font-feature-settings: 'liga=1';
+  -moz-font-feature-settings: 'liga';
+  -ms-font-feature-settings: 'liga' 1;
+  font-feature-settings: 'liga';
+  -webkit-font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
+
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-menu:before {
-  content: "\e904";
+.icon-new-tab:before {
+  content: '\e904';
 }
-.icon-th-large:before {
-  content: "\e905";
+.icon-folder-open:before {
+  content: '\e905';
 }
-.icon-question-circle:before {
-  content: "\e900";
-}
-.icon-drawer:before {
-  content: "\e901";
-}
-.icon-box:before {
-  content: "\e901";
-}
-.icon-inbox:before {
-  content: "\e901";
-}
-.icon-archive:before {
-  content: "\e901";
+.icon-directory:before {
+  content: '\e905';
 }
 .icon-category:before {
-  content: "\e901";
+  content: '\e905';
+}
+.icon-browse:before {
+  content: '\e905';
+}
+.icon-drawer:before {
+  content: '\e901';
+}
+.icon-box:before {
+  content: '\e901';
+}
+.icon-inbox:before {
+  content: '\e901';
+}
+.icon-archive:before {
+  content: '\e901';
+}
+.icon-category1:before {
+  content: '\e901';
 }
 .icon-bubble:before {
-  content: "\e902";
+  content: '\e902';
 }
 .icon-comment:before {
-  content: "\e902";
+  content: '\e902';
 }
 .icon-chat:before {
-  content: "\e902";
+  content: '\e902';
 }
 .icon-talk:before {
-  content: "\e902";
+  content: '\e902';
 }
 .icon-facebook:before {
-  content: "\e903";
+  content: '\e903';
 }
 .icon-brand:before {
-  content: "\e903";
+  content: '\e903';
 }
 .icon-social:before {
-  content: "\e903";
+  content: '\e903';
 }
 .icon-plus:before {
-  content: "\ea0a";
+  content: '\ea0a';
+}
+.icon-question-circle:before {
+  content: '\e900';
+}
+.icon-th-large:before {
+  content: '\e906';
+}
+.icon-menu:before {
+  content: '\e907';
 }
