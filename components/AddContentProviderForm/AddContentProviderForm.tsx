@@ -1,4 +1,3 @@
-// import HCaptcha from '@hcaptcha/react-hcaptcha';
 import type { ChangeEventHandler, FormEventHandler } from 'react';
 import { useCallback, useState } from 'react';
 
@@ -10,8 +9,7 @@ import { useFormReducer } from './utils';
 export const AddContentProviderForm = () => {
   const [contentURL, setContentURL] = useState('');
   const [email, setEmail] = useState('');
-  const [token, setToken] = useState<string | null>(null);
-  const { isError, isLoading, isSucces, setIsError, setIsLoading, setIsSuccess } = useFormReducer();
+  const { setIsError, setIsLoading, setIsSuccess } = useFormReducer();
 
   const handleContentURLChange: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     setContentURL(e.currentTarget.value);
@@ -20,11 +18,6 @@ export const AddContentProviderForm = () => {
   const handleEmailAddressChange: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     setEmail(e.currentTarget.value);
   }, []);
-
-  // const handleVerify = (token: string) => {
-  //   @to-do
-  //   setToken(token);
-  // };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -64,13 +57,6 @@ export const AddContentProviderForm = () => {
         type="email"
       />
       <div className={styles.wrapper}>
-        {/* <HCaptcha
-          @to-do
-          This is testing sitekey, will autopass
-          Make sure to replace
-          sitekey="10000000-ffff-ffff-ffff-000000000001"
-          onVerify={handleVerify}
-        /> */}
         <Button type="submit">Zgłoś</Button>
       </div>
     </form>
