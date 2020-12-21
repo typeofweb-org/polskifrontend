@@ -7,10 +7,10 @@ import { useDidMount } from '../../hooks/useDidMount';
 import type { HomePageProps } from '../../pages/[displayStyle]';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
+import { Section } from '../Section/Section';
 
 import { BlogsGrid } from './BlogsGrid';
 import { BlogsList } from './BlogsList';
-import styles from './mainTiles.module.scss';
 
 type MainTilesProps = HomePageProps;
 
@@ -29,22 +29,26 @@ export const MainTiles = memo<MainTilesProps>((props) => {
   });
 
   return (
-    <section className={styles.section}>
-      <h2 className={styles.heading}>Wszystkie artykuły</h2>
-      <div className={styles.container}>
-        <Link href="/zglos-serwis" passHref>
-          <Button as="a" icon="icon-plus">
-            Zgłoś serwis
-          </Button>
-        </Link>
-        <DisplayStyleSwitch value={props.displayStyle} onChange={changeDisplayStyle} />
-      </div>
+    <Section
+      title="Wszystkie artykuły"
+      buttons={
+        <>
+          <Link href="/zglos-serwis" passHref>
+            <Button as="a" icon="icon-plus">
+              Zgłoś serwis
+            </Button>
+          </Link>
+          <DisplayStyleSwitch value={props.displayStyle} onChange={changeDisplayStyle} />
+        </>
+      }
+    >
       {props.displayStyle === 'list' ? (
         <BlogsList articles={props.articles} />
       ) : (
         <BlogsGrid blogs={props.blogs} />
       )}
-    </section>
+    </Section>
   );
 });
+
 MainTiles.displayName = 'MainTiles';
