@@ -65,7 +65,7 @@ export const getArticlesPaginationForGrid = async (prisma: PrismaClient) => {
 export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) => {
   const where = cursor
     ? {
-        id: {
+        createdAt: {
           lt: cursor,
         },
       }
@@ -74,7 +74,7 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
     where,
     take: LIST_ARTICLES_PER_PAGE,
     orderBy: {
-      id: 'desc',
+      createdAt: 'desc',
     },
     include: {
       blog: true,
@@ -82,16 +82,16 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
   });
 
   const lastArticle = last(articles);
-  return { data: articles, nextId: lastArticle?.id };
+  return { data: articles, nextId: lastArticle?.createdAt.toISOString() };
 };
 
 export const getArticlesPaginationForList = async (prisma: PrismaClient) => {
   const articles = await prisma.article.findMany({
     orderBy: {
-      id: 'desc',
+      createdAt: 'desc',
     },
     select: {
-      id: true,
+      createdAt: true,
     },
   });
 
@@ -101,7 +101,7 @@ export const getArticlesPaginationForList = async (prisma: PrismaClient) => {
       return [''];
     }
     if (index % LIST_ARTICLES_PER_PAGE === LIST_ARTICLES_PER_PAGE - 1) {
-      return [article.id];
+      return [article.createdAt.toISOString()];
     }
     return [];
   });

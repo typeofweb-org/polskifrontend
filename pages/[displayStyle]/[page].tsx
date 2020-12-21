@@ -26,7 +26,7 @@ const REVALIDATION_TIME = 15 * 60; // 15 minutes
 
 export const getStaticPaths = async () => {
   try {
-    const prisma = await openConnection();
+    const prisma = openConnection();
 
     const [gridPages, listPages] = await Promise.all([
       await getArticlesPaginationForGrid(prisma),
@@ -51,7 +51,7 @@ export const getStaticProps = async ({
   params,
 }: InferGetStaticPropsContext<typeof getStaticPaths>) => {
   try {
-    const prisma = await openConnection();
+    const prisma = openConnection();
 
     if (params?.displayStyle === 'list') {
       const { data: articlesFromDb, nextId } = await getArticlesForList(prisma, params?.page);
