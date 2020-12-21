@@ -4,6 +4,12 @@ export const TILES_BLOGS_PER_PAGE = 4;
 export const TILES_ARTICLES_PER_BLOG = 5;
 export const LIST_ARTICLES_PER_PAGE = 20;
 
+function last<T extends readonly R[], R>(arr: readonly [R, ...T]): R;
+function last<T>(arr: readonly T[]): T | undefined;
+function last<T>(arr: readonly T[]): T | undefined {
+  return arr[arr.length - 1];
+}
+
 export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) => {
   const where = cursor
     ? {
@@ -29,8 +35,8 @@ export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) 
     },
   });
 
-  const lastBlog = blogs[blogs.length - 1];
-  return { data: blogs.slice(0, TILES_BLOGS_PER_PAGE), nextId: lastBlog?.updatedAt.toISOString() };
+  const lastBlog = last(blogs);
+  return { data: blogs, nextId: lastBlog?.updatedAt.toISOString() };
 };
 
 export const getArticlesPaginationForGrid = async (prisma: PrismaClient) => {
@@ -75,7 +81,7 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
     },
   });
 
-  const lastArticle = articles[articles.length - 1];
+  const lastArticle = last(articles);
   return { data: articles, nextId: lastArticle?.id };
 };
 

@@ -47,7 +47,7 @@ export const openConnection = async () => {
         dstPort: 5432,
         localPort: 8543,
         privateKey: getConfig('SSH_PRIVATE_KEY'),
-        keepAlive: true,
+        // keepAlive: true,
         // keepaliveCountMax: 1,
       },
       (err, server) => {

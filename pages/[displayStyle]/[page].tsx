@@ -38,8 +38,6 @@ export const getStaticPaths = async () => {
       ...listPages.map((page) => ({ params: { displayStyle: 'list' as const, page } })),
     ];
 
-    console.log({ gridPages });
-
     return {
       paths: paths,
       fallback: false,
