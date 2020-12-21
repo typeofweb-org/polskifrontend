@@ -7,16 +7,18 @@ type ButtonProps = {
   readonly as?: 'a' | 'button';
   readonly icon?: string;
   readonly children?: React.ReactNode;
+  readonly type?: string;
   readonly disabled?: boolean;
   readonly onClick?: () => void;
   readonly href?: string;
 };
 
 export const Button = memo<ButtonProps>(
-  forwardRef(({ as: As = 'button', icon, children, onClick, disabled, href }, ref) => {
+  forwardRef((props, ref) => {
+    const { as: As = 'button', icon, children, ...restProps } = props;
     return (
       // @ts-ignore
-      <As className={styles.button} onClick={onClick} disabled={disabled} ref={ref} href={href}>
+      <As className={styles.button} ref={ref} {...restProps}>
         {icon && <span className={clsx(icon, children && styles.icon)}></span>}
         {children}
       </As>

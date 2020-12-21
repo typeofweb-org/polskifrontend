@@ -1,0 +1,15 @@
+.section {
+  max-width: 73rem;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.heading {
+  padding: 2rem 0 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--gray-border);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--gray-text);
+  font-size: 1.25rem;
+}
