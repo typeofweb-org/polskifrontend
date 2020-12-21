@@ -37,3 +37,5 @@ export const AboutNote = () => (
     </p>
   </article>
 );
+
+AboutNote.displayName = 'AboutNote';
