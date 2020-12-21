@@ -13,6 +13,4 @@ config.rewrites = async () => {
   ];
 };
 
-config.target = 'serverless';
-
 module.exports = config;
