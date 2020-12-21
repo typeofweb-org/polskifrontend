@@ -4,31 +4,100 @@ export const TILES_BLOGS_PER_PAGE = 4;
 export const TILES_ARTICLES_PER_BLOG = 5;
 export const LIST_ARTICLES_PER_PAGE = 20;
 
-export const getArticlesForGrid = (prisma: PrismaClient) => {
-  return prisma.blog.findMany({
+export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) => {
+  const where = cursor
+    ? {
+        updatedAt: {
+          lt: cursor,
+        },
+      }
+    : {};
+
+  const blogs = await prisma.blog.findMany({
+    where,
     take: TILES_BLOGS_PER_PAGE,
     orderBy: {
-      lastUpdateDate: 'desc',
+      updatedAt: 'desc',
     },
     include: {
       articles: {
         take: TILES_ARTICLES_PER_BLOG,
         orderBy: {
-          publishedAt: 'desc',
+          updatedAt: 'desc',
         },
       },
     },
   });
+
+  const lastBlog = blogs[blogs.length - 1];
+  return { data: blogs.slice(0, TILES_BLOGS_PER_PAGE), nextId: lastBlog?.updatedAt.toISOString() };
 };
 
-export const getArticlesForList = (prisma: PrismaClient) => {
-  return prisma.article.findMany({
+export const getArticlesPaginationForGrid = async (prisma: PrismaClient) => {
+  const blogs = await prisma.blog.findMany({
+    orderBy: {
+      updatedAt: 'desc',
+    },
+    select: {
+      updatedAt: true,
+    },
+  });
+
+  const pages = blogs.flatMap((blog, index) => {
+    if (index === 0) {
+      // default, first page
+      return [''];
+    }
+    if (index % TILES_BLOGS_PER_PAGE === TILES_BLOGS_PER_PAGE - 1) {
+      return [blog.updatedAt.toISOString()];
+    }
+    return [];
+  });
+  return pages;
+};
+
+export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) => {
+  const where = cursor
+    ? {
+        id: {
+          lt: cursor,
+        },
+      }
+    : {};
+  const articles = await prisma.article.findMany({
+    where,
     take: LIST_ARTICLES_PER_PAGE,
     orderBy: {
-      publishedAt: 'desc',
+      id: 'desc',
     },
     include: {
       blog: true,
     },
   });
+
+  const lastArticle = articles[articles.length - 1];
+  return { data: articles, nextId: lastArticle?.id };
+};
+
+export const getArticlesPaginationForList = async (prisma: PrismaClient) => {
+  const articles = await prisma.article.findMany({
+    orderBy: {
+      id: 'desc',
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  const pages = articles.flatMap((article, index) => {
+    if (index === 0) {
+      // default, first page
+      return [''];
+    }
+    if (index % LIST_ARTICLES_PER_PAGE === LIST_ARTICLES_PER_PAGE - 1) {
+      return [article.id];
+    }
+    return [];
+  });
+  return pages;
 };

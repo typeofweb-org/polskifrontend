@@ -8,7 +8,7 @@ config.rewrites = async () => {
   return [
     {
       source: '/',
-      destination: '/grid',
+      destination: '/grid/',
     },
   ];
 };

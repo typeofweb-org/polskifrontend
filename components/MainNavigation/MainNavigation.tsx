@@ -3,9 +3,7 @@ import Link from 'next/link';
 import styles from './mainNavigation.module.scss';
 
 const links = [
-  { label: 'Aktualności', href: '/aktualnosci', openInNewTab: false, icon: 'inbox' },
   { label: 'O serwisie', href: '/o-serwisie', openInNewTab: false, icon: 'question-circle' },
-  { label: 'Zgłoś uwagi', href: '/zglos-uwagi', openInNewTab: false, icon: 'comment' },
   {
     label: 'Facebook',
     href: 'https://facebook.com/polskifrontend',
