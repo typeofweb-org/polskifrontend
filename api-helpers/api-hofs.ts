@@ -42,7 +42,7 @@ export const withValidation = <
 };
 
 export const withAsync = (
-  handler: (req: NextApiRequest, res: NextApiResponse) => Promise<unknown>,
+  handler: (req: NextApiRequest, res: NextApiResponse) => Promise<unknown> | unknown,
 ): NextApiHandler => async (req, res) => {
   try {
     await openConnection();

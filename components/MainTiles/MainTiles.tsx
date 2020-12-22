@@ -4,7 +4,7 @@ import type { ChangeEventHandler } from 'react';
 import { useCallback, memo } from 'react';
 
 import { useDidMount } from '../../hooks/useDidMount';
-import type { HomePageProps } from '../../pages/[displayStyle]';
+import type { HomePageProps } from '../../pages/[displayStyle]/[cursor]';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
 
@@ -31,7 +31,7 @@ export const MainTiles = memo<MainTilesProps>((props) => {
   return (
     <section className={styles.section}>
       <h2 className={styles.heading}>Wszystkie artykuły</h2>
-      <div className={styles.container}>
+      <div className={styles.buttons}>
         <Link href="/zglos-serwis" passHref>
           <Button as="a" icon="icon-plus">
             Zgłoś serwis
@@ -44,7 +44,15 @@ export const MainTiles = memo<MainTilesProps>((props) => {
       ) : (
         <BlogsGrid blogs={props.blogs} />
       )}
+      {props.nextCursor && (
+        <Link passHref href={`/${props.displayStyle}/${props.nextCursor}`}>
+          <Button className={styles.nextPageButton} as="a">
+            Następna strona
+          </Button>
+        </Link>
+      )}
     </section>
   );
 });
+
 MainTiles.displayName = 'MainTiles';

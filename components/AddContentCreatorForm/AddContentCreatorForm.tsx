@@ -34,6 +34,17 @@ export const AddContentCreatorForm = () => {
     setToken(null);
   }, []);
 
+  if (!process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY) {
+    return (
+      <div className={styles.errorContainer}>
+        <span>
+          Wystąpił błąd po stronie serwera, jeśli ten problem będzie się utrzymywał, proszę
+          skontaktuj się z administratorem serwisu.
+        </span>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <label className={styles.label}>
@@ -63,7 +74,7 @@ export const AddContentCreatorForm = () => {
       </label>
       <div className={styles.wrapper}>
         <HCaptcha
-          sitekey={process.env.CAPTCHA_SITE_KEY as string}
+          sitekey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY}
           onVerify={setToken}
           onExpire={handleCaptchaExpire}
           onError={handleCaptchaError}

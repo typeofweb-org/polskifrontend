@@ -2,7 +2,7 @@ import type { ParsedUrlQuery } from 'querystring';
 
 import type { GetStaticPathsContext, GetStaticPropsContext } from 'next';
 
-import type { HomePageProps } from './pages/[displayStyle]';
+import type { HomePageProps } from './pages/[displayStyle]/[cursor]';
 
 export type HomePageBlog = NonNullable<HomePageProps['blogs']>[number];
 export type HomePageArticle = NonNullable<HomePageBlog['articles']>[number];
@@ -20,3 +20,9 @@ export type InferGetStaticPathsResult<T> = T extends (
   : never;
 
 export type InferGetStaticPropsContext<T> = GetStaticPropsContext<InferGetStaticPathsResult<T>>;
+
+export type InferGetStaticPropsType2<T> = T extends (
+  ...args: readonly any[]
+) => Promise<{ readonly props: infer P }>
+  ? NonNullable<P>
+  : never;

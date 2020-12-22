@@ -1,77 +1,40 @@
-import type { Server } from 'net';
-
 import { PrismaClient } from '@prisma/client';
-import type { PrismaClientOptions } from '@prisma/client/runtime';
-import TcpPortUsed from 'tcp-port-used';
-import Tunnel from 'tunnel-ssh';
 
-import { getConfig } from './config';
-import { logger } from './logger';
-
-export const prisma = new PrismaClient({
-  __internal: { useUds: true },
-} as PrismaClientOptions);
+const getHerokuDBCredentials = async () => {
+  const res = await fetch(`https://api.heroku.com/apps/polskifrontend/config-vars`, {
+    headers: {
+      Accept: 'application/vnd.heroku+json; version=3',
+      Authorization: `Bearer ${process.env.HEROKU_API_KEY!}`,
+    },
+  });
+  return res.json() as Promise<{ readonly DATABASE_URL: string }>;
+};
 
 let mutableOpenConnections = 0;
-let mutableServer: Server | undefined;
+let mutablePrisma: PrismaClient | undefined;
+export const openConnection = async () => {
+  if (!mutablePrisma) {
+    if (process.env.HEROKU_API_KEY) {
+      mutablePrisma = new PrismaClient({
+        datasources: {
+          db: {
+            url: (await getHerokuDBCredentials()).DATABASE_URL + '?connection_limit=5',
+          },
+        },
+      });
+    } else {
+      mutablePrisma = new PrismaClient();
+    }
+  }
+
+  ++mutableOpenConnections;
+  return mutablePrisma;
+};
 
 export const closeConnection = () => {
   --mutableOpenConnections;
   if (mutableOpenConnections === 0) {
-    mutableServer?.close((err) => err && logger.error(err));
-    return prisma.$disconnect();
+    return mutablePrisma?.$disconnect();
   }
   return undefined;
-};
-
-export const openConnection = async () => {
-  ++mutableOpenConnections;
-  if (
-    mutableOpenConnections > 1 ||
-    !getConfig('SSH_PRIVATE_KEY').includes('-----BEGIN RSA PRIVATE KEY-----')
-  ) {
-    return prisma;
-  }
-
-  if (await TcpPortUsed.check(8543, '127.0.0.1')) {
-    logger.info('PORT IN USE');
-    return prisma;
-  }
-
-  return new Promise<PrismaClient>((resolve, reject) => {
-    Tunnel(
-      {
-        username: 'typeofweb',
-        host: 's18.mydevil.net',
-        dstHost: 'pgsql18.mydevil.net',
-        dstPort: 5432,
-        localPort: 8543,
-        privateKey: getConfig('SSH_PRIVATE_KEY'),
-        keepAlive: true,
-        // keepaliveCountMax: 1,
-      },
-      (err, server) => {
-        if (err) {
-          // logger.error({ err });
-          // return reject(err);
-        }
-        mutableServer = server;
-
-        server.on('error', (err) => {
-          if (
-            err?.message === 'This socket has been ended by the other party' ||
-            err?.message === 'read ECONNRESET'
-          ) {
-            // return logger.info(err);
-          }
-          // return logger.error(err);
-        });
-
-        prisma
-          .$connect()
-          .then(() => resolve(prisma))
-          .catch((err) => reject(err));
-      },
-    );
-  });
 };

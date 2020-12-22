@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import type { HomePageProps } from '../../pages/[displayStyle]';
+import type { HomePageProps } from '../../pages/[displayStyle]/[cursor]';
 import { ArticleTile } from '../ArticleTile/ArticleTile';
 
 type BlogsGridProps = {
