@@ -18,7 +18,7 @@ export const openConnection = async () => {
       mutablePrisma = new PrismaClient({
         datasources: {
           db: {
-            url: (await getHerokuDBCredentials()).DATABASE_URL,
+            url: (await getHerokuDBCredentials()).DATABASE_URL + '?connection_limit=5',
           },
         },
       });
