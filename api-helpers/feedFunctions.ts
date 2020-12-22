@@ -6,7 +6,7 @@ import { EMPTY, from, of } from 'rxjs';
 import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
 
-import { prisma } from './db';
+import { closeConnection, openConnection } from './db';
 import { logger } from './logger';
 import { streamToRx } from './rxjs-utils';
 
@@ -118,37 +118,42 @@ const getNewArticlesForBlog = (now: Date) => (blog: Blog) => {
 };
 
 export const updateFeeds = async () => {
+  const prisma = await openConnection();
   const blogs = await prisma.blog.findMany();
   const now = new Date();
 
   logger.info(`Found blogs in SQL database ${blogs.length}`);
-  return from(blogs)
-    .pipe(
-      mergeMap(getNewArticlesForBlog(now), MAX_CONCURRENCY),
-      mergeMap((article) =>
-        from(prisma.article.create({ data: article })).pipe(
-          map((article) => article.blogId),
-          catchError((err: Error) => {
-            logger.error(err, `Database error`);
-            return of(article.blog.connect!.id!);
-          }),
+  try {
+    return await from(blogs)
+      .pipe(
+        mergeMap(getNewArticlesForBlog(now), MAX_CONCURRENCY),
+        mergeMap((article) =>
+          from(prisma.article.create({ data: article })).pipe(
+            map((article) => article.blogId),
+            catchError((err: Error) => {
+              logger.error(err, `Database error`);
+              return of(article.blog.connect!.id!);
+            }),
+          ),
         ),
-      ),
-      groupBy((blogId) => blogId),
-      mergeMap((val) => val.pipe(last())),
-      mergeMap((blogId) => {
-        logger.info(`Updating blog ${blogId}`);
-        return from(
-          prisma.blog.update({
-            where: {
-              id: blogId,
-            },
-            data: {
-              lastUpdateDate: now,
-            },
-          }),
-        );
-      }),
-    )
-    .toPromise();
+        groupBy((blogId) => blogId),
+        mergeMap((val) => val.pipe(last())),
+        mergeMap((blogId) => {
+          logger.info(`Updating blog ${blogId}`);
+          return from(
+            prisma.blog.update({
+              where: {
+                id: blogId,
+              },
+              data: {
+                lastUpdateDate: now,
+              },
+            }),
+          );
+        }),
+      )
+      .toPromise();
+  } finally {
+    await closeConnection();
+  }
 };

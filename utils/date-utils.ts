@@ -14,3 +14,8 @@ export function isToday(date: Date) {
 export function isThisWeek(date: Date) {
   return Date.now() - date.getTime() < ms('1 week');
 }
+
+const isoDateRegExp = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
+export function isIsoDate(str: string) {
+  return isoDateRegExp.test(str);
+}

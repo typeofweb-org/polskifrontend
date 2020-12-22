@@ -8,11 +8,9 @@ config.rewrites = async () => {
   return [
     {
       source: '/',
-      destination: '/grid',
+      destination: '/grid/',
     },
   ];
 };
-
-config.target = 'serverless';
 
 module.exports = config;
