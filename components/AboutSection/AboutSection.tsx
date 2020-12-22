@@ -13,7 +13,7 @@ export const AboutSection = () => (
       </Link>
     </div>
     <article className={styles.note}>
-      <h2>Po co jest ten serwis?</h2>
+      <h3>Po co jest ten serwis?</h3>
       <p>
         Serwis <strong>Polski Front-End</strong> powstał w celu zebrania w jednym miejscu jak
         największej liczby stron, serwisów oraz blogów na temat szeroko rozumianego front-end
