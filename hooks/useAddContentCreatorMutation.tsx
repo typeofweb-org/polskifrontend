@@ -5,7 +5,7 @@ import { addContentCreator } from '../utils/api/addContentCreator';
 
 type Status = 'idle' | 'loading' | 'error' | 'success';
 
-export const useContentCreatorMutate = () => {
+export const useAddContentCreatorMutation = () => {
   const [status, setStatus] = useState<Status>('idle');
 
   const mutate = useCallback(async (body: ContentCreatorReqBody) => {

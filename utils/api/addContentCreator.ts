@@ -4,12 +4,9 @@ export type ContentCreatorReqBody = {
   readonly captchaToken: string;
 };
 
-export const addContentCreator = ({ contentURL, email }: ContentCreatorReqBody) => {
-  return fetch('https://www.polskifrontend.pl/api/content-creator', {
+export const addContentCreator = (requestBody: ContentCreatorReqBody) => {
+  return fetch(`${process.env.NEXT_PUBLIC_API_URL as string}/content-creator`, {
     method: 'POST',
-    body: JSON.stringify({
-      contentURL,
-      email,
-    }),
+    body: JSON.stringify(requestBody),
   });
 };
