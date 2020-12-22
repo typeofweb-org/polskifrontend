@@ -1,5 +1,8 @@
 import type { PrismaClient } from '@prisma/client';
 
+import { isIsoDate } from '../utils/date-utils';
+
+import { HTTPNotFound } from './errors';
 import { dangerously_decrypt, dangerously_encrypt } from './unsafe-encryption';
 
 export const TILES_BLOGS_PER_PAGE = 4;
@@ -13,10 +16,16 @@ function last<T>(arr: readonly T[]): T | undefined {
 }
 
 export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) => {
-  const where = cursor
+  const date = cursor && dangerously_decrypt(cursor);
+
+  if (date && !isIsoDate(date)) {
+    throw new HTTPNotFound();
+  }
+
+  const where = date
     ? {
         updatedAt: {
-          lt: dangerously_decrypt(cursor),
+          lt: date,
         },
       }
     : {};
@@ -64,10 +73,16 @@ export const getArticlesPaginationForGrid = async (prisma: PrismaClient) => {
 };
 
 export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) => {
-  const where = cursor
+  const date = cursor && dangerously_decrypt(cursor);
+
+  if (date && !isIsoDate(date)) {
+    throw new HTTPNotFound();
+  }
+
+  const where = date
     ? {
         createdAt: {
-          lt: dangerously_decrypt(cursor),
+          lt: date,
         },
       }
     : {};

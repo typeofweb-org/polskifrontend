@@ -17,7 +17,11 @@ export const dangerously_encrypt = (text: string) => {
  */
 export const dangerously_decrypt = (text: string) => {
   const decipher = crypto.createDecipheriv('aes-128-ctr', ENCRYPTION_KEY, IV);
-  return decodeURIComponent(
-    Buffer.concat([decipher.update(text, 'base64'), decipher.final()]).toString('utf8'),
-  );
+  try {
+    return decodeURIComponent(
+      Buffer.concat([decipher.update(text, 'base64'), decipher.final()]).toString('utf8'),
+    );
+  } catch {
+    return 'Invalid Cursor';
+  }
 };

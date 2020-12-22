@@ -1,5 +1,3 @@
-import type { InferGetStaticPropsType } from 'next';
-
 import {
   getArticlesForList,
   getArticlesForGrid,
@@ -7,12 +5,13 @@ import {
   getArticlesPaginationForList,
 } from '../../api-helpers/articles';
 import { closeConnection, openConnection } from '../../api-helpers/db';
+import { HTTPNotFound } from '../../api-helpers/errors';
 import { Layout } from '../../components/Layout';
 import { MainTiles } from '../../components/MainTiles/MainTiles';
-import type { InferGetStaticPropsContext } from '../../types';
+import type { InferGetStaticPropsContext, InferGetStaticPropsType2 } from '../../types';
 import { addExcerptToArticle } from '../../utils/excerpt-utils';
 
-export type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
+export type HomePageProps = InferGetStaticPropsType2<typeof getStaticProps>;
 
 export default function HomePage(props: HomePageProps) {
   return (
@@ -67,12 +66,17 @@ export const getStaticProps = async ({
       return {
         ...blog,
         articles: blog.articles.map(addExcerptToArticle),
-      };
+      } as const;
     });
     return {
       props: { blogs, displayStyle: 'grid' as const, cursor },
       revalidate: REVALIDATION_TIME,
-    };
+    } as const;
+  } catch (err) {
+    if (err instanceof HTTPNotFound) {
+      return { props: undefined, notFound: true as const };
+    }
+    throw err;
   } finally {
     await closeConnection();
   }

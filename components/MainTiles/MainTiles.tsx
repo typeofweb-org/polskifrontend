@@ -4,7 +4,7 @@ import type { ChangeEventHandler } from 'react';
 import { useCallback, memo } from 'react';
 
 import { useDidMount } from '../../hooks/useDidMount';
-import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
+import type { HomePageProps } from '../../pages/[displayStyle]/[cursor]';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
 
