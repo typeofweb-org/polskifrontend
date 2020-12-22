@@ -1,0 +1,93 @@
+import HCaptcha from '@hcaptcha/react-hcaptcha';
+import clsx from 'clsx';
+import type { ChangeEventHandler, FormEventHandler } from 'react';
+import { useCallback, useState } from 'react';
+
+import { useContentCreatorMutate } from '../../hooks/useContentCreatorMutate';
+import { Button } from '../Button/Button';
+
+import styles from './addContentCreatorForm.module.scss';
+
+export const AddContentCreatorForm = () => {
+  const [fields, setFields] = useState({ contentURL: '', email: '' });
+  const [token, setToken] = useState<string | null>(null);
+  const [mutate, status] = useContentCreatorMutate();
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(({ currentTarget }) => {
+    setFields((fields) => ({ ...fields, [currentTarget.name]: currentTarget.value }));
+  }, []);
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    if (token) {
+      void mutate({ ...fields, captchaToken: token });
+      setToken(null);
+    }
+  };
+
+  const handleCaptchaExpire = useCallback(() => {
+    setToken(null);
+  }, []);
+  const handleCaptchaError = useCallback(() => {
+    setToken(null);
+  }, []);
+
+  return (
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <label className={styles.label}>
+        Adres URL
+        <input
+          className={styles.input}
+          value={fields.contentURL}
+          name="contentURL"
+          onChange={handleChange}
+          placeholder="Podaj adres URL"
+          type="url"
+        />
+        <span className={styles.errorMessage}>Wprowadzony adres URL jest nieprawidłowy</span>
+      </label>
+      <label className={styles.label}>
+        Adres email (opcjonalne)
+        <input
+          className={styles.input}
+          value={fields.email}
+          name="email"
+          onChange={handleChange}
+          placeholder="Podaj swój email (opcjonalne)"
+          type="email"
+        />
+        <span className={styles.errorMessage}>Wprowadzony adres email jest nieprawidłowy</span>
+      </label>
+      <div className={styles.wrapper}>
+        <HCaptcha
+          sitekey="10000000-ffff-ffff-ffff-000000000001"
+          onVerify={setToken}
+          onExpire={handleCaptchaExpire}
+          onError={handleCaptchaError}
+        />
+        <Button type="submit">Zgłoś</Button>
+      </div>
+      {status === 'loading' && (
+        <div className={styles.statusContainer}>
+          <span className={clsx(styles.statusIcon, 'icon-spinner')}></span>
+          <span>Oczekiwanie...</span>
+        </div>
+      )}
+      {status === 'error' && (
+        <div className={styles.statusContainer}>
+          <span className={clsx(styles.statusIcon, 'icon-error')}></span>
+          <span>
+            Wystąpił błąd podczas dodawania nowego serwisu, sprawdź poprawność danych i spróbuj
+            ponownie
+          </span>
+        </div>
+      )}
+      {status === 'success' && (
+        <div className={styles.statusContainer}>
+          <span className={clsx(styles.statusIcon, 'icon-checkmark')}></span>
+          <span>Dodawanie serwisu powiodło się, dziękujemy za współpracę</span>
+        </div>
+      )}
+    </form>
+  );
+};

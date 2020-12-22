@@ -9,6 +9,7 @@
   --white: #ffffff;
   --black: #000000;
   --black-lighter: #{lighten(#000000, 20%)};
+  --error-color: #f16262;
 }
 
 html {

@@ -1,10 +1,10 @@
-import { AddContentProviderSection } from '../components/AddContentProviderSection/AddContentProviderSection';
+import { AddContentCreatorSection } from '../components/AddContentCreatorSection/AddContentCreatorSection';
 import { Layout } from '../components/Layout';
 
-export default function AddContentProviderPage() {
+export default function AddContentCreatorPage() {
   return (
     <Layout>
-      <AddContentProviderSection />
+      <AddContentCreatorSection />
     </Layout>
   );
 }

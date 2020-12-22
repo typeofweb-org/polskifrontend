@@ -16,17 +16,32 @@
   }
 }
 
+.label {
+  display: block;
+  margin: 0.5rem 0;
+  color: var(--black-lighter);
+}
+
+.errorMessage {
+  display: none;
+  color: var(--error-color);
+  font-size: 0.9rem;
+}
+
 .input {
   width: 100%;
   padding: 0.75rem 1rem;
-  margin: 0.65rem 0;
+  margin: 0.25rem 0;
   border-radius: 5px;
   border: 1px solid var(--gray-dark-border);
-}
 
+  &:invalid + .errorMessage {
+    display: inline-block;
+  }
+}
 .wrapper {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   margin-top: 1.5rem;
 
   @media screen and (min-width: 30rem) {
@@ -34,4 +49,15 @@
     justify-content: space-between;
     align-items: flex-end;
   }
+}
+
+.statusContainer {
+  padding: 0.5rem;
+  border-radius: 3px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.statusIcon {
+  margin-right: 0.75rem;
 }

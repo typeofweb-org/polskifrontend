@@ -1,11 +1,11 @@
 import Link from 'next/link';
 
-import { AddContentProviderForm } from '../AddContentProviderForm/AddContentProviderForm';
+import { AddContentCreatorForm } from '../AddContentCreatorForm/AddContentCreatorForm';
 import { Button } from '../Button/Button';
 
-import styles from './addContentProviderSection.module.css';
+import styles from './addContentCreatorSection.module.css';
 
-export const AddContentProviderSection = () => {
+export const AddContentCreatorSection = () => {
   return (
     <section className={styles.section}>
       <h2 className={styles.heading}>Zgłoś Serwis</h2>
@@ -14,7 +14,7 @@ export const AddContentProviderSection = () => {
           Strona główna
         </Button>
       </Link>
-      <AddContentProviderForm />
+      <AddContentCreatorForm />
     </section>
   );
 };
