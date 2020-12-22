@@ -1,7 +1,7 @@
 import { withAsync } from '../../api-helpers/api-hofs';
-import { prisma } from '../../api-helpers/db';
 
 export default withAsync((_req) => {
-  return prisma.$queryRaw('SELECT 1 + 1;');
+  return null;
+  // return prisma.$queryRaw('SELECT 1 + 1;');
   // return prisma.$queryRaw('SELECT * FROM "User";');
 });

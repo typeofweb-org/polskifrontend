@@ -26,7 +26,7 @@ const REVALIDATION_TIME = 15 * 60; // 15 minutes
 
 export const getStaticPaths = async () => {
   try {
-    const prisma = openConnection();
+    const prisma = await openConnection();
 
     const [gridPages, listPages] = await Promise.all([
       await getArticlesPaginationForGrid(prisma),
@@ -51,18 +51,18 @@ export const getStaticProps = async ({
   params,
 }: InferGetStaticPropsContext<typeof getStaticPaths>) => {
   try {
-    const prisma = openConnection();
+    const prisma = await openConnection();
 
     if (params?.displayStyle === 'list') {
-      const { data: articlesFromDb, nextId } = await getArticlesForList(prisma, params?.page);
+      const { data: articlesFromDb, cursor } = await getArticlesForList(prisma, params?.page);
       const articles = articlesFromDb.map(addExcerptToArticle);
       return {
-        props: { articles, displayStyle: 'list' as const, nextId },
+        props: { articles, displayStyle: 'list' as const, cursor },
         revalidate: REVALIDATION_TIME,
       };
     }
 
-    const { data: blogsFromDb, nextId } = await getArticlesForGrid(prisma, params?.page);
+    const { data: blogsFromDb, cursor } = await getArticlesForGrid(prisma, params?.page);
     const blogs = blogsFromDb.map((blog) => {
       return {
         ...blog,
@@ -70,7 +70,7 @@ export const getStaticProps = async ({
       };
     });
     return {
-      props: { blogs, displayStyle: 'grid' as const, nextId },
+      props: { blogs, displayStyle: 'grid' as const, cursor },
       revalidate: REVALIDATION_TIME,
     };
   } finally {

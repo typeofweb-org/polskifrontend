@@ -1,5 +1,7 @@
 import type { PrismaClient } from '@prisma/client';
 
+import { dangerously_decrypt, dangerously_encrypt } from './unsafe-encryption';
+
 export const TILES_BLOGS_PER_PAGE = 4;
 export const TILES_ARTICLES_PER_BLOG = 5;
 export const LIST_ARTICLES_PER_PAGE = 20;
@@ -14,7 +16,7 @@ export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) 
   const where = cursor
     ? {
         updatedAt: {
-          lt: cursor,
+          lt: dangerously_decrypt(cursor),
         },
       }
     : {};
@@ -36,7 +38,10 @@ export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) 
   });
 
   const lastBlog = last(blogs);
-  return { data: blogs, nextId: lastBlog?.updatedAt.toISOString() };
+  return {
+    data: blogs,
+    cursor: lastBlog?.updatedAt && dangerously_encrypt(lastBlog?.updatedAt.toISOString()),
+  };
 };
 
 export const getArticlesPaginationForGrid = async (prisma: PrismaClient) => {
@@ -62,7 +67,7 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
   const where = cursor
     ? {
         createdAt: {
-          lt: cursor,
+          lt: dangerously_decrypt(cursor),
         },
       }
     : {};
@@ -78,7 +83,10 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
   });
 
   const lastArticle = last(articles);
-  return { data: articles, nextId: lastArticle?.createdAt.toISOString() };
+  return {
+    data: articles,
+    cursor: lastArticle?.createdAt && dangerously_encrypt(lastArticle?.createdAt.toISOString()),
+  };
 };
 
 export const getArticlesPaginationForList = async (prisma: PrismaClient) => {
