@@ -23,10 +23,18 @@
   }
 }
 
-.nextPageButton {
+.note {
+  padding: 1.5rem;
   margin: 1rem;
+  background-color: var(--white);
+  border-left: 3px solid var(--gray-dark-border);
+  border-radius: 3px;
+  box-shadow: 1px 1px 6px 1px var(--gray-shadow);
+  overflow-wrap: break-word;
+  line-height: 1.6;
 
   @media screen and (min-width: 45em) {
-    margin: 2rem 2rem 1rem 2rem;
+    padding: 2rem;
+    margin: 2rem;
   }
 }

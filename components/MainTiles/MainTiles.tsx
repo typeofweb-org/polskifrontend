@@ -31,7 +31,7 @@ export const MainTiles = memo<MainTilesProps>((props) => {
   return (
     <section className={styles.section}>
       <h2 className={styles.heading}>Wszystkie artykuły</h2>
-      <div className={styles.container}>
+      <div className={styles.buttons}>
         <Link href="/zglos-serwis" passHref>
           <Button as="a" icon="icon-plus">
             Zgłoś serwis
@@ -54,4 +54,5 @@ export const MainTiles = memo<MainTilesProps>((props) => {
     </section>
   );
 });
+
 MainTiles.displayName = 'MainTiles';
