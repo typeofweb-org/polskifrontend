@@ -54,13 +54,13 @@ export const getArticlesPaginationForGrid = async (prisma: PrismaClient) => {
     },
   });
 
-  const pages = blogs.flatMap((blog, index) => {
+  const cursors = blogs.flatMap((blog, index) => {
     if (index % TILES_BLOGS_PER_PAGE === TILES_BLOGS_PER_PAGE - 1) {
       return [dangerously_encrypt(blog.updatedAt.toISOString())];
     }
     return [];
   });
-  return pages;
+  return cursors;
 };
 
 export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) => {
@@ -99,11 +99,11 @@ export const getArticlesPaginationForList = async (prisma: PrismaClient) => {
     },
   });
 
-  const pages = articles.flatMap((article, index) => {
+  const cursors = articles.flatMap((article, index) => {
     if (index % LIST_ARTICLES_PER_PAGE === LIST_ARTICLES_PER_PAGE - 1) {
       return [dangerously_encrypt(article.createdAt.toISOString())];
     }
     return [];
   });
-  return pages;
+  return cursors;
 };

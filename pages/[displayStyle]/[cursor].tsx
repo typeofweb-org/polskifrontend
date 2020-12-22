@@ -28,14 +28,14 @@ export const getStaticPaths = async () => {
   try {
     const prisma = await openConnection();
 
-    const [gridPages, listPages] = await Promise.all([
+    const [gridCursors, listCursors] = await Promise.all([
       await getArticlesPaginationForGrid(prisma),
       await getArticlesPaginationForList(prisma),
     ]);
 
     const paths = [
-      ...gridPages.map((page) => ({ params: { displayStyle: 'grid' as const, page } })),
-      ...listPages.map((page) => ({ params: { displayStyle: 'list' as const, page } })),
+      ...gridCursors.map((cursor) => ({ params: { displayStyle: 'grid' as const, cursor } })),
+      ...listCursors.map((cursor) => ({ params: { displayStyle: 'list' as const, cursor } })),
     ];
 
     return {
@@ -54,7 +54,7 @@ export const getStaticProps = async ({
     const prisma = await openConnection();
 
     if (params?.displayStyle === 'list') {
-      const { data: articlesFromDb, cursor } = await getArticlesForList(prisma, params?.page);
+      const { data: articlesFromDb, cursor } = await getArticlesForList(prisma, params?.cursor);
       const articles = articlesFromDb.map(addExcerptToArticle);
       return {
         props: { articles, displayStyle: 'list' as const, cursor },
@@ -62,7 +62,7 @@ export const getStaticProps = async ({
       };
     }
 
-    const { data: blogsFromDb, cursor } = await getArticlesForGrid(prisma, params?.page);
+    const { data: blogsFromDb, cursor } = await getArticlesForGrid(prisma, params?.cursor);
     const blogs = blogsFromDb.map((blog) => {
       return {
         ...blog,
