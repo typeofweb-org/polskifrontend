@@ -53,15 +53,15 @@ export const getStaticProps = async ({
     const prisma = await openConnection();
 
     if (params?.displayStyle === 'list') {
-      const { data: articlesFromDb, cursor } = await getArticlesForList(prisma, params?.cursor);
+      const { data: articlesFromDb, nextCursor } = await getArticlesForList(prisma, params?.cursor);
       const articles = articlesFromDb.map(addExcerptToArticle);
       return {
-        props: { articles, displayStyle: 'list' as const, cursor },
+        props: { articles, displayStyle: 'list' as const, nextCursor },
         revalidate: REVALIDATION_TIME,
       };
     }
 
-    const { data: blogsFromDb, cursor } = await getArticlesForGrid(prisma, params?.cursor);
+    const { data: blogsFromDb, nextCursor } = await getArticlesForGrid(prisma, params?.cursor);
     const blogs = blogsFromDb.map((blog) => {
       return {
         ...blog,
@@ -69,7 +69,7 @@ export const getStaticProps = async ({
       } as const;
     });
     return {
-      props: { blogs, displayStyle: 'grid' as const, cursor },
+      props: { blogs, displayStyle: 'grid' as const, nextCursor },
       revalidate: REVALIDATION_TIME,
     } as const;
   } catch (err) {

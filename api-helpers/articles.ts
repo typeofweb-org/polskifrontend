@@ -49,7 +49,7 @@ export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) 
   const lastBlog = last(blogs);
   return {
     data: blogs,
-    cursor: lastBlog?.updatedAt && dangerously_encrypt(lastBlog?.updatedAt.toISOString()),
+    nextCursor: lastBlog?.updatedAt && dangerously_encrypt(lastBlog?.updatedAt.toISOString()),
   };
 };
 
@@ -100,7 +100,7 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
   const lastArticle = last(articles);
   return {
     data: articles,
-    cursor: lastArticle?.createdAt && dangerously_encrypt(lastArticle?.createdAt.toISOString()),
+    nextCursor: lastArticle?.createdAt && dangerously_encrypt(lastArticle?.createdAt.toISOString()),
   };
 };
 

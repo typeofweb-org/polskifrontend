@@ -44,8 +44,8 @@ export const MainTiles = memo<MainTilesProps>((props) => {
       ) : (
         <BlogsGrid blogs={props.blogs} />
       )}
-      {props.cursor && (
-        <Link passHref href={`/${props.displayStyle}/${props.cursor}`}>
+      {props.nextCursor && (
+        <Link passHref href={`/${props.displayStyle}/${props.nextCursor}`}>
           <Button className={styles.nextPageButton} as="a">
             Następna strona
           </Button>
