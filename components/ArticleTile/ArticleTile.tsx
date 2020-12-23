@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import Link from 'next/link';
 
 import type { HomePageArticle, HomePageBlog } from '../../types';
@@ -8,11 +9,13 @@ import style from './articleTile.module.scss';
 type ArticleTileProps = {
   readonly article: HomePageArticle;
   readonly blog: Omit<HomePageBlog, 'articles'>;
+  readonly truncate?: boolean;
 };
 
 export const ArticleTile = ({
   article: { title, publishedAt, excerpt, href, slug },
   blog: { name: blogName, favicon },
+  truncate,
 }: ArticleTileProps) => {
   const dateTime = publishedAt.toISOString();
   const readableDate = formatDate(publishedAt);
@@ -33,7 +36,7 @@ export const ArticleTile = ({
           </time>
         </p>
       </header>
-      <p className={style.excerpt}>{excerpt}</p>
+      <p className={clsx(truncate && style.excerpt)}>{excerpt}</p>
       <footer className={style.footer}>
         <ul className={style.footerList}>
           <li className={style.footerItem}>

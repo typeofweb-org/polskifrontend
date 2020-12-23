@@ -30,7 +30,7 @@ export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
           <ul className={styles.articles}>
             {blog.articles.map((article) => (
               <li key={article.id} className={styles.gridItem}>
-                <ArticleTile article={article} blog={blog} />
+                <ArticleTile article={article} blog={blog} truncate />
               </li>
             ))}
           </ul>
