@@ -12,7 +12,7 @@ type BlogsGridProps = {
 export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
   return (
     <ul className={styles.blogsGrid}>
-      {blogs.map((blog, i) => (
+      {blogs.map((blog) => (
         <Fragment key={blog.id}>
           <li className={styles.gridItem}>
             <h3 className={styles.blogHeader}>
