@@ -65,8 +65,7 @@ model Blog {
 
   articles Article[]
   
-  addedById String
-  addedBy User @relation(fields: [addedById], references: [id])
+  isPublic Boolean @default(false)
    
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
