@@ -3,8 +3,6 @@ import { parse } from 'url';
 type Nil<T> = T | null | undefined;
 
 type NameToType = {
-  readonly COOKIE_DOMAIN: string;
-  readonly COOKIE_PASSWORD: string;
   readonly DATABASE_URL: string;
   readonly DB_HOSTNAME: string;
   readonly DB_NAME: string;
@@ -12,10 +10,8 @@ type NameToType = {
   readonly DB_USERNAME: string;
   readonly ENV: 'production' | 'staging' | 'development' | 'test';
   readonly FEED_UPDATE_SECRET: string;
-  readonly HOST: string;
+  readonly NEXT_PUBLIC_URL: string;
   readonly NODE_ENV: 'production' | 'development';
-  readonly PORT: number;
-  readonly SSH_PRIVATE_KEY: string;
 };
 
 function getConfigForName<T extends keyof NameToType>(name: T): Nil<NameToType[T]>;
@@ -28,8 +24,6 @@ function getConfigForName(name: keyof NameToType): Nil<NameToType[keyof NameToTy
       return val || 'development';
     case 'ENV':
       return val || 'development';
-    case 'PORT':
-      return Number.parseInt(val?.trim() || '3000', 10);
     case 'DB_USERNAME':
       return val || parsed.auth?.split(':')[0];
     case 'DB_PASSWORD':
@@ -38,8 +32,6 @@ function getConfigForName(name: keyof NameToType): Nil<NameToType[keyof NameToTy
       return val || parsed.pathname?.slice(1);
     case 'DB_HOSTNAME':
       return val || parsed.hostname;
-    case 'SSH_PRIVATE_KEY':
-      return JSON.parse(val!) as string;
   }
   return val;
 }
