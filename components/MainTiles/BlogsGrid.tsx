@@ -24,7 +24,7 @@ export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
                 height={26}
                 width={26}
               />
-              {' ' + blog.name}
+              {blog.name}
             </a>
           </h3>
           <ul className={styles.articles}>
