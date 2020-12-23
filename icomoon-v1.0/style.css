@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'icomoon';
-  src: url('fonts/icomoon.ttf?q7agot') format('truetype'),
-    url('fonts/icomoon.woff?q7agot') format('woff'),
-    url('fonts/icomoon.svg?q7agot#icomoon') format('svg');
+  src: url('fonts/icomoon.ttf?6m694c') format('truetype'),
+    url('fonts/icomoon.woff?6m694c') format('woff'),
+    url('fonts/icomoon.svg?6m694c#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -34,9 +34,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-menu:before {
-  content: '\e907';
-}
 .icon-new-tab:before {
   content: '\e904';
 }
@@ -88,13 +85,16 @@
 .icon-social:before {
   content: '\e903';
 }
+.icon-spinner6:before {
+  content: '\e97f';
+}
 .icon-plus:before {
   content: '\ea0a';
 }
-.icon-arrow-left2:before {
-  content: '\ea40';
+.icon-checkmark:before {
+  content: '\ea10';
 }
-.icon-back:before {
+.icon-arrow-left2:before {
   content: '\ea40';
 }
 .icon-question-circle:before {
@@ -102,4 +102,10 @@
 }
 .icon-th-large:before {
   content: '\e906';
+}
+.icon-error:before {
+  content: '\e908';
+}
+.icon-menu:before {
+  content: '\e907';
 }

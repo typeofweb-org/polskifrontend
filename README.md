@@ -2,7 +2,7 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -34,6 +34,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/takatejr"><img src="https://avatars3.githubusercontent.com/u/58137383?v=4?s=70" width="70px;" alt=""/><br /><sub><b>takatejr</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/pulls?q=is%3Apr+reviewed-by%3Atakatejr" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/wisnie"><img src="https://avatars3.githubusercontent.com/u/47081011?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Bartłomiej Wiśniewski</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=wisnie" title="Code">💻</a> <a href="https://github.com/typeofweb/polskifrontend/pulls?q=is%3Apr+reviewed-by%3Awisnie" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 

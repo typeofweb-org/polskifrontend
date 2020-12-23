@@ -7,6 +7,7 @@ type ButtonProps = {
   readonly as?: 'a' | 'button';
   readonly icon?: string;
   readonly children?: React.ReactNode;
+  readonly type?: string;
   readonly disabled?: boolean;
   readonly className?: string;
   readonly onClick?: () => void;
