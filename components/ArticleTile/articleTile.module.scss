@@ -1,7 +1,6 @@
 .articleTile {
   border-left: 3px solid var(--gray-dark-border);
   padding: 1.5rem;
-  margin: 1rem;
   text-align: left;
   position: relative;
   background: #fff;
@@ -9,10 +8,12 @@
   border-radius: 3px;
   min-height: 259px;
   overflow-wrap: break-word;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 
   @media screen and (min-width: 45em) {
     padding: 2rem;
-    margin: 2rem;
   }
 }
 .articleTitle {

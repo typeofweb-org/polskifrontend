@@ -1,0 +1,38 @@
+.blogsGrid {
+  list-style-type: none;
+  padding: 1rem;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+
+  @media screen and (min-width: 55em) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); // Prevent "grid blowout"
+    grid-auto-flow: column;
+  }
+
+  @media screen and (min-width: 45em) {
+    gap: 2rem;
+    padding: 2rem;
+  }
+}
+
+@media screen and (min-width: 55em) {
+  @for $i from 7 through 12 {
+    .gridItem:nth-child(12n + #{$i}) {
+      grid-column: 2;
+    }
+  }
+}
+
+.blogHeader {
+  text-align: center;
+  font-size: 1.3em;
+  margin: 0;
+  border-bottom: 2px solid var(--gray-border);
+  padding-bottom: 0.5rem;
+}
+
+.favicon {
+  vertical-align: top;
+  margin-right: 0.3rem;
+}
