@@ -12,7 +12,7 @@ type ButtonProps = {
   readonly className?: string;
   readonly onClick?: () => void;
   readonly href?: string;
-  readonly iconPosition?: 'right' | 'left';
+  readonly iconPosition: 'right' | 'left';
 };
 
 export const Button = memo<ButtonProps>(
