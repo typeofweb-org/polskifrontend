@@ -1,4 +1,5 @@
-import { Fragment, memo } from 'react';
+import clsx from 'clsx';
+import { memo } from 'react';
 
 import type { HomePageProps } from '../../pages/[displayStyle]/[cursor]';
 import { ArticleTile } from '../ArticleTile/ArticleTile';
@@ -13,27 +14,27 @@ export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
   return (
     <ul className={styles.blogsGrid}>
       {blogs.map((blog) => (
-        <Fragment key={blog.id}>
-          <li className={styles.gridItem}>
-            <h3 className={styles.blogHeader}>
-              <a href={blog.href} target="_blank" rel="noreferrer">
-                <img
-                  src={blog.favicon || undefined}
-                  alt=""
-                  className={styles.favicon}
-                  height={26}
-                  width={26}
-                />
-                {' ' + blog.name}
-              </a>
-            </h3>
-          </li>
-          {blog.articles.map((article) => (
-            <li key={article.id} className={styles.gridItem}>
-              <ArticleTile article={article} blog={blog} />
-            </li>
-          ))}
-        </Fragment>
+        <li className={styles.blog} key={blog.id}>
+          <h3 className={clsx(styles.gridItem, styles.blogHeader)}>
+            <a href={blog.href} target="_blank" rel="noreferrer">
+              <img
+                src={blog.favicon || undefined}
+                alt=""
+                className={styles.favicon}
+                height={26}
+                width={26}
+              />
+              {' ' + blog.name}
+            </a>
+          </h3>
+          <ul className={styles.articles}>
+            {blog.articles.map((article) => (
+              <li key={article.id} className={styles.gridItem}>
+                <ArticleTile article={article} blog={blog} />
+              </li>
+            ))}
+          </ul>
+        </li>
       ))}
     </ul>
   );

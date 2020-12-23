@@ -5,23 +5,34 @@
   display: grid;
   gap: 1rem;
 
-  @media screen and (min-width: 55em) {
-    grid-template-columns: repeat(2, minmax(0, 1fr)); // Prevent "grid blowout"
-    grid-auto-flow: column;
-  }
-
   @media screen and (min-width: 45em) {
     gap: 2rem;
     padding: 2rem;
   }
+
+  @media screen and (min-width: 55em) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); // Prevent "grid blowout"
+    grid-auto-flow: column dense;
+  }
 }
 
-@media screen and (min-width: 55em) {
-  @for $i from 7 through 12 {
-    .gridItem:nth-child(12n + #{$i}) {
-      grid-column: 2;
+.blog {
+  display: contents;
+
+  @media screen and (min-width: 55em) {
+    &:nth-child(2n) {
+      .gridItem {
+        grid-column: 2;
+      }
     }
   }
+}
+
+.articles {
+  list-style-type: none;
+  display: contents;
+  margin: 0;
+  padding: 0;
 }
 
 .blogHeader {

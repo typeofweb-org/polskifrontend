@@ -33,7 +33,7 @@ export const ArticleTile = ({
           </time>
         </p>
       </header>
-      <p>{excerpt}</p>
+      <p className={style.excerpt}>{excerpt}</p>
       <footer className={style.footer}>
         <ul className={style.footerList}>
           <li className={style.footerItem}>
