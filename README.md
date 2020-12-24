@@ -1,4 +1,11 @@
-# Polski Frontend
+<img src="public/logo.svg" alt="Polski Frontend">
+<p align="center">
+<br />
+  <a href="https://vercel.com?utm_source=typeofweb&utm_campaign=oss"><img src="public/powered-by-vercel.svg" height="30" alt="Powered by Vercel"/></a>
+  <br />
+  <br />
+  <br />
+</p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
