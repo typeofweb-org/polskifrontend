@@ -12,12 +12,15 @@ type ButtonProps = {
   readonly className?: string;
   readonly onClick?: () => void;
   readonly href?: string;
-  readonly iconPosition: 'right' | 'left';
+  readonly iconPosition?: 'right' | 'left';
 };
 
 export const Button = memo<ButtonProps>(
   forwardRef(
-    ({ as: As = 'button', icon, children, className = '', iconPosition = 'left', ...props }, ref) => {
+    (
+      { as: As = 'button', icon, children, className = '', iconPosition = 'left', ...props },
+      ref,
+    ) => {
       return (
         <As
           className={clsx(
