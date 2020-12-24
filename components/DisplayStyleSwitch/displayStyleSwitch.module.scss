@@ -24,11 +24,11 @@
   &:focus + span {
     outline: 2px dashed var(--brand-color-main);
   }
-  @supports selector(input:focus-within) {
+  @supports selector(input:focus-visible) {
     &:focus + span {
       outline: none;
     }
-    &:focus-within + span {
+    &:focus-visible + span {
       outline: 2px dashed var(--brand-color-main);
     }
   }

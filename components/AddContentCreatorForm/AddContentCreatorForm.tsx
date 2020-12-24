@@ -12,9 +12,11 @@ export const AddContentCreatorForm = () => {
   const [fields, setFields] = useState({ contentURL: '', email: '' });
   const [token, setToken] = useState<string | null>(null);
   const [mutate, status] = useAddContentCreatorMutation();
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const captchaRef = useRef<null | HCaptcha>(null);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(({ currentTarget }) => {
+    setTouched((touched) => ({ ...touched, [currentTarget.name]: true }));
     setFields((fields) => ({ ...fields, [currentTarget.name]: currentTarget.value }));
   }, []);
 
@@ -23,6 +25,8 @@ export const AddContentCreatorForm = () => {
     if (token) {
       void mutate({ ...fields, captchaToken: token });
       setToken(null);
+      setTouched({});
+      setFields({ contentURL: '', email: '' });
       captchaRef.current?.resetCaptcha();
     }
   };
@@ -58,7 +62,9 @@ export const AddContentCreatorForm = () => {
           required
           type="url"
         />
-        <span className={styles.errorMessage}>Wprowadzony adres URL jest nieprawidłowy</span>
+        {touched['contentURL'] && (
+          <span className={styles.errorMessage}>Wprowadzony adres URL jest nieprawidłowy</span>
+        )}
       </label>
       <label className={styles.label}>
         Adres email (opcjonalne)
@@ -70,7 +76,9 @@ export const AddContentCreatorForm = () => {
           placeholder="Podaj swój email (opcjonalne)"
           type="email"
         />
-        <span className={styles.errorMessage}>Wprowadzony adres email jest nieprawidłowy</span>
+        {touched['email'] && (
+          <span className={styles.errorMessage}>Wprowadzony adres email jest nieprawidłowy</span>
+        )}
       </label>
       <div className={styles.wrapper}>
         <HCaptcha

@@ -36,11 +36,11 @@ a {
   &:focus {
     outline: 2px dashed var(--brand-color-main);
   }
-  @supports selector(a:focus-within) {
+  @supports selector(a:focus-visible) {
     &:focus {
       outline: none;
     }
-    &:focus-within {
+    &:focus-visible {
       outline: 2px dashed var(--brand-color-main);
     }
   }
