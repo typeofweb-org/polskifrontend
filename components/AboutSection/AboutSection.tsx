@@ -9,7 +9,7 @@ export const AboutSection = () => (
     <h2 className={styles.heading}>O serwisie</h2>
     <div className={styles.buttons}>
       <Link href="/" passHref>
-        <Button icon="icon-back">Strona Główna</Button>
+        <Button icon="icon-arrow-left2">Strona Główna</Button>
       </Link>
     </div>
     <article className={styles.note}>

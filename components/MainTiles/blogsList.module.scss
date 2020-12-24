@@ -1,5 +1,12 @@
 .list {
-  padding: 0;
-  margin: 0;
   list-style-type: none;
+  margin: 0;
+  display: grid;
+  padding: 1rem;
+  gap: 1rem;
+
+  @media screen and (min-width: 45em) {
+    padding: 2rem;
+    gap: 2rem;
+  }
 }

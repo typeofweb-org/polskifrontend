@@ -17,6 +17,15 @@
     background-color: var(--brand-color-main);
   }
 
+  &IconRight {
+    flex-direction: row-reverse;
+
+    .icon {
+      margin-right: 0;
+      margin-left: 0.5rem;
+    }
+  }
+
   @media screen and (min-width: 45em) {
     padding: 1rem 2rem;
   }
