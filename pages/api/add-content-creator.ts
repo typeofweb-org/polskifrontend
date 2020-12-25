@@ -9,7 +9,7 @@ export default withAsync(
   withValidation({
     body: object({
       email: string().optional(),
-      contentURL: string().required(),
+      contentURL: string().required().url(),
       captchaToken: string().required(),
     }).required(),
   })(async (req) => {
