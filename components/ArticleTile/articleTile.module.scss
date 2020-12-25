@@ -6,11 +6,10 @@
   background: #fff;
   box-shadow: 1px 1px 6px 1px var(--gray-shadow);
   border-radius: 3px;
-  min-height: 259px;
-  overflow-wrap: break-word;
-  height: 100%;
   display: grid;
   grid-template-rows: auto auto 1fr;
+  word-break: break-word;
+  height: 100%;
 
   @media screen and (min-width: 45em) {
     padding: 2rem;
