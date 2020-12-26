@@ -14,5 +14,5 @@ jobs:
           -X 'PATCH' \
           -H 'content-type: text/plain;charset=UTF-8' \
           --data-binary '{"secret":"'$FEED_UPDATE_SECRET'"}' \
-          --compressed
+          --compressed \
           --fail
