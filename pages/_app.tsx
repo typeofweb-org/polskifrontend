@@ -19,11 +19,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           type: 'website',
           title: meta.title,
           locale: 'pl_PL',
-          url: 'https://polskifrontend.vercel.app',
+          url: process.env.NEXT_PUBLIC_URL,
           description: meta.description,
           images: [
             {
-              url: 'https://polskifrontend.vercel.app/logo.jpg',
+              url: `${process.env.NEXT_PUBLIC_URL!}/logo.png`,
               width: 1280,
               height: 399,
             },
