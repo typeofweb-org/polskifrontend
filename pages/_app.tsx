@@ -20,11 +20,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           type: 'website',
           title: meta.title,
           locale: 'pl_PL',
-          url: process.env.NEXT_PUBLIC_URL,
+          url: `https://${process.env.NEXT_PUBLIC_URL!}`,
           description: meta.description,
           images: [
             {
-              url: `${process.env.NEXT_PUBLIC_URL!}/logo.png`,
+              url: `https://${process.env.NEXT_PUBLIC_URL!}/logo.png`,
               width: 1280,
               height: 399,
             },
