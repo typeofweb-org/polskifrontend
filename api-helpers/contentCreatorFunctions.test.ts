@@ -55,6 +55,26 @@ describe('getFeedUrl return valid url when', () => {
       'https://example.com/path/feed/',
     );
   });
+  it('link href starts with / and baseUrl has path', () => {
+    expect(getFeedUrl('https://example.com/second', '/path/feed')).toBe(
+      'https://example.com/path/feed',
+    );
+  });
+  it('link href starts with / and ends with slash and baseUrl has path', () => {
+    expect(getFeedUrl('https://example.com/second', '/path/feed/')).toBe(
+      'https://example.com/path/feed/',
+    );
+  });
+  it('link href starts with / and baseUrl ends with slash and baseUrl has path', () => {
+    expect(getFeedUrl('https://example.com/second/', '/path/feed')).toBe(
+      'https://example.com/path/feed',
+    );
+  });
+  it('link href starts with / and ends with slash and baseUrl ends with slash and baseUrl has path', () => {
+    expect(getFeedUrl('https://example.com/second/', '/path/feed/')).toBe(
+      'https://example.com/path/feed/',
+    );
+  });
   it('link href is relative', () => {
     expect(getFeedUrl('https://example.com/second/half', 'path/feed')).toBe(
       'https://example.com/second/path/feed',
