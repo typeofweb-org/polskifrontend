@@ -38,13 +38,8 @@ export const addContentCreator = async (url: string, email?: string) => {
       },
     });
   } catch (e) {
-    if (isPrismaError(e)) {
-      switch (e.code) {
-        case 'P2002':
-          throw Boom.conflict();
-        default:
-          throw Boom.badRequest();
-      }
+    if (isPrismaError(e) && e.code === 'P2002') {
+      throw Boom.conflict();
     }
     throw Boom.badRequest();
   } finally {
