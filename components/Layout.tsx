@@ -9,10 +9,11 @@ import styles from './layout.module.scss';
 
 type LayoutProps = {
   readonly children: ReactNode;
-  readonly title?: string;
+  readonly title: string;
+  readonly titleTemplate?: string;
 };
 
-export const Layout = ({ children, title }: LayoutProps) => {
+export const Layout = ({ children, title, titleTemplate }: LayoutProps) => {
   return (
     <div className={styles.wrapper}>
       <header>
@@ -22,7 +23,7 @@ export const Layout = ({ children, title }: LayoutProps) => {
       <main>{children}</main>
       <Footer />
       <CookiesPopup />
-      <NextSeo title={title && `${title} | Polski Front-End`} openGraph={{ title }} />
+      <NextSeo title={title} titleTemplate={titleTemplate} openGraph={{ title }} />
     </div>
   );
 };

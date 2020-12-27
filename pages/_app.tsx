@@ -19,6 +19,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <DefaultSeo
         title={meta.title}
         description={meta.description}
+        titleTemplate="%s | Polski Frontend"
         openGraph={{
           type: 'website',
           title: meta.title,

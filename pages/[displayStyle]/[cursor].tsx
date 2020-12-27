@@ -15,7 +15,7 @@ export type HomePageProps = InferGetStaticPropsType2<typeof getStaticProps>;
 
 export default function HomePage(props: HomePageProps) {
   return (
-    <Layout>
+    <Layout title="Polski Frontend" titleTemplate={'%s'}>
       <MainTiles {...props} />
     </Layout>
   );
