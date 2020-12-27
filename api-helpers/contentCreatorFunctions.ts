@@ -1,7 +1,7 @@
 import { URL } from 'url';
 
 import Boom from '@hapi/boom';
-import cheerio from 'cheerio';
+import Cheerio from 'cheerio';
 import Slugify from 'slugify';
 
 import { closeConnection, openConnection } from './db';
@@ -21,40 +21,97 @@ type Feed = {
   readonly title: string;
 };
 
-export const addContentCreator = async (url: string) => {
+export const addContentCreator = async (url: string, email?: string) => {
   try {
     const prisma = await openConnection();
     const blogData = await getBlogData(url);
     return await prisma.blog.create({
-      data: { ...blogData, lastUpdateDate: NEVER, slug: Slugify(blogData.name, { lower: true }) },
+      data: {
+        ...blogData,
+        lastUpdateDate: NEVER,
+        slug: Slugify(blogData.name, { lower: true }),
+        creatorEmail: email,
+      },
     });
   } finally {
     await closeConnection();
   }
 };
 
-const getBlogData = async (url: string): Promise<BlogData> => {
-  const youtubeRss = getYoutubeRss(url);
+const getBlogData = (url: string): Promise<BlogData> => {
+  const youtubeRss = getYouTubeRss(url);
   if (youtubeRss) {
-    const response = await fetch(youtubeRss);
-    const xmlText = await response.text();
-    if (xmlText) {
-      const $ = cheerio.load(xmlText);
-      return {
-        name: getBlogName($),
-        href: url,
-        favicon:
-          (await getYoutubeChannelImageSource(url)) ||
-          'https://www.youtube.com/s/desktop/d743f786/img/favicon_48.png',
-        rss: youtubeRss,
-      };
-    }
-    throw Boom.badData();
+    return getBlogDataForYouTubeRss(url, youtubeRss);
   }
+  return getBlogDataForUrl(url);
+};
+
+export const getYouTubeRss = (url: string) => {
+  const regex = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/gm;
+  const isYoutubeUrl = regex.test(url);
+
+  if (isYoutubeUrl) {
+    return getYouTubeChannelFeedUrl(url);
+  }
+  return undefined;
+};
+
+const getYouTubeChannelFeedUrl = (url: string) => {
+  if (getYouTubeChannelIdFromUrl(url)) {
+    return `https://www.youtube.com/feeds/videos.xml?channel_id=${
+      getYouTubeChannelIdFromUrl(url) as string
+    }`;
+  }
+  if (getYouTubeUserFromUrl(url)) {
+    return `https://www.youtube.com/feeds/videos.xml?user=${getYouTubeUserFromUrl(url) as string}`;
+  }
+  return undefined;
+};
+
+const getYouTubeChannelIdFromUrl = (url: string) => {
+  const urlWithoutParams = getUrlWithoutParams(url);
+  const hasChannelId = Boolean(urlWithoutParams.split('channel/')[1]);
+  if (hasChannelId) {
+    const channelId = urlWithoutParams.split('channel/')[1].split('/')[0];
+    return channelId;
+  }
+  return undefined;
+};
+
+const getYouTubeUserFromUrl = (url: string) => {
+  const urlWithoutParams = getUrlWithoutParams(url);
+  const hasUser = Boolean(urlWithoutParams.split('user/')[1]);
+  if (hasUser) {
+    const user = urlWithoutParams.split('user/')[1].split('/')[0];
+    return user;
+  }
+  return undefined;
+};
+
+const getUrlWithoutParams = (url: string) => {
+  return url.split('?')[0];
+};
+
+const getBlogDataForYouTubeRss = async (url: string, youtubeRss: string) => {
+  const response = await fetch(youtubeRss);
+  const xmlText = await response.text();
+  if (xmlText) {
+    const $ = Cheerio.load(xmlText);
+    return {
+      name: getBlogName($),
+      href: url,
+      favicon: 'https://www.youtube.com/s/desktop/d743f786/img/favicon_48.png',
+      rss: youtubeRss,
+    };
+  }
+  throw Boom.badData();
+};
+
+const getBlogDataForUrl = async (url: string) => {
   const response = await fetch(url);
   const htmlText = await response.text();
   if (htmlText) {
-    const $ = cheerio.load(htmlText);
+    const $ = Cheerio.load(htmlText);
     const feeds = searchFeed(url, $);
     const rssFeedUrl = feeds[0].url;
     const blogData = await getBlogDataFromRss(rssFeedUrl);
@@ -69,51 +126,6 @@ const getBlogData = async (url: string): Promise<BlogData> => {
   }
 
   throw Boom.badData();
-};
-
-const getYoutubeRss = (url: string) => {
-  const regex = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/gm;
-  const isYoutubeUrl = regex.test(url);
-
-  if (isYoutubeUrl) {
-    return getYouTubeChannelFeedUrl(url);
-  }
-  return undefined;
-};
-
-const getYouTubeChannelFeedUrl = (url: string) => {
-  if (getYouTubeChannelIdFromUrl(url)) {
-    return `https://www.youtube.com/feeds/videos.xml?channel_id=${getYouTubeChannelIdFromUrl(url)}`;
-  }
-  if (getYouTubeUserIdFromUrl(url)) {
-    return `https://www.youtube.com/feeds/videos.xml?user=${getYouTubeUserIdFromUrl(url)}`;
-  }
-  return undefined;
-};
-
-const getYouTubeChannelIdFromUrl = (url: string) => {
-  const urlWithoutParams = getUrlWithoutParams(url);
-  return urlWithoutParams.split('channel/')[1].split('/')[0];
-};
-
-const getYouTubeUserIdFromUrl = (url: string) => {
-  const urlWithoutParams = getUrlWithoutParams(url);
-  return urlWithoutParams.split('user/')[1].split('/')[0];
-};
-
-const getUrlWithoutParams = (url: string) => {
-  return url.split('?')[0];
-};
-
-const getYoutubeChannelImageSource = async (url: string) => {
-  const response = await fetch(url);
-  const htmlText = await response.text();
-  if (htmlText) {
-    const $ = cheerio.load(htmlText);
-    return $('yt-img-shadow img').attr('src');
-  }
-
-  return undefined;
 };
 
 const RSS_LINK_TYPES = [
@@ -157,7 +169,7 @@ const getBlogDataFromRss = async (rssUrl: string) => {
   const response = await fetch(rssUrl);
   const xmlText = await response.text();
   if (xmlText) {
-    const $ = cheerio.load(xmlText);
+    const $ = Cheerio.load(xmlText);
     return {
       name: getBlogName($),
       favicon: getFavicon($),

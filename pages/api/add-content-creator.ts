@@ -16,17 +16,15 @@ export default withAsync(
     if (req.method !== 'POST') {
       throw Boom.notFound();
     }
-    try {
-      const isTokenValid = await verify(
-        process.env.CAPTCHA_SECRET_KEY as string,
-        req.body.captchaToken,
-      );
-      if (!isTokenValid) {
-        throw Boom.unauthorized();
-      }
-    } catch (err) {
-      throw Boom.isBoom(err) ? err : Boom.unauthorized();
+
+    const isTokenValid = await verify(
+      process.env.CAPTCHA_SECRET_KEY as string,
+      req.body.captchaToken,
+    );
+    if (!isTokenValid) {
+      throw Boom.unauthorized();
     }
+
     await addContentCreator(req.body.contentURL, req.body.email);
     return null;
   }),

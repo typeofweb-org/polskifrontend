@@ -1,4 +1,4 @@
-import { getFeedUrl } from './contentCreatorFunctions';
+import { getFeedUrl, getYoutubeRss } from './contentCreatorFunctions';
 
 describe('getFeedUrl return valid url when', () => {
   it('link href starts with https', () => {
@@ -111,5 +111,43 @@ describe('getFeedUrl return valid url when', () => {
     expect(getFeedUrl('https://example.com/', '//example.com/feed.xml')).toBe(
       'https://example.com/feed.xml',
     );
+  });
+});
+
+describe('getYoutubeRss', () => {
+  it('returns valid rss url when given url with channelId', () => {
+    expect(getYoutubeRss('https://www.youtube.com/channel/UC_QG8miwKHFNuWY9VpkrI8w')).toBe(
+      'https://www.youtube.com/feeds/videos.xml?channel_id=UC_QG8miwKHFNuWY9VpkrI8w',
+    );
+  });
+  it('returns valid rss url when given url with channelId and additional path', () => {
+    expect(getYoutubeRss('https://www.youtube.com/channel/UC_QG8miwKHFNuWY9VpkrI8w/videos')).toBe(
+      'https://www.youtube.com/feeds/videos.xml?channel_id=UC_QG8miwKHFNuWY9VpkrI8w',
+    );
+  });
+  it('returns valid rss url when given url with channelId and other additional path', () => {
+    expect(getYoutubeRss('https://www.youtube.com/channel/UC_QG8miwKHFNuWY9VpkrI8w/about')).toBe(
+      'https://www.youtube.com/feeds/videos.xml?channel_id=UC_QG8miwKHFNuWY9VpkrI8w',
+    );
+  });
+  it('returns valid rss url when given url with userId', () => {
+    expect(getYoutubeRss('https://www.youtube.com/user/chopin8810')).toBe(
+      'https://www.youtube.com/feeds/videos.xml?user=chopin8810',
+    );
+  });
+  it('returns valid rss url when given url with userId and additional path', () => {
+    expect(getYoutubeRss('https://www.youtube.com/user/chopin8810/videos')).toBe(
+      'https://www.youtube.com/feeds/videos.xml?user=chopin8810',
+    );
+  });
+  it('returns valid rss url when given url with userId and other additional path', () => {
+    expect(getYoutubeRss('https://www.youtube.com/user/chopin8810/about')).toBe(
+      'https://www.youtube.com/feeds/videos.xml?user=chopin8810',
+    );
+  });
+  it('return undefined when given url without channelId or userId', () => {
+    expect(
+      getYoutubeRss('https://www.youtube.com/watch?v=pHlqEvAwdVc&list=RDpHlqEvAwdVc&start_radio=1'),
+    ).toBe(undefined);
   });
 });
