@@ -4,6 +4,7 @@ import '../icomoon-v1.0/style.css';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 const meta = {
   title: 'Polski Frontend',
@@ -11,6 +12,8 @@ const meta = {
 };
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const { pathname } = useRouter();
+
   return (
     <>
       <DefaultSeo
@@ -20,7 +23,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           type: 'website',
           title: meta.title,
           locale: 'pl_PL',
-          url: `https://${process.env.NEXT_PUBLIC_URL!}`,
+          url: 'https://' + process.env.NEXT_PUBLIC_URL! + pathname,
           description: meta.description,
           images: [
             {
