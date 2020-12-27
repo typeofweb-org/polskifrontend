@@ -88,7 +88,17 @@
         "code",
         "review"
       ]
+    },
+    {
+      "login": "poulch",
+      "name": "poulch",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/16362049?v=4",
+      "profile": "https://github.com/poulch",
+      "contributions": [
+        "review"
+      ]
     }
   ],
-  "contributorsPerLine": 3
+  "contributorsPerLine": 3,
+  "skipCi": true
 }
