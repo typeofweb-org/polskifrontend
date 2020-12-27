@@ -32,6 +32,7 @@ export default function HomePage(props: HomePageProps) {
 }
 
 export const REVALIDATION_TIME = 15 * 60; // 15 minutes
+const MAX_PAGES = 5;
 
 export const getStaticPaths = async () => {
   try {
@@ -43,8 +44,12 @@ export const getStaticPaths = async () => {
     ]);
 
     const paths = [
-      ...gridCursors.map((cursor) => ({ params: { displayStyle: 'grid' as const, cursor } })),
-      ...listCursors.map((cursor) => ({ params: { displayStyle: 'list' as const, cursor } })),
+      ...gridCursors
+        .map((cursor) => ({ params: { displayStyle: 'grid' as const, cursor } }))
+        .slice(0, MAX_PAGES),
+      ...listCursors
+        .map((cursor) => ({ params: { displayStyle: 'list' as const, cursor } }))
+        .slice(0, MAX_PAGES),
     ];
 
     return {
