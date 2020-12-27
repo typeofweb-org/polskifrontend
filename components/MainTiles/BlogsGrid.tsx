@@ -16,13 +16,13 @@ export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
       {blogs.map((blog) => (
         <li className={styles.blog} key={blog.id}>
           <h3 className={clsx(styles.gridItem, styles.blogHeader)}>
-            <a href={blog.href} target="_blank" rel="noreferrer">
+            <a href={blog.href} target="_blank" rel="noopener noreferrer">
               <img
                 src={blog.favicon || undefined}
                 alt=""
                 className={styles.favicon}
-                height={26}
-                width={26}
+                height={16}
+                width={16}
               />
               {blog.name}
             </a>
