@@ -1,6 +1,8 @@
 import { NextSeo } from 'next-seo';
 import type { ReactNode } from 'react';
 
+import { titleTemplate as defaultTitleTemplate } from '../pages/_app';
+
 import { CookiesPopup } from './CookiesPopup/CookiesPopup';
 import { Footer } from './Footer/Footer';
 import { MainHeader } from './MainHeader/MainHeader';
@@ -13,7 +15,8 @@ type LayoutProps = {
   readonly titleTemplate?: string;
 };
 
-export const Layout = ({ children, title, titleTemplate }: LayoutProps) => {
+export const Layout = ({ children, title, titleTemplate = defaultTitleTemplate }: LayoutProps) => {
+  console.log({ titleTemplate, title });
   return (
     <div className={styles.wrapper}>
       <header>
@@ -23,7 +26,10 @@ export const Layout = ({ children, title, titleTemplate }: LayoutProps) => {
       <main>{children}</main>
       <Footer />
       <CookiesPopup />
-      <NextSeo title={title} titleTemplate={titleTemplate} openGraph={{ title }} />
+      <NextSeo
+        title={titleTemplate ? titleTemplate.replace('%s', title) : title}
+        openGraph={{ title: titleTemplate ? titleTemplate.replace('%s', title) : title }}
+      />
     </div>
   );
 };

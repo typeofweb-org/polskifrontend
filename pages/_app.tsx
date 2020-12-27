@@ -10,6 +10,7 @@ const meta = {
   title: 'Polski Frontend',
   description: `Serwis Polski Front-End powstał w celu zebrania w jednym miejscu jak największej liczby stron, serwisów oraz blogów na temat szeroko rozumianego front-end developmentu. Co ważne, wszystkie zgromadzone tutaj serwisy tworzone są w języku polskim!`,
 };
+export const titleTemplate = `%s | ${meta.title}`;
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const { asPath } = useRouter();
@@ -19,7 +20,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <DefaultSeo
         title={meta.title}
         description={meta.description}
-        titleTemplate={`%s | ${meta.title}`}
         openGraph={{
           type: 'website',
           title: meta.title,
