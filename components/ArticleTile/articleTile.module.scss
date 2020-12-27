@@ -43,13 +43,12 @@
 
 .favicon {
   margin-right: 0.25rem;
-  vertical-align: top;
 }
 
 .articleDate {
   font-weight: 400;
   display: inline-block;
-  color: var(--gray-dark-border);
+  color: var(--gray-text);
   &::before {
     content: '| ';
   }
@@ -81,6 +80,7 @@
 .footerLink {
   text-transform: uppercase;
   font-weight: 700;
+  font-size: 1.2em;
 }
 
 .icon {

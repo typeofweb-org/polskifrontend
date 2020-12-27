@@ -1,10 +1,12 @@
 :root {
-  --brand-color-main: #5ab783;
+  // --brand-color-main: #5ab783;
+  --brand-color-main: #48a36f;
   --brand-color-lighter: #{lighten(#5ab783, 20%)};
   --brand-color-secondary: #e12899;
   --gray: #595959;
   --gray-border: #f2f2f2;
   --gray-shadow: #cccccc;
+  --gray-text: #757575;
   --gray-dark-border: #999999;
   --white: #ffffff;
   --black: #000000;
@@ -28,9 +30,37 @@ main {
   padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
 }
 
+h3 {
+  font-size: 1.2em;
+}
+
 [class^='icon-'],
 [class*=' icon-'] {
   white-space: nowrap;
+}
+
+a[href],
+area[href],
+input:not([disabled]),
+select:not([disabled]),
+textarea:not([disabled]),
+button:not([disabled]),
+iframe,
+[tabindex],
+[contentEditable='true'] {
+  &:not([tabindex='-1']) {
+    &:focus {
+      outline: 2px dashed var(--brand-color-main);
+    }
+    @supports selector(a:focus-visible) {
+      &:focus {
+        outline: none;
+      }
+      &:focus-visible {
+        outline: 2px dashed var(--brand-color-main);
+      }
+    }
+  }
 }
 
 a {
@@ -40,17 +70,6 @@ a {
 
   &:hover {
     color: var(--brand-color-lighter);
-  }
-  &:focus {
-    outline: 2px dashed var(--brand-color-main);
-  }
-  @supports selector(a:focus-visible) {
-    &:focus {
-      outline: none;
-    }
-    &:focus-visible {
-      outline: 2px dashed var(--brand-color-main);
-    }
   }
 }
 
