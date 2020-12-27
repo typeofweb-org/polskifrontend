@@ -15,7 +15,7 @@
       "attrs": [{}],
       "properties": { "order": 5, "id": 0, "name": "error", "prevSize": 24, "code": 59656 },
       "setIdx": 0,
-      "setId": 12,
+      "setId": 16,
       "iconIdx": 0
     },
     {
@@ -32,7 +32,7 @@
       "attrs": [{}],
       "properties": { "order": 6, "id": 0, "prevSize": 20, "code": 59655, "name": "menu" },
       "setIdx": 1,
-      "setId": 11,
+      "setId": 15,
       "iconIdx": 0
     },
     {
@@ -57,7 +57,7 @@
         "ligatures": "new-tab"
       },
       "setIdx": 2,
-      "setId": 10,
+      "setId": 14,
       "iconIdx": 0
     },
     {
@@ -79,7 +79,7 @@
         "ligatures": "folder-open"
       },
       "setIdx": 2,
-      "setId": 10,
+      "setId": 14,
       "iconIdx": 1
     },
     {
@@ -103,7 +103,7 @@
         "ligatures": "inbox"
       },
       "setIdx": 2,
-      "setId": 10,
+      "setId": 14,
       "iconIdx": 2
     },
     {
@@ -127,7 +127,7 @@
         "ligatures": "comment"
       },
       "setIdx": 2,
-      "setId": 10,
+      "setId": 14,
       "iconIdx": 3
     },
     {
@@ -151,7 +151,7 @@
         "ligatures": "facebook"
       },
       "setIdx": 2,
-      "setId": 10,
+      "setId": 14,
       "iconIdx": 4
     },
     {
@@ -176,7 +176,7 @@
         "code": 59775
       },
       "setIdx": 2,
-      "setId": 10,
+      "setId": 14,
       "iconIdx": 5
     },
     {
@@ -201,7 +201,7 @@
         "code": 59914
       },
       "setIdx": 2,
-      "setId": 10,
+      "setId": 14,
       "iconIdx": 6
     },
     {
@@ -224,7 +224,7 @@
         "code": 59920
       },
       "setIdx": 2,
-      "setId": 10,
+      "setId": 14,
       "iconIdx": 7
     },
     {
@@ -249,7 +249,7 @@
         "code": 59968
       },
       "setIdx": 2,
-      "setId": 10,
+      "setId": 14,
       "iconIdx": 8
     },
     {
@@ -257,23 +257,48 @@
         "paths": [
           "M621.254 877.254l320-320c24.994-24.992 24.994-65.516 0-90.51l-320-320c-24.994-24.992-65.516-24.992-90.51 0-24.994 24.994-24.994 65.516 0 90.51l210.746 210.746h-613.49c-35.346 0-64 28.654-64 64s28.654 64 64 64h613.49l-210.746 210.746c-12.496 12.496-18.744 28.876-18.744 45.254s6.248 32.758 18.744 45.254c24.994 24.994 65.516 24.994 90.51 0z"
         ],
+        "attrs": [],
+        "isMulticolor": false,
+        "isMulticolor2": false,
         "tags": ["arrow-right", "right", "next"],
         "defaultCode": 59964,
-        "grid": 16,
-        "attrs": []
+        "grid": 16
       },
       "attrs": [],
       "properties": {
         "ligatures": "arrow-right2, right4",
         "name": "arrow-right2",
         "order": 17,
-        "id": 317,
+        "id": 9,
         "prevSize": 32,
         "code": 59964
       },
-      "setIdx": 11,
+      "setIdx": 2,
+      "setId": 14,
+      "iconIdx": 9
+    },
+    {
+      "icon": {
+        "paths": [
+          "M928 0h-832c-52.8 0-96 43.2-96 96v832c0 52.8 43.2 96 96 96h832c52.8 0 96-43.2 96-96v-832c0-52.8-43.2-96-96-96zM279 831.2c-48 0-87-38.6-87-86.6 0-47.6 39-86.8 87-86.8 48.2 0 87 39.2 87 86.8 0 48-39 86.6-87 86.6zM497.4 832c0-81.8-31.8-158.8-89.4-216.4-57.8-57.8-134.4-89.6-216-89.6v-125.2c237.6 0 431.2 193.4 431.2 431.2h-125.8zM719.6 832c0-291-236.6-528-527.4-528v-125.2c360 0 653 293.2 653 653.2h-125.6z"
+        ],
+        "tags": ["feed", "rss", "social"],
+        "defaultCode": 60060,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "feed3, rss2",
+        "name": "rss2",
+        "order": 18,
+        "id": 413,
+        "prevSize": 32,
+        "code": 60060
+      },
+      "setIdx": 15,
       "setId": 1,
-      "iconIdx": 316
+      "iconIdx": 412
     },
     {
       "icon": {
@@ -297,7 +322,7 @@
         "ligatures": "question-circle"
       },
       "setIdx": 3,
-      "setId": 9,
+      "setId": 13,
       "iconIdx": 0
     },
     {
@@ -315,7 +340,7 @@
       "attrs": [{}],
       "properties": { "order": 7, "id": 1, "name": "th-large", "prevSize": 28, "code": 59654 },
       "setIdx": 3,
-      "setId": 9,
+      "setId": 13,
       "iconIdx": 1
     }
   ],

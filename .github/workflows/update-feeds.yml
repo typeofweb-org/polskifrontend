@@ -1,0 +1,18 @@
+name: Update Feeds
+on:
+  schedule:
+    - cron: '*/15 * * * *' # co 15 minut
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update feed
+        env:
+          FEED_UPDATE_SECRET: ${{ secrets.FEED_UPDATE_SECRET }}
+        run: |
+          curl 'https://polskifrontend.vercel.app/api/update-feed' \
+          -X 'PATCH' \
+          -H 'content-type: text/plain;charset=UTF-8' \
+          --data-binary '{"secret":"'$FEED_UPDATE_SECRET'"}' \
+          --compressed \
+          --fail

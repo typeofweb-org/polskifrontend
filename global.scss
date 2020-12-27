@@ -18,6 +18,13 @@ html {
 
 body {
   font-family: 'Titillium Web', sans-serif;
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+}
+
+main {
+  padding: 0 constant(safe-area-inset-right) 0 constant(safe-area-inset-left);
+  padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
 }
 
 [class^='icon-'],

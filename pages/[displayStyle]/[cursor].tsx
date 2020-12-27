@@ -13,15 +13,25 @@ import { addExcerptToArticle } from '../../utils/excerpt-utils';
 
 export type HomePageProps = InferGetStaticPropsType2<typeof getStaticProps>;
 
+const displayStyleToTitle: Record<HomePageProps['displayStyle'], string> = {
+  grid: 'siatka',
+  list: 'lista',
+};
+
 export default function HomePage(props: HomePageProps) {
   return (
-    <Layout>
+    <Layout
+      title={`Polski Frontend – ${
+        displayStyleToTitle[props.displayStyle]
+      } artykułów z polskich blogów frontendowych`}
+      titleTemplate=""
+    >
       <MainTiles {...props} />
     </Layout>
   );
 }
 
-const REVALIDATION_TIME = 15 * 60; // 15 minutes
+export const REVALIDATION_TIME = 15 * 60; // 15 minutes
 
 export const getStaticPaths = async () => {
   try {

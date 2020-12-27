@@ -3,7 +3,7 @@ import { Layout } from '../components/Layout';
 
 export default function AboutPage() {
   return (
-    <Layout>
+    <Layout title="O serwisie">
       <AboutSection />
     </Layout>
   );

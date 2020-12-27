@@ -1,5 +1,9 @@
 const withImages = require('next-images');
-const config = withImages();
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+const config = withBundleAnalyzer(withImages());
 
 config.reactStrictMode = true;
 config.poweredByHeader = false;
@@ -10,7 +14,13 @@ config.rewrites = async () => {
       source: '/',
       destination: '/grid/',
     },
+    {
+      source: '/feed',
+      destination: '/api/feed',
+    },
   ];
 };
+
+config.experimental = { optimizeImages: true, optimizeFonts: true };
 
 module.exports = config;

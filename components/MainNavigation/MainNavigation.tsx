@@ -10,6 +10,12 @@ const links = [
     openInNewTab: true,
     icon: 'facebook',
   },
+  {
+    label: 'RSS',
+    href: `/feed`,
+    openInNewTab: true,
+    icon: 'rss2',
+  },
 ];
 
 export const MainNavigation = () => {
