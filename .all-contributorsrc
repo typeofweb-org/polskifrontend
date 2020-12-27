@@ -88,7 +88,17 @@
         "code",
         "review"
       ]
+    },
+    {
+      "login": "adamklepacz",
+      "name": "Adam Klepacz",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/27632432?v=4",
+      "profile": "https://www.linkedin.com/in/adam-klepacz/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
-  "contributorsPerLine": 3
+  "contributorsPerLine": 3,
+  "skipCi": true
 }
