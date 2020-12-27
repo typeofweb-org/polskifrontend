@@ -5,7 +5,7 @@ export type ContentCreatorReqBody = {
 };
 
 export const addContentCreator = (requestBody: ContentCreatorReqBody) => {
-  return fetch(`${process.env.NEXT_PUBLIC_URL as string}/api/content-creator`, {
+  return fetch(`https://${process.env.NEXT_PUBLIC_URL as string}/api/content-creator`, {
     method: 'POST',
     body: JSON.stringify(requestBody),
   });

@@ -87,6 +87,7 @@ export const AddContentCreatorForm = () => {
           onExpire={handleCaptchaExpire}
           onError={handleCaptchaError}
           ref={captchaRef}
+          languageOverride="pl"
         />
         <Button type="submit">Zgłoś</Button>
       </div>
