@@ -4,13 +4,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="pl">
-        <Head>
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap"
-            rel="stylesheet"
-          ></link>
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />
