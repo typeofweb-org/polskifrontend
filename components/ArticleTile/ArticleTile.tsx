@@ -51,7 +51,7 @@ export const ArticleTile = ({
           </li>
           <li className={style.footerItem}>
             <Link href={href}>
-              <a target="_blank" className={style.footerLink}>
+              <a target="_blank" className={style.footerLink} rel="noopener noreferrer">
                 <span className={`icon-new-tab ${style.icon}`}></span>
                 ORYGINAŁ
               </a>
