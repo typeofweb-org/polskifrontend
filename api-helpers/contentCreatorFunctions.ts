@@ -5,6 +5,7 @@ import Cheerio from 'cheerio';
 import Slugify from 'slugify';
 
 import { closeConnection, openConnection } from './db';
+import { isPrismaError } from './prisma-helper';
 
 const NEVER = new Date(0);
 const YOUTUBE_REGEX = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;
@@ -36,6 +37,16 @@ export const addContentCreator = async (url: string, email?: string) => {
         creatorEmail: email,
       },
     });
+  } catch (e) {
+    if (isPrismaError(e)) {
+      switch (e.code) {
+        case 'P2002':
+          throw Boom.conflict();
+        default:
+          throw Boom.badRequest();
+      }
+    }
+    throw Boom.badRequest();
   } finally {
     await closeConnection();
   }
@@ -83,7 +94,7 @@ const getBlogDataForYouTubeRss = async (url: string, youtubeRss: string) => {
   const response = await fetch(youtubeRss);
   const xmlText = await response.text();
   if (xmlText) {
-    const $ = Cheerio.load(xmlText);
+    const $ = Cheerio.load(xmlText, { xmlMode: true, decodeEntities: true });
     return {
       name: getBlogName($),
       href: url,
@@ -100,7 +111,12 @@ const getBlogDataForUrl = async (url: string) => {
   if (htmlText) {
     const $ = Cheerio.load(htmlText);
     const feeds = searchFeed(url, $);
-    const rssFeedUrl = feeds[0].url;
+    const rssFeedUrl = feeds[0]?.url;
+
+    if (!rssFeedUrl) {
+      throw Boom.badData();
+    }
+
     const blogData = await getBlogDataFromRss(rssFeedUrl);
     if (blogData) {
       return {
@@ -156,7 +172,7 @@ const getBlogDataFromRss = async (rssUrl: string) => {
   const response = await fetch(rssUrl);
   const xmlText = await response.text();
   if (xmlText) {
-    const $ = Cheerio.load(xmlText);
+    const $ = Cheerio.load(xmlText, { xmlMode: true, decodeEntities: true });
     return {
       name: getBlogName($),
       favicon: getFavicon($),
@@ -166,9 +182,9 @@ const getBlogDataFromRss = async (rssUrl: string) => {
 };
 
 const getFavicon = ($: cheerio.Root) => {
-  return $('image url').text();
+  return $('image url').first().text();
 };
 
 const getBlogName = ($: cheerio.Root) => {
-  return $('title').text();
+  return $('title').first().text();
 };
