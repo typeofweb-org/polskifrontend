@@ -16,7 +16,6 @@ type LayoutProps = {
 };
 
 export const Layout = ({ children, title, titleTemplate = defaultTitleTemplate }: LayoutProps) => {
-  console.log({ titleTemplate, title });
   return (
     <div className={styles.wrapper}>
       <header>

@@ -35,13 +35,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           ],
           site_name: meta.title,
         }}
-        // twitter={{
-        //   handle: '@handle',
-        //   site: '@site',
-        //   cardType: 'summary_large_image',
-        // }}
       />
-      {/* Tags for favicon and manifest from favicon-generator.com */}
+      {/* Additional tags */}
       <Head>
         <meta
           name="viewport"
@@ -61,6 +56,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="alternate" href="/feed" type="application/rss+xml" title="Polski Frontend RSS" />
       </Head>
       <Component {...pageProps} />
     </>

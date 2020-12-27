@@ -19,7 +19,6 @@ const displayStyleToTitle: Record<HomePageProps['displayStyle'], string> = {
 };
 
 export default function HomePage(props: HomePageProps) {
-  console.log(props);
   return (
     <Layout
       title={`Polski Frontend – ${
@@ -32,7 +31,7 @@ export default function HomePage(props: HomePageProps) {
   );
 }
 
-const REVALIDATION_TIME = 15 * 60; // 15 minutes
+export const REVALIDATION_TIME = 15 * 60; // 15 minutes
 
 export const getStaticPaths = async () => {
   try {
