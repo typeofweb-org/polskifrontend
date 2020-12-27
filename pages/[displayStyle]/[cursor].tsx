@@ -31,7 +31,7 @@ export default function HomePage(props: HomePageProps) {
   );
 }
 
-const REVALIDATION_TIME = 15 * 60; // 15 minutes
+export const REVALIDATION_TIME = 15 * 60; // 15 minutes
 
 export const getStaticPaths = async () => {
   try {
