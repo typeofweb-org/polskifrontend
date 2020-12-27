@@ -12,19 +12,19 @@ const meta = {
 };
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const { pathname } = useRouter();
+  const { asPath } = useRouter();
 
   return (
     <>
       <DefaultSeo
         title={meta.title}
         description={meta.description}
-        titleTemplate="%s | Polski Frontend"
+        titleTemplate={`%s | ${meta.title}`}
         openGraph={{
           type: 'website',
           title: meta.title,
           locale: 'pl_PL',
-          url: 'https://' + process.env.NEXT_PUBLIC_URL! + pathname,
+          url: `https://${process.env.NEXT_PUBLIC_URL!}${asPath}`,
           description: meta.description,
           images: [
             {
@@ -35,11 +35,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           ],
           site_name: meta.title,
         }}
-        twitter={{
-          handle: '@handle',
-          site: '@site',
-          cardType: 'summary_large_image',
-        }}
+        // twitter={{
+        //   handle: '@handle',
+        //   site: '@site',
+        //   cardType: 'summary_large_image',
+        // }}
       />
       {/* Tags for favicon and manifest from favicon-generator.com */}
       <Head>
