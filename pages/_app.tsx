@@ -6,7 +6,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
 const meta = {
-  title: 'Polski Front-End',
+  title: 'Polski Frontend',
   description: `Serwis Polski Front-End powstał w celu zebrania w jednym miejscu jak największej liczby stron, serwisów oraz blogów na temat szeroko rozumianego front-end developmentu. Co ważne, wszystkie zgromadzone tutaj serwisy tworzone są w języku polskim!`,
 };
 
@@ -24,9 +24,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           description: meta.description,
           images: [
             {
-              url: `https://${process.env.NEXT_PUBLIC_URL!}/logo.png`,
-              width: 1280,
-              height: 399,
+              url: `https://${process.env.NEXT_PUBLIC_URL!}/logo_og.png`,
+              width: 1000,
+              height: 1000,
             },
           ],
           site_name: meta.title,
