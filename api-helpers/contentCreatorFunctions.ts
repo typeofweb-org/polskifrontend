@@ -7,6 +7,9 @@ import Slugify from 'slugify';
 import { closeConnection, openConnection } from './db';
 
 const NEVER = new Date(0);
+const YOUTUBE_REGEX = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;
+const YOUTUBE_CHANNEL_ID_REGEX = /channel\/(.*?)(\/|$)/;
+const YOUTUBE_USER_REGEX = /user\/(.*?)(\/|$)/;
 
 type BlogData = {
   readonly name: string;
@@ -47,9 +50,7 @@ const getBlogData = (url: string): Promise<BlogData> => {
 };
 
 export const getYouTubeRss = (url: string) => {
-  const regex = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/gm;
-  const isYoutubeUrl = regex.test(url);
-
+  const isYoutubeUrl = YOUTUBE_REGEX.test(url);
   if (isYoutubeUrl) {
     return getYouTubeChannelFeedUrl(url);
   }
@@ -69,27 +70,13 @@ const getYouTubeChannelFeedUrl = (url: string) => {
 };
 
 const getYouTubeChannelIdFromUrl = (url: string) => {
-  const urlWithoutParams = getUrlWithoutParams(url);
-  const hasChannelId = Boolean(urlWithoutParams.split('channel/')[1]);
-  if (hasChannelId) {
-    const channelId = urlWithoutParams.split('channel/')[1].split('/')[0];
-    return channelId;
-  }
-  return undefined;
+  const channelId = YOUTUBE_CHANNEL_ID_REGEX.exec(url)?.[1];
+  return channelId;
 };
 
 const getYouTubeUserFromUrl = (url: string) => {
-  const urlWithoutParams = getUrlWithoutParams(url);
-  const hasUser = Boolean(urlWithoutParams.split('user/')[1]);
-  if (hasUser) {
-    const user = urlWithoutParams.split('user/')[1].split('/')[0];
-    return user;
-  }
-  return undefined;
-};
-
-const getUrlWithoutParams = (url: string) => {
-  return url.split('?')[0];
+  const user = YOUTUBE_USER_REGEX.exec(url)?.[1];
+  return user;
 };
 
 const getBlogDataForYouTubeRss = async (url: string, youtubeRss: string) => {
