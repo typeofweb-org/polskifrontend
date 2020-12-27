@@ -14,6 +14,10 @@ config.rewrites = async () => {
       source: '/',
       destination: '/grid/',
     },
+    {
+      source: '/feed',
+      destination: '/api/feed',
+    },
   ];
 };
 

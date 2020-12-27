@@ -29,6 +29,7 @@
     "@prisma/client": "2.13.1",
     "@types/hapi__boom": "9.0.1",
     "clsx": "1.1.1",
+    "feed": "4.2.1",
     "feedparser": "2.2.10",
     "html-entities": "1.4.0",
     "iconv-lite": "0.6.2",

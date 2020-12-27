@@ -19,7 +19,6 @@ const displayStyleToTitle: Record<HomePageProps['displayStyle'], string> = {
 };
 
 export default function HomePage(props: HomePageProps) {
-  console.log(props);
   return (
     <Layout
       title={`Polski Frontend – ${

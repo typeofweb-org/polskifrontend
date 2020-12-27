@@ -4912,6 +4912,13 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
+feed@4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/feed/-/feed-4.2.1.tgz#b246ef891051c7dbf088ca203341d9fb0444baee"
+  integrity sha512-l28KKcK1J/u3iq5dRDmmoB2p7dtBfACC2NqJh4dI2kFptxH0asfjmOfcxqh5Sv8suAlVa73gZJ4REY5RrafVvg==
+  dependencies:
+    xml-js "^1.6.11"
+
 feedparser@2.2.10:
   version "2.2.10"
   resolved "https://registry.yarnpkg.com/feedparser/-/feedparser-2.2.10.tgz#d3fa509e7d64761dfa037bbbe563df9d52dfb038"
@@ -11635,6 +11642,13 @@ ws@^7.2.3, ws@^7.3.1:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.1.tgz#a333be02696bd0e54cea0434e21dcc8a9ac294bb"
   integrity sha512-pTsP8UAfhy3sk1lSk/O/s4tjD0CRwvMnzvwr4OKGX7ZvqZtUyx4KIJB5JWbkykPoc55tixMGgTNoh3k4FkNGFQ==
+
+xml-js@^1.6.11:
+  version "1.6.11"
+  resolved "https://registry.yarnpkg.com/xml-js/-/xml-js-1.6.11.tgz#927d2f6947f7f1c19a316dd8eea3614e8b18f8e9"
+  integrity sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==
+  dependencies:
+    sax "^1.2.4"
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
