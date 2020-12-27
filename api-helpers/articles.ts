@@ -122,3 +122,36 @@ export const getArticlesPaginationForList = async (prisma: PrismaClient) => {
   });
   return cursors;
 };
+
+export const getArticles = async (prisma: PrismaClient, limit: number | undefined = undefined) => {
+  const articles = await prisma.article.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+    select: {
+      slug: true,
+    },
+    take: limit,
+  });
+
+  return articles;
+};
+
+export const getArticleBySlug = async (prisma: PrismaClient, slug: string) => {
+  const article = await prisma.article.findFirst({
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+    include: {
+      blog: true,
+    },
+  });
+
+  if (!article) {
+    throw new HTTPNotFound();
+  }
+
+  return article;
+};

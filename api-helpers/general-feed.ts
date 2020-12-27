@@ -2,7 +2,7 @@ import { Feed } from 'feed';
 
 import { closeConnection, openConnection } from './db';
 
-const DEFAULT_ARTICLES = 30;
+export const DEFAULT_ARTICLES = 30;
 
 const publicUrl = `https://${process.env.NEXT_PUBLIC_URL!}`;
 
