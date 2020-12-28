@@ -2,8 +2,8 @@ import type { PrismaClient } from '@prisma/client';
 
 import { isIsoDate } from '../utils/date-utils';
 
+import { cursorToText, textToCursor } from './cursor-encoding';
 import { HTTPNotFound } from './errors';
-import { dangerously_decrypt, dangerously_encrypt } from './unsafe-encryption';
 
 export const TILES_BLOGS_PER_PAGE = 4;
 export const TILES_ARTICLES_PER_BLOG = 5;
@@ -16,7 +16,7 @@ function last<T>(arr: readonly T[]): T | undefined {
 }
 
 export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) => {
-  const date = cursor && dangerously_decrypt(cursor);
+  const date = cursor && cursorToText(cursor);
 
   if (date && !isIsoDate(date)) {
     throw new HTTPNotFound();
@@ -49,7 +49,7 @@ export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) 
   const lastBlog = last(blogs);
   return {
     data: blogs,
-    nextCursor: lastBlog?.updatedAt && dangerously_encrypt(lastBlog?.updatedAt.toISOString()),
+    nextCursor: lastBlog?.updatedAt && textToCursor(lastBlog?.updatedAt.toISOString()),
   };
 };
 
@@ -65,7 +65,7 @@ export const getArticlesPaginationForGrid = async (prisma: PrismaClient) => {
 
   const cursors = blogs.flatMap((blog, index) => {
     if (index % TILES_BLOGS_PER_PAGE === TILES_BLOGS_PER_PAGE - 1) {
-      return [dangerously_encrypt(blog.updatedAt.toISOString())];
+      return [textToCursor(blog.updatedAt.toISOString())];
     }
     return [];
   });
@@ -73,7 +73,7 @@ export const getArticlesPaginationForGrid = async (prisma: PrismaClient) => {
 };
 
 export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) => {
-  const date = cursor && dangerously_decrypt(cursor);
+  const date = cursor && cursorToText(cursor);
 
   if (date && !isIsoDate(date)) {
     throw new HTTPNotFound();
@@ -100,7 +100,7 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
   const lastArticle = last(articles);
   return {
     data: articles,
-    nextCursor: lastArticle?.createdAt && dangerously_encrypt(lastArticle?.createdAt.toISOString()),
+    nextCursor: lastArticle?.createdAt && textToCursor(lastArticle?.createdAt.toISOString()),
   };
 };
 
@@ -116,7 +116,7 @@ export const getArticlesPaginationForList = async (prisma: PrismaClient) => {
 
   const cursors = articles.flatMap((article, index) => {
     if (index % LIST_ARTICLES_PER_PAGE === LIST_ARTICLES_PER_PAGE - 1) {
-      return [dangerously_encrypt(article.createdAt.toISOString())];
+      return [textToCursor(article.createdAt.toISOString())];
     }
     return [];
   });
