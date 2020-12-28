@@ -24,14 +24,12 @@
 }
 
 .article {
-  padding: 1.5rem;
+  padding: 2rem 1rem;
   margin: 1rem;
   background-color: var(--white);
   border-left: 3px solid var(--gray-dark-border);
   border-radius: 3px;
   box-shadow: 1px 1px 6px 1px var(--gray-shadow);
-  overflow-wrap: break-word;
-  line-height: 1.6;
 
   @media screen and (min-width: 45em) {
     padding: 2rem;
@@ -47,7 +45,7 @@
 }
 
 .title {
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .linkWrapper {
@@ -58,4 +56,9 @@
 
 .linkHeader {
   font-size: 1.3em;
+  font-weight: 800;
+}
+
+.favicon {
+  margin-right: 0.5rem;
 }

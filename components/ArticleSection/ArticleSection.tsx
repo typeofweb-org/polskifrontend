@@ -16,7 +16,16 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
     <section className={styles.section}>
       <h2 className={styles.heading}>
         <Link href={article.blog.href}>
-          <a>{article.blog.name}</a>
+          <a>
+            <img
+              src={article.blog.favicon || undefined}
+              alt=""
+              className={styles.favicon}
+              height={16}
+              width={16}
+            />
+            {article.blog.name}
+          </a>
         </Link>
       </h2>
       <div className={styles.buttons}>
@@ -29,7 +38,10 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
       <article className={styles.article}>
         <h3 className={styles.title}>{article.title}</h3>
         <time className={styles.publishDate}>{readableDate}</time>
-        <div dangerouslySetInnerHTML={{ __html: article.sanitizedDescription }} />
+        <div
+          dangerouslySetInnerHTML={{ __html: article.sanitizedDescription }}
+          style={{ wordBreak: 'break-word' }}
+        />
         <section className={styles.linkWrapper}>
           <p className={styles.linkHeader}>Chcesz więcej? Przeczytaj w oryginale!</p>
           <Link href={article.href} passHref>

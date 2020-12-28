@@ -9,9 +9,10 @@
   background-color: var(--white);
   transition: background 200ms;
   text-transform: uppercase;
+  box-sizing: border-box;
   font-weight: 700;
-  font-size: 1.2em;
   cursor: pointer;
+  font-size: 1.2em;
 
   &:hover {
     color: #fff;
