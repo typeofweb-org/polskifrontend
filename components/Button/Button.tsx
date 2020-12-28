@@ -27,6 +27,7 @@ export const Button = memo<ButtonProps>(
             styles.button,
             className,
             iconPosition === 'right' && styles.buttonIconRight,
+            props.disabled && styles.buttonDisabled,
           )}
           // @ts-ignore
           ref={ref}

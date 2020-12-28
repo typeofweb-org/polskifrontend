@@ -14,6 +14,10 @@
   }
 }
 
+.formLoading {
+  cursor: wait;
+}
+
 .label {
   display: block;
   margin: 0.5rem 0;
@@ -47,15 +51,4 @@
     justify-content: space-between;
     align-items: flex-end;
   }
-}
-
-.statusContainer {
-  padding: 0.5rem;
-  border-radius: 3px;
-  text-align: center;
-  font-size: 1.1rem;
-}
-
-.statusIcon {
-  margin-right: 0.75rem;
 }
