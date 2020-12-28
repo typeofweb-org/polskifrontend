@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import type { HomePageArticle, HomePageBlog } from '../../types';
 import { formatDate } from '../../utils/date-utils';
+import { addTrackingToLink } from '../../utils/link-utils';
 
 import style from './articleTile.module.scss';
 
@@ -50,7 +51,7 @@ export const ArticleTile = ({
             </Link>
           </li>
           <li className={style.footerItem}>
-            <Link href={href}>
+            <Link href={addTrackingToLink(href, { utm_medium: 'homepage' })}>
               <a target="_blank" className={style.footerLink} rel="noopener noreferrer">
                 <span className={`icon-new-tab ${style.icon}`}></span>
                 ORYGINAŁ

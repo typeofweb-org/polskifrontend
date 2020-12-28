@@ -5,6 +5,10 @@ import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+
+import { pageview } from '../utils/analytics';
+import { initSentry } from '../utils/sentry';
 
 const meta = {
   title: 'Polski Frontend',
@@ -12,8 +16,23 @@ const meta = {
 };
 export const titleTemplate = `%s | ${meta.title}`;
 
-export default function MyApp({ Component, pageProps }: AppProps) {
-  const { asPath } = useRouter();
+initSentry();
+
+// Workaround for https://github.com/vercel/next.js/issues/8592
+type SentryErrorProps = { readonly err: unknown };
+
+export default function MyApp({
+  Component,
+  pageProps,
+  err,
+}: AppProps<SentryErrorProps> & SentryErrorProps) {
+  const { asPath, events } = useRouter();
+
+  useEffect(() => {
+    const reportRouteChange = (url: string) => pageview(url);
+    events.on('routeChangeComplete', reportRouteChange);
+    return () => events.off('routeChangeComplete', reportRouteChange);
+  }, [events]);
 
   return (
     <>
@@ -58,7 +77,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/manifest.json" />
         <link rel="alternate" href="/feed" type="application/rss+xml" title="Polski Frontend RSS" />
       </Head>
-      <Component {...pageProps} />
+      <Component {...pageProps} err={err} />
     </>
   );
 }
