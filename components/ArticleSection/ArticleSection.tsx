@@ -42,8 +42,8 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
         <div dangerouslySetInnerHTML={{ __html: article.sanitizedDescription }} />
         <section className={styles.linkWrapper}>
           <p className={styles.linkHeader}>Chcesz więcej? Przeczytaj w oryginale!</p>
-          <Link href={article.href} passHref>
-            <Button icon="icon-new-tab" as="a">
+          <Link href={addTrackingToLink(article.href, { utm_medium: 'article_page' })} passHref>
+            <Button icon="icon-new-tab" as="a" target="_blank" rel="noopener noreferrer">
               Przejdź do artykułu
             </Button>
           </Link>
