@@ -12,3 +12,4 @@ jobs:
       - uses: zeit/next-stats-action@master
         env:
           PR_STATS_COMMENT_TOKEN: ${{secrets.PR_STATS_COMMENT_TOKEN}}
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
