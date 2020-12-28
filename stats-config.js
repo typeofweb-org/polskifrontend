@@ -75,33 +75,8 @@ module.exports = {
       title: 'App',
       // whether to diff the outputted files (default: onOutputChange)
       diff: 'onOutputChange',
-      diffConfigFiles: [
-        {
-          path: 'next.config.js',
-          content: `
-            module.exports = {
-              generateBuildId: () => 'BUILD_ID',
-              webpack(config) {
-                config.optimization.minimize = false
-                config.optimization.minimizer = undefined
-                return config
-              }
-            }
-          `,
-        },
-      ],
       // renames to apply to make file names deterministic
       renames,
-      configFiles: [
-        {
-          path: 'next.config.js',
-          content: `
-            module.exports = {
-              generateBuildId: () => 'BUILD_ID'
-            }
-          `,
-        },
-      ],
       // an array of file groups to diff/track
       filesToTrack: clientGlobs,
       // an array of URLs to fetch while `appStartCommand` is running
