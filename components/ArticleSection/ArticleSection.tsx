@@ -38,10 +38,7 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
       <article className={styles.article}>
         <h3 className={styles.title}>{article.title}</h3>
         <time className={styles.publishDate}>{readableDate}</time>
-        <div
-          dangerouslySetInnerHTML={{ __html: article.sanitizedDescription }}
-          style={{ wordBreak: 'break-word' }}
-        />
+        <div dangerouslySetInnerHTML={{ __html: article.sanitizedDescription }} />
         <section className={styles.linkWrapper}>
           <p className={styles.linkHeader}>Chcesz więcej? Przeczytaj w oryginale!</p>
           <Link href={article.href} passHref>

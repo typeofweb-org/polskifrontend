@@ -30,6 +30,7 @@
   border-left: 3px solid var(--gray-dark-border);
   border-radius: 3px;
   box-shadow: 1px 1px 6px 1px var(--gray-shadow);
+  word-break: break-word;
 
   @media screen and (min-width: 45em) {
     padding: 2rem;
