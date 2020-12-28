@@ -15,6 +15,8 @@ export const AddContentCreatorForm = () => {
   const [mutate, status] = useAddContentCreatorMutation();
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const captchaRef = useRef<null | HCaptcha>(null);
+  const formRef = useRef<null | HTMLFormElement>(null);
+  const isFormValid = formRef.current?.reportValidity();
 
   useEffect(() => {
     if (status === 'success') {
@@ -56,9 +58,14 @@ export const AddContentCreatorForm = () => {
   }
 
   const isLoading = status === 'loading';
+  const isButtonDisabled = isLoading || !isFormValid || !token;
 
   return (
-    <form onSubmit={handleSubmit} className={clsx(styles.form, isLoading && styles.formLoading)}>
+    <form
+      onSubmit={handleSubmit}
+      className={clsx(styles.form, isLoading && styles.formLoading)}
+      ref={formRef}
+    >
       <label className={styles.label}>
         Adres URL
         <input
@@ -97,7 +104,7 @@ export const AddContentCreatorForm = () => {
           ref={captchaRef}
           languageOverride="pl"
         />
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isButtonDisabled}>
           Zgłoś
         </Button>
       </div>
