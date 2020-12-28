@@ -18,6 +18,7 @@ export const useAddContentCreatorMutation = () => {
         setStatus('error');
       }
     } catch (e) {
+      console.log(e);
       setStatus('error');
     }
   }, []);

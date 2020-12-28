@@ -62,12 +62,11 @@ model Blog {
   slug String?
   lastUpdateDate DateTime
   favicon String?
+  creatorEmail String?
+  isPublic Boolean @default(false)
 
   articles Article[]
   
-  addedById String
-  addedBy User @relation(fields: [addedById], references: [id])
-   
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }
