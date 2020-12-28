@@ -1,4 +1,4 @@
-import { getArticleBySlug, getArticles } from '../../api-helpers/articles';
+import { getArticleBySlug, getArticlesSlugs } from '../../api-helpers/articles';
 import { closeConnection, openConnection } from '../../api-helpers/db';
 import { HTTPNotFound } from '../../api-helpers/errors';
 import { DEFAULT_ARTICLES } from '../../api-helpers/general-feed';
@@ -45,16 +45,14 @@ export const getStaticPaths = async () => {
   try {
     const prisma = await openConnection();
 
-    const articles = await getArticles(prisma, DEFAULT_ARTICLES);
+    const articles = await getArticlesSlugs(prisma, DEFAULT_ARTICLES);
 
     return {
-      paths: [
-        ...articles.map(({ slug }) => ({
-          params: {
-            slug,
-          },
-        })),
-      ],
+      paths: articles.map(({ slug }) => ({
+        params: {
+          slug,
+        },
+      })),
       fallback: 'blocking' as const,
     };
   } finally {

@@ -31,7 +31,7 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
         <time className={styles.publishDate}>{readableDate}</time>
         <div dangerouslySetInnerHTML={{ __html: article.sanitizedDescription }} />
         <section className={styles.linkWrapper}>
-          <h3 className={styles.linkHeader}>Chcesz więcej? Przeczytaj w oryginale!</h3>
+          <p className={styles.linkHeader}>Chcesz więcej? Przeczytaj w oryginale!</p>
           <Link href={article.href} passHref>
             <Button icon="icon-new-tab" as="a">
               Przejdź do artykułu

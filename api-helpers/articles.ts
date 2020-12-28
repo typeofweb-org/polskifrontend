@@ -123,7 +123,7 @@ export const getArticlesPaginationForList = async (prisma: PrismaClient) => {
   return cursors;
 };
 
-export const getArticles = async (prisma: PrismaClient, limit?: number) => {
+export const getArticlesSlugs = async (prisma: PrismaClient, limit?: number) => {
   const articles = await prisma.article.findMany({
     orderBy: {
       createdAt: 'desc',

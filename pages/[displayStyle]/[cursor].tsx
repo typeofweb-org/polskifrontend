@@ -45,11 +45,11 @@ export const getStaticPaths = async () => {
 
     const paths = [
       ...gridCursors
-        .map((cursor) => ({ params: { displayStyle: 'grid' as const, cursor } }))
-        .slice(0, MAX_PAGES),
+        .slice(0, MAX_PAGES)
+        .map((cursor) => ({ params: { displayStyle: 'grid' as const, cursor } })),
       ...listCursors
-        .map((cursor) => ({ params: { displayStyle: 'list' as const, cursor } }))
-        .slice(0, MAX_PAGES),
+        .slice(0, MAX_PAGES)
+        .map((cursor) => ({ params: { displayStyle: 'list' as const, cursor } })),
     ];
 
     return {
