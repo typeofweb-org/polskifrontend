@@ -10,7 +10,7 @@
     padding: 2rem;
   }
 
-  @media screen and (min-width: 55em) {
+  @media screen and (min-width: 60em) {
     grid-template-columns: repeat(2, minmax(0, 1fr)); // Prevent "grid blowout"
     grid-auto-flow: column dense;
   }
@@ -19,7 +19,7 @@
 .blog {
   display: contents;
 
-  @media screen and (min-width: 55em) {
+  @media screen and (min-width: 60em) {
     &:nth-child(2n) {
       .gridItem {
         grid-column: 2;

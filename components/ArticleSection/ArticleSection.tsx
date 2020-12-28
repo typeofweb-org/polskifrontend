@@ -16,7 +16,16 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
     <section className={styles.section}>
       <h2 className={styles.heading}>
         <Link href={article.blog.href}>
-          <a>{article.blog.name}</a>
+          <a>
+            <img
+              src={article.blog.favicon || undefined}
+              alt=""
+              className={styles.favicon}
+              height={16}
+              width={16}
+            />
+            {article.blog.name}
+          </a>
         </Link>
       </h2>
       <div className={styles.buttons}>

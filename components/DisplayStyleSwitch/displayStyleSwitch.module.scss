@@ -1,7 +1,6 @@
 .container {
   display: flex;
-  align-items: center;
-  flex-direction: row;
+  align-self: stretch;
 }
 
 .input {
@@ -47,6 +46,8 @@
   transition: background 200ms;
   text-transform: uppercase;
   font-weight: 700;
+  font-size: 1.2em;
+  height: 100%;
 
   @media screen and (min-width: 45em) {
     padding: 1rem 2rem;
