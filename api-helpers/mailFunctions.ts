@@ -1,36 +1,40 @@
 import type { Blog } from '@prisma/client';
 import { UserRole } from '@prisma/client';
-import mailgun from 'mailgun-js';
+import Mailgun from 'mailgun-js';
 
 import { closeConnection, openConnection } from './db';
 
-const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY!, domain: process.env.MAILGUN_DOMAIN! });
+const mg = Mailgun({ apiKey: process.env.MAILGUN_API_KEY!, domain: process.env.MAILGUN_DOMAIN! });
 
-const sendEmail = async (recepients: readonly string[], subject: string, text: string) => {
-  const data = {
+const sendEmail = (
+  recepients: readonly string[],
+  subject: string,
+  text: string,
+  replyTo?: string,
+) =>
+  mg.messages().send({
     from: process.env.MAILGUN_FROM!,
     to: recepients.join(', '),
     subject,
     text,
-  };
+    'h:Reply-To': replyTo,
+  });
 
-  await mg.messages().send(data);
-};
-
-const getNewCreatorEmail = (blog: Blog) => {
+const getNewCreatorEmail = (blog: Record<string, string>) => {
   return `
 Nowy wniosek o dodanie serwisu!
 
 Dane:
 ${Object.entries(blog)
-  .map((entry) => `${entry[0]}: ${entry[1]?.toString() || ''}`)
-  .join('\n')}
+  .map((entry) => `${entry[0]}: ${entry[1].trim()}`)
+  .join('\n')
+  .trim()}
 
 *Tutaj damy jakiegoś linka czy coś do akceptacji*
 `;
 };
 
-export const sendNewCreatorNotification = async (blog: Blog) => {
+export const sendNewCreatorNotification = async ({ name, href, rss, creatorEmail }: Blog) => {
   try {
     const prisma = await openConnection();
 
@@ -38,12 +42,16 @@ export const sendNewCreatorNotification = async (blog: Blog) => {
       where: {
         role: UserRole.ADMIN,
       },
+      select: {
+        email: true,
+      },
     });
 
     await sendEmail(
       admins.map((a) => a.email),
-      `Polski Frontend | Nowy serwis | ${blog.name}`,
-      getNewCreatorEmail(blog),
+      `Polski Frontend | Nowy serwis | ${name}`,
+      getNewCreatorEmail({ name, href, rss, creatorEmail: creatorEmail || '' }),
+      creatorEmail || undefined,
     );
   } finally {
     await closeConnection();
