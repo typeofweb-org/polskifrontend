@@ -2,11 +2,19 @@ import { getArticleBySlug, getArticles } from '../../api-helpers/articles';
 import { closeConnection, openConnection } from '../../api-helpers/db';
 import { HTTPNotFound } from '../../api-helpers/errors';
 import { DEFAULT_ARTICLES } from '../../api-helpers/general-feed';
+import { ArticleSection } from '../../components/ArticleSection/ArticleSection';
 import { Layout } from '../../components/Layout';
 import type { InferGetStaticPropsContext, InferGetStaticPropsType2 } from '../../types';
+import { addSanitizedDescriptionToArticle } from '../../utils/sanitize-utils';
 
-export default function ArticlePage({ article }: InferGetStaticPropsType2<typeof getStaticProps>) {
-  return <Layout title="dupa">{article.title}</Layout>;
+export type ArticlePageProps = InferGetStaticPropsType2<typeof getStaticProps>;
+
+export default function ArticlePage({ article }: ArticlePageProps) {
+  return (
+    <Layout title={article.title}>
+      <ArticleSection article={article} />
+    </Layout>
+  );
 }
 
 export const getStaticProps = async ({
@@ -19,7 +27,7 @@ export const getStaticProps = async ({
 
     return {
       props: {
-        article,
+        article: addSanitizedDescriptionToArticle(article),
       },
     };
   } catch (err) {
