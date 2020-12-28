@@ -27,6 +27,17 @@
     }
   }
 
+  &Disabled {
+    border: 3px solid var(--gray);
+    color: var(--gray);
+
+    &:hover {
+      border: 3px solid var(--gray);
+      color: var(--gray);
+      background-color: var(--white);
+    }
+  }
+
   @media screen and (min-width: 45em) {
     padding: 1rem 2rem;
   }
