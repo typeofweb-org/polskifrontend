@@ -1,5 +1,10 @@
 {
   "name": "polskifrontend",
+  "version": "3.0.0",
+  "np": {
+    "branch": "main",
+    "releaseDraft": true
+  },
   "scripts": {
     "dev": "yarn --frozen-lockfile && concurrently --kill-others-on-fail --names api,_db,www --prefix-colors yellow,green,blue.inverse 'yarn dev:start:api' 'yarn dev:start:db' 'yarn dev:start:www'",
     "dev:start:api": "wait-on tcp:5432 --interval 5000 && yarn db:migrate:up",

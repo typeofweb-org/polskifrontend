@@ -37,11 +37,11 @@ export const addContentCreator = async (url: string, email?: string) => {
         creatorEmail: email,
       },
     });
-  } catch (e) {
-    if (isPrismaError(e) && e.code === 'P2002') {
+  } catch (err) {
+    if (isPrismaError(err) && err.code === 'P2002') {
       throw Boom.conflict();
     }
-    throw Boom.badRequest();
+    throw Boom.isBoom(err) ? err : Boom.badRequest();
   } finally {
     await closeConnection();
   }

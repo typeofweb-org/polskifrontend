@@ -1,11 +1,12 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import clsx from 'clsx';
 import type { ChangeEventHandler, FormEventHandler } from 'react';
-import { useRef, useCallback, useState } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 
 import { useAddContentCreatorMutation } from '../../hooks/useAddContentCreatorMutation';
 import { Button } from '../Button/Button';
 
+import { FormStatus } from './FormStatus';
 import styles from './addContentCreatorForm.module.scss';
 
 export const AddContentCreatorForm = () => {
@@ -14,6 +15,15 @@ export const AddContentCreatorForm = () => {
   const [mutate, status] = useAddContentCreatorMutation();
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const captchaRef = useRef<null | HCaptcha>(null);
+  const formRef = useRef<null | HTMLFormElement>(null);
+  const isFormValid = formRef.current?.reportValidity();
+
+  useEffect(() => {
+    if (status === 'success') {
+      setFields({ contentURL: '', email: '' });
+      setTouched({});
+    }
+  }, [status]);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(({ currentTarget }) => {
     setTouched((touched) => ({ ...touched, [currentTarget.name]: true }));
@@ -23,11 +33,9 @@ export const AddContentCreatorForm = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (token) {
-      void mutate({ ...fields, captchaToken: token });
       setToken(null);
-      setTouched({});
-      setFields({ contentURL: '', email: '' });
       captchaRef.current?.resetCaptcha();
+      void mutate({ ...fields, captchaToken: token });
     }
   };
 
@@ -49,8 +57,15 @@ export const AddContentCreatorForm = () => {
     );
   }
 
+  const isLoading = status === 'loading';
+  const isButtonDisabled = isLoading || !isFormValid || !token;
+
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form
+      onSubmit={handleSubmit}
+      className={clsx(styles.form, isLoading && styles.formLoading)}
+      ref={formRef}
+    >
       <label className={styles.label}>
         Adres URL
         <input
@@ -89,32 +104,11 @@ export const AddContentCreatorForm = () => {
           ref={captchaRef}
           languageOverride="pl"
         />
-        <Button type="submit">Zgłoś</Button>
+        <Button type="submit" disabled={isButtonDisabled}>
+          Zgłoś
+        </Button>
       </div>
-      {status === 'loading' && (
-        <div className={styles.statusContainer}>
-          <span className={clsx(styles.statusIcon, 'icon-spinner')}></span>
-          <span>Oczekiwanie...</span>
-        </div>
-      )}
-      {status === 'error' && (
-        <div className={styles.statusContainer}>
-          <span className={clsx(styles.statusIcon, 'icon-error')}></span>
-          <span>
-            Wystąpił błąd podczas dodawania nowego serwisu, sprawdź poprawność danych i spróbuj
-            ponownie
-          </span>
-        </div>
-      )}
-      {status === 'success' && (
-        <div className={styles.statusContainer}>
-          <span className={clsx(styles.statusIcon, 'icon-checkmark')}></span>
-          <span>
-            Dziękujemy za zgłoszenie, dodany serwis pojawi się na stronie po zaakceptowaniu przez
-            administrację
-          </span>
-        </div>
-      )}
+      <FormStatus status={status} />
     </form>
   );
 };
