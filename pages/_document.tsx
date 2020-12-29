@@ -6,7 +6,7 @@ class MyDocument extends Document {
     return (
       <Html lang="pl">
         <Head>
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+          <script defer src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
           <script
             dangerouslySetInnerHTML={{
               __html: `
