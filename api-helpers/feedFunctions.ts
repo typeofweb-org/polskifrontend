@@ -1,4 +1,5 @@
 import type { Blog, Prisma } from '@prisma/client';
+import Cheerio from 'cheerio';
 import FeedParser from 'feedparser';
 import Iconv from 'iconv-lite';
 import ms from 'ms';
@@ -6,6 +7,7 @@ import { EMPTY, from, of } from 'rxjs';
 import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
 
+import { getBlogName, getFavicon } from './contentCreatorFunctions';
 import { closeConnection, openConnection } from './db';
 import { logger } from './logger';
 import { streamToRx } from './rxjs-utils';
@@ -157,6 +159,48 @@ export const updateFeeds = async () => {
         }),
       )
       .toPromise();
+  } finally {
+    await closeConnection();
+  }
+};
+
+const getUpdatedInfoFor = (blog: Blog) => {
+  return from(fetchFeedFor(blog)).pipe(
+    timeout(MAX_FETCHING_TIME),
+    catchError((err: Error) => {
+      logger.error(`Timeout while fetching blog: ${blog.id} ${blog.name} – ${err?.toString()}`);
+      return EMPTY;
+    }),
+    mergeMap((res) => from(res.text())),
+    map(getBlogInfoFromRss),
+  );
+};
+
+const getBlogInfoFromRss = (text: string) => {
+  const $ = Cheerio.load(text, { xmlMode: true, decodeEntities: true });
+
+  const name = getBlogName($) || undefined;
+
+  logger.info(`Got info for blog: ${name || ''}`);
+
+  return {
+    name: getBlogName($) || undefined,
+    favicon: getFavicon($) || undefined,
+    slug: name ? Slugify(name, { lower: true }) : undefined,
+  };
+};
+
+export const updateBlogs = async () => {
+  try {
+    const prisma = await openConnection();
+
+    const blogs = await prisma.blog.findMany({
+      where: {
+        isPublic: true,
+      },
+    });
+
+    return await from(blogs).pipe(mergeMap(getUpdatedInfoFor, MAX_CONCURRENCY)).toPromise();
   } finally {
     await closeConnection();
   }

@@ -176,10 +176,10 @@ const getBlogDataFromRss = async (rssUrl: string) => {
   return undefined;
 };
 
-const getFavicon = ($: cheerio.Root) => {
+export const getFavicon = ($: cheerio.Root) => {
   return $('image url').first().text();
 };
 
-const getBlogName = ($: cheerio.Root) => {
+export const getBlogName = ($: cheerio.Root) => {
   return $('title').first().text();
 };
