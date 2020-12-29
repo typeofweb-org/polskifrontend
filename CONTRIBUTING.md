@@ -30,6 +30,6 @@ Spowoduje to załadowanie danych do bazy z pliku DUMP.sql.
 ## Konwencje
 Większość konwencji w projekcie jest wymuszona przez `prettier` i/lub `eslint` oraz TypeScripta.
 
-Ważna uwaga odnośnie tworzenia Pull Requestów: Od 29. grudnia korzystamy z "Conventional Commits", aby łatwiej nam było generować CHANGELOG. **Nazwy commitów mog być dowolne**, ale **tytuł samego PR-a musi spełniać określone wymagania**! Więcej informacji oraz przykłady można znaleźć tutaj: https://highlab.pl/conventional-commits/
+Ważna uwaga odnośnie tworzenia Pull Requestów: Od 29. grudnia korzystamy z "Conventional Commits", aby łatwiej nam było generować CHANGELOG. **Nazwy commitów mogą być dowolne**, ale **tytuł samego PR-a musi spełniać określone wymagania**! Więcej informacji oraz przykłady można znaleźć tutaj: https://highlab.pl/conventional-commits/
 
 **Tytuły i opisy PR-ów piszemy w języku polskim!**

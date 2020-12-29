@@ -71,7 +71,11 @@ export const getStaticProps = async ({
       const { data: articlesFromDb, nextCursor } = await getArticlesForList(prisma, params?.cursor);
       const articles = articlesFromDb.map(addExcerptToArticle);
       return {
-        props: { articles, displayStyle: 'list' as const, nextCursor },
+        props: {
+          articles,
+          displayStyle: 'list' as const,
+          nextCursor,
+        },
         revalidate: REVALIDATION_TIME,
       };
     }
