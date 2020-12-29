@@ -9,8 +9,8 @@ import { sendNewCreatorNotification } from '../../api-helpers/mailFunctions';
 export default withAsync(
   withValidation({
     body: object({
-      email: string().optional(),
-      contentURL: string().required(),
+      email: string().email().optional(),
+      contentURL: string().url().required(),
       captchaToken: string().required(),
     }).required(),
   })(async (req) => {
@@ -26,7 +26,10 @@ export default withAsync(
       throw Boom.unauthorized();
     }
 
-    const contentCreator = await addContentCreator(req.body.contentURL, req.body.email);
+    // normalize url
+    const url = new URL(req.body.contentURL).toString();
+
+    const contentCreator = await addContentCreator(url, req.body.email);
     await sendNewCreatorNotification(contentCreator);
 
     return null;

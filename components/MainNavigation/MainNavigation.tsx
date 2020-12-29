@@ -12,7 +12,7 @@ const links = [
   },
   {
     label: 'RSS',
-    href: `/feed`,
+    href: `https://polskifrontend.pl/feed`,
     openInNewTab: true,
     icon: 'rss2',
   },
