@@ -38,7 +38,7 @@ Ogromne podziękowania dla tych fantastycznych osób ([wyjaśnienie emoji](https
     <td align="center"><a href="https://www.linkedin.com/in/adam-klepacz/"><img src="https://avatars2.githubusercontent.com/u/27632432?v=4" width="70px;" alt=""/><br /><sub><b>Adam Klepacz</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=adamklepacz" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/poulch"><img src="https://avatars3.githubusercontent.com/u/16362049?v=4" width="70px;" alt=""/><br /><sub><b>poulch</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/pulls?q=is%3Apr+reviewed-by%3Apoulch" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/poulch"><img src="https://avatars3.githubusercontent.com/u/16362049?v=4" width="70px;" alt=""/><br /><sub><b>poulch</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/pulls?q=is%3Apr+reviewed-by%3Apoulch" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/typeofweb/polskifrontend/commits?author=poulch" title="Code">💻</a></td>
   </tr>
 </table>
 
