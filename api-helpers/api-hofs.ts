@@ -78,7 +78,6 @@ export const withAsync = (
         return res.status(err.output.statusCode).json(err.output.payload);
       } else {
         logger.error(err);
-        /* eslint-disable */
         Sentry.captureException(err);
         return res.status(500).json(err);
       }

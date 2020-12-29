@@ -28,7 +28,7 @@ export const AddContentCreatorForm = () => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(({ currentTarget }) => {
     setTouched((touched) => ({ ...touched, [currentTarget.name]: true }));
     setFields((fields) => ({ ...fields, [currentTarget.name]: currentTarget.value }));
-    setIsFormValid(formRef.current?.reportValidity() || true);
+    setIsFormValid(formRef.current?.checkValidity() || false);
   }, []);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {

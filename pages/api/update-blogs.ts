@@ -22,7 +22,6 @@ export default withAsync(
       );
 
       if (!isSecretValid) {
-        console.log('not valid secret');
         throw Boom.unauthorized();
       }
     } catch (err) {
