@@ -173,6 +173,13 @@ const getUpdatedInfoFor = (blog: Blog) => {
     }),
     mergeMap((res) => from(res.text())),
     map(getBlogInfoFromRss),
+    map((updatedInfo) => {
+      logger.debug(`Got updated info for blog: ${updatedInfo.name || blog.name}`);
+      return {
+        blog,
+        updatedInfo,
+      };
+    }),
   );
 };
 
@@ -180,13 +187,13 @@ const getBlogInfoFromRss = (text: string) => {
   const $ = Cheerio.load(text, { xmlMode: true, decodeEntities: true });
 
   const name = getBlogName($) || undefined;
-
-  logger.info(`Got info for blog: ${name || ''}`);
+  const favicon = getFavicon($) || undefined;
+  const slug = name ? Slugify(name, { lower: true }) : undefined;
 
   return {
-    name: getBlogName($) || undefined,
-    favicon: getFavicon($) || undefined,
-    slug: name ? Slugify(name, { lower: true }) : undefined,
+    name,
+    favicon,
+    slug,
   };
 };
 
@@ -200,7 +207,22 @@ export const updateBlogs = async () => {
       },
     });
 
-    return await from(blogs).pipe(mergeMap(getUpdatedInfoFor, MAX_CONCURRENCY)).toPromise();
+    return await from(blogs)
+      .pipe(
+        mergeMap(getUpdatedInfoFor, MAX_CONCURRENCY),
+        mergeMap(({ blog, updatedInfo }) => {
+          logger.debug(`Updating blog: ${updatedInfo.name || blog.name}`);
+          return from(
+            prisma.blog.update({
+              where: {
+                id: blog.id,
+              },
+              data: updatedInfo,
+            }),
+          );
+        }),
+      )
+      .toPromise();
   } finally {
     await closeConnection();
   }
