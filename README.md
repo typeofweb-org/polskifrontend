@@ -12,16 +12,11 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Dev
+Zachęcamy do tworzenia issues i pracy z kodem! Otwórz [CONTRIBUTING](./CONTRIBUTING.md).
 
-Uruchom `yarn dev`. Gdy serwer będzie już gotowy, to w drugim oknie terminala odpal:
+## Społeczność ✨
 
-```bash
-docker exec -i polskifrontend_typeofweb_polskifrontend_1 psql polskifrontend -U postgres < DUMP.sql
-```
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Ogromne podziękowania dla tych fantastycznych osób ([wyjaśnienie emoji](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -51,4 +46,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+Projekt korzysta ze specyfikacji [all-contributors](https://github.com/all-contributors/all-contributors).
