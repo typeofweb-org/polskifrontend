@@ -8,7 +8,7 @@ import { Button } from '../Button/Button';
 
 import styles from './articleSection.module.scss';
 
-type ArticleSectionProps = ArticlePageProps;
+type ArticleSectionProps = Pick<ArticlePageProps, 'article'>;
 
 export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
   const readableDate = formatDate(article.publishedAt);

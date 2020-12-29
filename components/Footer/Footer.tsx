@@ -3,7 +3,6 @@ import Link from 'next/link';
 import styles from './footer.module.scss';
 
 const date = new Date();
-const footerDate = date.toISOString();
 const copyrightYear = date.getFullYear();
 
 export const Footer = () => {
@@ -22,9 +21,10 @@ export const Footer = () => {
           </a>
         </Link>{' '}
         <span aria-hidden={true} className={styles.version}>
-          {process.env.NEXT_PUBLIC_VERSION || ''} <time>{footerDate}</time>
+          {process.env.NEXT_PUBLIC_VERSION || ''}
         </span>
       </p>
     </footer>
   );
 };
+Footer.displayName = 'Footer';
