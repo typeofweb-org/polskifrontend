@@ -4,6 +4,7 @@ import { string, object } from 'yup';
 
 import { withAsync, withValidation } from '../../api-helpers/api-hofs';
 import { addContentCreator } from '../../api-helpers/contentCreatorFunctions';
+import { sendNewCreatorNotification } from '../../api-helpers/mailFunctions';
 
 export default withAsync(
   withValidation({
@@ -25,7 +26,9 @@ export default withAsync(
       throw Boom.unauthorized();
     }
 
-    await addContentCreator(req.body.contentURL, req.body.email);
+    const contentCreator = await addContentCreator(req.body.contentURL, req.body.email);
+    await sendNewCreatorNotification(contentCreator);
+
     return null;
   }),
 );
