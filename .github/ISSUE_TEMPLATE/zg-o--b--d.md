@@ -27,7 +27,7 @@ Jeśli ma to sens, to dołącz zrzuty ekranu lub nawet nagranie.
  - System operacyjny: (np. iOS, Windows 10, MacOS Catalina etc.)
  - Przeglądarka (np. Chrome 74, Safari 13 etc.)
  - Wersja aplikacji – skopiuj ze stopki na stronie, o tutaj:
-<img src=".github/wersja.png" height="30" alt=""/>
+https://github.com/typeofweb/polskifrontend/blob/develop/.github/wersja.png
 
 **Dodatkowe informacje**
 …
