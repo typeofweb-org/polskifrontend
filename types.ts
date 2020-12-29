@@ -23,6 +23,6 @@ export type InferGetStaticPropsContext<T> = GetStaticPropsContext<InferGetStatic
 
 export type InferGetStaticPropsType2<T> = T extends (
   ...args: readonly any[]
-) => Promise<{ readonly props: infer P }>
+) => Promise<{ readonly props: infer P }> | { readonly props: infer P }
   ? NonNullable<P>
   : never;
