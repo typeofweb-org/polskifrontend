@@ -4,7 +4,11 @@ import Mailgun from 'mailgun-js';
 
 import { closeConnection, openConnection } from './db';
 
-const mg = Mailgun({ apiKey: process.env.MAILGUN_API_KEY!, domain: process.env.MAILGUN_DOMAIN! });
+const mg = Mailgun({
+  apiKey: process.env.MAILGUN_API_KEY!,
+  domain: process.env.MAILGUN_DOMAIN!,
+  host: 'api.eu.mailgun.net',
+});
 
 const sendEmail = (
   recepients: readonly string[],
