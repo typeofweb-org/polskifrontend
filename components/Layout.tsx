@@ -13,9 +13,15 @@ type LayoutProps = {
   readonly children: ReactNode;
   readonly title: string;
   readonly titleTemplate?: string;
+  readonly date: string;
 };
 
-export const Layout = ({ children, title, titleTemplate = defaultTitleTemplate }: LayoutProps) => {
+export const Layout = ({
+  children,
+  title,
+  titleTemplate = defaultTitleTemplate,
+  date,
+}: LayoutProps) => {
   return (
     <div className={styles.wrapper}>
       <header>
@@ -23,7 +29,7 @@ export const Layout = ({ children, title, titleTemplate = defaultTitleTemplate }
         <MainHeader />
       </header>
       <main>{children}</main>
-      <Footer />
+      <Footer date={date} />
       <CookiesPopup />
       <NextSeo
         title={titleTemplate ? titleTemplate.replace('%s', title) : title}

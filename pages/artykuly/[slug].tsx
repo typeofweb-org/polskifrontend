@@ -9,9 +9,9 @@ import { addSanitizedDescriptionToArticle } from '../../utils/sanitize-utils';
 
 export type ArticlePageProps = InferGetStaticPropsType2<typeof getStaticProps>;
 
-export default function ArticlePage({ article }: ArticlePageProps) {
+export default function ArticlePage({ article, date }: ArticlePageProps) {
   return (
-    <Layout title={article.title}>
+    <Layout title={article.title} date={date}>
       <ArticleSection article={article} />
     </Layout>
   );
@@ -28,6 +28,7 @@ export const getStaticProps = async ({
     return {
       props: {
         article: addSanitizedDescriptionToArticle(article),
+        date: new Date().toISOString(),
       },
     };
   } catch (err) {

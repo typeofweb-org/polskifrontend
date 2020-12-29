@@ -25,6 +25,7 @@ export default function HomePage(props: HomePageProps) {
         displayStyleToTitle[props.displayStyle]
       } artykułów z polskich blogów frontendowych`}
       titleTemplate=""
+      date={props.date}
     >
       <MainTiles {...props} />
     </Layout>
@@ -71,7 +72,12 @@ export const getStaticProps = async ({
       const { data: articlesFromDb, nextCursor } = await getArticlesForList(prisma, params?.cursor);
       const articles = articlesFromDb.map(addExcerptToArticle);
       return {
-        props: { articles, displayStyle: 'list' as const, nextCursor },
+        props: {
+          articles,
+          displayStyle: 'list' as const,
+          nextCursor,
+          date: new Date().toISOString(),
+        },
         revalidate: REVALIDATION_TIME,
       };
     }
@@ -84,7 +90,7 @@ export const getStaticProps = async ({
       } as const;
     });
     return {
-      props: { blogs, displayStyle: 'grid' as const, nextCursor },
+      props: { blogs, displayStyle: 'grid' as const, nextCursor, date: new Date().toISOString() },
       revalidate: REVALIDATION_TIME,
     } as const;
   } catch (err) {
