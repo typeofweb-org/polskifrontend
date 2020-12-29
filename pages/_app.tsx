@@ -12,7 +12,7 @@ import { initSentry } from '../utils/sentry';
 
 const meta = {
   title: 'Polski Frontend',
-  description: `Serwis Polski Front-End powstał w celu zebrania w jednym miejscu jak największej liczby stron, serwisów oraz blogów na temat szeroko rozumianego front-end developmentu. Co ważne, wszystkie zgromadzone tutaj serwisy tworzone są w języku polskim!`,
+  description: `Serwis Polski Frontend powstał w celu zebrania w jednym miejscu jak największej liczby stron, serwisów oraz blogów na temat szeroko rozumianego frontend developmentu. Co ważne, wszystkie zgromadzone tutaj serwisy tworzone są w języku polskim!`,
 };
 export const titleTemplate = `%s | ${meta.title}`;
 

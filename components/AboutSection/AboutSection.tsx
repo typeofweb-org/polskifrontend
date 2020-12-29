@@ -15,19 +15,19 @@ export const AboutSection = () => (
     <article className={styles.note}>
       <h3>Po co jest ten serwis?</h3>
       <p>
-        Serwis <strong>Polski Front-End</strong> powstał w celu zebrania w jednym miejscu jak
-        największej liczby stron, serwisów oraz blogów na temat szeroko rozumianego front-end
+        Serwis <strong>Polski Frontend</strong> powstał w celu zebrania w jednym miejscu jak
+        największej liczby stron, serwisów oraz blogów na temat szeroko rozumianego frontend
         developmentu. Co ważne, wszystkie zgromadzone tutaj serwisy tworzone są{' '}
         <strong>w języku polskim</strong>!
       </p>
       <p>
-        Podstawowym założeniem "Polskiego Front-Endu" było zebranie tutaj{' '}
+        Podstawowym założeniem "Polskiego Frontendu" było zebranie tutaj{' '}
         <strong>całych blogów</strong>, a nie pojedynczych artykułów. Z tego powodu selekcji treści
         mogę dokonywać jedynie na etapie dodawania danej strony do serwisu. Jako, że nie każdy pisze
-        tylko i wyłącznie o front-endzie, to czasem może się tutaj pojawić wpis na temat, na
+        tylko i wyłącznie o frontendzie, to czasem może się tutaj pojawić wpis na temat, na
         przykład, PHP... Wydaje mi się jednak, że każdy blog czy strona, która pisze{' '}
-        <strong>dużo o front-endzie, czy ogólniej o web developmencie</strong>, zasługuje by się
-        tutaj znaleźć... Nawet jeśli front-end to nie jedyny poruszany tam temat.
+        <strong>dużo o frontendzie, czy ogólniej o web developmencie</strong>, zasługuje by się
+        tutaj znaleźć... Nawet jeśli frontend to nie jedyny poruszany tam temat.
       </p>
       <p>
         Jeżeli więc znasz (lub sam prowadzisz) jakiś blog, serwis lub stronę{' '}
@@ -40,7 +40,7 @@ export const AboutSection = () => (
         do serwisu!
       </p>
       <p>
-        A jeśli podoba Ci się moja idea i sam prowadzisz bloga o front-endzie, to oprócz zgłoszenia
+        A jeśli podoba Ci się moja idea i sam prowadzisz bloga o frontendzie, to oprócz zgłoszenia
         zachęcam również, do <strong>polecania tej strony</strong> swoim czytelnikom! Im większy
         ruch tutaj <strong>tym większy ruch do Twojego bloga...</strong>
       </p>
