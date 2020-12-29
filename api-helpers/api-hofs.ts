@@ -1,7 +1,10 @@
 import Boom from '@hapi/boom';
+import * as Sentry from '@sentry/node';
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { object } from 'yup';
 import type { AnySchema, ObjectSchema, InferType } from 'yup';
+
+import { initSentry } from '../utils/sentry';
 
 import { closeConnection, openConnection } from './db';
 import { logger } from './logger';
@@ -43,34 +46,40 @@ export const withValidation = <
 
 export const withAsync = (
   handler: (req: NextApiRequest, res: NextApiResponse) => Promise<unknown> | unknown,
-): NextApiHandler => async (req, res) => {
-  try {
-    await openConnection();
-    const result = await handler(req, res);
-    if (res.writableEnded) {
-      return;
+): NextApiHandler => {
+  initSentry();
+
+  return async (req, res) => {
+    try {
+      await openConnection();
+      const result = await handler(req, res);
+      if (res.writableEnded) {
+        return;
+      }
+      if (result === undefined) {
+        logger.error(
+          `Handler returned undefined. If you intended to return an empty response, return null instead. ${handler
+            .toString()
+            .slice(0, 50)}`,
+        );
+        return res.status(500).end();
+      }
+      if (result === null) {
+        return res.status(204).end();
+      }
+      return res.json(result);
+    } catch (err) {
+      if (Boom.isBoom(err)) {
+        Object.entries(err.output.headers).forEach(([key, val]) => res.setHeader(key, val));
+        return res.status(err.output.statusCode).json(err.output.payload);
+      } else {
+        logger.error(err);
+        Sentry.captureException(err);
+        return res.status(500).json(err);
+      }
+    } finally {
+      await Sentry.flush(2000);
+      await closeConnection()?.catch((err) => logger.error(err));
     }
-    if (result === undefined) {
-      logger.error(
-        `Handler returned undefined. If you intended to return an empty response, return null instead. ${handler
-          .toString()
-          .slice(0, 50)}`,
-      );
-      return res.status(500).end();
-    }
-    if (result === null) {
-      return res.status(204).end();
-    }
-    return res.json(result);
-  } catch (err) {
-    if (Boom.isBoom(err)) {
-      Object.entries(err.output.headers).forEach(([key, val]) => res.setHeader(key, val));
-      return res.status(err.output.statusCode).json(err.output.payload);
-    } else {
-      logger.error(err);
-      return res.status(500).json(err);
-    }
-  } finally {
-    await closeConnection()?.catch((err) => logger.error(err));
-  }
+  };
 };

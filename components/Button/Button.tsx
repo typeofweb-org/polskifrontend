@@ -12,6 +12,8 @@ type ButtonProps = {
   readonly className?: string;
   readonly onClick?: () => void;
   readonly href?: string;
+  readonly target?: string;
+  readonly rel?: string;
   readonly iconPosition?: 'right' | 'left';
 };
 
