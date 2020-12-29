@@ -16,7 +16,7 @@ export const AddContentCreatorForm = () => {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const captchaRef = useRef<null | HCaptcha>(null);
   const formRef = useRef<null | HTMLFormElement>(null);
-  const isFormValid = formRef.current?.reportValidity();
+  const [isFormValid, setIsFormValid] = useState(true);
 
   useEffect(() => {
     if (status === 'success') {
@@ -28,6 +28,7 @@ export const AddContentCreatorForm = () => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(({ currentTarget }) => {
     setTouched((touched) => ({ ...touched, [currentTarget.name]: true }));
     setFields((fields) => ({ ...fields, [currentTarget.name]: currentTarget.value }));
+    setIsFormValid(formRef.current?.reportValidity() || true);
   }, []);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
