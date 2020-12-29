@@ -1,0 +1,15 @@
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+name: Generate Pull Request Stats
+
+jobs:
+  stats:
+    name: PR Stats
+    runs-on: ubuntu-latest
+    steps:
+      - uses: typeofweb/next-stats-action@master
+        env:
+          PR_STATS_COMMENT_TOKEN: ${{secrets.PR_STATS_COMMENT_TOKEN}}
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
