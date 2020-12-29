@@ -19,6 +19,7 @@ export const Footer = () => {
             Type of Web
           </a>
         </Link>
+        {process.env.NEXT_PUBLIC_VERSION || ''}
       </p>
     </footer>
   );
