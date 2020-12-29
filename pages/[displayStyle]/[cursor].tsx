@@ -25,7 +25,6 @@ export default function HomePage(props: HomePageProps) {
         displayStyleToTitle[props.displayStyle]
       } artykułów z polskich blogów frontendowych`}
       titleTemplate=""
-      date={props.date}
     >
       <MainTiles {...props} />
     </Layout>
@@ -76,7 +75,6 @@ export const getStaticProps = async ({
           articles,
           displayStyle: 'list' as const,
           nextCursor,
-          date: new Date().toISOString(),
         },
         revalidate: REVALIDATION_TIME,
       };
@@ -90,7 +88,7 @@ export const getStaticProps = async ({
       } as const;
     });
     return {
-      props: { blogs, displayStyle: 'grid' as const, nextCursor, date: new Date().toISOString() },
+      props: { blogs, displayStyle: 'grid' as const, nextCursor },
       revalidate: REVALIDATION_TIME,
     } as const;
   } catch (err) {

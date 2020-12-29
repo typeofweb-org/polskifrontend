@@ -1,21 +1,10 @@
 import { AddContentCreatorSection } from '../components/AddContentCreatorSection/AddContentCreatorSection';
 import { Layout } from '../components/Layout';
-import type { InferGetStaticPropsType2 } from '../types';
 
-export type AddContentCreatorPageProps = InferGetStaticPropsType2<typeof getStaticProps>;
-
-export default function AddContentCreatorPage({ date }: AddContentCreatorPageProps) {
+export default function AddContentCreatorPage() {
   return (
-    <Layout title="Zgłoś serwis" date={date}>
+    <Layout title="Zgłoś serwis">
       <AddContentCreatorSection />
     </Layout>
   );
 }
-
-export const getStaticProps = () => {
-  return {
-    props: {
-      date: new Date().toISOString(),
-    },
-  };
-};

@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import { memo } from 'react';
 
 import styles from './footer.module.scss';
 
 const date = new Date();
 const copyrightYear = date.getFullYear();
 
-export const Footer = memo<{ readonly date: string }>(({ date }) => {
+export const Footer = () => {
   return (
     <footer className={styles.footer}>
       <Link href="https://vercel.com?utm_source=typeofweb&utm_campaign=oss">
@@ -22,10 +21,10 @@ export const Footer = memo<{ readonly date: string }>(({ date }) => {
           </a>
         </Link>{' '}
         <span aria-hidden={true} className={styles.version}>
-          {process.env.NEXT_PUBLIC_VERSION || ''} <time>{date}</time>
+          {process.env.NEXT_PUBLIC_VERSION || ''}
         </span>
       </p>
     </footer>
   );
-});
+};
 Footer.displayName = 'Footer';
