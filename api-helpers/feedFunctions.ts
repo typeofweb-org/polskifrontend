@@ -119,7 +119,11 @@ const getNewArticlesForBlog = (now: Date) => (blog: Blog) => {
 
 export const updateFeeds = async () => {
   const prisma = await openConnection();
-  const blogs = await prisma.blog.findMany();
+  const blogs = await prisma.blog.findMany({
+    where: {
+      isPublic: true,
+    },
+  });
   const now = new Date();
 
   logger.info(`Found blogs in SQL database ${blogs.length}`);

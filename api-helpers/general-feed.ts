@@ -11,6 +11,7 @@ export async function getGeneralFeed() {
     const prisma = await openConnection();
 
     const articles = await prisma.article.findMany({
+      where: { blog: { isPublic: true } },
       take: DEFAULT_ARTICLES,
       orderBy: {
         updatedAt: 'desc',

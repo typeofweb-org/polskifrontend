@@ -31,7 +31,7 @@ export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) 
     : {};
 
   const blogs = await prisma.blog.findMany({
-    where,
+    where: { ...where, isPublic: true },
     take: TILES_BLOGS_PER_PAGE,
     orderBy: {
       updatedAt: 'desc',
@@ -55,6 +55,7 @@ export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) 
 
 export const getArticlesPaginationForGrid = async (prisma: PrismaClient) => {
   const blogs = await prisma.blog.findMany({
+    where: { isPublic: true },
     orderBy: {
       updatedAt: 'desc',
     },
@@ -87,7 +88,7 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
       }
     : {};
   const articles = await prisma.article.findMany({
-    where,
+    where: { ...where, blog: { isPublic: true } },
     take: LIST_ARTICLES_PER_PAGE,
     orderBy: {
       createdAt: 'desc',
@@ -106,6 +107,9 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
 
 export const getArticlesPaginationForList = async (prisma: PrismaClient) => {
   const articles = await prisma.article.findMany({
+    where: {
+      blog: { isPublic: true },
+    },
     orderBy: {
       createdAt: 'desc',
     },
@@ -125,6 +129,9 @@ export const getArticlesPaginationForList = async (prisma: PrismaClient) => {
 
 export const getArticlesSlugs = async (prisma: PrismaClient, limit?: number) => {
   const articles = await prisma.article.findMany({
+    where: {
+      blog: { isPublic: true },
+    },
     orderBy: {
       createdAt: 'desc',
     },
@@ -143,6 +150,7 @@ export const getArticleBySlug = async (prisma: PrismaClient, slug: string) => {
       slug: {
         equals: slug,
       },
+      blog: { isPublic: true },
     },
     include: {
       blog: true,
