@@ -18,8 +18,10 @@ export const Footer = () => {
           <a target="_blank" rel="noopener noreferrer">
             Type of Web
           </a>
-        </Link>
-        {process.env.NEXT_PUBLIC_VERSION || ''}
+        </Link>{' '}
+        <span aria-hidden={true} className={styles.version}>
+          {process.env.NEXT_PUBLIC_VERSION || ''}
+        </span>
       </p>
     </footer>
   );

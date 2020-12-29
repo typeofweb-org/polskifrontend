@@ -8,3 +8,10 @@
   padding-bottom: calc(0.75rem + constant(safe-area-inset-bottom));
   padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
 }
+
+.version {
+  font-size: 0.5em;
+  overflow-wrap: break-word;
+  display: block;
+  margin-top: 1em;
+}
