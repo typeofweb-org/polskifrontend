@@ -25,7 +25,7 @@ type Feed = {
   readonly title: string;
 };
 
-export const addContentCreator = async (url: string, email?: string) => {
+export const addContentCreator = async (url: string, email: string) => {
   try {
     const prisma = await openConnection();
     const blogData = await getBlogData(url);

@@ -82,13 +82,14 @@ export const AddContentCreatorForm = () => {
         )}
       </label>
       <label className={styles.label}>
-        Adres email (opcjonalne)
+        Adres email
         <input
           className={styles.input}
           value={fields.email}
           name="email"
           onChange={handleChange}
-          placeholder="Podaj swój email (opcjonalne)"
+          placeholder="Podaj swój email"
+          required
           type="email"
         />
         {touched['email'] && (
