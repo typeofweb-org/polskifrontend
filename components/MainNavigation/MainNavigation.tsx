@@ -16,6 +16,12 @@ const links = [
     openInNewTab: true,
     icon: 'rss2',
   },
+  {
+    label: 'Discord',
+    href: `https://discord.typeofweb.com`,
+    openInNewTab: true,
+    icon: 'discord',
+  },
 ];
 
 export const MainNavigation = () => {
