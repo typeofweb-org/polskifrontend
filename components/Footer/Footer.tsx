@@ -2,7 +2,9 @@ import Link from 'next/link';
 
 import styles from './footer.module.scss';
 
-const copyrightYear = new Date().getFullYear();
+const date = new Date();
+const footerDate = date.toISOString();
+const copyrightYear = date.getFullYear();
 
 export const Footer = () => {
   return (
@@ -18,7 +20,10 @@ export const Footer = () => {
           <a target="_blank" rel="noopener noreferrer">
             Type of Web
           </a>
-        </Link>
+        </Link>{' '}
+        <span aria-hidden={true} className={styles.version}>
+          {process.env.NEXT_PUBLIC_VERSION || ''} <time>{footerDate}</time>
+        </span>
       </p>
     </footer>
   );
