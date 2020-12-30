@@ -65,7 +65,7 @@ model Blog {
   creatorEmail String?
   isPublic Boolean @default(false)
 
-  lastArticlePublishedAt DateTime
+  lastArticlePublishedAt DateTime?
 
   articles Article[]
   
