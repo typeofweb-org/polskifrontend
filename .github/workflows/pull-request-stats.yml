@@ -1,6 +1,6 @@
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
   issue_comment:
     types: [created]
 
@@ -11,14 +11,14 @@ jobs:
     name: PR Stats
     runs-on: ubuntu-latest
     steps:
-      - uses: Khan/pull-request-comment-trigger@bb03972cc9f423111f3b5a23fcc9fd32741acabb
+      - uses: Khan/pull-request-comment-trigger@master
         id: check
         with:
           reaction: eyes
           trigger: '@TypeOfWebBot stats'
           prefix_only: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - if: steps.check.outputs.triggered == 'true'
         uses: typeofweb/next-stats-action@master
         env:
