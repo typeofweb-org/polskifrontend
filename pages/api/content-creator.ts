@@ -9,7 +9,7 @@ import { sendNewCreatorNotification } from '../../api-helpers/mailFunctions';
 export default withAsync(
   withValidation({
     body: object({
-      email: string().email().optional(),
+      email: string().email().required(),
       contentURL: string().url().required(),
       captchaToken: string().required(),
     }).required(),
