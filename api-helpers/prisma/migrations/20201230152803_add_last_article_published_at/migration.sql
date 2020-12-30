@@ -1,7 +1,7 @@
 -- AlterTable
 ALTER TABLE "Blog" ADD COLUMN     "lastArticlePublishedAt" TIMESTAMP(3);
 
-UPDATE "Blog" SET "lastArticlePublishedAt" = (SELECT "publishedAt" FROM "Article" WHERE "blogId" = "Blog"."id" ORDER BY "createdAt" DESC LIMIT 1);
+UPDATE "Blog" SET "lastArticlePublishedAt" = (SELECT "publishedAt" FROM "Article" WHERE "blogId" = "Blog"."id" ORDER BY "publishedAt" DESC LIMIT 1);
 
 
 CREATE OR REPLACE FUNCTION update_last_article_published_at() RETURNS trigger AS $last_article_published_at$
