@@ -12,16 +12,11 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Dev
+Zachęcamy do tworzenia issues i pracy z kodem! Otwórz [CONTRIBUTING](./CONTRIBUTING.md).
 
-Uruchom `yarn dev`. Gdy serwer będzie już gotowy, to w drugim oknie terminala odpal:
+## Społeczność ✨
 
-```bash
-docker exec -i polskifrontend_typeofweb_polskifrontend_1 psql polskifrontend -U postgres < DUMP.sql
-```
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Ogromne podziękowania dla tych fantastycznych osób ([wyjaśnienie emoji](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -43,7 +38,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://www.linkedin.com/in/adam-klepacz/"><img src="https://avatars2.githubusercontent.com/u/27632432?v=4" width="70px;" alt=""/><br /><sub><b>Adam Klepacz</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=adamklepacz" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/poulch"><img src="https://avatars3.githubusercontent.com/u/16362049?v=4" width="70px;" alt=""/><br /><sub><b>poulch</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/pulls?q=is%3Apr+reviewed-by%3Apoulch" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/poulch"><img src="https://avatars3.githubusercontent.com/u/16362049?v=4" width="70px;" alt=""/><br /><sub><b>poulch</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/pulls?q=is%3Apr+reviewed-by%3Apoulch" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/typeofweb/polskifrontend/commits?author=poulch" title="Code">💻</a></td>
   </tr>
 </table>
 
@@ -51,4 +46,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+Projekt korzysta ze specyfikacji [all-contributors](https://github.com/all-contributors/all-contributors).

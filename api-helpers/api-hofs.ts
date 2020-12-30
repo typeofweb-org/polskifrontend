@@ -53,9 +53,11 @@ export const withAsync = (
     try {
       await openConnection();
       const result = await handler(req, res);
+
       if (res.writableEnded) {
         return;
       }
+
       if (result === undefined) {
         logger.error(
           `Handler returned undefined. If you intended to return an empty response, return null instead. ${handler
@@ -64,9 +66,11 @@ export const withAsync = (
         );
         return res.status(500).end();
       }
+
       if (result === null) {
         return res.status(204).end();
       }
+
       return res.json(result);
     } catch (err) {
       if (Boom.isBoom(err)) {
@@ -78,7 +82,7 @@ export const withAsync = (
         return res.status(500).json(err);
       }
     } finally {
-      await Sentry.flush(2000);
+      await Sentry.flush(2000).catch(() => {});
       await closeConnection()?.catch((err) => logger.error(err));
     }
   };

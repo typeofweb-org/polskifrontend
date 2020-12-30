@@ -25,7 +25,7 @@ type Feed = {
   readonly title: string;
 };
 
-export const addContentCreator = async (url: string, email?: string) => {
+export const addContentCreator = async (url: string, email: string) => {
   try {
     const prisma = await openConnection();
     const blogData = await getBlogData(url);
@@ -176,10 +176,10 @@ const getBlogDataFromRss = async (rssUrl: string) => {
   return undefined;
 };
 
-const getFavicon = ($: cheerio.Root) => {
+export const getFavicon = ($: cheerio.Root) => {
   return $('image url').first().text();
 };
 
-const getBlogName = ($: cheerio.Root) => {
+export const getBlogName = ($: cheerio.Root) => {
   return $('title').first().text();
 };
