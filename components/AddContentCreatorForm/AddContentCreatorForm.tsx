@@ -16,7 +16,7 @@ export const AddContentCreatorForm = () => {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const captchaRef = useRef<null | HCaptcha>(null);
   const formRef = useRef<null | HTMLFormElement>(null);
-  const [isFormValid, setIsFormValid] = useState(true);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
     if (status === 'success') {
