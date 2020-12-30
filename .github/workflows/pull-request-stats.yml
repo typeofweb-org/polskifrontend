@@ -1,6 +1,8 @@
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened]
+  issue_comment:
+    types: [created]
 
 name: Generate Pull Request Stats
 
@@ -9,7 +11,16 @@ jobs:
     name: PR Stats
     runs-on: ubuntu-latest
     steps:
-      - uses: typeofweb/next-stats-action@master
+      - uses: Khan/pull-request-comment-trigger@1.0.0
+        id: check
+        with:
+          reaction: eyes
+          trigger: '@TypeOfWebBot stats'
+          prefix_only: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: steps.check.outputs.triggered == 'true'
+        uses: typeofweb/next-stats-action@master
         env:
           PR_STATS_COMMENT_TOKEN: ${{secrets.PR_STATS_COMMENT_TOKEN}}
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
