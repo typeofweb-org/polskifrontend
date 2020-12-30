@@ -1,0 +1,8 @@
+{
+  "types": [
+    {"type":"feat","section":"Nowe funkcje"},
+    {"type":"fix","section":"Naprawione błędy"},
+    {"type":"docs","section":"Dokumentacja"},
+    {"type":"chore","section":"Inne zmiany"}
+  ]
+}
