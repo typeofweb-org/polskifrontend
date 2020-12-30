@@ -1,7 +1,7 @@
 import { signIn, signOut, useSession } from 'next-auth/client';
 
 import { Layout } from '../components/Layout';
-import { Loading } from '../components/Loading/Loading';
+import { LoadingScreen } from '../components/LoadingScreen/LoadingScreen';
 
 export default function AdminPage() {
   const [session, isLoading] = useSession();
@@ -9,7 +9,7 @@ export default function AdminPage() {
   if (isLoading) {
     return (
       <Layout title="Panel admina">
-        <Loading />
+        <LoadingScreen />
       </Layout>
     );
   }
