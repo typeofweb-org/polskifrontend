@@ -11,7 +11,7 @@ jobs:
     name: PR Stats
     runs-on: ubuntu-latest
     steps:
-      - uses: Khan/pull-request-comment-trigger@1.0.0
+      - uses: Khan/pull-request-comment-trigger@bb03972cc9f423111f3b5a23fcc9fd32741acabb
         id: check
         with:
           reaction: eyes
