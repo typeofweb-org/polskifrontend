@@ -5,7 +5,7 @@ import { LoadingScreen } from '../LoadingScreen/LoadingScreen';
 
 import styles from './AdminPanel.module.css';
 
-export const AdminPanel = () => {
+const AdminPanel = () => {
   const [session, isLoading] = useSession();
 
   useEffect(() => {
@@ -26,9 +26,12 @@ export const AdminPanel = () => {
     <section className={styles.section}>
       <h2 className={styles.heading}>Brak uprawnień</h2>
       <p className={styles.p}>
-        Nie masz odpowiednich uprawnień, żeby korzystać z tej podstrony, w celu weryfikacji
+        Nie masz odpowiednich uprawnień, żeby korzystać z tej podstrony. W celu weryfikacji
         skontaktuj się z administracją serwisu.
       </p>
     </section>
   );
 };
+
+// eslint-disable-next-line import/no-default-export
+export default AdminPanel;

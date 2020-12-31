@@ -40,6 +40,7 @@ const authHandler: NextApiHandler = async (req, res) => {
             where: {
               id: userId,
             },
+            select: { role: true },
           });
           token.userId = userId;
           token.role = user?.role;
