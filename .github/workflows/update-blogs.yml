@@ -1,7 +1,7 @@
 name: Update Blogs
 on:
   schedule:
-    - cron: '* 0 * * *' # codziennie o północy
+    - cron: '0 0 * * *' # codziennie o północy
 jobs:
   cron:
     runs-on: ubuntu-latest

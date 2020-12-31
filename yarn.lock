@@ -389,7 +389,7 @@
     "@hapi/boom" "9.x.x"
     "@hapi/hoek" "9.x.x"
 
-"@hapi/boom@*", "@hapi/boom@9.1.1", "@hapi/boom@9.x.x":
+"@hapi/boom@9.1.1", "@hapi/boom@9.x.x":
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/@hapi/boom/-/boom-9.1.1.tgz#89e6f0e01637c2a4228da0d113e8157c93677b04"
   integrity sha512-VNR8eDbBrOxBgbkddRYIe7+8DZ+vSbV6qlmaN2x7eWjsUjy2VmQgChkOKcVZIeupEZYj+I0dqNg430OhwzagjA==
@@ -1662,7 +1662,7 @@
     lodash "^4.17.15"
     redent "^3.0.0"
 
-"@testing-library/react@*", "@testing-library/react@11.2.2":
+"@testing-library/react@11.2.2":
   version "11.2.2"
   resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-11.2.2.tgz#099c6c195140ff069211143cb31c0f8337bdb7b7"
   integrity sha512-jaxm0hwUjv+hzC+UFEywic7buDC9JQ1q3cDsrWVSDAPmLotfA6E6kUHlYm/zOeGCac6g48DR36tFHxl7Zb+N5A==
@@ -1753,13 +1753,6 @@
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/@types/gtag.js/-/gtag.js-0.0.4.tgz#81427d703b5a889b4fd1c37eaae6f2a6db228e5a"
   integrity sha512-rn4yaEfryXklAtsiai4xHNUgLjGD8AEPQBNSCTa5QrvccFYYBWJQRGwaHiv2U/wdIzcjOuyyBC23YgdQfq5u/Q==
-
-"@types/hapi__boom@9.0.1":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/@types/hapi__boom/-/hapi__boom-9.0.1.tgz#8fbf719d0358e361b831802fb05fb4feced2ac29"
-  integrity sha512-TSqwgnTmNNp3/9uOpV16S8IVJv+QDmZLEImSuQrzGLCzmuK5P3bx3wdaXGXxfWLlN09Qqnd27POLrEAKhVCM5g==
-  dependencies:
-    "@hapi/boom" "*"
 
 "@types/hcaptcha__react-hcaptcha@0.1.4":
   version "0.1.4"
@@ -1940,13 +1933,6 @@
   integrity sha512-ggn3ws+yRbOHog9GxnXiEZ/35Mow6YtPZpd7Z5mKDeZS/o7zx3yAle0ov/wjhVB5QT4N2Dt+GNoGCdqkBGCajQ==
   dependencies:
     "@types/jest" "*"
-
-"@types/testing-library__react@10.2.0":
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/@types/testing-library__react/-/testing-library__react-10.2.0.tgz#8234be1248ce6728b33922507cfe1224886ede8e"
-  integrity sha512-KbU7qVfEwml8G5KFxM+xEfentAAVj/SOQSjW0+HqzjPE0cXpt0IpSamfX4jGYCImznDHgQcfXBPajS7HjLZduw==
-  dependencies:
-    "@testing-library/react" "*"
 
 "@types/yargs-parser@*":
   version "20.2.0"

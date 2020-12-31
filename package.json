@@ -1,6 +1,6 @@
 {
   "name": "polskifrontend",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "np": {
     "branch": "main",
     "releaseDraft": true
@@ -40,7 +40,6 @@
     "@sentry/integrations": "5.29.2",
     "@sentry/node": "5.29.2",
     "@sentry/webpack-plugin": "1.14.0",
-    "@types/hapi__boom": "9.0.1",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "cheerio": "1.0.0-rc.5",
     "clsx": "1.1.1",
@@ -88,7 +87,6 @@
     "@types/pino": "6.3.4",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
-    "@types/testing-library__react": "10.2.0",
     "@types/yup": "0.29.11",
     "@types/zeit__next-source-maps": "0.0.2",
     "@typescript-eslint/eslint-plugin": "4.11.1",

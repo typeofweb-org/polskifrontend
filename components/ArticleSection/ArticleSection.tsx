@@ -19,6 +19,7 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
         <Link href={addTrackingToLink(article.blog.href, { utm_medium: 'article_page' })}>
           <a target="_blank" rel="noopener noreferrer">
             <img
+              loading="lazy"
               src={article.blog.favicon || undefined}
               alt=""
               className={styles.favicon}
