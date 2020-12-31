@@ -1,6 +1,7 @@
 // https://github.com/vercel/next.js/blob/db329fe9b0e13a389a84cb98fd936e8a671ba8ec/examples/with-sentry/utils/sentry.js
 import { RewriteFrames } from '@sentry/integrations';
 import * as Sentry from '@sentry/node';
+import { Integrations } from '@sentry/tracing';
 
 export const initSentry = () => {
   if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
@@ -21,6 +22,10 @@ export const initSentry = () => {
           },
         }),
       );
+      integrations.push(new Sentry.Integrations.Http({ tracing: true }));
+    }
+    if (process.env.NEXT_IS_SERVER !== 'true') {
+      integrations.push(new Integrations.BrowserTracing());
     }
 
     Sentry.init({
@@ -28,6 +33,7 @@ export const initSentry = () => {
       integrations,
       dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
       release: process.env.NEXT_PUBLIC_COMMIT_SHA,
+      tracesSampleRate: 1.0,
     });
   }
 };
