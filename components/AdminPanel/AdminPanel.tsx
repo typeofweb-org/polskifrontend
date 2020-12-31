@@ -8,8 +8,6 @@ import styles from './AdminPanel.module.css';
 export const AdminPanel = () => {
   const [session, isLoading] = useSession();
 
-  console.log(session);
-
   useEffect(() => {
     if (!isLoading && !session) {
       void signIn();
