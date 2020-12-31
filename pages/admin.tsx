@@ -2,8 +2,9 @@ import dynamic from 'next/dynamic';
 
 import { Layout } from '../components/Layout';
 
-// eslint-disable-next-line import/dynamic-import-chunkname
-const AdminPanel = dynamic(() => import('../components/AdminPanel/AdminPanel'));
+const AdminPanel = dynamic(() =>
+  import('../components/AdminPanel/AdminPanel').then(({ AdminPanel }) => ({ default: AdminPanel })),
+);
 
 export default function AdminPage() {
   return (

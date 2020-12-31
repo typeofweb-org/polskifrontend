@@ -5,7 +5,7 @@ import { LoadingScreen } from '../LoadingScreen/LoadingScreen';
 
 import styles from './AdminPanel.module.css';
 
-const AdminPanel = () => {
+export const AdminPanel: React.VFC = () => {
   const [session, isLoading] = useSession();
 
   useEffect(() => {
@@ -32,6 +32,3 @@ const AdminPanel = () => {
     </section>
   );
 };
-
-// eslint-disable-next-line import/no-default-export
-export default AdminPanel;
