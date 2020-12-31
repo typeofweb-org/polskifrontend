@@ -28,26 +28,37 @@ const authHandler: NextApiHandler = async (req, res) => {
       secret: process.env.JWT_SECRET,
     },
     callbacks: {
-      session: async (session) => {
+      jwt: async (token, user?) => {
+        if (!user) {
+          // If it's not sign in operation return already created token
+          return Promise.resolve(token);
+        }
+
+        const userId = user.userId;
         try {
-          const prisma = await openConnection();
-          const account = await prisma.account.findFirst({
-            where: {
-              accessToken: session.accessToken,
-            },
-          });
           const user = await prisma.user.findUnique({
             where: {
-              id: account?.userId,
+              id: userId,
             },
           });
-          session.user.role = user?.role;
-          return Promise.resolve(session);
+          token.userId = userId;
+          token.role = user?.role;
+          return Promise.resolve(token);
         } catch (err) {
           throw Boom.unauthorized();
         } finally {
           await closeConnection();
         }
+      },
+      session: (session, token) => {
+        return Promise.resolve({
+          ...session,
+          user: {
+            ...session.user,
+            role: token.role,
+            userId: token.userId,
+          },
+        });
       },
     },
   };
