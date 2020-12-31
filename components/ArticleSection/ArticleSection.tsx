@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 import type { ArticlePageProps } from '../../pages/artykuly/[slug]';
 import { detectContentGenre } from '../../utils/creator-utils';
