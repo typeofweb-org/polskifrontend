@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import type { ArticlePageProps } from '../../pages/artykuly/[slug]';
+import { detectContentGenre } from '../../utils/creator-utils';
 import { formatDate } from '../../utils/date-utils';
 import { addTrackingToLink } from '../../utils/link-utils';
 import { Button } from '../Button/Button';
@@ -12,6 +13,20 @@ type ArticleSectionProps = Pick<ArticlePageProps, 'article'>;
 
 export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
   const readableDate = formatDate(article.publishedAt);
+
+  const articleGenre = detectContentGenre(article);
+
+  let articleLink: string;
+  switch (articleGenre) {
+    case 'blog':
+      articleLink = 'Przejdź do artykułu';
+      break;
+    case 'podcast':
+      articleLink = 'Przejdź do podcastu';
+      break;
+    case 'youtube':
+      articleLink = 'Przejdź do filmu';
+  }
 
   return (
     <section className={styles.section}>
@@ -42,10 +57,10 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
         <time className={styles.publishDate}>{readableDate}</time>
         <div dangerouslySetInnerHTML={{ __html: article.sanitizedDescription }} />
         <section className={styles.linkWrapper}>
-          <p className={styles.linkHeader}>Chcesz więcej? Przeczytaj w oryginale!</p>
+          <p className={styles.linkHeader}>Chcesz więcej? Sprawdź w oryginale!</p>
           <Link href={addTrackingToLink(article.href, { utm_medium: 'article_page' })} passHref>
             <Button icon="icon-new-tab" as="a" target="_blank" rel="noopener noreferrer">
-              Przejdź do artykułu
+              {articleLink}
             </Button>
           </Link>
         </section>
