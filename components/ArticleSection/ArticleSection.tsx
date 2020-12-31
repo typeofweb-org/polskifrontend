@@ -9,24 +9,18 @@ import { Button } from '../Button/Button';
 
 import styles from './articleSection.module.scss';
 
+const linkLabels: Record<ReturnType<typeof detectContentGenre>, string> = {
+  blog: 'Przejdź do artykułu',
+  podcast: 'Przejdź do podcastu',
+  youtube: 'Przejdź do filmu',
+};
+
 type ArticleSectionProps = Pick<ArticlePageProps, 'article'>;
 
 export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
   const readableDate = formatDate(article.publishedAt);
 
-  const articleGenre = detectContentGenre(article);
-
-  let articleLink: string;
-  switch (articleGenre) {
-    case 'blog':
-      articleLink = 'Przejdź do artykułu';
-      break;
-    case 'podcast':
-      articleLink = 'Przejdź do podcastu';
-      break;
-    case 'youtube':
-      articleLink = 'Przejdź do filmu';
-  }
+  const articleLinkLabel = linkLabels[detectContentGenre(article)];
 
   return (
     <section className={styles.section}>
@@ -60,7 +54,7 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
           <p className={styles.linkHeader}>Chcesz więcej? Sprawdź w oryginale!</p>
           <Link href={addTrackingToLink(article.href, { utm_medium: 'article_page' })} passHref>
             <Button icon="icon-new-tab" as="a" target="_blank" rel="noopener noreferrer">
-              {articleLink}
+              {articleLinkLabel}
             </Button>
           </Link>
         </section>
