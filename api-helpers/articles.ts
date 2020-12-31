@@ -24,8 +24,9 @@ export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) 
 
   const where = date
     ? {
-        updatedAt: {
+        lastArticlePublishedAt: {
           lt: date,
+          not: null,
         },
       }
     : {};
@@ -34,13 +35,13 @@ export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) 
     where: { ...where, isPublic: true },
     take: TILES_BLOGS_PER_PAGE,
     orderBy: {
-      updatedAt: 'desc',
+      lastArticlePublishedAt: 'desc',
     },
     include: {
       articles: {
         take: TILES_ARTICLES_PER_BLOG,
         orderBy: {
-          updatedAt: 'desc',
+          publishedAt: 'desc',
         },
       },
     },
@@ -49,24 +50,26 @@ export const getArticlesForGrid = async (prisma: PrismaClient, cursor?: string) 
   const lastBlog = last(blogs);
   return {
     data: blogs,
-    nextCursor: lastBlog?.updatedAt && textToCursor(lastBlog?.updatedAt.toISOString()),
+    nextCursor:
+      lastBlog?.lastArticlePublishedAt &&
+      textToCursor(lastBlog?.lastArticlePublishedAt.toISOString()),
   };
 };
 
 export const getArticlesPaginationForGrid = async (prisma: PrismaClient) => {
-  const blogs = await prisma.blog.findMany({
-    where: { isPublic: true },
+  const blogs = (await prisma.blog.findMany({
+    where: { isPublic: true, lastArticlePublishedAt: { not: null } },
     orderBy: {
-      updatedAt: 'desc',
+      lastArticlePublishedAt: 'desc',
     },
     select: {
-      updatedAt: true,
+      lastArticlePublishedAt: true,
     },
-  });
+  })) as ReadonlyArray<{ readonly lastArticlePublishedAt: Date }>;
 
   const cursors = blogs.flatMap((blog, index) => {
     if (index % TILES_BLOGS_PER_PAGE === TILES_BLOGS_PER_PAGE - 1) {
-      return [textToCursor(blog.updatedAt.toISOString())];
+      return [textToCursor(blog.lastArticlePublishedAt.toISOString())];
     }
     return [];
   });
@@ -82,7 +85,7 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
 
   const where = date
     ? {
-        createdAt: {
+        publishedAt: {
           lt: date,
         },
       }
@@ -91,7 +94,7 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
     where: { ...where, blog: { isPublic: true } },
     take: LIST_ARTICLES_PER_PAGE,
     orderBy: {
-      createdAt: 'desc',
+      publishedAt: 'desc',
     },
     include: {
       blog: true,
@@ -101,7 +104,7 @@ export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) 
   const lastArticle = last(articles);
   return {
     data: articles,
-    nextCursor: lastArticle?.createdAt && textToCursor(lastArticle?.createdAt.toISOString()),
+    nextCursor: lastArticle?.publishedAt && textToCursor(lastArticle?.publishedAt.toISOString()),
   };
 };
 
@@ -111,16 +114,16 @@ export const getArticlesPaginationForList = async (prisma: PrismaClient) => {
       blog: { isPublic: true },
     },
     orderBy: {
-      createdAt: 'desc',
+      publishedAt: 'desc',
     },
     select: {
-      createdAt: true,
+      publishedAt: true,
     },
   });
 
   const cursors = articles.flatMap((article, index) => {
     if (index % LIST_ARTICLES_PER_PAGE === LIST_ARTICLES_PER_PAGE - 1) {
-      return [textToCursor(article.createdAt.toISOString())];
+      return [textToCursor(article.publishedAt.toISOString())];
     }
     return [];
   });
@@ -133,7 +136,7 @@ export const getArticlesSlugs = async (prisma: PrismaClient, limit?: number) => 
       blog: { isPublic: true },
     },
     orderBy: {
-      createdAt: 'desc',
+      publishedAt: 'desc',
     },
     select: {
       slug: true,
@@ -147,9 +150,7 @@ export const getArticlesSlugs = async (prisma: PrismaClient, limit?: number) => 
 export const getArticleBySlug = async (prisma: PrismaClient, slug: string) => {
   const article = await prisma.article.findFirst({
     where: {
-      slug: {
-        equals: slug,
-      },
+      slug,
       blog: { isPublic: true },
     },
     include: {
