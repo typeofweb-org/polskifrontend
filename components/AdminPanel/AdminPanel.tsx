@@ -8,6 +8,8 @@ import styles from './AdminPanel.module.css';
 export const AdminPanel = () => {
   const [session, isLoading] = useSession();
 
+  console.log(session);
+
   useEffect(() => {
     if (!isLoading && !session) {
       void signIn();
@@ -18,8 +20,8 @@ export const AdminPanel = () => {
     return <LoadingScreen />;
   }
 
-  if (session?.role === 'ADMIN') {
-    <section></section>; // @to-do admin-panel
+  if (session?.user.role === 'ADMIN') {
+    return <section></section>; // @to-do admin-panel
   }
 
   return (
