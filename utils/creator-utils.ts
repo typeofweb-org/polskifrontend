@@ -7,7 +7,7 @@ const ytRegex = /youtu(\.be|be\.com)\//g;
 const podcastRegex = /(anchor\.fm\/ | talk | podcast)/i;
 
 export const detectContentGenre = (article: ArticlePageProps['article']) => {
-  if (ytRegex.exec(article.href)) {
+  if (article.href.match(ytRegex)) {
     return 'youtube';
   } else if (podcastRegex.exec(article.href) || podcastRegex.exec(article.blog.name)) {
     return 'podcast';
