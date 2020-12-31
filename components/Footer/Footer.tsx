@@ -10,7 +10,13 @@ export const Footer = () => {
     <footer className={styles.footer}>
       <Link href="https://vercel.com?utm_source=typeofweb&utm_campaign=oss">
         <a target="_blank" rel="noopener noreferrer">
-          <img src="/powered-by-vercel.svg" alt="Powered by Vercel" width={209} height={40} />
+          <img
+            loading="lazy"
+            src="/powered-by-vercel.svg"
+            alt="Powered by Vercel"
+            width={209}
+            height={40}
+          />
         </a>
       </Link>
       <p>
