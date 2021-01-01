@@ -1,4 +1,0 @@
-{
-  "$schema": "https://raw.githubusercontent.com/ph1p/zeit-co-vscode-schemas/master/schemas/vercel.json",
-  "regions": ["dub1"]
-}
