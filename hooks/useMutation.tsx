@@ -3,26 +3,26 @@ import { useCallback, useState } from 'react';
 export type Status = 'idle' | 'loading' | 'error' | 'success';
 
 export function useMutation<Body>(mutation: (body: Body) => Promise<Response>) {
-  const [status, setStatus] = useState<Status>('idle');
-  const [error, setError] = useState<number | null>(null);
+  const [status, setStatus] = useState<{ readonly status: Status; readonly errorCode?: number }>({
+    status: 'idle',
+  });
 
   const mutate = useCallback(
     async (body: Body) => {
-      setStatus('loading');
+      setStatus({ status: 'loading' });
       try {
         const response = await mutation(body);
         if (response.ok) {
-          setStatus('success');
+          setStatus({ status: 'success' });
         } else {
-          setStatus('error');
-          setError(response.status);
+          setStatus({ status: 'error', errorCode: response.status });
         }
       } catch (err) {
-        setStatus('error');
+        setStatus({ status: 'error' });
       }
     },
     [mutation],
   );
 
-  return { mutate, status, errorCode: error } as const;
+  return { mutate, ...status } as const;
 }
