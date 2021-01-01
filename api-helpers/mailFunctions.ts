@@ -2,7 +2,7 @@ import type { Blog } from '@prisma/client';
 import { UserRole } from '@prisma/client';
 import Mailgun from 'mailgun-js';
 
-import { closeConnection, openConnection } from './db';
+import { prisma } from './db';
 
 const mg = Mailgun({
   apiKey: process.env.MAILGUN_API_KEY!,
@@ -39,25 +39,19 @@ ${Object.entries(blog)
 };
 
 export const sendNewCreatorNotification = async ({ name, href, rss, creatorEmail }: Blog) => {
-  try {
-    const prisma = await openConnection();
+  const admins = await prisma.user.findMany({
+    where: {
+      role: UserRole.ADMIN,
+    },
+    select: {
+      email: true,
+    },
+  });
 
-    const admins = await prisma.user.findMany({
-      where: {
-        role: UserRole.ADMIN,
-      },
-      select: {
-        email: true,
-      },
-    });
-
-    await sendEmail(
-      admins.map((a) => a.email),
-      `Polski Frontend | Nowy serwis | ${name}`,
-      getNewCreatorEmail({ name, href, rss, creatorEmail: creatorEmail || '' }),
-      creatorEmail || undefined,
-    );
-  } finally {
-    await closeConnection();
-  }
+  await sendEmail(
+    admins.map((a) => a.email),
+    `Polski Frontend | Nowy serwis | ${name}`,
+    getNewCreatorEmail({ name, href, rss, creatorEmail: creatorEmail || '' }),
+    creatorEmail || undefined,
+  );
 };

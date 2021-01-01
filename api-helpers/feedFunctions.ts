@@ -8,7 +8,7 @@ import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/
 import Slugify from 'slugify';
 
 import { getBlogName, getFavicon } from './contentCreatorFunctions';
-import { closeConnection, openConnection } from './db';
+import { prisma } from './db';
 import { logger } from './logger';
 import { streamToRx } from './rxjs-utils';
 
@@ -120,7 +120,6 @@ const getNewArticlesForBlog = (now: Date) => (blog: Blog) => {
 };
 
 export const updateFeeds = async () => {
-  const prisma = await openConnection();
   const blogs = await prisma.blog.findMany({
     where: {
       isPublic: true,
@@ -129,39 +128,35 @@ export const updateFeeds = async () => {
   const now = new Date();
 
   logger.info(`Found blogs in SQL database ${blogs.length}`);
-  try {
-    return await from(blogs)
-      .pipe(
-        mergeMap(getNewArticlesForBlog(now), MAX_CONCURRENCY),
-        mergeMap((article) =>
-          from(prisma.article.create({ data: article })).pipe(
-            map((article) => article.blogId),
-            catchError((err: Error) => {
-              logger.error(err, `Database error`);
-              return of(article.blog.connect!.id!);
-            }),
-          ),
+  return from(blogs)
+    .pipe(
+      mergeMap(getNewArticlesForBlog(now), MAX_CONCURRENCY),
+      mergeMap((article) =>
+        from(prisma.article.create({ data: article })).pipe(
+          map((article) => article.blogId),
+          catchError((err: Error) => {
+            logger.error(err, `Database error`);
+            return of(article.blog.connect!.id!);
+          }),
         ),
-        groupBy((blogId) => blogId),
-        mergeMap((val) => val.pipe(last())),
-        mergeMap((blogId) => {
-          logger.info(`Updating blog ${blogId}`);
-          return from(
-            prisma.blog.update({
-              where: {
-                id: blogId,
-              },
-              data: {
-                lastUpdateDate: now,
-              },
-            }),
-          );
-        }),
-      )
-      .toPromise();
-  } finally {
-    await closeConnection();
-  }
+      ),
+      groupBy((blogId) => blogId),
+      mergeMap((val) => val.pipe(last())),
+      mergeMap((blogId) => {
+        logger.info(`Updating blog ${blogId}`);
+        return from(
+          prisma.blog.update({
+            where: {
+              id: blogId,
+            },
+            data: {
+              lastUpdateDate: now,
+            },
+          }),
+        );
+      }),
+    )
+    .toPromise();
 };
 
 const getUpdatedInfoFor = (blog: Blog) => {
@@ -198,32 +193,26 @@ const getBlogInfoFromRss = (text: string) => {
 };
 
 export const updateBlogs = async () => {
-  try {
-    const prisma = await openConnection();
+  const blogs = await prisma.blog.findMany({
+    where: {
+      isPublic: true,
+    },
+  });
 
-    const blogs = await prisma.blog.findMany({
-      where: {
-        isPublic: true,
-      },
-    });
-
-    return await from(blogs)
-      .pipe(
-        mergeMap(getUpdatedInfoFor, MAX_CONCURRENCY),
-        mergeMap(({ blog, updatedInfo }) => {
-          logger.debug(`Updating blog: ${updatedInfo.name || blog.name}`);
-          return from(
-            prisma.blog.update({
-              where: {
-                id: blog.id,
-              },
-              data: updatedInfo,
-            }),
-          );
-        }),
-      )
-      .toPromise();
-  } finally {
-    await closeConnection();
-  }
+  return from(blogs)
+    .pipe(
+      mergeMap(getUpdatedInfoFor, MAX_CONCURRENCY),
+      mergeMap(({ blog, updatedInfo }) => {
+        logger.debug(`Updating blog: ${updatedInfo.name || blog.name}`);
+        return from(
+          prisma.blog.update({
+            where: {
+              id: blog.id,
+            },
+            data: updatedInfo,
+          }),
+        );
+      }),
+    )
+    .toPromise();
 };

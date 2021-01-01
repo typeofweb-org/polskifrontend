@@ -1,5 +1,5 @@
 import { getArticleBySlug, getArticlesSlugs } from '../../api-helpers/articles';
-import { closeConnection, openConnection } from '../../api-helpers/db';
+import { prisma } from '../../api-helpers/db';
 import { HTTPNotFound } from '../../api-helpers/errors';
 import { DEFAULT_ARTICLES } from '../../api-helpers/general-feed';
 import { ArticleSection } from '../../components/ArticleSection/ArticleSection';
@@ -21,8 +21,6 @@ export const getStaticProps = async ({
   params,
 }: InferGetStaticPropsContext<typeof getStaticPaths>) => {
   try {
-    const prisma = await openConnection();
-
     const article = await getArticleBySlug(prisma, params!.slug);
 
     return {
@@ -36,26 +34,18 @@ export const getStaticProps = async ({
     }
 
     throw err;
-  } finally {
-    await closeConnection();
   }
 };
 
 export const getStaticPaths = async () => {
-  try {
-    const prisma = await openConnection();
+  const articles = await getArticlesSlugs(prisma, DEFAULT_ARTICLES);
 
-    const articles = await getArticlesSlugs(prisma, DEFAULT_ARTICLES);
-
-    return {
-      paths: articles.map(({ slug }) => ({
-        params: {
-          slug,
-        },
-      })),
-      fallback: 'blocking' as const,
-    };
-  } finally {
-    await closeConnection();
-  }
+  return {
+    paths: articles.map(({ slug }) => ({
+      params: {
+        slug,
+      },
+    })),
+    fallback: 'blocking' as const,
+  };
 };

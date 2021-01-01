@@ -4,7 +4,7 @@ import Boom from '@hapi/boom';
 import Cheerio from 'cheerio';
 import Slugify from 'slugify';
 
-import { closeConnection, openConnection } from './db';
+import { prisma } from './db';
 import { isPrismaError } from './prisma-helper';
 
 const NEVER = new Date(0);
@@ -27,7 +27,6 @@ type Feed = {
 
 export const addContentCreator = async (url: string, email: string) => {
   try {
-    const prisma = await openConnection();
     const blogData = await getBlogData(url);
     return await prisma.blog.create({
       data: {
@@ -42,8 +41,6 @@ export const addContentCreator = async (url: string, email: string) => {
       throw Boom.conflict();
     }
     throw Boom.isBoom(err) ? err : Boom.badRequest();
-  } finally {
-    await closeConnection();
   }
 };
 

@@ -6,6 +6,7 @@ class MyDocument extends Document {
     return (
       <Html lang="pl">
         <Head>
+          <link rel="preconnect" href="https://o125101.ingest.sentry.io" />
           <script defer src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
           <script
             dangerouslySetInnerHTML={{

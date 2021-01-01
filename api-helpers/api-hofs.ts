@@ -6,7 +6,6 @@ import type { AnySchema, ObjectSchema, InferType } from 'yup';
 
 import { initSentry } from '../utils/sentry';
 
-import { closeConnection, openConnection } from './db';
 import { logger } from './logger';
 
 type SomeSchema = Record<string, AnySchema<any, any, any>>;
@@ -51,7 +50,6 @@ export const withAsync = (
 
   return async (req, res) => {
     try {
-      await openConnection();
       const result = await handler(req, res);
 
       if (res.writableEnded) {
@@ -83,7 +81,6 @@ export const withAsync = (
       }
     } finally {
       await Sentry.flush(2000).catch(() => {});
-      await closeConnection()?.catch((err) => logger.error(err));
     }
   };
 };

@@ -4,7 +4,7 @@ import {
   getArticlesPaginationForGrid,
   getArticlesPaginationForList,
 } from '../../api-helpers/articles';
-import { closeConnection, openConnection } from '../../api-helpers/db';
+import { prisma } from '../../api-helpers/db';
 import { HTTPNotFound } from '../../api-helpers/errors';
 import { Layout } from '../../components/Layout';
 import { MainTiles } from '../../components/MainTiles/MainTiles';
@@ -35,38 +35,30 @@ export const REVALIDATION_TIME = 15 * 60; // 15 minutes
 const MAX_PAGES = 5;
 
 export const getStaticPaths = async () => {
-  try {
-    const prisma = await openConnection();
+  const [gridCursors, listCursors] = await Promise.all([
+    await getArticlesPaginationForGrid(prisma),
+    await getArticlesPaginationForList(prisma),
+  ]);
 
-    const [gridCursors, listCursors] = await Promise.all([
-      await getArticlesPaginationForGrid(prisma),
-      await getArticlesPaginationForList(prisma),
-    ]);
+  const paths = [
+    ...gridCursors
+      .slice(0, MAX_PAGES)
+      .map((cursor) => ({ params: { displayStyle: 'grid' as const, cursor } })),
+    ...listCursors
+      .slice(0, MAX_PAGES)
+      .map((cursor) => ({ params: { displayStyle: 'list' as const, cursor } })),
+  ];
 
-    const paths = [
-      ...gridCursors
-        .slice(0, MAX_PAGES)
-        .map((cursor) => ({ params: { displayStyle: 'grid' as const, cursor } })),
-      ...listCursors
-        .slice(0, MAX_PAGES)
-        .map((cursor) => ({ params: { displayStyle: 'list' as const, cursor } })),
-    ];
-
-    return {
-      paths: paths,
-      fallback: 'blocking' as const,
-    };
-  } finally {
-    await closeConnection();
-  }
+  return {
+    paths: paths,
+    fallback: 'blocking' as const,
+  };
 };
 
 export const getStaticProps = async ({
   params,
 }: InferGetStaticPropsContext<typeof getStaticPaths>) => {
   try {
-    const prisma = await openConnection();
-
     if (params?.displayStyle === 'list') {
       const { data: articlesFromDb, nextCursor } = await getArticlesForList(prisma, params?.cursor);
       const articles = articlesFromDb.map(addExcerptToArticle);
@@ -96,7 +88,5 @@ export const getStaticProps = async ({
       return { props: undefined, notFound: true as const };
     }
     throw err;
-  } finally {
-    await closeConnection();
   }
 };
