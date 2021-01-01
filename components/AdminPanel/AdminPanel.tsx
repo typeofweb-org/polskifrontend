@@ -5,7 +5,7 @@ import { LoadingScreen } from '../LoadingScreen/LoadingScreen';
 
 import styles from './AdminPanel.module.css';
 
-export const AdminPanel: React.FC = () => {
+export const AdminPanel: React.VFC = () => {
   const [session, isLoading] = useSession();
 
   useEffect(() => {
