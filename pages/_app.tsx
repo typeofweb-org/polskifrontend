@@ -1,7 +1,6 @@
 import 'normalize.css/normalize.css';
 import '../global.scss';
 import '../icomoon-v1.0/style.css';
-import { Provider } from 'next-auth/client';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -78,9 +77,7 @@ export default function MyApp({
         <link rel="manifest" href="/manifest.json" />
         <link rel="alternate" href="/feed" type="application/rss+xml" title="Polski Frontend RSS" />
       </Head>
-      <Provider session={pageProps.session}>
-        <Component {...pageProps} err={err} />
-      </Provider>
+      <Component {...pageProps} err={err} />
     </>
   );
 }
