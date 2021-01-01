@@ -15,6 +15,9 @@ const errorToMessage: Record<number, string> = {
   422: 'Nie udało się odnaleźć pliku RSS na twojej stronie, jeśli ten błąd się powtarza, proszę skontaktuj się z administratorem.',
 };
 
+const defaultErrorMessage =
+  'Wystąpił błąd podczas dodawania nowego serwisu, sprawdź poprawność danych i spróbuj ponownie';
+
 function getStatusMessage({ status, errorCode }: Props) {
   switch (status) {
     case 'loading':
@@ -22,9 +25,7 @@ function getStatusMessage({ status, errorCode }: Props) {
     case 'success':
       return 'Dziękujemy za zgłoszenie, dodany serwis pojawi się na stronie po zaakceptowaniu przez administrację';
     case 'error':
-      return errorCode
-        ? errorToMessage[errorCode]
-        : 'Wystąpił błąd podczas dodawania nowego serwisu, sprawdź poprawność danych i spróbuj ponownie';
+      return errorCode ? errorToMessage[errorCode] ?? defaultErrorMessage : defaultErrorMessage;
     default:
       return null;
   }
