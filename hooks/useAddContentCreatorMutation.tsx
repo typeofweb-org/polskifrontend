@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import type { ContentCreatorReqBody } from '../utils/api/addContentCreator';
 import { addContentCreator } from '../utils/api/addContentCreator';
 
-export type Status = 'idle' | 'loading' | 'error' | 'success' | 'notRssFound';
+export type Status = 'idle' | 'loading' | 'error' | 'success' | 'notRssFound' | 'alreadyExisting';
 
 export const useAddContentCreatorMutation = () => {
   const [status, setStatus] = useState<Status>('idle');
@@ -14,10 +14,17 @@ export const useAddContentCreatorMutation = () => {
       const response = await addContentCreator(body);
       if (response.ok) {
         setStatus('success');
-      } else if (response.status === 422) {
-        setStatus('notRssFound');
       } else {
-        setStatus('error');
+        switch (response.status) {
+          case 409:
+            setStatus('alreadyExisting');
+            break;
+          case 422:
+            setStatus('notRssFound');
+            break;
+          default:
+            setStatus('error');
+        }
       }
     } catch (err) {
       setStatus('error');
