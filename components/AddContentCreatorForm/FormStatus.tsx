@@ -7,7 +7,7 @@ import styles from './FormStatus.module.css';
 
 type Props = {
   readonly status: Status;
-  readonly errorCode: number | null;
+  readonly errorCode?: number;
 };
 
 const errorToMessage: Record<number, string> = {
