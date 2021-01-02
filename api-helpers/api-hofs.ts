@@ -91,14 +91,14 @@ export const withAsync = (
   };
 };
 
-export function withAuth<R extends NextApiRequest>(role: UserRole) {
+export function withAuth<R extends NextApiRequest>(role?: UserRole) {
   return (handler: (req: R, res: NextApiResponse) => unknown) => async (
     req: R,
     res: NextApiResponse,
   ) => {
     const session = await getSession({ req });
 
-    if (!session || session.user.role !== role) {
+    if (!session || (role && session.user.role !== role)) {
       throw Boom.unauthorized();
     }
 
