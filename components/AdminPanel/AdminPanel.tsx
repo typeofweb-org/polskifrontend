@@ -19,7 +19,7 @@ export const AdminPanel = () => {
   }
 
   if (session?.user.role === 'ADMIN') {
-    return <section></section>; // @to-do admin-panel
+    return <section>admin panel</section>; // @to-do admin-panel
   }
 
   return (
