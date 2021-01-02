@@ -30,7 +30,7 @@ export default withAsync(
     const url = new URL(req.body.contentURL).toString();
 
     const contentCreator = await addContentCreator(url, req.body.email);
-    await sendNewCreatorNotification(contentCreator);
+    await sendNewCreatorNotification(contentCreator).catch(() => {});
 
     return null;
   }),

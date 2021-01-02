@@ -9,3 +9,12 @@ declare namespace NodeJS {
     readonly NEXT_PUBLIC_URL: string;
   }
 }
+
+type Role = 'USER' | 'ADMIN';
+
+declare module 'next-auth' {
+  interface User {
+    readonly userId?: number;
+    readonly role?: Role;
+  }
+}

@@ -3,7 +3,8 @@ import clsx from 'clsx';
 import type { ChangeEventHandler, FormEventHandler } from 'react';
 import { useEffect, useRef, useCallback, useState } from 'react';
 
-import { useAddContentCreatorMutation } from '../../hooks/useAddContentCreatorMutation';
+import { useMutation } from '../../hooks/useMutation';
+import { addContentCreator } from '../../utils/api/addContentCreator';
 import { Button } from '../Button/Button';
 
 import { FormStatus } from './FormStatus';
@@ -12,11 +13,11 @@ import styles from './addContentCreatorForm.module.scss';
 export const AddContentCreatorForm = () => {
   const [fields, setFields] = useState({ contentURL: '', email: '' });
   const [token, setToken] = useState<string | null>(null);
-  const [mutate, status] = useAddContentCreatorMutation();
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const captchaRef = useRef<null | HCaptcha>(null);
   const formRef = useRef<null | HTMLFormElement>(null);
   const [isFormValid, setIsFormValid] = useState(false);
+  const { mutate, status, errorCode } = useMutation(addContentCreator);
 
   useEffect(() => {
     if (status === 'success') {
@@ -110,7 +111,7 @@ export const AddContentCreatorForm = () => {
           Zgłoś
         </Button>
       </div>
-      <FormStatus status={status} />
+      <FormStatus status={status} errorCode={errorCode} />
     </form>
   );
 };

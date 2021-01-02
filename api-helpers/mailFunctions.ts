@@ -42,14 +42,17 @@ export const sendNewCreatorNotification = async ({ name, href, rss, creatorEmail
   try {
     const prisma = await openConnection();
 
-    const admins = await prisma.user.findMany({
+    const admins = (await prisma.user.findMany({
       where: {
         role: UserRole.ADMIN,
+        email: {
+          not: null,
+        },
       },
       select: {
         email: true,
       },
-    });
+    })) as ReadonlyArray<{ readonly email: string }>;
 
     await sendEmail(
       admins.map((a) => a.email),
