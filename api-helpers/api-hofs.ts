@@ -1,6 +1,8 @@
 import Boom from '@hapi/boom';
+import type { UserRole } from '@prisma/client';
 import * as Sentry from '@sentry/node';
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import { getSession } from 'next-auth/client';
 import { object } from 'yup';
 import type { AnySchema, ObjectSchema, InferType } from 'yup';
 
@@ -24,6 +26,7 @@ export const withValidation = <
   schema: Schema,
 ) => {
   const schemaObj = object(schema).required();
+
   return (
     handler: (
       req: Omit<NextApiRequest, AllAllowedFields> & InferType<typeof schemaObj>,
@@ -87,3 +90,18 @@ export const withAsync = (
     }
   };
 };
+
+export function withAuth<R extends NextApiRequest>(role: UserRole) {
+  return (handler: (req: R, res: NextApiResponse) => unknown) => async (
+    req: R,
+    res: NextApiResponse,
+  ) => {
+    const session = await getSession({ req });
+
+    if (!session || session.user.role !== role) {
+      throw Boom.unauthorized();
+    }
+
+    return handler(req, res);
+  };
+}
