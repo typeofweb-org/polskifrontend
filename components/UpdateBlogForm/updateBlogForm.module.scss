@@ -1,0 +1,32 @@
+.form {
+  border-left: 3px solid var(--gray-dark-border);
+  margin-top: 1rem;
+  padding: 1.5rem;
+  text-align: left;
+  background: var(--white);
+  box-shadow: 1px 1px 6px 1px var(--gray-shadow);
+  border-radius: 3px;
+
+  @media screen and (min-width: 45em) {
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+}
+
+.formLoading {
+  cursor: wait;
+}
+
+.label {
+  display: block;
+  margin: 0.5rem 0;
+  color: var(--black-lighter);
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin: 0.25rem 0;
+  border-radius: 5px;
+  border: 1px solid var(--gray-dark-border);
+}

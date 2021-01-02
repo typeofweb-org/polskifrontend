@@ -21,33 +21,56 @@ export default withAsync(
         isPublic: boolean().required(),
       }).required(),
     })(async (req) => {
-      if (req.method !== 'PUT') {
-        throw Boom.notFound();
-      }
-      try {
-        const prisma = await openConnection();
+      if (req.method === 'GET') {
+        try {
+          const prisma = await openConnection();
 
-        const blog = await prisma.blog.update({
-          where: {
-            id: req.query.blogId,
-          },
-          data: req.body,
-        });
+          const blog = await prisma.blog.findUnique({
+            where: {
+              id: req.query.blogId,
+            },
+          });
 
-        return blog;
-      } catch (err) {
-        // Record not found
-        if (isPrismaError(err) && err.code === 'P2001') {
-          throw Boom.notFound();
+          return blog;
+        } catch (err) {
+          // Record not found
+          if (isPrismaError(err) && err.code === 'P2001') {
+            throw Boom.notFound();
+          }
+          throw Boom.internal();
+        } finally {
+          await closeConnection();
         }
-        // Conflict
-        if (isPrismaError(err) && err.code === 'P2002') {
-          throw Boom.conflict();
-        }
-        throw Boom.internal();
-      } finally {
-        await closeConnection();
       }
+
+      if (req.method === 'PUT') {
+        try {
+          const prisma = await openConnection();
+
+          const blog = await prisma.blog.update({
+            where: {
+              id: req.query.blogId,
+            },
+            data: req.body,
+          });
+
+          return blog;
+        } catch (err) {
+          // Record not found
+          if (isPrismaError(err) && err.code === 'P2001') {
+            throw Boom.notFound();
+          }
+          // Conflict
+          if (isPrismaError(err) && err.code === 'P2002') {
+            throw Boom.conflict();
+          }
+          throw Boom.internal();
+        } finally {
+          await closeConnection();
+        }
+      }
+
+      throw Boom.notFound();
     }),
   ),
 );
