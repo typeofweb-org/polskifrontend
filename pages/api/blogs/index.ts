@@ -1,3 +1,4 @@
+import Boom from '@hapi/boom';
 import { boolean, object } from 'yup';
 
 import { withAsync, withValidation, withAuth } from '../../../api-helpers/api-hofs';
@@ -10,6 +11,10 @@ export default withAsync(
         isPublic: boolean().optional(),
       }).optional(),
     })(async (req) => {
+      if (req.method !== 'GET') {
+        throw Boom.notFound();
+      }
+
       try {
         const prisma = await openConnection();
 
@@ -20,7 +25,7 @@ export default withAsync(
         });
 
         return {
-          blogs,
+          data: blogs,
         };
       } finally {
         await closeConnection();
