@@ -36,6 +36,7 @@ const x = { id: 'adsada' };
  * @param {{channel: string, payload?: string}} args
  */
 function handleNotification({ channel, payload }) {
+  console.log({ channel, payload });
   // eslint-disable-next-line default-case
   switch (channel) {
     case 'INSERT.Article':
@@ -82,7 +83,9 @@ export async function connect() {
   ]);
 }
 
-connect().catch(console.error);
+connect()
+  .then(() => console.log('Connected to postgres!'))
+  .catch(console.error);
 
 const server = Http.createServer((req, res) => {
   res.statusCode = 200;
