@@ -19,8 +19,15 @@ jobs:
           prefix_only: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - if: steps.check.outputs.triggered == 'true'
-        uses: typeofweb/next-stats-action@master
+
+      - uses: xt0rted/pull-request-comment-branch@master
+        if: steps.check.outputs.triggered == 'true'
+        id: comment-branch
+        with:
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+
+      - uses: typeofweb/next-stats-action@master
+        if: steps.check.outputs.triggered == 'true'
         env:
           PR_STATS_COMMENT_TOKEN: ${{secrets.PR_STATS_COMMENT_TOKEN}}
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
