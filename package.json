@@ -43,6 +43,7 @@
     "@sentry/tracing": "5.29.2",
     "@sentry/webpack-plugin": "1.14.0",
     "@zeit/next-source-maps": "0.0.4-canary.1",
+    "algoliasearch": "4.8.3",
     "cheerio": "1.0.0-rc.5",
     "clsx": "1.1.1",
     "feed": "4.2.1",
