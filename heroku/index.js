@@ -90,6 +90,6 @@ const server = Http.createServer((req, res) => {
   res.end('Działa!');
 });
 
-server.listen(Number(process.env.PORT), 'localhost', () => {
+server.listen(Number(process.env.PORT || 5000), () => {
   console.log('Server running');
 });
