@@ -4,7 +4,7 @@ on:
   issue_comment:
     types: [created]
 
-name: Generate Pull Request Stats
+name: Generate Pull Request Next Stats
 
 jobs:
   stats:
