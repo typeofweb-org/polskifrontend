@@ -16,8 +16,6 @@ const pool = new Pool({
   max: 1,
 });
 
-const x = { id: 'adsada' };
-
 /**
  * @typedef {{
     id: string,
@@ -37,7 +35,6 @@ const x = { id: 'adsada' };
  */
 function handleNotification({ channel, payload }) {
   console.log({ channel, payload });
-  // eslint-disable-next-line default-case
   switch (channel) {
     case 'INSERT.Article':
     case 'UPDATE.Article':
@@ -59,6 +56,8 @@ function handleNotification({ channel, payload }) {
       break;
     case 'DELETE.Article':
       algoliaIndex.deleteObject(payload).catch(console.error);
+      break;
+    default:
       break;
   }
 }
@@ -90,7 +89,7 @@ connect()
 const server = Http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end('Działa!');
+  res.end('Hello, world!');
 });
 
 server.listen(Number(process.env.PORT || 5000), () => {
