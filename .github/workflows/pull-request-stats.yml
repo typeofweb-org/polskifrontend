@@ -11,13 +11,13 @@ jobs:
     name: PR Stats
     runs-on: ubuntu-latest
     steps:
-      - uses: Khan/pull-request-comment-trigger@master
+      - uses: khan/pull-request-comment-trigger@38c59cfe9af77dc06f9235182017a6ae416a9223
         id: check
         with:
           reaction: eyes
           trigger: 'TypeOfWebBot stats'
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
       - if: steps.check.outputs.triggered == 'true'
         uses: xt0rted/pull-request-comment-branch@v1.2.0
