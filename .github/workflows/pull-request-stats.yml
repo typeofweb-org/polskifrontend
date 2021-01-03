@@ -19,14 +19,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - uses: xt0rted/pull-request-comment-branch@v1.2.0
-        if: steps.check.outputs.triggered == 'true'
+      - if: steps.check.outputs.triggered == 'true'
+        uses: xt0rted/pull-request-comment-branch@v1.2.0
         id: comment-branch
         with:
           repo_token: ${{secrets.GITHUB_TOKEN}}
 
-      - uses: typeofweb/next-stats-action@master
-        if: steps.check.outputs.triggered == 'true'
+      - if: steps.check.outputs.triggered == 'true'
+        uses: typeofweb/next-stats-action@master
         env:
           PR_STATS_COMMENT_TOKEN: ${{secrets.PR_STATS_COMMENT_TOKEN}}
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
