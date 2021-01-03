@@ -3,6 +3,9 @@ import Http from 'http';
 
 import Algoliasearch from 'algoliasearch';
 import pg from 'pg';
+import AllHtmlEntities from 'html-entities';
+import Xss from 'xss';
+
 import createSubscriber from 'pg-listen';
 const { Pool } = pg;
 
@@ -38,7 +41,7 @@ function handleNotification({ channel, payload }) {
   switch (channel) {
     case 'INSERT.Article':
     case 'UPDATE.Article':
-      pool
+      return pool
         .query('SELECT * FROM "Article" WHERE id=$1;', [payload])
         .then((result) => {
           const indices = result.rows.map(
@@ -46,17 +49,22 @@ function handleNotification({ channel, payload }) {
              * @param {Article} article
              */
             (article) => {
-              const { id: objectID, createdAt, updatedAt, ...data } = article;
-              return { ...data, objectID };
+              const { id: objectID, description, title, createdAt, updatedAt, ...data } = article;
+              return {
+                ...data,
+                description: AllHtmlEntities.decode(
+                  Xss(description, { stripIgnoreTag: true, whiteList: {} }),
+                ),
+                title: AllHtmlEntities.decode(Xss(title, { stripIgnoreTag: true, whiteList: {} })),
+                objectID,
+              };
             },
           );
           return algoliaIndex.saveObjects(indices, { autoGenerateObjectIDIfNotExist: false });
         })
         .catch(console.error);
-      break;
     case 'DELETE.Article':
-      algoliaIndex.deleteObject(payload).catch(console.error);
-      break;
+      return algoliaIndex.deleteObject(payload).catch(console.error);
     default:
       break;
   }
