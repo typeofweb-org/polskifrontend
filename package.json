@@ -20,7 +20,8 @@
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests",
     "test:ci": "jest --passWithNoTests",
     "tsc": "tsc --noEmit",
-    "studio": "prisma studio"
+    "studio": "prisma studio",
+    "deploy:heroku": "git subtree push --prefix heroku heroku master"
   },
   "prisma": {
     "schema": "./api-helpers/prisma/schema.prisma"
