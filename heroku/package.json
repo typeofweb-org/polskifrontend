@@ -1,0 +1,23 @@
+{
+  "name": "polskifrontend-heroku",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/typeofweb/polskifrontend"
+  },
+  "type": "module",
+  "author": "Michał Miszczyszyn - Type of Web <hi@typeofweb.com> (https://typeofweb.com/)",
+  "license": "AGPL-3.0-only",
+  "private": true,
+  "dependencies": {
+    "algoliasearch": "4.8.3",
+    "global": "4.4.0",
+    "pg": "8.5.1",
+    "pg-listen": "1.7.0",
+    "ts-node": "9.1.1"
+  },
+  "devDependencies": {
+    "@types/pg": "7.14.7",
+    "typescript": "4.1.3"
+  }
+}
