@@ -19,8 +19,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - uses: xt0rted/pull-request-comment-branch@v1.2.0
+      - name: Is this a comment
         if: steps.check.outputs.triggered == 'true'
+        uses: xt0rted/pull-request-comment-branch@v1.2.0
         id: comment-branch
         with:
           repo_token: ${{secrets.GITHUB_TOKEN}}
@@ -40,6 +41,7 @@ jobs:
           ref: develop
 
       - name: Compare sizes
+        if: steps.check.outputs.triggered == 'true'
         uses: typeofweb/typeofweb-next-stats-action@pkg
         with:
           pr_directory_name: pr-branch
