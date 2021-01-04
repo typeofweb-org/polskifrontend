@@ -1,21 +1,7 @@
-export type Blog = {
-  readonly id: string;
-  readonly name: string;
-  readonly href: string;
-  readonly rss: string;
-  readonly slug: string;
-  readonly lastUpdateDate?: string;
-  readonly favicon: string;
-  readonly creatorEmail: string;
-  readonly isPublic: boolean;
-  readonly lastArticlePublishedAt?: string;
+import type { Blog } from '@prisma/client';
 
-  readonly createdAt: string;
-  readonly updatedAt: string;
-};
+import { fetcher } from '../fetcher';
 
-export const getBlog = async (blogId: string): Promise<Blog> => {
-  const response = await fetch(`/api/blogs/${blogId}`);
-  const data = (await response.json()) as Blog;
-  return data;
+export const getBlog = (blogId: string): Promise<Blog> => {
+  return fetcher<Blog>(`/api/blogs/${blogId}`);
 };

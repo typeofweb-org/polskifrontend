@@ -19,8 +19,13 @@
 
 .label {
   display: block;
-  margin: 0.5rem 0;
+  margin: 1rem 0;
   color: var(--black-lighter);
+
+  &Checkbox {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .input {
@@ -29,4 +34,15 @@
   margin: 0.25rem 0;
   border-radius: 5px;
   border: 1px solid var(--gray-dark-border);
+
+  &Checkbox {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: flex;
+    margin-right: 0.75rem;
+  }
+}
+
+.submitButton {
+  margin-top: 1.75rem;
 }

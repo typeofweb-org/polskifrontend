@@ -14,9 +14,9 @@ const blogIdRequestBody = object({
   name: string().required(),
   href: string().url().required(),
   rss: string().url().required(),
-  slug: string().optional(),
-  favicon: string().url().optional(),
-  creatorEmail: string().optional(),
+  slug: string().nullable(),
+  favicon: string().url().nullable(),
+  creatorEmail: string().nullable(),
   isPublic: boolean().required(),
 }).required();
 

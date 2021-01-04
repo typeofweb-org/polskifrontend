@@ -9,11 +9,11 @@ const AuthGuard = dynamic<{ readonly role?: 'admin' }>(() =>
     '../../../components/AuthGuard/AuthGuard'
   ).then((mod) => mod.AuthGuard),
 );
-const UpdateBlogForm = dynamic<{ readonly blogId: string }>(
+const UpdateBlogSection = dynamic<{ readonly blogId: string }>(
   import(
-    /* webpackChunkName: "UpdateBlogForm" */
-    '../../../components/UpdateBlogForm/UpdateBlogForm'
-  ).then((mod) => mod.UpdateBlogForm),
+    /* webpackChunkName: "UpdateBlogSection" */
+    '../../../components/UpdateBlogSection/UpdateBlogSection'
+  ).then((mod) => mod.UpdateBlogSection),
 );
 
 export default function AdminBlogPage() {
@@ -27,7 +27,7 @@ export default function AdminBlogPage() {
   return (
     <Layout title="Panel admina - edycja danych bloga">
       <AuthGuard role="admin">
-        <UpdateBlogForm blogId={blogId as string} />
+        <UpdateBlogSection blogId={blogId as string} />
       </AuthGuard>
     </Layout>
   );

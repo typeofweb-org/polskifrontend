@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { ResponseError } from '../utils/fetcher';
+
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
 type QueryData<T> = {
@@ -20,9 +22,12 @@ export function useQuery<T>(queryFunc: () => Promise<T>) {
       .then((data) => {
         setQueryData({ value: data, status: 'success' });
       })
-      .catch((response: Response) =>
-        setQueryData({ value: null, status: 'error', errorCode: response.status }),
-      );
+      .catch((err) => {
+        if (err instanceof ResponseError) {
+          setQueryData({ value: null, status: 'error', errorCode: err.status });
+        }
+        setQueryData({ value: null, status: 'error' });
+      });
   }, [queryFunc]);
 
   return queryData;

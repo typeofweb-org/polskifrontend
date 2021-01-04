@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import type { ChangeEvent, FormEvent } from 'react';
+import type { ChangeEventHandler, FormEvent } from 'react';
 import { useRef, memo, useCallback, useEffect, useState } from 'react';
 
 import { useMutation } from '../../hooks/useMutation';
@@ -19,15 +19,17 @@ const INITIAL_VALUES: BlogIdRequestBody = {
   name: '',
   href: '',
   rss: '',
-  slug: '',
-  favicon: '',
-  creatorEmail: '',
+  slug: null,
+  favicon: null,
+  creatorEmail: null,
   isPublic: false,
 };
 
 export const UpdateBlogForm = memo<Props>(({ blogId }) => {
   const { mutate, status } = useMutation((body: BlogIdRequestBody) => updateBlog(blogId, body));
-  const { value: blog, status: queryStatus } = useQuery(() => getBlog(blogId));
+  const { value: blog, status: queryStatus } = useQuery(
+    useCallback(() => getBlog(blogId), [blogId]),
+  );
   const [fields, setFields] = useState<BlogIdRequestBody>(INITIAL_VALUES);
   const [isValid, setIsValid] = useState(false);
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -38,13 +40,17 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
     }
   }, [queryStatus, blog]);
 
-  useEffect(() => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(({ currentTarget }) => {
+    setFields((fields) => ({ ...fields, [currentTarget.name]: currentTarget.value }));
     setIsValid(formRef.current?.checkValidity() ?? false);
-  }, [fields, formRef]);
-
-  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setFields((fields) => ({ ...fields, [e.currentTarget.name]: e.currentTarget.value }));
   }, []);
+
+  const handleInputCheckboxChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    ({ currentTarget }) => {
+      setFields((fields) => ({ ...fields, [currentTarget.name]: currentTarget.checked }));
+    },
+    [],
+  );
 
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
@@ -106,7 +112,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
         Slug bloga
         <input
           className={styles.input}
-          value={fields.slug}
+          value={fields.slug ?? ''}
           name="slug"
           onChange={handleChange}
           placeholder="Podaj slug bloga"
@@ -117,7 +123,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
         Favicon bloga
         <input
           className={styles.input}
-          value={fields.favicon}
+          value={fields.favicon ?? ''}
           name="favicon"
           onChange={handleChange}
           placeholder="Podaj url dla favicon"
@@ -128,25 +134,25 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
         Email twórcy
         <input
           className={styles.input}
-          value={fields.creatorEmail}
+          value={fields.creatorEmail ?? ''}
           name="creatorEmail"
           onChange={handleChange}
           placeholder="Podaj email twórcy"
           type="email"
         />
       </label>
-      <label className={styles.label}>
-        Czy blog ma być pokazany na stronie?
+      <label className={styles.labelCheckbox}>
         <input
-          className={styles.input}
+          className={styles.inputCheckbox}
           checked={fields.isPublic}
           name="isPublic"
-          onChange={handleChange}
+          onChange={handleInputCheckboxChange}
           type="checkbox"
           required
         />
+        Czy blog ma być pokazany na stronie?
       </label>
-      <Button type="submit" disabled={!isValid}>
+      <Button type="submit" disabled={!isValid} className={styles.submitButton}>
         Zapisz
       </Button>
     </form>
