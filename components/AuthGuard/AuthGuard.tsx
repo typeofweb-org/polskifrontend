@@ -3,9 +3,13 @@ import { useEffect } from 'react';
 
 import { LoadingScreen } from '../LoadingScreen/LoadingScreen';
 
-import styles from './auth.module.css';
+import styles from './authGuard.module.css';
 
-export const Auth: React.FC = ({ children }) => {
+type Props = {
+  readonly role?: 'admin';
+};
+
+export const AuthGuard: React.FC<Props> = ({ children, role }) => {
   const [session, isLoading] = useSession();
 
   useEffect(() => {
@@ -18,7 +22,12 @@ export const Auth: React.FC = ({ children }) => {
     return <LoadingScreen />;
   }
 
-  if (session?.user.role === 'ADMIN') {
+  // Without role allow all authorized users
+  if (!role && session) {
+    return <>{children}</>;
+  }
+
+  if (role === 'admin' && session?.user.role === 'ADMIN') {
     return <>{children}</>;
   }
 

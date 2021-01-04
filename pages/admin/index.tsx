@@ -2,11 +2,11 @@ import dynamic from 'next/dynamic';
 
 import { Layout } from '../../components/Layout';
 
-const Auth = dynamic<{}>(() =>
+const AuthGuard = dynamic<{ readonly role?: 'admin' }>(() =>
   import(
-    /* webpackChunkName: "Auth" */
-    '../../components/Auth/Auth'
-  ).then((mod) => mod.Auth),
+    /* webpackChunkName: "AuthGuard" */
+    '../../components/AuthGuard/AuthGuard'
+  ).then((mod) => mod.AuthGuard),
 );
 
 const AdminPanel = dynamic<{}>(() =>
@@ -18,9 +18,9 @@ const AdminPanel = dynamic<{}>(() =>
 export default function AdminPage() {
   return (
     <Layout title="Panel admina">
-      <Auth>
+      <AuthGuard role="admin">
         <AdminPanel />
-      </Auth>
+      </AuthGuard>
     </Layout>
   );
 }

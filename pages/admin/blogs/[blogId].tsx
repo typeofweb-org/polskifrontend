@@ -3,13 +3,12 @@ import { useRouter } from 'next/router';
 
 import { Layout } from '../../../components/Layout';
 
-const Auth = dynamic<{}>(() =>
+const AuthGuard = dynamic<{ readonly role?: 'admin' }>(() =>
   import(
-    /* webpackChunkName: "Auth" */
-    '../../../components/Auth/Auth'
-  ).then((mod) => mod.Auth),
+    /* webpackChunkName: "AuthGuard" */
+    '../../../components/AuthGuard/AuthGuard'
+  ).then((mod) => mod.AuthGuard),
 );
-
 const UpdateBlogForm = dynamic<{ readonly blogId: string }>(
   import(
     /* webpackChunkName: "UpdateBlogForm" */
@@ -27,9 +26,9 @@ export default function AdminBlogPage() {
 
   return (
     <Layout title="Panel admina - edycja danych bloga">
-      <Auth>
+      <AuthGuard role="admin">
         <UpdateBlogForm blogId={blogId as string} />
-      </Auth>
+      </AuthGuard>
     </Layout>
   );
 }

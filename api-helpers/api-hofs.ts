@@ -41,9 +41,6 @@ export const withValidation = <
       throw Boom.badRequest((err as Error | undefined)?.message, err);
     }
 
-    Object.keys(validatedValues).forEach((key) => {
-      req[key as AllAllowedFields] = validatedValues[key as keyof typeof schema];
-    });
     return handler(validatedValues as any, res);
   };
 };
@@ -103,5 +100,31 @@ export function withAuth<R extends NextApiRequest>(role?: UserRole) {
     }
 
     return handler({ session, ...req }, res);
+  };
+}
+
+type HTTPMethod =
+  | 'get'
+  | 'head'
+  | 'post'
+  | 'put'
+  | 'delete'
+  | 'connect'
+  | 'options'
+  | 'trace'
+  | 'patch';
+
+export function withMethods<R extends NextApiRequest>(
+  methods: {
+    readonly [key in HTTPMethod]?: (req: R, res: NextApiResponse) => Promise<unknown>;
+  },
+) {
+  return (req: R, res: NextApiResponse) => {
+    const reqMethod = req.method?.toLowerCase() as HTTPMethod;
+    const handler = methods[reqMethod];
+    if (handler) {
+      return handler(req, res);
+    }
+    throw Boom.notFound();
   };
 }

@@ -3,11 +3,10 @@ import type { ChangeEvent, FormEvent } from 'react';
 import { useRef, memo, useCallback, useEffect, useState } from 'react';
 
 import { useMutation } from '../../hooks/useMutation';
-import type { Blog } from '../../utils/api/getBlog';
+import { useQuery } from '../../hooks/useQuery';
+import type { BlogIdRequestBody } from '../../pages/api/blogs/[blogId]';
 import { getBlog } from '../../utils/api/getBlog';
-import type { BlogBody as BlogPutRequestBody } from '../../utils/api/updateBlog';
 import { updateBlog } from '../../utils/api/updateBlog';
-import { FormStatus } from '../AddContentCreatorForm/FormStatus';
 import { Button } from '../Button/Button';
 
 import styles from './updateBlogForm.module.scss';
@@ -16,7 +15,7 @@ type Props = {
   readonly blogId: string;
 };
 
-const INITIAL_VALUES: BlogPutRequestBody = {
+const INITIAL_VALUES: BlogIdRequestBody = {
   name: '',
   href: '',
   rss: '',
@@ -27,24 +26,21 @@ const INITIAL_VALUES: BlogPutRequestBody = {
 };
 
 export const UpdateBlogForm = memo<Props>(({ blogId }) => {
-  const { mutate, status, errorCode } = useMutation((body: BlogPutRequestBody) =>
-    updateBlog(blogId, body),
-  );
-  const [blog, setBlog] = useState<Blog | null>(null);
-  const [fields, setFields] = useState<BlogPutRequestBody>(INITIAL_VALUES);
+  const { mutate, status } = useMutation((body: BlogIdRequestBody) => updateBlog(blogId, body));
+  const { value: blog, status: queryStatus } = useQuery(() => getBlog(blogId));
+  const [fields, setFields] = useState<BlogIdRequestBody>(INITIAL_VALUES);
   const [isValid, setIsValid] = useState(false);
   const formRef = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
-    setIsValid(formRef.current?.checkValidity() ?? false);
-  }, [fields, formRef]);
+    if (queryStatus === 'success' && blog) {
+      setFields(blog);
+    }
+  }, [queryStatus, blog]);
 
   useEffect(() => {
-    void getBlog(blogId).then((blog) => {
-      setBlog(blog);
-      setFields(blog);
-    });
-  }, [blogId]);
+    setIsValid(formRef.current?.checkValidity() ?? false);
+  }, [fields, formRef]);
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFields((fields) => ({ ...fields, [e.currentTarget.name]: e.currentTarget.value }));
@@ -91,7 +87,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
           onChange={handleChange}
           placeholder="Podaj href bloga"
           required
-          type="text"
+          type="url"
         />
       </label>
       <label className={styles.label}>
@@ -103,7 +99,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
           onChange={handleChange}
           placeholder="Podaj rss bloga"
           required
-          type="text"
+          type="url"
         />
       </label>
       <label className={styles.label}>
@@ -129,13 +125,13 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
         />
       </label>
       <label className={styles.label}>
-        Email influencera
+        Email twórcy
         <input
           className={styles.input}
           value={fields.creatorEmail}
           name="creatorEmail"
           onChange={handleChange}
-          placeholder="Podaj email influencera"
+          placeholder="Podaj email twórcy"
           type="email"
         />
       </label>
@@ -147,12 +143,12 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
           name="isPublic"
           onChange={handleChange}
           type="checkbox"
+          required
         />
       </label>
       <Button type="submit" disabled={!isValid}>
-        Zgłoś
+        Zapisz
       </Button>
-      <FormStatus status={status} errorCode={errorCode} />
     </form>
   );
 });
