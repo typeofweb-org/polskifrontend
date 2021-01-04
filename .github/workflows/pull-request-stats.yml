@@ -17,17 +17,35 @@ jobs:
           reaction: eyes
           trigger: 'TypeofWebBot stats'
         env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - if: steps.check.outputs.triggered == 'true'
+      - name: Is this a comment
+        if: steps.check.outputs.triggered == 'true'
         uses: xt0rted/pull-request-comment-branch@v1.2.0
         id: comment-branch
         with:
           repo_token: ${{secrets.GITHUB_TOKEN}}
 
-      - if: steps.check.outputs.triggered == 'true'
-        uses: typeofweb/next-stats-action@master
+      - name: Checkout PR
+        if: steps.check.outputs.triggered == 'true'
+        uses: actions/checkout@v2
+        with:
+          path: pr-branch
+          ref: ${{steps.comment-branch.outputs.head_ref}}
+
+      - name: Checkout base
+        if: steps.check.outputs.triggered == 'true'
+        uses: actions/checkout@v2
+        with:
+          path: base-branch
+          ref: develop
+
+      - name: Compare sizes
+        if: steps.check.outputs.triggered == 'true'
+        uses: typeofweb/typeofweb-next-stats-action@pkg
+        with:
+          pr_directory_name: pr-branch
+          base_directory_name: base-branch
         env:
-          PR_STATS_COMMENT_TOKEN: ${{secrets.PR_STATS_COMMENT_TOKEN}}
-          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-          BRANCH: ${{steps.comment-branch.outputs.head_ref}} # prRef
+          DATABASE_URL: ${{secrets.DATABASE_URL}}
+          GITHUB_TOKEN: ${{secrets.TYPEOFWEB_BOT_GITHUB_TOKEN}}
