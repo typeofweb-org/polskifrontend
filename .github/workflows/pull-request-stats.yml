@@ -26,7 +26,7 @@ jobs:
       #     repo_token: ${{secrets.GITHUB_TOKEN}}
 
       - name: Checkout base
-        if: steps.check.outputs.triggered == 'true'
+        # if: steps.check.outputs.triggered == 'true'
         uses: actions/checkout@v2
         with:
           path: pr-branch
@@ -34,7 +34,7 @@ jobs:
           ref: issue-97
 
       - name: Checkout base
-        if: steps.check.outputs.triggered == 'true'
+        # if: steps.check.outputs.triggered == 'true'
         uses: actions/checkout@v2
         with:
           path: base-branch
