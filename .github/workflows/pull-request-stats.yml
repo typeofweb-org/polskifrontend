@@ -15,7 +15,7 @@ jobs:
         id: check
         with:
           reaction: eyes
-          trigger: 'TypeOfWebBot stats'
+          trigger: 'TypeofWebBot stats'
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
