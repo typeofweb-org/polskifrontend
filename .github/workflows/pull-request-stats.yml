@@ -30,4 +30,4 @@ jobs:
         env:
           PR_STATS_COMMENT_TOKEN: ${{secrets.PR_STATS_COMMENT_TOKEN}}
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-          GITHUB_REF: ${{steps.comment-branch.outputs.head_ref}} # prRef
+          BRANCH: ${{steps.comment-branch.outputs.head_ref}} # prRef
