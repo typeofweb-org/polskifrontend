@@ -5,7 +5,7 @@ import Cheerio from 'cheerio';
 import Slugify from 'slugify';
 
 import { closeConnection, openConnection } from './db';
-import { isPrismaError } from './prisma-helper';
+import { handlePrismaError } from './prisma-helper';
 
 const NEVER = new Date(0);
 const YOUTUBE_REGEX = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;
@@ -38,9 +38,7 @@ export const addContentCreator = async (url: string, email: string) => {
       },
     });
   } catch (err) {
-    if (isPrismaError(err) && err.code === 'P2002') {
-      throw Boom.conflict();
-    }
+    handlePrismaError(err);
     throw Boom.isBoom(err) ? err : Boom.badRequest();
   } finally {
     await closeConnection();

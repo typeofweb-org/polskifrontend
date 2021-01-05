@@ -1,53 +1,77 @@
 import Boom from '@hapi/boom';
+import type { InferType } from 'yup';
 import { boolean, object, string } from 'yup';
 
-import { withAsync, withValidation, withAuth } from '../../../api-helpers/api-hofs';
+import { withAsync, withValidation, withAuth, withMethods } from '../../../api-helpers/api-hofs';
 import { closeConnection, openConnection } from '../../../api-helpers/db';
-import { isPrismaError } from '../../../api-helpers/prisma-helper';
+import { handlePrismaError } from '../../../api-helpers/prisma-helper';
+
+const cuidValidator = string()
+  .matches(/^c[a-zA-Z0-9]{24}$/)
+  .required();
+
+const blogIdRequestBody = object({
+  href: string().url().required(),
+  creatorEmail: string().nullable(),
+  isPublic: boolean().required(),
+}).required();
+
+export type BlogIdRequestBody = InferType<typeof blogIdRequestBody>;
 
 export default withAsync(
   withAuth('ADMIN')(
-    withValidation({
-      query: object({
-        blogId: string().required(),
-      }),
-      body: object({
-        name: string().required(),
-        href: string().required(),
-        rss: string().required(),
-        slug: string().optional(),
-        favicon: string().optional(),
-        creatorEmail: string().optional(),
-        isPublic: boolean().required(),
-      }).required(),
-    })(async (req) => {
-      if (req.method !== 'PUT') {
-        throw Boom.notFound();
-      }
-      try {
-        const prisma = await openConnection();
+    withMethods({
+      GET: withValidation({
+        query: object({
+          blogId: cuidValidator,
+        }),
+      })(async (req) => {
+        try {
+          const prisma = await openConnection();
 
-        const blog = await prisma.blog.update({
-          where: {
-            id: req.query.blogId,
-          },
-          data: req.body,
-        });
+          const blog = await prisma.blog.findUnique({
+            where: {
+              id: req.query.blogId,
+            },
+          });
 
-        return blog;
-      } catch (err) {
-        // Record not found
-        if (isPrismaError(err) && err.code === 'P2001') {
+          if (blog) {
+            return blog;
+          }
+
           throw Boom.notFound();
+        } catch (err) {
+          handlePrismaError(err);
+          throw Boom.internal();
+        } finally {
+          await closeConnection();
         }
-        // Conflict
-        if (isPrismaError(err) && err.code === 'P2002') {
-          throw Boom.conflict();
+      }),
+
+      PUT: withValidation({
+        query: object({
+          blogId: cuidValidator,
+        }),
+        body: blogIdRequestBody,
+      })(async (req) => {
+        try {
+          const prisma = await openConnection();
+
+          const blog = await prisma.blog.update({
+            where: {
+              id: req.query.blogId,
+            },
+            data: req.body,
+          });
+
+          return blog;
+        } catch (err) {
+          handlePrismaError(err);
+          throw Boom.internal();
+        } finally {
+          await closeConnection();
         }
-        throw Boom.internal();
-      } finally {
-        await closeConnection();
-      }
+      }),
     }),
   ),
 );
