@@ -2,7 +2,7 @@ import type { HTTPMethod } from '../api-helpers/api-hofs';
 
 type FetcherConfig = {
   readonly method: HTTPMethod;
-  readonly body?: unknown;
+  readonly body?: object;
   readonly config?: RequestInit;
 };
 
