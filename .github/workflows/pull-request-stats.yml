@@ -4,23 +4,48 @@ on:
   issue_comment:
     types: [created]
 
-name: Generate Pull Request Stats
+name: Generate Pull Request Next Stats
 
 jobs:
   stats:
     name: PR Stats
     runs-on: ubuntu-latest
     steps:
-      - uses: Khan/pull-request-comment-trigger@master
+      - uses: khan/pull-request-comment-trigger@38c59cfe9af77dc06f9235182017a6ae416a9223
         id: check
         with:
           reaction: eyes
-          trigger: '@TypeOfWebBot stats'
-          prefix_only: true
+          trigger: 'TypeofWebBot stats'
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - if: steps.check.outputs.triggered == 'true'
-        uses: typeofweb/next-stats-action@master
+
+      - name: Is this a comment
+        if: steps.check.outputs.triggered == 'true'
+        uses: xt0rted/pull-request-comment-branch@v1.2.0
+        id: comment-branch
+        with:
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Checkout PR
+        if: steps.check.outputs.triggered == 'true'
+        uses: actions/checkout@v2
+        with:
+          path: pr-branch
+          ref: ${{steps.comment-branch.outputs.head_ref}}
+
+      - name: Checkout base
+        if: steps.check.outputs.triggered == 'true'
+        uses: actions/checkout@v2
+        with:
+          path: base-branch
+          ref: develop
+
+      - name: Compare sizes
+        if: steps.check.outputs.triggered == 'true'
+        uses: typeofweb/typeofweb-next-stats-action@pkg
+        with:
+          pr_directory_name: pr-branch
+          base_directory_name: base-branch
         env:
-          PR_STATS_COMMENT_TOKEN: ${{secrets.PR_STATS_COMMENT_TOKEN}}
-          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+          DATABASE_URL: ${{secrets.DATABASE_URL}}
+          GITHUB_TOKEN: ${{secrets.TYPEOFWEB_BOT_GITHUB_TOKEN}}
