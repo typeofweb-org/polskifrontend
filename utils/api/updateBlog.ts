@@ -1,12 +1,11 @@
 import type { BlogIdRequestBody } from '../../pages/api/blogs/[blogId]';
+import { fetcher } from '../fetcher';
 
 export const updateBlog = (blogId: string, body: BlogIdRequestBody) => {
-  body.slug = body.slug || null;
-  body.favicon = body.favicon || null;
   body.creatorEmail = body.creatorEmail || null;
 
-  return fetch(`/api/blogs/${blogId}`, {
+  return fetcher(`/api/blogs/${blogId}`, {
     method: 'PUT',
-    body: JSON.stringify(body),
+    body,
   });
 };

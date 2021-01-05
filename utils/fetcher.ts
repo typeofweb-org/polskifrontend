@@ -1,28 +1,24 @@
-type HTTPMethod =
-  | 'GET'
-  | 'HEAD'
-  | 'POST'
-  | 'PUT'
-  | 'DELETE'
-  | 'CONNECT'
-  | 'OPTIONS'
-  | 'TRACE'
-  | 'PATCH';
+import type { HTTPMethod } from '../api-helpers/api-hofs';
+
+type FetcherConfig = {
+  readonly method: HTTPMethod;
+  readonly body?: unknown;
+  readonly config?: RequestInit;
+};
 
 export async function fetcher<T>(
   path: string,
-  method: HTTPMethod = 'GET',
-  init?: RequestInit,
+  { method, body, config }: FetcherConfig = { method: 'GET' },
 ): Promise<T> {
   try {
     const response = await fetch(path, {
+      ...config,
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
       method,
-      ...init,
-      ...(init?.body && { body: JSON.stringify(init.body) }),
+      ...(body && { body: JSON.stringify(body) }),
     });
     if (response.ok) {
       const data = (await response.json()) as T;

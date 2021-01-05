@@ -15,22 +15,16 @@ type Props = {
   readonly blogId: string;
 };
 
-const INITIAL_VALUES: BlogIdRequestBody = {
-  name: '',
-  href: '',
-  rss: '',
-  slug: null,
-  favicon: null,
-  creatorEmail: null,
-  isPublic: false,
-};
-
 export const UpdateBlogForm = memo<Props>(({ blogId }) => {
   const { mutate, status } = useMutation((body: BlogIdRequestBody) => updateBlog(blogId, body));
   const { value: blog, status: queryStatus } = useQuery(
     useCallback(() => getBlog(blogId), [blogId]),
   );
-  const [fields, setFields] = useState<BlogIdRequestBody>(INITIAL_VALUES);
+  const [fields, setFields] = useState<BlogIdRequestBody>({
+    href: '',
+    creatorEmail: null,
+    isPublic: false,
+  });
   const [isValid, setIsValid] = useState(false);
   const formRef = useRef<HTMLFormElement | null>(null);
 
@@ -76,12 +70,11 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
         Nazwa bloga
         <input
           className={styles.input}
-          value={fields.name}
-          name="name"
-          onChange={handleChange}
-          placeholder="Podaj nazwę bloga"
-          required
+          value={blog.name}
           type="text"
+          name="name"
+          readOnly
+          required
         />
       </label>
       <label className={styles.label}>
@@ -98,36 +91,20 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
       </label>
       <label className={styles.label}>
         Rss bloga
-        <input
-          className={styles.input}
-          value={fields.rss}
-          name="rss"
-          onChange={handleChange}
-          placeholder="Podaj rss bloga"
-          required
-          type="url"
-        />
+        <input className={styles.input} value={blog.rss} name="rss" type="url" readOnly required />
       </label>
       <label className={styles.label}>
         Slug bloga
-        <input
-          className={styles.input}
-          value={fields.slug ?? ''}
-          name="slug"
-          onChange={handleChange}
-          placeholder="Podaj slug bloga"
-          type="text"
-        />
+        <input className={styles.input} value={blog.slug ?? ''} readOnly name="slug" type="text" />
       </label>
       <label className={styles.label}>
         Favicon bloga
         <input
           className={styles.input}
-          value={fields.favicon ?? ''}
+          value={blog.favicon ?? ''}
           name="favicon"
-          onChange={handleChange}
-          placeholder="Podaj url dla favicon"
           type="url"
+          readOnly
         />
       </label>
       <label className={styles.label}>

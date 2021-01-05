@@ -15,6 +15,17 @@ import { logger } from './logger';
 type SomeSchema = Record<string, AnySchema<any, any, any>>;
 type AllAllowedFields = 'body' | 'query';
 
+export type HTTPMethod =
+  | 'GET'
+  | 'HEAD'
+  | 'POST'
+  | 'PUT'
+  | 'DELETE'
+  | 'CONNECT'
+  | 'OPTIONS'
+  | 'TRACE'
+  | 'PATCH';
+
 export const withValidation = <
   Body extends SomeSchema,
   Query extends SomeSchema,
@@ -28,12 +39,12 @@ export const withValidation = <
 ) => {
   const schemaObj = object(schema).required();
 
-  return (
+  return <R extends NextApiRequest>(
     handler: (
-      req: Omit<NextApiRequest, AllAllowedFields> & InferType<typeof schemaObj>,
+      req: Omit<R, AllAllowedFields> & InferType<typeof schemaObj>,
       res: NextApiResponse,
     ) => unknown,
-  ) => async (req: NextApiRequest, res: NextApiResponse) => {
+  ) => async (req: R, res: NextApiResponse) => {
     try {
       // eslint-disable-next-line no-var
       var validatedValues = await schemaObj.validate(req, { abortEarly: false });
@@ -103,23 +114,12 @@ export function withAuth<R extends NextApiRequest>(role?: UserRole) {
   };
 }
 
-type HTTPMethod =
-  | 'get'
-  | 'head'
-  | 'post'
-  | 'put'
-  | 'delete'
-  | 'connect'
-  | 'options'
-  | 'trace'
-  | 'patch';
-
-export function withMethods<R extends NextApiRequest>(
+export function withMethods(
   methods: {
-    readonly [key in HTTPMethod]?: (req: R, res: NextApiResponse) => Promise<unknown>;
+    readonly [key in HTTPMethod]?: (req: NextApiRequest, res: NextApiResponse) => Promise<unknown>;
   },
 ) {
-  return (req: R, res: NextApiResponse) => {
+  return <R extends NextApiRequest>(req: R, res: NextApiResponse) => {
     const reqMethod = req.method?.toLowerCase() as HTTPMethod;
     const handler = methods[reqMethod];
     if (handler) {
