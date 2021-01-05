@@ -120,7 +120,7 @@ export function withMethods(
   },
 ) {
   return <R extends NextApiRequest>(req: R, res: NextApiResponse) => {
-    const reqMethod = req.method?.toLowerCase() as HTTPMethod;
+    const reqMethod = req.method as HTTPMethod;
     const handler = methods[reqMethod];
     if (handler) {
       return handler(req, res);

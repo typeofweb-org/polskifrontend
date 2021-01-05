@@ -68,14 +68,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
     >
       <label className={styles.label}>
         Nazwa bloga
-        <input
-          className={styles.input}
-          value={blog.name}
-          type="text"
-          name="name"
-          readOnly
-          required
-        />
+        <input className={styles.input} value={blog.name} type="text" name="name" readOnly />
       </label>
       <label className={styles.label}>
         Href bloga
@@ -91,7 +84,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
       </label>
       <label className={styles.label}>
         Rss bloga
-        <input className={styles.input} value={blog.rss} name="rss" type="url" readOnly required />
+        <input className={styles.input} value={blog.rss} name="rss" type="url" readOnly />
       </label>
       <label className={styles.label}>
         Slug bloga
