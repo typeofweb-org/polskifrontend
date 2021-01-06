@@ -16,4 +16,21 @@
   tbody > tr:hover {
     background-color: var(--gray-border);
   }
+
+  @media screen and (max-width: 55em) {
+    th,
+    td {
+      display: block;
+    }
+
+    tr {
+      display: block;
+    }
+
+    tbody > tr,
+    thead {
+      display: block;
+      margin: 1em 0;
+    }
+  }
 }
