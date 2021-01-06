@@ -1,5 +1,5 @@
 import type { Article } from '@prisma/client';
-import { AllHtmlEntities } from 'html-entities';
+import { decode } from 'html-entities';
 import Xss from 'xss';
 
 const EXCERPT_MAX_WORDS = 50;
@@ -15,7 +15,7 @@ export function removeShortWordsFromTheEndReducer(
 }
 
 export function createExcerpt(text: string) {
-  return AllHtmlEntities.decode(Xss(text, { stripIgnoreTag: true, whiteList: {} }))
+  return decode(Xss(text, { stripIgnoreTag: true, whiteList: {} }))
     .trim()
     .split(/\s+/)
     .filter((word) => word)

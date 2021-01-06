@@ -1,9 +1,10 @@
+import type { PrismaClient } from '@prisma/client';
+
 import {
   getArticlesPaginationForGrid,
   getArticlesPaginationForList,
   getArticlesSlugs,
 } from './articles';
-import { closeConnection, openConnection } from './db';
 
 type Item = {
   readonly path: string;
@@ -20,38 +21,32 @@ const staticItems: readonly Item[] = [
   { path: '/grid', changefreq: 'hourly', priority: 0.9 },
 ];
 
-export async function getSitemap() {
-  try {
-    const prisma = await openConnection();
+export async function getSitemap(prisma: PrismaClient) {
+  const [gridCursors, listCursors, articleSlugs] = await Promise.all([
+    getArticlesPaginationForGrid(prisma),
+    getArticlesPaginationForList(prisma),
+    getArticlesSlugs(prisma),
+  ]);
 
-    const [gridCursors, listCursors, articleSlugs] = await Promise.all([
-      getArticlesPaginationForGrid(prisma),
-      getArticlesPaginationForList(prisma),
-      getArticlesSlugs(prisma),
-    ]);
+  const dynamicItems: readonly Item[] = [
+    ...articleSlugs.map(({ slug }) => ({
+      path: `/artykuly/${slug}`,
+      changefreq: 'monthly' as const,
+      priority: 0.5,
+    })),
+    ...gridCursors.map((cursor) => ({
+      path: `/grid/${cursor}`,
+      changefreq: 'hourly' as const,
+      priority: 0.4,
+    })),
+    ...listCursors.map((cursor) => ({
+      path: `/list/${cursor}`,
+      changefreq: 'hourly' as const,
+      priority: 0.4,
+    })),
+  ];
 
-    const dynamicItems: readonly Item[] = [
-      ...articleSlugs.map(({ slug }) => ({
-        path: `/artykuly/${slug}`,
-        changefreq: 'monthly' as const,
-        priority: 0.5,
-      })),
-      ...gridCursors.map((cursor) => ({
-        path: `/grid/${cursor}`,
-        changefreq: 'hourly' as const,
-        priority: 0.4,
-      })),
-      ...listCursors.map((cursor) => ({
-        path: `/list/${cursor}`,
-        changefreq: 'hourly' as const,
-        priority: 0.4,
-      })),
-    ];
-
-    return sitemapXml([...staticItems, ...dynamicItems]);
-  } finally {
-    await closeConnection();
-  }
+  return sitemapXml([...staticItems, ...dynamicItems]);
 }
 
 function itemsToXml(items: ReadonlyArray<Item>) {
