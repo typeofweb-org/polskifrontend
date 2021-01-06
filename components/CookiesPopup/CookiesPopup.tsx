@@ -2,8 +2,13 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 import styles from './cookiesPopup.module.scss';
 
+type CookiesPreferences = 'not-accepted' | 'accepted';
+
 export const CookiesPopup = () => {
-  const [accepted, setAccepted] = useLocalStorage('cookies-accepted', 'not-accepted');
+  const [accepted, setAccepted] = useLocalStorage<CookiesPreferences>(
+    'cookies-accepted',
+    'not-accepted',
+  );
 
   if (accepted === 'not-accepted') {
     return (
