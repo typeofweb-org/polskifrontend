@@ -12,7 +12,7 @@ import { initSentry } from '../utils/sentry';
 import { closeConnection, openConnection } from './db';
 import { logger } from './logger';
 
-export type SomeSchema = Record<string, AnySchema<any, any, any>>;
+type SomeSchema = Record<string, AnySchema<any, any, any>>;
 type AllAllowedFields = 'body' | 'query';
 
 export type HTTPMethod =
