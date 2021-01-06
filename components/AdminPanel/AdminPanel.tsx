@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useCallback } from 'react';
 
 import { useQuery } from '../../hooks/useQuery';
-import type { PublicFilter } from '../../utils/api/getBlogs';
 import { getBlogs } from '../../utils/api/getBlogs';
 import { formatDate } from '../../utils/date-utils';
 import { addTrackingToLink } from '../../utils/link-utils';
@@ -11,8 +11,10 @@ import { BlogsTable } from '../BlogsTable/BlogsTable';
 import styles from './adminPanel.module.scss';
 
 export const AdminPanel = () => {
-  const [publicFilter, setPublicFilter] = useState<PublicFilter>('all');
-  const { value: blogs } = useQuery(useCallback(() => getBlogs(publicFilter), [publicFilter]));
+  const router = useRouter();
+  const publicQuery = window?.location.search || '';
+
+  const { value: blogs } = useQuery(useCallback(() => getBlogs(publicQuery), [publicQuery]));
 
   if (!blogs) {
     return <p>Ładowanie...</p>;
@@ -43,12 +45,24 @@ export const AdminPanel = () => {
       <div className={styles.tableWrapper}>
         <label className={styles.publicSelectLabel}>
           Pokazuj blogi: {/* eslint-disable jsx-a11y/no-onchange */}
-          <select onChange={(e) => setPublicFilter(e.currentTarget.value as PublicFilter)}>
-            <option value="all" defaultChecked>
+          <select
+            onChange={(e) => {
+              const val = e.currentTarget.value;
+
+              void router.push(
+                { pathname: '/admin', query: val === '' ? null : { isPublic: val } },
+                undefined,
+                {
+                  shallow: true,
+                },
+              );
+            }}
+          >
+            <option value="" defaultChecked>
               Wszystkie
             </option>
-            <option value="public">Tylko widoczne</option>
-            <option value="hidden">Tylko ukryte</option>
+            <option value="true">Tylko widoczne</option>
+            <option value="false">Tylko ukryte</option>
           </select>
         </label>
         <BlogsTable

@@ -8,19 +8,10 @@ const getBlogsSchema = yup.object({
   data: yup.array(blogSchema),
 });
 
-export type PublicFilter = 'all' | 'public' | 'hidden';
-
-const getPublicQuery: Record<PublicFilter, string> = {
-  all: '',
-  public: '?isPublic=true',
-  hidden: '?isPublic=false',
-};
-
-export const getBlogs = async (isPublic: PublicFilter) => {
-  return (
-    await fetcher<{ readonly data: readonly Blog[] }>(`/api/blogs${getPublicQuery[isPublic]}`, {
+export const getBlogs = async (publicQuery: string = '') =>
+  (
+    await fetcher<{ readonly data: readonly Blog[] }>(`/api/blogs${publicQuery}`, {
       schema: getBlogsSchema,
       method: 'GET',
     })
   ).data;
-};
