@@ -1,0 +1,28 @@
+.section {
+  max-width: 73rem;
+  margin: 0 auto;
+}
+
+.heading {
+  padding: 2rem 0 1rem;
+  border-bottom: 2px solid var(--gray-border);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--gray-text);
+  font-size: 1.25rem;
+  width: 100%;
+}
+
+.tableWrapper {
+  border-left: 3px solid var(--gray-dark-border);
+  border-radius: 3px;
+  box-shadow: 1px 1px 6px 1px var(--gray-shadow);
+  background-color: var(--white);
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.publicSelectLabel {
+  display: block;
+  margin-bottom: 1rem;
+}
