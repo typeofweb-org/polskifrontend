@@ -8,11 +8,7 @@ export function isPrismaError(err: any): err is PrismaError {
   return Boolean(err && err.code) && /^P\d{4}$/.test(err.code);
 }
 
-export function handlePrismaError(err: unknown) {
-  if (!isPrismaError(err)) {
-    throw err;
-  }
-
+export function handlePrismaError(err: PrismaError) {
   switch (err.code) {
     case 'P2001':
       throw Boom.notFound();
@@ -20,6 +16,6 @@ export function handlePrismaError(err: unknown) {
       throw Boom.conflict();
     default:
       logger.error(`Unhandled Prisma error: ${err.code}`);
-      break;
+      throw err;
   }
 }

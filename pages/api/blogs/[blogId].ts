@@ -2,9 +2,13 @@ import Boom from '@hapi/boom';
 import type { InferType } from 'yup';
 import { boolean, object, string } from 'yup';
 
-import { withAsync, withValidation, withAuth, withMethods } from '../../../api-helpers/api-hofs';
-import { closeConnection, openConnection } from '../../../api-helpers/db';
-import { handlePrismaError } from '../../../api-helpers/prisma-helper';
+import {
+  withAsync,
+  withValidation,
+  withAuth,
+  withMethods,
+  withDb,
+} from '../../../api-helpers/api-hofs';
 
 const cuidValidator = string()
   .matches(/^c[a-zA-Z0-9]{24}$/)
@@ -15,7 +19,6 @@ const blogIdRequestBody = object({
   creatorEmail: string().nullable(),
   isPublic: boolean().required(),
 }).required();
-
 export type BlogIdRequestBody = InferType<typeof blogIdRequestBody>;
 
 export default withAsync(
@@ -25,11 +28,9 @@ export default withAsync(
         query: object({
           blogId: cuidValidator,
         }),
-      })(async (req) => {
-        try {
-          const prisma = await openConnection();
-
-          const blog = await prisma.blog.findUnique({
+      })(
+        withDb(async (req) => {
+          const blog = await req.db.blog.findUnique({
             where: {
               id: req.query.blogId,
             },
@@ -40,24 +41,17 @@ export default withAsync(
           }
 
           throw Boom.notFound();
-        } catch (err) {
-          handlePrismaError(err);
-          throw Boom.internal();
-        } finally {
-          await closeConnection();
-        }
-      }),
+        }),
+      ),
 
       PUT: withValidation({
         query: object({
           blogId: cuidValidator,
         }),
         body: blogIdRequestBody,
-      })(async (req) => {
-        try {
-          const prisma = await openConnection();
-
-          const blog = await prisma.blog.update({
+      })(
+        withDb(async (req) => {
+          const blog = await req.db.blog.update({
             where: {
               id: req.query.blogId,
             },
@@ -65,13 +59,8 @@ export default withAsync(
           });
 
           return blog;
-        } catch (err) {
-          handlePrismaError(err);
-          throw Boom.internal();
-        } finally {
-          await closeConnection();
-        }
-      }),
+        }),
+      ),
     }),
   ),
 );
