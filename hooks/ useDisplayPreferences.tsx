@@ -14,7 +14,7 @@ export const useDisplayPreferences = () => {
       return;
     }
     if (!router.asPath.startsWith(`/${display}`)) {
-      const [_, _currentDisplayStyle, ...rest] = router.pathname.split('/');
+      const [, , ...rest] = router.pathname.split('/');
       const path = `/${display}/${rest.join('/')}`;
       void router.replace(path, undefined, { shallow: false });
     }
