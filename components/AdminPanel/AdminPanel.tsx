@@ -11,6 +11,16 @@ import { Table } from '../Table/Table';
 
 import styles from './adminPanel.module.scss';
 
+const columns = [
+  ['link', 'Link do bloga'],
+  ['name', 'Nazwa bloga'],
+  ['isPublic', 'Widoczny'],
+  ['creatorEmail', 'E-mail autora'],
+  ['lastArticlePublishedAt', 'Ostatnia publikacja'],
+  ['createdAt', 'Data zgłoszenia'],
+  ['edit', 'Edytuj dane bloga'],
+] as const;
+
 export const AdminPanel = () => {
   const router = useRouter();
   const isPublic = (router.query.isPublic || 'all') as IsPublic;
@@ -35,8 +45,10 @@ export const AdminPanel = () => {
   const tableData = blogs.map((blog) => ({
     ...blog,
     isPublic: blog.isPublic ? '✅' : '❌',
-    lastArticlePublishedAt: formatDate(blog.lastArticlePublishedAt || new Date()),
-    createdAt: formatDate(blog.createdAt || new Date()),
+    lastArticlePublishedAt: blog.lastArticlePublishedAt
+      ? formatDate(blog.lastArticlePublishedAt)
+      : '',
+    createdAt: formatDate(blog.createdAt),
     link: (
       <Link href={blog.href}>
         <a target="_blank" rel="noopener noreferrer">
@@ -64,18 +76,7 @@ export const AdminPanel = () => {
           <option value="false">Tylko ukryte</option>
         </select>
       </label>
-      <Table
-        columns={[
-          ['link', 'Link do bloga'],
-          ['name', 'Nazwa bloga'],
-          ['isPublic', 'Widoczny'],
-          ['creatorEmail', 'E-mail autora'],
-          ['lastArticlePublishedAt', 'Ostatnia publikacja'],
-          ['createdAt', 'Data zgłoszenia'],
-          ['edit', 'Edytuj dane bloga'],
-        ]}
-        data={tableData}
-      />
+      <Table columns={columns} data={tableData} />
     </section>
   );
 };
