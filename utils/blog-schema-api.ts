@@ -1,16 +1,16 @@
-import * as yup from 'yup';
+import { object, string, date, bool } from 'yup';
 
-export const blogSchema = yup.object({
-  id: yup.string().required(),
-  name: yup.string().required(),
-  href: yup.string().required(),
-  rss: yup.string().required(),
-  slug: yup.string().nullable(),
-  lastUpdateDate: yup.date().required(),
-  favicon: yup.string().nullable(),
-  creatorEmail: yup.string().nullable(),
-  isPublic: yup.bool().required(),
-  lastArticlePublishedAt: yup.date().nullable(),
-  createdAt: yup.date().required(),
-  updatedAt: yup.date().required(),
+export const blogSchema = object({
+  id: string().required(),
+  name: string().required(),
+  href: string().required(),
+  rss: string().required(),
+  slug: string().nullable(),
+  lastUpdateDate: date().required(),
+  favicon: string().nullable(),
+  creatorEmail: string().nullable(),
+  isPublic: bool().required(),
+  lastArticlePublishedAt: date().nullable(),
+  createdAt: date().required(),
+  updatedAt: date().required(),
 });

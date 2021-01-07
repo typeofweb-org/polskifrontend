@@ -1,0 +1,43 @@
+.table {
+  text-align: center;
+  position: relative;
+  border-spacing: 0;
+
+  th,
+  td {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--gray-dark-border);
+
+    & + th,
+    & + td {
+      border-left: none;
+    }
+  }
+
+  tr + tr {
+    td,
+    th {
+      border-top: none;
+    }
+  }
+
+  th {
+    top: 0;
+    position: sticky;
+    background-color: var(--gray-border);
+  }
+
+  tbody > tr:hover {
+    background-color: var(--gray-border);
+  }
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow: auto;
+  /*
+  In order to be able to make elements inside "sticky", the container has to have a fixed height
+  https://uxdesign.cc/position-stuck-96c9f55d9526
+  */
+  height: 80vh;
+}

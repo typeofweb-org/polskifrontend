@@ -1,18 +1,18 @@
-import type { AnySchema } from 'yup';
+import type { AnySchema, InferType } from 'yup';
 
 import type { HTTPMethod } from '../api-helpers/api-hofs';
 
-type FetcherConfig = {
+type FetcherConfig<S extends AnySchema> = {
   readonly method: HTTPMethod;
+  readonly schema: S;
   readonly body?: object;
   readonly config?: RequestInit;
-  readonly schema?: AnySchema;
 };
 
-export async function fetcher<T>(
+export async function fetcher<S extends AnySchema>(
   path: string,
-  { method, body, config, schema }: FetcherConfig = { method: 'GET' },
-): Promise<T> {
+  { method, body, config, schema }: FetcherConfig<S>,
+): Promise<InferType<S>> {
   try {
     const response = await fetch(path, {
       ...config,
@@ -24,12 +24,8 @@ export async function fetcher<T>(
       ...(body && { body: JSON.stringify(body) }),
     });
     if (response.ok) {
-      /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-      const jsonData = await response.json();
-
-      const data = schema ? (schema.cast(jsonData) as T) : (jsonData as T);
-
-      return data;
+      /* eslint-disable @typescript-eslint/no-unsafe-return */
+      return schema.cast(await response.json());
     }
     throw new ResponseError(response.statusText, response.status);
   } catch (err) {

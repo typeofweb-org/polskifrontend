@@ -1,12 +1,12 @@
-import styles from './blogsTable.module.scss';
+import styles from './table.module.scss';
 
-type BlogsTableProps<T> = {
+type TableProps<T> = {
   readonly data: readonly T[];
-  readonly columns: ReadonlyArray<readonly [Partial<keyof T>, string]>;
+  readonly columns: ReadonlyArray<readonly [key: keyof T, label: string]>;
 };
 
-export function BlogsTable<T>({ data, columns }: BlogsTableProps<T>) {
-  return (
+export const Table = <T extends { readonly id: string }>({ data, columns }: TableProps<T>) => (
+  <div className={styles.tableWrapper}>
     <table className={styles.table}>
       <thead>
         <tr>
@@ -16,8 +16,8 @@ export function BlogsTable<T>({ data, columns }: BlogsTableProps<T>) {
         </tr>
       </thead>
       <tbody>
-        {data.map((row, i) => (
-          <tr key={i}>
+        {data.map((row) => (
+          <tr key={row.id}>
             {columns.map(([key]) => (
               <td key={key as string}>{row[key]}</td>
             ))}
@@ -25,5 +25,5 @@ export function BlogsTable<T>({ data, columns }: BlogsTableProps<T>) {
         ))}
       </tbody>
     </table>
-  );
-}
+  </div>
+);

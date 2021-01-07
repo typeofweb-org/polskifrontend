@@ -1,16 +1,23 @@
-import type { Blog } from '@prisma/client';
-import * as yup from 'yup';
+import { object, array } from 'yup';
 
 import { blogSchema } from '../blog-schema-api';
 import { fetcher } from '../fetcher';
 
-const getBlogsSchema = yup.object({
-  data: yup.array(blogSchema),
+export type IsPublic = 'all' | 'public' | 'hidden';
+
+const publicQuery: Record<IsPublic, string> = {
+  all: '',
+  public: '?isPublic=true',
+  hidden: '?isPublic=false',
+};
+
+const getBlogsSchema = object({
+  data: array(blogSchema),
 });
 
-export const getBlogs = async (publicQuery: string = '') =>
+export const getBlogs = async (isPublic: IsPublic) =>
   (
-    await fetcher<{ readonly data: readonly Blog[] }>(`/api/blogs${publicQuery}`, {
+    await fetcher(`/api/blogs${publicQuery[isPublic]}`, {
       schema: getBlogsSchema,
       method: 'GET',
     })

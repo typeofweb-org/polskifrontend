@@ -1,6 +1,8 @@
 .section {
+  width: 100%;
   max-width: 73rem;
   margin: 0 auto;
+  padding: 1rem;
 }
 
 .heading {
@@ -13,16 +15,7 @@
   width: 100%;
 }
 
-.tableWrapper {
-  border-left: 3px solid var(--gray-dark-border);
-  border-radius: 3px;
-  box-shadow: 1px 1px 6px 1px var(--gray-shadow);
-  background-color: var(--white);
-  margin: 1rem;
-  padding: 1rem;
-}
-
 .publicSelectLabel {
   display: block;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
