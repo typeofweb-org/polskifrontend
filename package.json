@@ -90,6 +90,7 @@
     "@types/pino": "6.3.4",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
+    "@types/requestidlecallback": "0.3.1",
     "@types/yup": "0.29.11",
     "@types/zeit__next-source-maps": "0.0.2",
     "@typescript-eslint/eslint-plugin": "4.12.0",
