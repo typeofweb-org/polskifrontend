@@ -59,7 +59,8 @@
     ],
     "functional/prefer-readonly-type": "error",
     "functional/no-this-expression": "error",
-    "functional/no-loop-statement": "error"
+    "functional/no-loop-statement": "error",
+    "jsx-a11y/no-onchange": "off"
   },
   "overrides": [
     {

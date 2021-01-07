@@ -22,7 +22,7 @@ export const Layout = ({ children, title, titleTemplate = defaultTitleTemplate }
         <MainNavigation />
         <MainHeader />
       </header>
-      <main>{children}</main>
+      <main className={styles.main}>{children}</main>
       <Footer />
       <CookiesPopup />
       <NextSeo
