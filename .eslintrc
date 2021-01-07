@@ -24,6 +24,7 @@
     "require-await": "error",
     "react-hooks/exhaustive-deps": ["error"],
     "react/display-name": "error",
+    "react/jsx-curly-brace-presence": ["error", "never"],
     "jsx-a11y/anchor-is-valid": "off",
     "import/no-anonymous-default-export": "error",
     "import/no-default-export": "error",
@@ -58,7 +59,8 @@
     ],
     "functional/prefer-readonly-type": "error",
     "functional/no-this-expression": "error",
-    "functional/no-loop-statement": "error"
+    "functional/no-loop-statement": "error",
+    "jsx-a11y/no-onchange": "off"
   },
   "overrides": [
     {

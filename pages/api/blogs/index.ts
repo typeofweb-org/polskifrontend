@@ -1,8 +1,7 @@
 import Boom from '@hapi/boom';
 import { boolean, object } from 'yup';
 
-import { withAsync, withValidation, withAuth } from '../../../api-helpers/api-hofs';
-import { closeConnection, openConnection } from '../../../api-helpers/db';
+import { withAsync, withValidation, withAuth, withDb } from '../../../api-helpers/api-hofs';
 
 export default withAsync(
   withAuth('ADMIN')(
@@ -10,15 +9,13 @@ export default withAsync(
       query: object({
         isPublic: boolean().optional(),
       }).optional(),
-    })(async (req) => {
-      if (req.method !== 'GET') {
-        throw Boom.notFound();
-      }
+    })(
+      withDb(async (req) => {
+        if (req.method !== 'GET') {
+          throw Boom.notFound();
+        }
 
-      try {
-        const prisma = await openConnection();
-
-        const blogs = await prisma.blog.findMany({
+        const blogs = await req.db.blog.findMany({
           where: {
             isPublic: req.query.isPublic,
           },
@@ -27,9 +24,7 @@ export default withAsync(
         return {
           data: blogs,
         };
-      } finally {
-        await closeConnection();
-      }
-    }),
+      }),
+    ),
   ),
 );

@@ -1,7 +1,9 @@
+import type { IncomingMessage } from 'http';
+
 import Boom from '@hapi/boom';
-import type { UserRole } from '@prisma/client';
+import type { PrismaClient, UserRole } from '@prisma/client';
 import * as Sentry from '@sentry/node';
-import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiResponse, NextApiRequest } from 'next';
 import type { Session } from 'next-auth/client';
 import { getSession } from 'next-auth/client';
 import { object } from 'yup';
@@ -11,6 +13,7 @@ import { initSentry } from '../utils/sentry';
 
 import { closeConnection, openConnection } from './db';
 import { logger } from './logger';
+import { handlePrismaError } from './prisma-helper';
 
 type SomeSchema = Record<string, AnySchema<any, any, any>>;
 type AllAllowedFields = 'body' | 'query';
@@ -26,6 +29,13 @@ export type HTTPMethod =
   | 'TRACE'
   | 'PATCH';
 
+function unsafe__set<T extends object, P extends string, V>(obj: T, path: P, value: V) {
+  (obj as Record<string, unknown>)[path] = value;
+  return obj as T & { readonly [K in P]: V };
+}
+
+type OurNextApiRequest = Omit<NextApiRequest, AllAllowedFields> & IncomingMessage;
+
 export const withValidation = <
   Body extends SomeSchema,
   Query extends SomeSchema,
@@ -39,11 +49,8 @@ export const withValidation = <
 ) => {
   const schemaObj = object(schema).required();
 
-  return <R extends NextApiRequest>(
-    handler: (
-      req: Omit<R, AllAllowedFields> & InferType<typeof schemaObj>,
-      res: NextApiResponse,
-    ) => unknown,
+  return <R extends OurNextApiRequest>(
+    handler: (req: R & InferType<typeof schemaObj>, res: NextApiResponse) => unknown,
   ) => async (req: R, res: NextApiResponse) => {
     try {
       // eslint-disable-next-line no-var
@@ -57,13 +64,12 @@ export const withValidation = <
 };
 
 export const withAsync = (
-  handler: (req: NextApiRequest, res: NextApiResponse) => Promise<unknown> | unknown,
-): NextApiHandler => {
+  handler: (req: OurNextApiRequest, res: NextApiResponse) => Promise<unknown> | unknown,
+) => {
   initSentry();
 
-  return async (req, res) => {
+  return async <R extends OurNextApiRequest>(req: R, res: NextApiResponse) => {
     try {
-      await openConnection();
       const result = await handler(req, res);
 
       if (res.writableEnded) {
@@ -95,13 +101,28 @@ export const withAsync = (
       }
     } finally {
       await Sentry.flush(2000).catch(() => {});
-      await closeConnection()?.catch((err) => logger.error(err));
     }
   };
 };
 
-export function withAuth<R extends NextApiRequest>(role?: UserRole) {
-  return (
+export const withDb = <R extends OurNextApiRequest>(
+  handler: (
+    req: R & { readonly db: PrismaClient },
+    res: NextApiResponse,
+  ) => Promise<unknown> | unknown,
+) => async (req: R, res: NextApiResponse) => {
+  try {
+    const prisma = await openConnection();
+    return handler(unsafe__set(req, 'db', prisma), res);
+  } catch (err) {
+    handlePrismaError(err);
+  } finally {
+    await closeConnection();
+  }
+};
+
+export function withAuth(role?: UserRole) {
+  return <R extends OurNextApiRequest>(
     handler: (req: R & { readonly session: Session }, res: NextApiResponse) => unknown,
   ) => async (req: R, res: NextApiResponse) => {
     const session = await getSession({ req });
@@ -110,16 +131,16 @@ export function withAuth<R extends NextApiRequest>(role?: UserRole) {
       throw Boom.unauthorized();
     }
 
-    return handler({ session, ...req }, res);
+    return handler(unsafe__set(req, 'session', session), res);
   };
 }
 
-export function withMethods(
+export function withMethods<R extends OurNextApiRequest>(
   methods: {
-    readonly [key in HTTPMethod]?: (req: NextApiRequest, res: NextApiResponse) => Promise<unknown>;
+    readonly [key in HTTPMethod]?: (req: R, res: NextApiResponse) => unknown;
   },
 ) {
-  return <R extends NextApiRequest>(req: R, res: NextApiResponse) => {
+  return (req: R, res: NextApiResponse) => {
     const reqMethod = req.method as HTTPMethod;
     const handler = methods[reqMethod];
     if (handler) {
