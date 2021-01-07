@@ -105,6 +105,10 @@ config.rewrites = async () => {
       source: '/feed',
       destination: '/api/feed',
     },
+    {
+      source: '/sitemap.xml',
+      destination: '/api/sitemap',
+    },
   ];
 };
 
