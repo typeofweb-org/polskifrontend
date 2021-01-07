@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import type { ChangeEvent } from 'react';
 import { useCallback } from 'react';
+import { object, string } from 'yup';
 
 import { useQuery } from '../../hooks/useQuery';
+import { useSmartQuery } from '../../hooks/useSmartQuery';
 import type { IsPublic } from '../../utils/api/getBlogs';
 import { getBlogs } from '../../utils/api/getBlogs';
 import { formatDate } from '../../utils/date-utils';
@@ -22,22 +23,22 @@ const columns = [
 ] as const;
 
 export const AdminPanel = () => {
-  const router = useRouter();
-  const isPublic = ['true', 'false'].includes(router.query.isPublic as string)
-    ? (router.query.isPublic as IsPublic)
-    : undefined;
+  const {
+    query: { isPublic },
+    changeQuery,
+  } = useSmartQuery(
+    object({ isPublic: string().matches(/(true|false)/, { excludeEmptyString: true }) }),
+  );
 
-  const { value: blogs } = useQuery(useCallback(() => getBlogs(isPublic), [isPublic]));
+  const { value: blogs } = useQuery(useCallback(() => getBlogs(isPublic as IsPublic), [isPublic]));
 
   const handlePublicChange = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
       const val = e.currentTarget.value;
 
-      void router.push({ pathname: '/admin', query: { isPublic: val } }, undefined, {
-        shallow: true,
-      });
+      void changeQuery({ isPublic: val });
     },
-    [router],
+    [changeQuery],
   );
 
   if (!blogs) {
