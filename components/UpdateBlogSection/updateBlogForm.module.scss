@@ -41,6 +41,11 @@
     display: flex;
     margin-right: 0.75rem;
   }
+
+  &:read-only {
+    background-color: var(--reddish-white);
+    border: 1px solid var(--reddish-white);
+  }
 }
 
 .submitButton {
