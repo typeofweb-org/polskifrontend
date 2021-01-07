@@ -1,11 +1,9 @@
 import { URL } from 'url';
 
 import Boom from '@hapi/boom';
+import type { PrismaClient } from '@prisma/client';
 import Cheerio from 'cheerio';
 import Slugify from 'slugify';
-
-import { closeConnection, openConnection } from './db';
-import { handlePrismaError } from './prisma-helper';
 
 const NEVER = new Date(0);
 const YOUTUBE_REGEX = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;
@@ -25,24 +23,16 @@ type Feed = {
   readonly title: string;
 };
 
-export const addContentCreator = async (url: string, email: string) => {
-  try {
-    const prisma = await openConnection();
-    const blogData = await getBlogData(url);
-    return await prisma.blog.create({
-      data: {
-        ...blogData,
-        lastUpdateDate: NEVER,
-        slug: Slugify(blogData.name, { lower: true }),
-        creatorEmail: email,
-      },
-    });
-  } catch (err) {
-    handlePrismaError(err);
-    throw Boom.isBoom(err) ? err : Boom.badRequest();
-  } finally {
-    await closeConnection();
-  }
+export const addContentCreator = async (url: string, email: string, prisma: PrismaClient) => {
+  const blogData = await getBlogData(url);
+  return prisma.blog.create({
+    data: {
+      ...blogData,
+      lastUpdateDate: NEVER,
+      slug: Slugify(blogData.name, { lower: true }),
+      creatorEmail: email,
+    },
+  });
 };
 
 const getBlogData = (url: string): Promise<BlogData> => {
