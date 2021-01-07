@@ -23,7 +23,9 @@ const columns = [
 
 export const AdminPanel = () => {
   const router = useRouter();
-  const isPublic = (router.query.isPublic || 'all') as IsPublic;
+  const isPublic = ['true', 'false'].includes(router.query.isPublic as string)
+    ? (router.query.isPublic as IsPublic)
+    : undefined;
 
   const { value: blogs } = useQuery(useCallback(() => getBlogs(isPublic), [isPublic]));
 
@@ -68,8 +70,8 @@ export const AdminPanel = () => {
       <h2 className={styles.heading}>Admin Panel - Blogi</h2>
       <label className={styles.publicSelectLabel}>
         Pokazuj blogi:{' '}
-        <select onChange={handlePublicChange}>
-          <option value="all" defaultChecked>
+        <select onChange={handlePublicChange} value={isPublic}>
+          <option value="" defaultChecked>
             Wszystkie
           </option>
           <option value="true">Tylko widoczne</option>
