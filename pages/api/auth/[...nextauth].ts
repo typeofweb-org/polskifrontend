@@ -1,14 +1,15 @@
 import Boom from '@hapi/boom';
-import type { NextApiHandler } from 'next';
+import type { PrismaClient } from '@prisma/client';
+import type { NextApiHandler, NextApiRequest } from 'next';
 import type { InitOptions } from 'next-auth';
 import NextAuth from 'next-auth';
 import Adapters from 'next-auth/adapters';
 import Providers from 'next-auth/providers';
 
+import { withAsync, withDb } from '../../../api-helpers/api-hofs';
 import { closeConnection, openConnection } from '../../../api-helpers/db';
 
-const authHandler: NextApiHandler = async (req, res) => {
-  const prisma = await openConnection();
+function getNextAuthOptions(prisma: PrismaClient) {
   const options: InitOptions = {
     providers: [
       Providers.GitHub({
@@ -36,6 +37,7 @@ const authHandler: NextApiHandler = async (req, res) => {
 
         const userId = user.userId;
         try {
+          const prisma = await openConnection();
           const user = await prisma.user.findUnique({
             where: {
               id: userId,
@@ -44,7 +46,7 @@ const authHandler: NextApiHandler = async (req, res) => {
           });
           token.userId = userId;
           token.role = user?.role;
-          return Promise.resolve(token);
+          return token;
         } catch (err) {
           throw Boom.unauthorized();
         } finally {
@@ -63,8 +65,14 @@ const authHandler: NextApiHandler = async (req, res) => {
       },
     },
   };
+  return options;
+}
 
-  return NextAuth(req, res, options);
-};
+const authHandler: NextApiHandler = withAsync(
+  withDb((req, res) => {
+    const options = getNextAuthOptions(req.db);
+    return NextAuth((req as unknown) as NextApiRequest, res, options);
+  }),
+);
 
 export default authHandler;

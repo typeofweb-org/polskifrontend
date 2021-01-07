@@ -18,3 +18,9 @@ declare module 'next-auth' {
     readonly role?: Role;
   }
 }
+
+declare module 'next' {
+  interface NextApiRequest {
+    readonly body: never;
+  }
+}
