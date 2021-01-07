@@ -121,7 +121,6 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
           name="isPublic"
           onChange={handleInputCheckboxChange}
           type="checkbox"
-          required
         />
         Czy blog ma być pokazany na stronie?
       </label>
