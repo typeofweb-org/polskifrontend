@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useCallback } from 'react';
 
+import { useDidMount } from './useDidMount';
+import { useDidUpdate } from './useDidUpdate';
 import { useLocalStorage } from './useLocalStorage';
 
 export type DisplayPreferences = 'list' | 'grid';
@@ -8,17 +10,19 @@ export type DisplayPreferences = 'list' | 'grid';
 export const useDisplayPreferences = () => {
   const router = useRouter();
   const [display, setDisplay] = useLocalStorage<DisplayPreferences>('display-preferences', 'list');
-
-  useEffect(() => {
-    if (!display) {
-      return;
-    }
-    if (!router.asPath.startsWith(`/${display}`)) {
-      const [, , ...rest] = router.pathname.split('/');
-      const path = `/${display}/${rest.join('/')}`;
-      void router.replace(path, undefined, { shallow: false });
+  const changeDisplayInRouter = useCallback(() => {
+    if (display) {
+      void router.push(`/${display}`);
     }
   }, [router, display]);
+
+  useDidMount(() => {
+    if (display && router.asPath === '/') {
+      void router.replace(`/${display}`);
+    }
+  });
+
+  useDidUpdate(changeDisplayInRouter);
 
   return [setDisplay] as const;
 };

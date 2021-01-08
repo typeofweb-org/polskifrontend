@@ -21,7 +21,9 @@ export const MainTiles = memo<MainTilesProps>((props) => {
   const [setDisplay] = useDisplayPreferences();
 
   const changeDisplayStyle = useCallback<ChangeEventHandler<HTMLInputElement>>(
-    ({ currentTarget }) => setDisplay(currentTarget.value as DisplayPreferences),
+    ({ currentTarget }) => {
+      setDisplay(currentTarget.value as DisplayPreferences);
+    },
     [setDisplay],
   );
 
