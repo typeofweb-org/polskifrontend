@@ -26,9 +26,7 @@ export const AdminPanel = () => {
   const {
     query: { isPublic },
     changeQuery,
-  } = useSmartQuery(
-    object({ isPublic: string().matches(/(true|false)/, { excludeEmptyString: true }) }),
-  );
+  } = useSmartQuery(object({ isPublic: string().oneOf(['true', 'false', '']) }));
 
   const { value: blogs } = useQuery(useCallback(() => getBlogs(isPublic as IsPublic), [isPublic]));
 
