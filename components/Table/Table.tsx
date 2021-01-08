@@ -1,4 +1,7 @@
 import type { CSSProperties } from 'react';
+import { useEffect } from 'react';
+
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
 import styles from './table.module.scss';
 import { useFloatingTableHeader } from './useFloatingTableHeader';
@@ -28,8 +31,16 @@ const TableHeaderRow = ({
   );
 };
 
+const intersectionObserverOptions = {};
+
 export const Table = <T extends { readonly id: string }>({ data, columns }: TableProps<T>) => {
   const { tableRef, floatingHeaderRef } = useFloatingTableHeader<HTMLDivElement>();
+
+  const { setRef, entry } = useIntersectionObserver<HTMLTableSectionElement>(
+    intersectionObserverOptions,
+  );
+
+  console.log({ entry });
 
   return (
     <div className={styles.tableWrapper}>
@@ -37,7 +48,7 @@ export const Table = <T extends { readonly id: string }>({ data, columns }: Tabl
         <TableHeaderRow columns={columns} as="span" />
       </div>
       <table ref={tableRef} className={styles.table}>
-        <thead>
+        <thead ref={setRef}>
           <tr>
             <TableHeaderRow columns={columns} as="th" />
           </tr>
