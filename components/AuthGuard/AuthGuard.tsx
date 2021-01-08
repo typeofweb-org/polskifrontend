@@ -14,7 +14,7 @@ export const AuthGuard: React.FC<Props> = ({ children, role }) => {
 
   useEffect(() => {
     if (!isLoading && !session) {
-      // void signIn();
+      void signIn();
     }
   }, [session, isLoading]);
 
@@ -22,5 +22,22 @@ export const AuthGuard: React.FC<Props> = ({ children, role }) => {
     return <LoadingScreen />;
   }
 
-  return <>{children}</>;
+  // Without role allow all authorized users
+  if (!role && session) {
+    return <>{children}</>;
+  }
+
+  if (role === 'admin' && session?.user.role === 'ADMIN') {
+    return <>{children}</>;
+  }
+
+  return (
+    <section className={styles.section}>
+      <h2 className={styles.heading}>Brak uprawnień</h2>
+      <p className={styles.p}>
+        Nie masz odpowiednich uprawnień, żeby korzystać z tej podstrony. W celu weryfikacji
+        skontaktuj się z administracją serwisu.
+      </p>
+    </section>
+  );
 };
