@@ -29,6 +29,10 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
   const formRef = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
+    setIsValid(formRef.current?.checkValidity() ?? false);
+  }, [fields]);
+
+  useEffect(() => {
     if (queryStatus === 'success' && blog) {
       setFields(blog);
     }
@@ -36,7 +40,6 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(({ currentTarget }) => {
     setFields((fields) => ({ ...fields, [currentTarget.name]: currentTarget.value }));
-    setIsValid(formRef.current?.checkValidity() ?? false);
   }, []);
 
   const handleInputCheckboxChange: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -118,7 +121,6 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
           name="isPublic"
           onChange={handleInputCheckboxChange}
           type="checkbox"
-          required
         />
         Czy blog ma być pokazany na stronie?
       </label>
