@@ -18,13 +18,13 @@ type MainTilesProps = HomePageProps;
 
 export const MainTiles = memo<MainTilesProps>((props) => {
   const router = useRouter();
-  const [setDisplay] = useDisplayPreferences();
+  const [changeDisplay] = useDisplayPreferences();
 
   const changeDisplayStyle = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ currentTarget }) => {
-      setDisplay(currentTarget.value as DisplayPreferences);
+      changeDisplay(currentTarget.value as DisplayPreferences);
     },
-    [setDisplay],
+    [changeDisplay],
   );
 
   useDidMount(() => {
