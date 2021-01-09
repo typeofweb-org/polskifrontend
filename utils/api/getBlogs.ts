@@ -3,7 +3,7 @@ import { object, array } from 'yup';
 import { blogSchema } from '../blog-schema-api';
 import { fetcher } from '../fetcher';
 
-export type IsPublic = 'true' | 'false' | undefined;
+export type IsPublic = 'true' | 'false' | '' | undefined;
 
 const getBlogsSchema = object({
   data: array(blogSchema),

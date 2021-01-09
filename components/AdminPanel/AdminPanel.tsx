@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import type { ChangeEvent } from 'react';
 import { useCallback } from 'react';
-import { object, string } from 'yup';
+import { object } from 'yup';
 
 import { useQuery } from '../../hooks/useQuery';
 import { useSmartQuery } from '../../hooks/useSmartQuery';
-import type { IsPublic } from '../../utils/api/getBlogs';
 import { getBlogs } from '../../utils/api/getBlogs';
 import { formatDate } from '../../utils/date-utils';
+import { oneOfValues } from '../../utils/schema-utils';
 import { Table } from '../Table/Table';
 
 import styles from './adminPanel.module.scss';
@@ -26,13 +26,13 @@ export const AdminPanel = () => {
   const {
     query: { isPublic },
     changeQuery,
-  } = useSmartQuery(object({ isPublic: string().oneOf(['true', 'false', '']) }));
+  } = useSmartQuery(object({ isPublic: oneOfValues(['true', 'false', ''] as const) }));
 
-  const { value: blogs } = useQuery(useCallback(() => getBlogs(isPublic as IsPublic), [isPublic]));
+  const { value: blogs } = useQuery(useCallback(() => getBlogs(isPublic), [isPublic]));
 
   const handlePublicChange = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
-      const val = e.currentTarget.value;
+      const val = e.currentTarget.value as typeof isPublic;
 
       void changeQuery({ isPublic: val });
     },
