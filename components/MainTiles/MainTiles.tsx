@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import type { ChangeEventHandler } from 'react';
 import { useCallback, memo } from 'react';
 
+import type { DisplayPreferences } from '../../hooks/ useDisplayPreferences';
+import { useDisplayPreferences } from '../../hooks/ useDisplayPreferences';
 import { useDidMount } from '../../hooks/useDidMount';
 import type { HomePageProps } from '../../pages/[displayStyle]/[cursor]';
 import { Button } from '../Button/Button';
@@ -16,11 +18,13 @@ type MainTilesProps = HomePageProps;
 
 export const MainTiles = memo<MainTilesProps>((props) => {
   const router = useRouter();
+  const [changeDisplay] = useDisplayPreferences();
+
   const changeDisplayStyle = useCallback<ChangeEventHandler<HTMLInputElement>>(
-    (e) => {
-      return router.replace(`/${e.currentTarget.value}`, undefined, { shallow: false });
+    ({ currentTarget }) => {
+      changeDisplay(currentTarget.value as DisplayPreferences);
     },
-    [router],
+    [changeDisplay],
   );
 
   useDidMount(() => {
