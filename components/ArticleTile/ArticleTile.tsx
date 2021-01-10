@@ -40,7 +40,7 @@ export const ArticleTile = ({
             className={style.favicon}
             alt=""
           />
-          {blogName}{' '}
+          <span className={style.blogName}>{blogName}&nbsp;</span>
           <time className={style.articleDate} dateTime={dateTime}>
             {readableDate}
           </time>
