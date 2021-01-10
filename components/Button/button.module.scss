@@ -13,6 +13,10 @@
   cursor: pointer;
   font-size: 1em;
 
+  @media screen and (min-width: 45em) {
+    font-size: 1.2em;
+  }
+
   &:hover {
     color: #fff;
     background-color: var(--brand-color-main);
