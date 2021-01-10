@@ -1,12 +1,13 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import type { ChangeEvent } from 'react';
 import { useCallback } from 'react';
+import { object, string } from 'yup';
 
 import { useQuery } from '../../hooks/useQuery';
-import type { IsPublic } from '../../utils/api/getBlogs';
+import { useSmartQuery } from '../../hooks/useSmartQuery';
 import { getBlogs } from '../../utils/api/getBlogs';
 import { formatDate } from '../../utils/date-utils';
+import { oneOfValues } from '../../utils/schema-utils';
 import { Table } from '../Table/Table';
 
 import styles from './adminPanel.module.scss';
@@ -22,20 +23,20 @@ const columns = [
 ] as const;
 
 export const AdminPanel = () => {
-  const router = useRouter();
-  const isPublic = (router.query.isPublic || 'all') as IsPublic;
+  const {
+    query: { isPublic },
+    changeQuery,
+  } = useSmartQuery(object({ isPublic: oneOfValues(string(), ['true', 'false', ''] as const) }));
 
   const { value: blogs } = useQuery(useCallback(() => getBlogs(isPublic), [isPublic]));
 
   const handlePublicChange = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
-      const val = e.currentTarget.value;
+      const val = e.currentTarget.value as typeof isPublic;
 
-      void router.push({ pathname: '/admin', query: { isPublic: val } }, undefined, {
-        shallow: true,
-      });
+      void changeQuery({ isPublic: val });
     },
-    [router],
+    [changeQuery],
   );
 
   if (!blogs) {
@@ -68,8 +69,8 @@ export const AdminPanel = () => {
       <h2 className={styles.heading}>Admin Panel - Blogi</h2>
       <label className={styles.publicSelectLabel}>
         Pokazuj blogi:{' '}
-        <select onChange={handlePublicChange}>
-          <option value="all" defaultChecked>
+        <select onChange={handlePublicChange} value={isPublic}>
+          <option value="" defaultChecked>
             Wszystkie
           </option>
           <option value="true">Tylko widoczne</option>
