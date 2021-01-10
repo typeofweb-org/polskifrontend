@@ -46,12 +46,24 @@
   vertical-align: top;
 }
 
+.blogName {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+
+  @media screen and (min-width: 24em) {
+    margin-bottom: 0;
+  }
+}
+
 .articleDate {
   font-weight: 400;
   display: inline-block;
   color: var(--gray-text);
-  &::before {
-    content: '| ';
+
+  @media screen and (min-width: 24em) {
+    &::before {
+      content: '| ';
+    }
   }
 }
 
@@ -81,7 +93,11 @@
 .footerLink {
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 1.2em;
+  font-size: 1em;
+
+  @media screen and (min-width: 45em) {
+    font-size: 1.2em;
+  }
 }
 
 .icon {
