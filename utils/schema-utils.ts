@@ -1,5 +1,16 @@
-import { mixed } from 'yup';
-import type { BaseSchema } from 'yup';
+import type { AnySchema, InferType, BaseSchema } from 'yup';
 
-export const oneOfValues = <T extends readonly unknown[]>(values: T) =>
-  mixed().oneOf([...values]) as BaseSchema<T[number], Record<string, any>, T[number]>;
+type CheckOptional<S extends AnySchema, T extends InferType<S>> = undefined extends InferType<S>
+  ? T | undefined
+  : T;
+
+export const oneOfValues = <S extends AnySchema, T extends InferType<S>>(
+  schema: S,
+  values: readonly T[],
+) => {
+  return schema.oneOf([...values]) as BaseSchema<
+    CheckOptional<S, T>,
+    Record<string, any>,
+    CheckOptional<S, T>
+  >;
+};

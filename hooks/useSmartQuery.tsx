@@ -20,9 +20,11 @@ export const useSmartQuery = <S extends ObjectSchema<any>>(schema: S) => {
         matches.some(([, replacement]) => key === replacement),
       ),
     );
-    const query = schema.cast(
-      Object.fromEntries(Object.entries(routerQuery).filter(([key]) => !(key in params))),
-    ) as InferType<S>;
+    const query = schema.validateSync(
+      Object.fromEntries(
+        Object.entries(routerQuery).filter(([key, value]) => value && !(key in params)),
+      ),
+    );
 
     return {
       params,
