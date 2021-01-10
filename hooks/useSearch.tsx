@@ -4,7 +4,7 @@ import type { InferType, ObjectSchema } from 'yup';
 
 const replacementsPattern = /\[([^[\]\s]+)\]/gi;
 
-export const useSearch = <S extends ObjectSchema<any>>(schema: S) => {
+export const useSmartQuery = <S extends ObjectSchema<any>>(schema: S) => {
   const { pathname, query: routerQuery, push } = useRouter();
 
   /**
@@ -29,8 +29,6 @@ export const useSearch = <S extends ObjectSchema<any>>(schema: S) => {
       query,
     };
   }, [pathname, routerQuery, schema]);
-
-  console.log({ params, query });
 
   const changeQuery = useCallback(
     (query: InferType<S>) => {
