@@ -7,7 +7,7 @@ const getBlogsSchema = object({
   data: array(blogSchema),
 });
 
-export const getBlogs = async (isPublic: 'true' | 'false' | undefined) => {
+export const getBlogs = async (isPublic: 'true' | 'false' | undefined | '') => {
   const queryString = isPublic ? new URLSearchParams({ isPublic }).toString() : '';
 
   return (

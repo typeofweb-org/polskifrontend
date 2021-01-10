@@ -26,7 +26,7 @@ export const AdminPanel = () => {
   const {
     query: { isPublic },
     changeQuery,
-  } = useSmartQuery(object({ isPublic: oneOfValues(string(), ['true', 'false'] as const) }));
+  } = useSmartQuery(object({ isPublic: oneOfValues(string(), ['true', 'false', ''] as const) }));
 
   const { value: blogs } = useQuery(useCallback(() => getBlogs(isPublic), [isPublic]));
 

@@ -21,9 +21,7 @@ export const useSmartQuery = <S extends ObjectSchema<any>>(schema: S) => {
       ),
     );
     const query = schema.validateSync(
-      Object.fromEntries(
-        Object.entries(routerQuery).filter(([key, value]) => value && !(key in params)),
-      ),
+      Object.fromEntries(Object.entries(routerQuery).filter(([key]) => !(key in params))),
     );
 
     return {
