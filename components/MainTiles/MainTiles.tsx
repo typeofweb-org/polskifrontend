@@ -17,11 +17,13 @@ import styles from './mainTiles.module.scss';
 
 type MainTilesProps = HomePageProps;
 
-const AlogliaSearch = dynamic<{}>(() =>
-  import(
-    /* webpackChunkName: "AlgoliaSearch" */
-    '../AlgoliaSearch/AlgoliaSearch'
-  ).then((mod) => mod.AlogliaSearch),
+const AlogliaSearch = dynamic<{}>(
+  () =>
+    import(
+      /* webpackChunkName: "AlgoliaSearch" */
+      '../AlgoliaSearch/AlgoliaSearch'
+    ).then((mod) => mod.AlogliaSearch),
+  { ssr: false },
 );
 
 export const MainTiles = memo<MainTilesProps>((props) => {
