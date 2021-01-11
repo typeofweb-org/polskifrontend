@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ChangeEventHandler } from 'react';
@@ -7,7 +8,6 @@ import type { DisplayPreferences } from '../../hooks/ useDisplayPreferences';
 import { useDisplayPreferences } from '../../hooks/ useDisplayPreferences';
 import { useDidMount } from '../../hooks/useDidMount';
 import type { HomePageProps } from '../../pages/[displayStyle]/[cursor]';
-import { AlogliaSearch } from '../AlgoliaSearch/AlgoliaSearch';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
 
@@ -16,6 +16,13 @@ import { BlogsList } from './BlogsList';
 import styles from './mainTiles.module.scss';
 
 type MainTilesProps = HomePageProps;
+
+const AlogliaSearch = dynamic<{}>(() =>
+  import(
+    /* webpackChunkName: "AlgoliaSearch" */
+    '../AlgoliaSearch/AlgoliaSearch'
+  ).then((mod) => mod.AlogliaSearch),
+);
 
 export const MainTiles = memo<MainTilesProps>((props) => {
   const router = useRouter();
@@ -35,7 +42,9 @@ export const MainTiles = memo<MainTilesProps>((props) => {
 
   return (
     <section className={styles.section}>
-      <AlogliaSearch />
+      <div className={styles.searchWrapper}>
+        <AlogliaSearch />
+      </div>
       <h2 className={styles.heading}>Wszystkie artykuły</h2>
       <div className={styles.buttons}>
         <Link href="/zglos-serwis" passHref>
