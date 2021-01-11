@@ -7,6 +7,7 @@ import type { DisplayPreferences } from '../../hooks/ useDisplayPreferences';
 import { useDisplayPreferences } from '../../hooks/ useDisplayPreferences';
 import { useDidMount } from '../../hooks/useDidMount';
 import type { HomePageProps } from '../../pages/[displayStyle]/[cursor]';
+import { AlogliaSearch } from '../AlgoliaSearch/AlgoliaSearch';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
 
@@ -34,6 +35,7 @@ export const MainTiles = memo<MainTilesProps>((props) => {
 
   return (
     <section className={styles.section}>
+      <AlogliaSearch />
       <h2 className={styles.heading}>Wszystkie artykuły</h2>
       <div className={styles.buttons}>
         <Link href="/zglos-serwis" passHref>
