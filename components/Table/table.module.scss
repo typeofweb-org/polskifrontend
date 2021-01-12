@@ -2,6 +2,7 @@
   text-align: center;
   position: relative;
   border-spacing: 0;
+  width: 100%;
 
   th,
   td {
@@ -40,4 +41,5 @@
   https://uxdesign.cc/position-stuck-96c9f55d9526
   */
   height: 80vh;
+  -webkit-overflow-scrolling: touch;
 }

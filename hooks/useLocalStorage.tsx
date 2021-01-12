@@ -2,20 +2,20 @@ import { useCallback, useState } from 'react';
 
 import { useDidMount } from './useDidMount';
 
-export function useLocalStorage(key: string, defaultValue: string) {
-  const [value, setValue] = useState<string | null>(null);
+export function useLocalStorage<T extends string>(key: string, defaultValue: T) {
+  const [value, setValue] = useState<T | null>(null);
 
   useDidMount(() => {
     try {
       const savedValue = localStorage.getItem(key);
-      setValue(savedValue || defaultValue);
+      setValue((savedValue as T) || defaultValue);
     } catch {
       setValue(defaultValue);
     }
   });
 
   const setStoredValue = useCallback(
-    (val: string) => {
+    (val: T) => {
       setValue(val);
       try {
         localStorage.setItem(key, val);
