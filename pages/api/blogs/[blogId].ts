@@ -61,6 +61,16 @@ export default withAsync(
           return blog;
         }),
       ),
+
+      DELETE: withValidation({
+        query: object({
+          blogId: cuidValidator,
+        }),
+      })(
+        withDb((req) => {
+          return req.db.blog.delete({ where: { id: req.query.blogId } });
+        }),
+      ),
     }),
   ),
 );
