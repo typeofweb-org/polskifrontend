@@ -1,0 +1,56 @@
+.ol {
+  padding-inline-start: 1.2rem;
+}
+
+.li {
+  margin-bottom: 1rem;
+
+  li {
+    list-style-type: upper-roman;
+
+    li {
+      list-style-type: lower-alpha;
+    }
+  }
+}
+
+.section {
+  max-width: 73rem;
+  margin: 0 auto;
+}
+
+.heading {
+  padding: 1rem 0 2rem;
+  border-bottom: 2px solid var(--gray-border);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--gray-text);
+  font-size: 1.25rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+
+  @media screen and (min-width: 45em) {
+    padding: 2rem 2rem 1rem 2rem;
+  }
+}
+
+.note {
+  padding: 1.5rem;
+  margin: 1rem;
+  background-color: var(--white);
+  border-left: 3px solid var(--gray-dark-border);
+  border-radius: 3px;
+  box-shadow: 1px 1px 6px 1px var(--gray-shadow);
+  overflow-wrap: break-word;
+  line-height: 1.6;
+
+  @media screen and (min-width: 45em) {
+    padding: 2rem;
+    margin: 2rem;
+  }
+}

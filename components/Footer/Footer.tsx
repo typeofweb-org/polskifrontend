@@ -30,6 +30,9 @@ export const Footer = () => {
           {process.env.NEXT_PUBLIC_VERSION || ''}
         </span>
       </p>
+      <Link href="/regulamin">
+        <a>Regulamin</a>
+      </Link>
     </footer>
   );
 };
