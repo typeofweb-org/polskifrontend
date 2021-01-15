@@ -15,12 +15,21 @@ type ButtonProps = {
   readonly target?: string;
   readonly rel?: string;
   readonly iconPosition?: 'right' | 'left';
+  readonly buttonStyle?: 'normal' | 'danger';
 };
 
 export const Button = memo<ButtonProps>(
   forwardRef(
     (
-      { as: As = 'button', icon, children, className = '', iconPosition = 'left', ...props },
+      {
+        as: As = 'button',
+        icon,
+        children,
+        className = '',
+        iconPosition = 'left',
+        buttonStyle = 'normal',
+        ...props
+      },
       ref,
     ) => {
       return (
@@ -30,6 +39,9 @@ export const Button = memo<ButtonProps>(
             className,
             iconPosition === 'right' && styles.buttonIconRight,
             props.disabled && styles.buttonDisabled,
+            {
+              [styles.buttonDanger]: buttonStyle === 'danger',
+            },
           )}
           // @ts-ignore
           ref={ref}

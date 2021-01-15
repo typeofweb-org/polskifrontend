@@ -1,6 +1,6 @@
 .form {
   border-left: 3px solid var(--gray-dark-border);
-  margin-top: 1rem;
+  margin: 1rem;
   padding: 1.5rem;
   text-align: left;
   background: var(--white);
@@ -9,7 +9,7 @@
 
   @media screen and (min-width: 45em) {
     padding: 2rem;
-    margin-top: 2rem;
+    margin: 2rem;
   }
 }
 

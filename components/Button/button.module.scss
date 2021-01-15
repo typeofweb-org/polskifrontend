@@ -18,7 +18,7 @@
   }
 
   &:hover {
-    color: #fff;
+    color: var(--white);
     background-color: var(--brand-color-main);
   }
 
@@ -39,6 +39,16 @@
       border: 3px solid var(--gray);
       color: var(--gray);
       background-color: var(--white);
+    }
+  }
+
+  &Danger {
+    border: 3px solid var(--error-color);
+    color: var(--error-color);
+
+    &:hover {
+      color: var(--white);
+      background-color: var(--error-color);
     }
   }
 
