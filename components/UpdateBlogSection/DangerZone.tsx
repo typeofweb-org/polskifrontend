@@ -25,7 +25,7 @@ export const DangerZone = ({ blogId }: DangerZoneProps) => {
         await router.push('/admin');
       } catch (err) {
         console.error(err);
-        window.alert('Nie udało się usunąć bloga');
+        window.alert('Nie udało się usunąć bloga.');
       }
     }
   }
