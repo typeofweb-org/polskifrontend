@@ -117,3 +117,6 @@
 .icon-th-large:before {
   content: '\e906';
 }
+.icon-github:before {
+  content: '\eab0';
+}
