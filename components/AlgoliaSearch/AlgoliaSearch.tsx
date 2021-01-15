@@ -1,5 +1,5 @@
 import algoliasearch from 'algoliasearch/lite';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { InstantSearch, SearchBox } from 'react-instantsearch-dom';
 
 import { AlgoliaHits } from './AlgoliaHits';
@@ -17,18 +17,26 @@ declare module 'react-instantsearch-dom' {
 }
 
 export const AlogliaSearch = () => {
-  const [showHits, setShowHits] = useState(false);
+  const [canShowHits, setCanShowHits] = useState(false);
+  const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
-  const handleFocus = () => setShowHits(true);
-  const handleBlur = () => setShowHits(false);
+  const handleShowHits = () => {
+    if (timeoutId.current) clearTimeout(timeoutId.current);
+    setCanShowHits(true);
+  };
+  const handleHideHits = () => {
+    timeoutId.current = setTimeout(() => {
+      setCanShowHits(false);
+    }, 1000);
+  };
 
   return (
     <InstantSearch
       searchClient={searchClient}
       indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME as string}
     >
-      <SearchBox onFocus={handleFocus} onBlur={handleBlur} />
-      {showHits && <AlgoliaHits />}
+      <SearchBox onFocus={handleShowHits} onBlur={handleHideHits} />
+      {canShowHits && <AlgoliaHits />}
     </InstantSearch>
   );
 };

@@ -1,12 +1,19 @@
 .list {
+  position: relative;
+  width: 100%;
   list-style: none;
   z-index: 10;
+  padding: 0;
 }
 
 .listItem {
   width: 100%;
-  margin-top: 1rem;
-  padding: 1rem;
+  padding: 0.75rem;
   border: 1px solid var(--brand-color-main);
   box-shadow: 0 2px 5px 0 var(--gray-shadow);
+  background: var(--white);
+}
+
+.listItem:hover {
+  background: var(--gray-border);
 }
