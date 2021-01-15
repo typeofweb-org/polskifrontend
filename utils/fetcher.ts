@@ -25,7 +25,7 @@ export async function fetcher<S extends AnySchema>(
     });
     if (response.ok) {
       /* eslint-disable @typescript-eslint/no-unsafe-return */
-      return schema.cast(await response.json());
+      return schema.cast(await response.json().catch(() => {}));
     }
     throw new ResponseError(response.statusText, response.status);
   } catch (err) {
