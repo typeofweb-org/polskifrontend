@@ -35,9 +35,9 @@ export const Button = memo<ButtonProps>(
       return (
         <As
           className={clsx(styles.button, className, {
-            [styles.buttonDisabled]: props.disabled,
             [styles.buttonIconRight]: iconPosition === 'right',
             [styles.buttonDanger]: buttonStyle === 'danger',
+            [styles.buttonDisabled]: props.disabled,
           })}
           // @ts-ignore
           ref={ref}

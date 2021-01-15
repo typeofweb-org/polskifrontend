@@ -31,6 +31,16 @@
     }
   }
 
+  &Danger {
+    border: 3px solid var(--error-color);
+    color: var(--error-color);
+
+    &:hover {
+      color: var(--white);
+      background-color: var(--error-color);
+    }
+  }
+
   &Disabled {
     border: 3px solid var(--gray);
     color: var(--gray);
@@ -39,16 +49,6 @@
       border: 3px solid var(--gray);
       color: var(--gray);
       background-color: var(--white);
-    }
-  }
-
-  &Danger {
-    border: 3px solid var(--error-color);
-    color: var(--error-color);
-
-    &:hover {
-      color: var(--white);
-      background-color: var(--error-color);
     }
   }
 
