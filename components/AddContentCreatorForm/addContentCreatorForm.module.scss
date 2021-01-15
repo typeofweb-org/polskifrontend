@@ -51,4 +51,7 @@
     justify-content: space-between;
     align-items: flex-end;
   }
+  & > [id*='hcaptcha'] {
+    align-self: center;
+  }
 }
