@@ -2,17 +2,27 @@ import type { AnySchema, InferType } from 'yup';
 
 import type { HTTPMethod } from '../api-helpers/api-hofs';
 
-type FetcherConfig<S extends AnySchema> = {
+type FetcherConfig<S extends AnySchema | null> = {
   readonly method: HTTPMethod;
   readonly schema: S;
   readonly body?: object;
   readonly config?: RequestInit;
 };
 
+export async function fetcher<S extends null>(
+  path: string,
+  { method, body, config, schema }: FetcherConfig<S>,
+): Promise<null>;
+
 export async function fetcher<S extends AnySchema>(
   path: string,
   { method, body, config, schema }: FetcherConfig<S>,
-): Promise<InferType<S>> {
+): Promise<InferType<S>>;
+
+export async function fetcher<S extends AnySchema | null>(
+  path: string,
+  { method, body, config, schema }: FetcherConfig<S>,
+) {
   try {
     const response = await fetch(path, {
       ...config,
@@ -24,8 +34,11 @@ export async function fetcher<S extends AnySchema>(
       ...(body && { body: JSON.stringify(body) }),
     });
     if (response.ok) {
+      if (!schema) {
+        return null;
+      }
       /* eslint-disable @typescript-eslint/no-unsafe-return */
-      return schema.cast(await response.json());
+      return schema.cast(await response.json().catch(() => {}));
     }
     throw new ResponseError(response.statusText, response.status);
   } catch (err) {

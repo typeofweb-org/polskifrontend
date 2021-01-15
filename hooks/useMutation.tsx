@@ -20,6 +20,7 @@ export function useMutation<Body>(mutation: (body: Body) => Promise<unknown>) {
           setStatus({ status: 'error', errorCode: err.status });
         }
         setStatus({ status: 'error' });
+        throw err;
       }
     },
     [mutation],

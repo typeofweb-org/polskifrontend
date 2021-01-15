@@ -18,7 +18,7 @@
   }
 
   &:hover {
-    color: #fff;
+    color: var(--white);
     background-color: var(--brand-color-main);
   }
 
@@ -28,6 +28,16 @@
     .icon {
       margin-right: 0;
       margin-left: 0.5rem;
+    }
+  }
+
+  &Danger {
+    border: 3px solid var(--error-color);
+    color: var(--error-color);
+
+    &:hover {
+      color: var(--white);
+      background-color: var(--error-color);
     }
   }
 

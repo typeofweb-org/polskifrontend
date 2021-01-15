@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import type { ChangeEventHandler } from 'react';
 import { useCallback, memo } from 'react';
 
-import type { DisplayPreferences } from '../../hooks/ useDisplayPreferences';
-import { useDisplayPreferences } from '../../hooks/ useDisplayPreferences';
 import { useDidMount } from '../../hooks/useDidMount';
+import type { DisplayPreferences } from '../../hooks/useDisplayPreferences';
+import { useDisplayPreferences } from '../../hooks/useDisplayPreferences';
 import type { HomePageProps } from '../../pages/[displayStyle]/[cursor]';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
