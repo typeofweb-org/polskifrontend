@@ -1,11 +1,14 @@
 export type Hit = {
   readonly objectID: string;
-  readonly blogId: string;
   readonly href: string;
   readonly publishedAt: string;
   readonly slug?: string;
   readonly description?: string;
   readonly title: string;
+  readonly blog: {
+    readonly name: string;
+    readonly favicon?: string;
+  };
 };
 
 type HitProps = {
