@@ -27,6 +27,12 @@ const links = [
     label: 'Discord',
     openInNewTab: true,
   },
+  {
+    href: 'https://github.com/typeofweb/polskifrontend',
+    icon: 'github',
+    label: 'Github',
+    openInNewTab: true,
+  },
 ];
 
 export const MainNavigation = () => (
