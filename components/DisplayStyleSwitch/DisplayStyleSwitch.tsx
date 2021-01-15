@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import type { ChangeEventHandler } from 'react';
 import { memo } from 'react';
 
-import type { DisplayPreferences } from '../../hooks/ useDisplayPreferences';
+import type { DisplayPreferences } from '../../hooks/useDisplayPreferences';
 
 import styles from './displayStyleSwitch.module.scss';
 
