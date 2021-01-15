@@ -107,6 +107,15 @@
         "review",
         "code"
       ]
+    },
+    {
+      "login": "MateuszRomek",
+      "name": "Mateusz Romek",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/46934668?v=4",
+      "profile": "https://mateuszromek.pl/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 3,
