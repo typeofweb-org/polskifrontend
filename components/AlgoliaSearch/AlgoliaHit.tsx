@@ -24,13 +24,13 @@ export const AlgoliaHit = ({ hit }: HitProps) => (
     <span>
       <img
         loading="lazy"
-        src={hit.blog.favicon || undefined}
+        src={hit?.blog?.favicon || undefined}
         alt=""
         className={styles.favicon}
         height={16}
         width={16}
       />
-      {hit.blog.name}
+      {hit?.blog?.name}
     </span>
     <a href={hit.href} target="_blank" rel="noreferrer noopener">
       Przejdź do artykułu
