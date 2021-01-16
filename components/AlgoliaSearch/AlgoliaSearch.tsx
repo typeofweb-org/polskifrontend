@@ -1,5 +1,4 @@
 import algoliasearch from 'algoliasearch/lite';
-import type { PointerEventHandler } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { InstantSearch, SearchBox } from 'react-instantsearch-dom';
 
@@ -19,6 +18,7 @@ declare module 'react-instantsearch-dom' {
 
 export const AlogliaSearch = () => {
   const [canShowHits, setCanShowHits] = useState(false);
+  const container = useRef<HTMLDivElement | null>(null);
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
   const showHits = useCallback(() => {
@@ -32,8 +32,12 @@ export const AlogliaSearch = () => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('click', hideHits);
-    return () => window.removeEventListener('click', hideHits);
+    const handleClick = (event: MouseEvent) =>
+      event.target === container.current ||
+      container.current?.contains(event.target as Node) ||
+      hideHits();
+    window.addEventListener('click', handleClick);
+    return () => window.removeEventListener('click', handleClick);
   }, [hideHits]);
 
   useEffect(() => {
@@ -42,13 +46,8 @@ export const AlogliaSearch = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [hideHits]);
 
-  const handleClick = useCallback<PointerEventHandler<HTMLDivElement>>((event) => {
-    if (timeoutId.current) clearTimeout(timeoutId.current);
-    event.stopPropagation();
-  }, []);
   return (
-    // eslint-disable-next-line
-    <div onClick={handleClick}>
+    <div ref={container}>
       <InstantSearch
         searchClient={searchClient}
         indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME as string}
