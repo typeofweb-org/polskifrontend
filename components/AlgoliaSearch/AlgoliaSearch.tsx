@@ -1,5 +1,6 @@
 import algoliasearch from 'algoliasearch/lite';
-import { useRef, useState } from 'react';
+import type { PointerEventHandler } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { InstantSearch, SearchBox } from 'react-instantsearch-dom';
 
 import { AlgoliaHits } from './AlgoliaHits';
@@ -20,23 +21,41 @@ export const AlogliaSearch = () => {
   const [canShowHits, setCanShowHits] = useState(false);
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
-  const handleShowHits = () => {
+  const showHits = useCallback(() => {
     if (timeoutId.current) clearTimeout(timeoutId.current);
     setCanShowHits(true);
-  };
-  const handleHideHits = () => {
+  }, []);
+  const hideHits = useCallback(() => {
     timeoutId.current = setTimeout(() => {
       setCanShowHits(false);
-    }, 1000);
-  };
+    }, 0);
+  }, []);
 
+  useEffect(() => {
+    window.addEventListener('click', hideHits);
+    return () => window.removeEventListener('click', hideHits);
+  }, [hideHits]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => event.key === 'Escape' && hideHits();
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [hideHits]);
+
+  const stopEventPropagation = useCallback<PointerEventHandler<HTMLDivElement>>(
+    (event) => event.stopPropagation(),
+    [],
+  );
   return (
-    <InstantSearch
-      searchClient={searchClient}
-      indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME as string}
-    >
-      <SearchBox onFocus={handleShowHits} onBlur={handleHideHits} />
-      {canShowHits && <AlgoliaHits />}
-    </InstantSearch>
+    // eslint-disable-next-line
+    <div onClick={stopEventPropagation}>
+      <InstantSearch
+        searchClient={searchClient}
+        indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME as string}
+      >
+        <SearchBox onFocus={showHits} onBlur={hideHits} />
+        {canShowHits && <AlgoliaHits />}
+      </InstantSearch>
+    </div>
   );
 };

@@ -1,3 +1,5 @@
+import styles from './AlgoliaHit.module.css';
+
 export type Hit = {
   readonly objectID: string;
   readonly href: string;
@@ -7,6 +9,7 @@ export type Hit = {
   readonly title: string;
   readonly blog: {
     readonly name: string;
+    readonly href: string;
     readonly favicon?: string;
   };
 };
@@ -17,7 +20,18 @@ type HitProps = {
 
 export const AlgoliaHit = ({ hit }: HitProps) => (
   <>
-    <h3>{hit.title}</h3>
+    <h3 className={styles.heading}>{hit.title}</h3>
+    <span>
+      <img
+        loading="lazy"
+        src={hit.blog.favicon || undefined}
+        alt=""
+        className={styles.favicon}
+        height={16}
+        width={16}
+      />
+      {hit.blog.name}
+    </span>
     <a href={hit.href} target="_blank" rel="noreferrer noopener">
       Przejdź do artykułu
     </a>
