@@ -106,6 +106,7 @@ export const AddContentCreatorForm = () => {
           onError={handleCaptchaError}
           ref={captchaRef}
           languageOverride="pl"
+          size="compact"
         />
         <Button type="submit" disabled={isButtonDisabled}>
           Zgłoś

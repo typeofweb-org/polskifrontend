@@ -116,6 +116,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "pabichw",
+      "name": "Wiktor Pabich",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/15004768?v=4",
+      "profile": "http://pabich.cc",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 3,
