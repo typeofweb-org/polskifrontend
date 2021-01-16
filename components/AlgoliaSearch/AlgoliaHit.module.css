@@ -5,3 +5,7 @@
 .favicon {
   margin-right: 0.5rem;
 }
+
+.articleRef {
+  display: inline-block;
+}

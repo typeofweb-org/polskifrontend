@@ -42,13 +42,13 @@ export const AlogliaSearch = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [hideHits]);
 
-  const stopEventPropagation = useCallback<PointerEventHandler<HTMLDivElement>>(
-    (event) => event.stopPropagation(),
-    [],
-  );
+  const handleClick = useCallback<PointerEventHandler<HTMLDivElement>>((event) => {
+    if (timeoutId.current) clearTimeout(timeoutId.current);
+    event.stopPropagation();
+  }, []);
   return (
     // eslint-disable-next-line
-    <div onClick={stopEventPropagation}>
+    <div onClick={handleClick}>
       <InstantSearch
         searchClient={searchClient}
         indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME as string}

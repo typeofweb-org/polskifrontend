@@ -32,7 +32,7 @@ export const AlgoliaHit = ({ hit }: HitProps) => (
       />
       {hit?.blog?.name}
     </span>
-    <a href={hit.href} target="_blank" rel="noreferrer noopener">
+    <a className={styles.articleRef} href={hit.href} target="_blank" rel="noreferrer noopener">
       Przejdź do artykułu
     </a>
   </>
