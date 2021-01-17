@@ -5,7 +5,7 @@ import type { HomePageProps } from '../../pages/[displayStyle]/[cursor]';
 import type { AlgoliaSearchProps, SearchState } from '../AlgoliaSearch/AlgoliaSearch';
 import { MainTiles } from '../MainTiles/MainTiles';
 
-import styles from './Main.module.css';
+import styles from './Main.module.scss';
 
 type MainProps = HomePageProps;
 
