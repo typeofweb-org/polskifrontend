@@ -2,12 +2,13 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ChangeEventHandler } from 'react';
-import { useCallback, memo } from 'react';
+import { useState, useCallback, memo } from 'react';
 
 import { useDidMount } from '../../hooks/useDidMount';
 import type { DisplayPreferences } from '../../hooks/useDisplayPreferences';
 import { useDisplayPreferences } from '../../hooks/useDisplayPreferences';
 import type { HomePageProps } from '../../pages/[displayStyle]/[cursor]';
+import type { AlgoliaSearchProps, SearchState } from '../AlgoliaSearch/AlgoliaSearch';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
 
@@ -17,7 +18,7 @@ import styles from './mainTiles.module.scss';
 
 type MainTilesProps = HomePageProps;
 
-const AlogliaSearch = dynamic<{}>(
+const AlogliaSearch = dynamic<AlgoliaSearchProps>(
   () =>
     import(
       /* webpackChunkName: "AlgoliaSearch" */
@@ -29,6 +30,7 @@ const AlogliaSearch = dynamic<{}>(
 export const MainTiles = memo<MainTilesProps>((props) => {
   const router = useRouter();
   const [changeDisplay] = useDisplayPreferences();
+  const [searchState, setSearchState] = useState<SearchState>({ query: '' });
 
   const changeDisplayStyle = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ currentTarget }) => {
@@ -42,10 +44,18 @@ export const MainTiles = memo<MainTilesProps>((props) => {
     void router.prefetch(`/list`);
   });
 
+  if (searchState.query) {
+    return (
+      <section className={styles.searchSection}>
+        <AlogliaSearch searchState={searchState} setSearchState={setSearchState} />
+      </section>
+    );
+  }
+
   return (
     <section className={styles.section}>
       <div className={styles.searchWrapper}>
-        <AlogliaSearch />
+        <AlogliaSearch searchState={searchState} setSearchState={setSearchState} />
       </div>
       <h2 className={styles.heading}>Wszystkie artykuły</h2>
       <div className={styles.buttons}>

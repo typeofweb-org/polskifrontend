@@ -1,5 +1,5 @@
 import algoliasearch from 'algoliasearch/lite';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { InstantSearch, SearchBox } from 'react-instantsearch-dom';
 
 import { AlgoliaHits } from './AlgoliaHits';
@@ -9,9 +9,14 @@ const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_API_KEY as string,
 );
 
-export const AlogliaSearch = () => {
-  const [searchState, setSearchState] = useState<{ readonly query: string }>({ query: '' });
+export type SearchState = { readonly query: string };
 
+export type AlgoliaSearchProps = {
+  readonly searchState: SearchState;
+  readonly setSearchState: (searchState: SearchState) => void;
+};
+
+export const AlogliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchState }) => {
   const showHits = searchState.query !== '';
 
   useEffect(() => {
@@ -32,4 +37,5 @@ export const AlogliaSearch = () => {
       {showHits && <AlgoliaHits />}
     </InstantSearch>
   );
-};
+});
+AlogliaSearch.displayName = 'AlogliaSearch';
