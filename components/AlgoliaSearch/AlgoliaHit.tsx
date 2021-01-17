@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import styles from './AlgoliaHit.module.css';
 
 export type Hit = {
@@ -32,9 +34,15 @@ export const AlgoliaHit = ({ hit }: HitProps) => (
       />
       {hit?.blog?.name}
     </span>
-    <a className={styles.articleRef} href={hit.href} target="_blank" rel="noreferrer noopener">
-      Przejdź do artykułu
-    </a>
+    {hit.slug ? (
+      <Link href={`/artykuly/${hit.slug}`}>
+        <a className={styles.articleRef}>Przejdź do artykułu</a>
+      </Link>
+    ) : (
+      <a className={styles.articleRef} href={hit.href} target="_blank" rel="noreferrer noopener">
+        Przejdź do artykułu
+      </a>
+    )}
   </>
 );
 AlgoliaHit.displayName = 'AlogliaHit';
