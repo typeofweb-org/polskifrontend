@@ -1,5 +1,5 @@
 import algoliasearch from 'algoliasearch/lite';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect } from 'react';
 import { InstantSearch, SearchBox } from 'react-instantsearch-dom';
 
 import { AlgoliaHits } from './AlgoliaHits';
