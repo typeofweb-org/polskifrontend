@@ -33,7 +33,13 @@ export const AlogliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchS
       searchClient={searchClient}
       indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME as string}
     >
-      <SearchBox />
+      <SearchBox
+        translations={{
+          submitTitle: 'Zatwierdź frazę wyszukiwania.',
+          resetTitle: 'Wyczyść frazę wyszukiwania.',
+          placeholder: 'Szukaj...',
+        }}
+      />
       {showHits && <AlgoliaHits />}
     </InstantSearch>
   );

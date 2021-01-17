@@ -46,8 +46,10 @@ export const MainTiles = memo<MainTilesProps>((props) => {
 
   if (searchState.query) {
     return (
-      <section className={styles.searchSection}>
-        <AlogliaSearch searchState={searchState} setSearchState={setSearchState} />
+      <section className={styles.section}>
+        <div className={styles.searchWrapper}>
+          <AlogliaSearch searchState={searchState} setSearchState={setSearchState} />
+        </div>
       </section>
     );
   }
