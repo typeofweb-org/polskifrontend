@@ -17,7 +17,36 @@ const algoliaIndex = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   max: 1,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
+
+// pool
+//   .query('SELECT a."id", a."title", a."href", a."description", a."publishedAt", a."slug", b."name", b."href" as "blogHref", b."favicon" FROM "Article" a LEFT OUTER JOIN "Blog" b ON b.id="blogId"')
+//   .then((result) => {
+//     const indices = result.rows.map(
+//       /**
+//        * @param {Article} article
+//        */
+//       (article) => {
+//         const { id: objectID, description, title, name, blogHref, favicon, ...data } = article;
+//         return {
+//           ...data,
+//           description: AllHtmlEntities.decode(
+//             Xss(description, { stripIgnoreTag: true, whiteList: {} }),
+//           ),
+//           title: AllHtmlEntities.decode(Xss(title, { stripIgnoreTag: true, whiteList: {} })),
+//           objectID,
+//           blog: {
+//             name, href: blogHref, favicon
+//           }
+//         };
+//       },
+//     );
+
+//     return algoliaIndex.saveObjects(indices, { autoGenerateObjectIDIfNotExist: false })
+//   });
 
 /**
  * @typedef {{
@@ -27,11 +56,27 @@ const pool = new Pool({
     description: string | null,
     publishedAt: Date,
     slug: string,
-    blogId: string,
-    createdAt: Date,
-    updatedAt: Date,
+    name: string,
+    blogHref: string,
+    favicon: string,
   }} Article
  */
+
+/**
+* @typedef {{
+   objectID: string,
+   href: string,
+   publishedAt: string,
+   slug?: string,
+   description?: string,
+   title: string,
+   blog: {
+     name: string,
+     href: string,
+     favicon?: string,
+   },
+ }} Hit
+*/
 
 /**
  * @param {{channel: string, payload?: string}} args
@@ -42,14 +87,25 @@ function handleNotification({ channel, payload }) {
     case 'INSERT.Article':
     case 'UPDATE.Article':
       return pool
-        .query('SELECT * FROM "Article" WHERE id=$1;', [payload])
+        .query(
+          'SELECT a."id", a."title", a."href", a."description", a."publishedAt", a."slug", b."name",b."href" as "blogHref" ,b."favicon" FROM "Article" a LEFT OUTER JOIN "Blog" b ON b.id="blogId" WHERE a.id=$1;',
+          [payload],
+        )
         .then((result) => {
           const indices = result.rows.map(
             /**
              * @param {Article} article
              */
             (article) => {
-              const { id: objectID, description, title, createdAt, updatedAt, ...data } = article;
+              const {
+                id: objectID,
+                description,
+                title,
+                name,
+                blogHref,
+                favicon,
+                ...data
+              } = article;
               return {
                 ...data,
                 description: AllHtmlEntities.decode(
@@ -57,9 +113,15 @@ function handleNotification({ channel, payload }) {
                 ),
                 title: AllHtmlEntities.decode(Xss(title, { stripIgnoreTag: true, whiteList: {} })),
                 objectID,
+                blog: {
+                  name,
+                  href: blogHref,
+                  favicon,
+                },
               };
             },
           );
+
           return algoliaIndex.saveObjects(indices, { autoGenerateObjectIDIfNotExist: false });
         })
         .catch(console.error);
