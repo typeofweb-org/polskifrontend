@@ -7,7 +7,7 @@ import {
 import { closeConnection, openConnection } from '../../api-helpers/db';
 import { HTTPNotFound } from '../../api-helpers/errors';
 import { Layout } from '../../components/Layout';
-import { MainTiles } from '../../components/MainTiles/MainTiles';
+import { Main } from '../../components/Main/Main';
 import type { InferGetStaticPropsContext, InferGetStaticPropsType2 } from '../../types';
 import { addExcerptToArticle } from '../../utils/excerpt-utils';
 
@@ -26,7 +26,7 @@ export default function HomePage(props: HomePageProps) {
       } artykułów z polskich blogów frontendowych`}
       titleTemplate=""
     >
-      <MainTiles {...props} />
+      <Main {...props} />
     </Layout>
   );
 }
