@@ -8,18 +8,14 @@ type HitsProps = {
   readonly hits: readonly Hit[];
 };
 
-const Hits = ({ hits }: HitsProps) => {
-  console.log(hits);
-
-  return (
-    <ol className={styles.list}>
-      {hits.map((hit) => (
-        <li className={styles.listItem} key={hit.objectID}>
-          <AlgoliaHit hit={hit} />
-        </li>
-      ))}
-    </ol>
-  );
-};
+const Hits = ({ hits }: HitsProps) => (
+  <ol className={styles.list}>
+    {hits.map((hit) => (
+      <li className={styles.listItem} key={hit.objectID}>
+        <AlgoliaHit hit={hit} />
+      </li>
+    ))}
+  </ol>
+);
 
 export const AlgoliaHits = connectHits(Hits);

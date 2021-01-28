@@ -35,7 +35,8 @@ const hitToBlog = (hit: Hit): ArticleTileBlog => ({
   favicon: hit.blog.favicon ?? null,
 });
 
-export const AlgoliaHit = memo(({ hit }: HitProps) => (
-  <ArticleTile article={hitToArticle(hit)} blog={hitToBlog(hit)} />
-));
+export const AlgoliaHit = memo(
+  ({ hit }: HitProps) => <ArticleTile article={hitToArticle(hit)} blog={hitToBlog(hit)} />,
+  ({ hit: prev }, { hit: next }) => prev.objectID === next.objectID,
+);
 AlgoliaHit.displayName = 'AlogliaHit';
