@@ -12,15 +12,15 @@ export const TermsOfUse = () => (
       </Link>
     </div>
     <article className={styles.note}>
-      <h2 className={styles.heading}>Regulamin PolskiFrontend.pl</h2>
-      <p>Wersja z dnia 14. stycznia 2021r.</p>
+      <h2 className={styles.heading}>Regulamin polskifrontend.pl</h2>
+      <p>Wersja z dnia 27. stycznia 2021r.</p>
       <ol className={styles.ol}>
         <li className={styles.li}>
           Postanowienia ogólne
           <ol className={styles.ol}>
             <li>
               Niniejszy Regulamin (zwany dalej „Regulaminem”) określa zasady korzystania z serwisu
-              PolskiFrontend.pl (zwanego dalej: „Serwisem”) dla użytkowników indywidualnych (zwanych
+              polskifrontend.pl (zwanego dalej: „Serwisem”) dla użytkowników indywidualnych (zwanych
               dalej „Użytkownikami”).
             </li>
             <li>
@@ -36,10 +36,11 @@ export const TermsOfUse = () => (
           Zasady korzystania z&nbsp;Serwisu
           <ol className={styles.ol}>
             <li>
-              Serwis służy do udostępniania pytań rekrutacyjnych dodawanych przez Użytkowników.
-              Usługodawca świadczy usługę polegającą na udostępnianiu infrastruktury
-              teleinformatycznej celem dodawania, przechowywania i&nbsp;udostępniania pytań
-              dodawanych przez Użytkowników.
+              Serwis służy do prezentacji najnowszych artykułów, podcastów lub filmów (zwanych
+              dalej: "Artykułami") z polskich blogów, podcastów i kanałów YouTube (zwanych dalej:
+              "Blogami") o tematyce front-endu. Usługodawca świadczy usługę polegającą na
+              udostępnianiu infrastruktury teleinformatycznej celem dodawania i&nbsp;przechowywania
+              zbioru Blogów jak i&nbsp;Artykułów, oraz ich wyświetlania.
             </li>
             <li>
               Korzystanie z&nbsp;Serwisu jest bezpłatne i&nbsp;nie wymaga logowania Użytkownika.
@@ -50,19 +51,15 @@ export const TermsOfUse = () => (
               najpopularniejszych przeglądarek internetowych.
             </li>
             <li>
-              Każde pytanie dodawane do Serwisu, przed opublikowaniem podlega weryfikacji przez
-              Usługodawcę i&nbsp;może zostać zmodyfikowane lub usunięte. Okres od dodania pytania,
-              do jego opublikowania w&nbsp;Serwisie, może trwać kilka dni.
+              Każdy Blog dodawany do Serwisu, przed umożliwieniem pobierania jego artykułów oraz ich
+              wyświetlania, podlega weryfikacji przez Usługodawcę i&nbsp;może zostać zmodyfikowany
+              lub usunięty. Okres od dodania Bloga, do jego opublikowania w&nbsp;Serwisie, może
+              trwać kilka dni.
             </li>
             <li>
-              Dodając treść do Serwisu, Użytkownik:
+              Zgłaszając Bloga do Serwisu, Użytkownik:
               <ol className={styles.ol}>
                 <li>ma obowiązek przestrzegania zasad kultury osobistej i&nbsp;netykiety;</li>
-                <li>
-                  ma obowiązek poprawnego formatowania tekstu z&nbsp;wykorzystaniem technologii
-                  Markdown w&nbsp;standardzie CommonMark, a&nbsp;także do przestrzegania zasad
-                  ortografii i&nbsp;gramatyki języka polskiego;
-                </li>
                 <li>
                   oświadcza, że przysługują mu prawa do publikacji dodawanych treści i&nbsp;wyraża
                   zgodę na ich wykorzystanie przez Usługodawcę w&nbsp;Serwisie, a&nbsp;także poza
@@ -100,10 +97,6 @@ export const TermsOfUse = () => (
                   oraz inne zbrodnicze ideologie;
                 </li>
                 <li>w nadmierny sposób obciążać serwera, na którym znajduje się Serwis;</li>
-                <li>
-                  dodawać do Serwisu treści zawierających jakiekolwiek dane osobowe lub oznaczenia
-                  umożliwiające identyfikację konkretnych podmiotów.
-                </li>
               </ol>
             </li>
             <li>
@@ -114,23 +107,7 @@ export const TermsOfUse = () => (
             <li>
               Jeśli zdaniem Użytkownika opublikowana w&nbsp;Serwisie treść narusza prawo, Regulamin
               lub zasady współżycia społecznego, Użytkownik może powiadomić Usługodawcę za
-              pośrednictwem poczty elektronicznej na adres e-mail: abuse@PolskiFrontend.pl.
-            </li>
-          </ol>
-        </li>
-        <li className={styles.li}>
-          Logowanie Użytkownika
-          <ol className={styles.ol}>
-            <li>
-              Użytkownik ma możliwość zalogowania się w&nbsp;Serwisie za pośrednictwem GitHub.
-            </li>
-            <li>Logowanie jest bezpłatne.</li>
-            <li>
-              Zalogowany Użytkownik ma możliwość korzystania z&nbsp;następujących dodatkowych
-              funkcji Serwisu:{' '}
-              <ol>
-                <li>głosowanie na poszczególne pytania opublikowane w&nbsp;Serwisie.</li>
-              </ol>
+              pośrednictwem poczty elektronicznej na adres e-mail: abuse@polskifrontend.pl.
             </li>
           </ol>
         </li>
@@ -291,7 +268,7 @@ export const TermsOfUse = () => (
             <li>
               Usługodawca zastrzega sobie prawo do zmiany Regulaminu. O&nbsp;treści zmian Regulaminu
               Usługodawca poinformuje Użytkowników przez umieszczenie na stronie internetowej
-              https://PolskiFrontend.pl/regulamin wiadomości o&nbsp;zmianie Regulaminu, zawierającej
+              https://polskifrontend.pl/regulamin wiadomości o&nbsp;zmianie Regulaminu, zawierającej
               zestawienie zmian Regulaminu i&nbsp;utrzymanie tej informacji przez okres co najmniej
               14 kolejnych dni kalendarzowych.{' '}
             </li>
@@ -303,7 +280,7 @@ export const TermsOfUse = () => (
               korzystania z&nbsp;Serwisu.
             </li>
             <li>
-              Regulamin dostępny jest nieodpłatnie pod adresem https://PolskiFrontend.pl/regulamin w
+              Regulamin dostępny jest nieodpłatnie pod adresem https://polskifrontend.pl/regulamin w
               formie, która umożliwia pozyskanie, odtwarzanie i&nbsp;utrwalanie treści Regulaminu za
               pomocą systemu teleinformatycznego, którym posługuje się Użytkownik. Pod tym samym
               adresem dostępne są wszystkie archiwalne wersje Regulaminu wraz z&nbsp;informacją o
