@@ -33,7 +33,7 @@ export const MainTiles = memo<MainTilesProps>((props) => {
   });
 
   return (
-    <section className={styles.section}>
+    <>
       <h2 className={styles.heading}>Wszystkie artykuły</h2>
       <div className={styles.buttons}>
         <Link href="/zglos-serwis" passHref>
@@ -62,7 +62,7 @@ export const MainTiles = memo<MainTilesProps>((props) => {
           </Link>
         )}
       </div>
-    </section>
+    </>
   );
 });
 
