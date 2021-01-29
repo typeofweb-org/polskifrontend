@@ -1,12 +1,14 @@
-import Link from 'next/link';
+import { memo } from 'react';
 
-import styles from './AlgoliaHit.module.css';
+import { createExcerpt } from '../../utils/excerpt-utils';
+import type { ArticleTileArticle, ArticleTileBlog } from '../ArticleTile/ArticleTile';
+import { ArticleTile } from '../ArticleTile/ArticleTile';
 
 export type Hit = {
   readonly objectID: string;
   readonly href: string;
   readonly publishedAt: string;
-  readonly slug?: string;
+  readonly slug: string;
   readonly description?: string;
   readonly title: string;
   readonly blog: {
@@ -20,29 +22,21 @@ type HitProps = {
   readonly hit: Hit;
 };
 
-export const AlgoliaHit = ({ hit }: HitProps) => (
-  <>
-    <h3 className={styles.heading}>{hit.title}</h3>
-    <span>
-      <img
-        loading="lazy"
-        src={hit?.blog?.favicon || undefined}
-        alt=""
-        className={styles.favicon}
-        height={16}
-        width={16}
-      />
-      {hit?.blog?.name}
-    </span>
-    {hit.slug ? (
-      <Link href={`/artykuly/${hit.slug}`}>
-        <a className={styles.articleRef}>Przejdź do artykułu</a>
-      </Link>
-    ) : (
-      <a className={styles.articleRef} href={hit.href} target="_blank" rel="noreferrer noopener">
-        Przejdź do artykułu
-      </a>
-    )}
-  </>
+const hitToArticle = (hit: Hit): ArticleTileArticle => ({
+  title: hit.title,
+  publishedAt: new Date(hit.publishedAt),
+  excerpt: createExcerpt(hit.description || ''),
+  href: hit.href,
+  slug: hit.slug,
+});
+
+const hitToBlog = (hit: Hit): ArticleTileBlog => ({
+  name: hit.blog.name,
+  favicon: hit.blog.favicon ?? null,
+});
+
+export const AlgoliaHit = memo(
+  ({ hit }: HitProps) => <ArticleTile article={hitToArticle(hit)} blog={hitToBlog(hit)} />,
+  ({ hit: prev }, { hit: next }) => prev.objectID === next.objectID,
 );
 AlgoliaHit.displayName = 'AlogliaHit';

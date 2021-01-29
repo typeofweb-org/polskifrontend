@@ -7,9 +7,16 @@ import { addTrackingToLink } from '../../utils/link-utils';
 
 import style from './articleTile.module.scss';
 
+export type ArticleTileArticle = Pick<
+  HomePageArticle,
+  'title' | 'publishedAt' | 'excerpt' | 'href' | 'slug'
+>;
+
+export type ArticleTileBlog = Pick<HomePageBlog, 'name' | 'favicon'>;
+
 type ArticleTileProps = {
-  readonly article: HomePageArticle;
-  readonly blog: Omit<HomePageBlog, 'articles'>;
+  readonly article: ArticleTileArticle;
+  readonly blog: ArticleTileBlog;
   readonly truncate?: boolean;
 };
 
