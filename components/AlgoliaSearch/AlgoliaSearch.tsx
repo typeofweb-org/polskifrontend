@@ -1,8 +1,9 @@
 import algoliasearch from 'algoliasearch/lite';
 import { memo, useEffect } from 'react';
-import { InstantSearch, SearchBox } from 'react-instantsearch-dom';
+import { InstantSearch, PoweredBy, SearchBox } from 'react-instantsearch-dom';
 
 import { AlgoliaHits } from './AlgoliaHits';
+import styles from './algoliaSearch.module.scss';
 
 const searchClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string,
@@ -40,6 +41,7 @@ export const AlogliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchS
           placeholder: 'Szukaj...',
         }}
       />
+      <PoweredBy className={styles.algoliaPoweredBy} />
       {showHits && <AlgoliaHits />}
     </InstantSearch>
   );
