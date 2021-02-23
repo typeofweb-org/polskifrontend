@@ -166,7 +166,7 @@ const getUpdatedInfoFor = (blog: Blog) => {
       return EMPTY;
     }),
     mergeMap((res) => from(res.text())),
-    map(getBlogInfoFromRss),
+    map((text) => getBlogInfoFromRss(text, blog)),
     map((updatedInfo) => {
       logger.debug(`Got updated info for blog: ${updatedInfo.name || blog.name}`);
       return {
@@ -177,11 +177,14 @@ const getUpdatedInfoFor = (blog: Blog) => {
   );
 };
 
-const getBlogInfoFromRss = (text: string) => {
+const getBlogInfoFromRss = (text: string, blog: Blog) => {
   const $ = Cheerio.load(text, { xmlMode: true, decodeEntities: true });
+  const type = blog.rss.includes('youtube.com') ? 'youtube' : 'other';
 
-  const name = getBlogName($) || undefined;
+  const blogName = getBlogName($) || undefined;
   const favicon = getFavicon($) || undefined;
+
+  const name = blogName ? (type === 'youtube' ? `${blogName} YouTube` : blogName) : undefined;
   const slug = name ? Slugify(name, { lower: true }) : undefined;
 
   return {
