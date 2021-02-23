@@ -24,23 +24,30 @@ type Feed = {
 };
 
 export const addContentCreator = async (url: string, email: string, prisma: PrismaClient) => {
-  const blogData = await getBlogData(url);
+  const { data, type } = await getBlogData(url);
+  const name = type === 'youtube' ? `${data.name} YouTube` : data.name;
+  const slug = Slugify(name, { lower: true });
+
   return prisma.blog.create({
     data: {
-      ...blogData,
+      ...data,
+      name,
+      slug,
       lastUpdateDate: NEVER,
-      slug: Slugify(blogData.name, { lower: true }),
       creatorEmail: email,
     },
   });
 };
 
-const getBlogData = (url: string): Promise<BlogData> => {
+type BlogType = 'youtube' | 'other';
+const getBlogData = async (
+  url: string,
+): Promise<{ readonly data: BlogData; readonly type: BlogType }> => {
   const youtubeRss = getYouTubeRss(url);
   if (youtubeRss) {
-    return getBlogDataForYouTubeRss(url, youtubeRss);
+    return { data: await getBlogDataForYouTubeRss(url, youtubeRss), type: 'youtube' };
   }
-  return getBlogDataForUrl(url);
+  return { data: await getBlogDataForUrl(url), type: 'other' };
 };
 
 export const getYouTubeRss = (url: string) => {
