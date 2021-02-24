@@ -6,7 +6,7 @@ type Awaited<T> = T extends Promise<infer R> ? R : never;
 
 export type Models = {
   readonly [K in keyof PrismaDelegates]: NonNullable<
-    Awaited<ReturnType<PrismaDelegates[K]['findOne']>>
+    Awaited<ReturnType<PrismaDelegates[K]['findFirst']>>
   >;
 };
 
