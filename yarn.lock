@@ -173,7 +173,7 @@
   dependencies:
     "@babel/types" "^7.12.5"
 
-"@babel/helper-module-imports@^7.12.13":
+"@babel/helper-module-imports@^7.12.5":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.12.13.tgz#ec67e4404f41750463e455cc3203f6a32e93fcb0"
   integrity sha512-NGmfvRp9Rqxy0uHSSVP+SRIW1q31a7Ji10cLBcqSDUngGentY4FRiHOFZFE1CLU5eiL0oE8reH7Tg1y99TDM/g==
@@ -400,7 +400,7 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@babel/types@^7.12.13", "@babel/types@^7.12.17":
+"@babel/types@^7.12.13":
   version "7.13.0"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.13.0.tgz#74424d2816f0171b4100f0ab34e9a374efdf7f80"
   integrity sha512-hE+HE8rnG1Z6Wzo+MhaKE5lM5eMx71T4EHJgku2E3xIfaULhDcxiiRxUYgwX8qwP1BBSlag+TdGOt6JAidIZTA==
@@ -1474,13 +1474,6 @@
   version "1.0.0-next.11"
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.11.tgz#aeb16f50649a91af79dbe36574b66d0f9e4d9f71"
   integrity sha512-3NsZsJIA/22P3QUyrEDNA2D133H4j224twJrdipXN38dpnIOzAbUDtOwkcJ5pXmn75w7LSQDjA4tO9dm1XlqlA==
-
-"@prisma/cli@2.17.0":
-  version "2.17.0"
-  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.17.0.tgz#27a963afc5c846ce77c75c5436c82919bf21b72d"
-  integrity sha512-G2Hu15E+dLX/VSj8NJzDPXJzl/ji331w+T97EW5NDIDDoGakSVW7r3xcw9dR4uRnoGtttZ7JhBFjXg6bt1Mb0g==
-  dependencies:
-    "@prisma/engines" "2.17.0-35.3c463ebd78b1d21d8fdacdd27899e280cf686223"
 
 "@prisma/client@2.17.0":
   version "2.17.0"
@@ -2800,13 +2793,12 @@ babel-plugin-jest-hoist@^26.6.2:
     "@types/babel__core" "^7.0.0"
     "@types/babel__traverse" "^7.0.6"
 
-babel-plugin-superjson-next@0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/babel-plugin-superjson-next/-/babel-plugin-superjson-next-0.2.2.tgz#7b2c8133c4c60260de3e83589e5d3707d8f1478a"
-  integrity sha512-baf+zAWlZrGfHIOsqef/HIuhBW0sN+bFaONvEfkSOZy2Ho/o3BM4lvVC53i9pqxnGUM922HFEAUpYaLop5SW4Q==
+babel-plugin-superjson-next@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-superjson-next/-/babel-plugin-superjson-next-0.2.1.tgz#7a5834c78807e36820a326f4f5d8d02f5a06ee8a"
+  integrity sha512-6vBq2p2mFSa8Kq0AXtJ+3un+lkEymxHjpshk0J3Rx7klYBPiIUbfSw8ekwtinFcHOe+KnLpckOzrYEssD7XT1w==
   dependencies:
-    "@babel/helper-module-imports" "^7.12.13"
-    "@babel/types" "^7.12.17"
+    "@babel/helper-module-imports" "^7.12.5"
     hoist-non-react-statics "^3.3.2"
 
 babel-plugin-syntax-jsx@6.18.0:
@@ -9320,6 +9312,13 @@ printf@0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/printf/-/printf-0.5.1.tgz#e0466788260859ed153006dc6867f09ddf240cf3"
   integrity sha512-UaE/jO0hNsrvPGQEb4LyNzcrJv9Z00tsreBduOSxMtrebvoUhxiEJ4YCHX8YHf6akwfKsC2Gyv5zv47UXhMiLg==
+
+prisma@2.17.0:
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/prisma/-/prisma-2.17.0.tgz#686469914ed13d4b0926ee5f17efb7a9ab741e8a"
+  integrity sha512-NypJI7OCXCfDkRKubbVb3nmPeRJ1SjQfg6QAwK06KsreBZl1F96rFz2iB2bl4kIrhLAbIySBjwUJlG87Jsxt7g==
+  dependencies:
+    "@prisma/engines" "2.17.0-35.3c463ebd78b1d21d8fdacdd27899e280cf686223"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
