@@ -35,19 +35,20 @@ function getNextAuthOptions(prisma: PrismaClient) {
           return Promise.resolve(token);
         }
 
-        const userId = user.userId;
         try {
           const prisma = await openConnection();
-          const user = await prisma.user.findUnique({
+          const dbUser = await prisma.user.findUnique({
             where: {
-              id: userId,
+              id: (user as Record<string, number>).id,
+              email: (user as Record<string, string>).email ?? undefined,
             },
-            select: { role: true },
+            select: { id: true, role: true },
           });
-          token.userId = userId;
-          token.role = user?.role;
+          token.userId = dbUser?.id;
+          token.role = dbUser?.role;
           return token;
         } catch (err) {
+          console.error(err);
           throw Boom.unauthorized();
         } finally {
           await closeConnection();
@@ -69,9 +70,10 @@ function getNextAuthOptions(prisma: PrismaClient) {
 }
 
 const authHandler: NextApiHandler = withAsync(
-  withDb((req, res) => {
+  withDb(async (req, res) => {
     const options = getNextAuthOptions(req.db);
-    return NextAuth((req as unknown) as NextApiRequest, res, options);
+    const result: unknown = await NextAuth((req as unknown) as NextApiRequest, res, options);
+    return result ?? null;
   }),
 );
 
