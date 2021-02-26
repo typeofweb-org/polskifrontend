@@ -40,7 +40,6 @@ function getNextAuthOptions(prisma: PrismaClient) {
           const dbUser = await prisma.user.findUnique({
             where: {
               id: (user as Record<string, number>).id,
-              email: (user as Record<string, string>).email ?? undefined,
             },
             select: { id: true, role: true },
           });
