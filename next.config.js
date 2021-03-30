@@ -94,6 +94,9 @@ const config = withBundleAnalyzer(
 
 config.reactStrictMode = true;
 config.poweredByHeader = false;
+config.future = {
+  webpack5: true,
+};
 
 config.rewrites = async () => {
   return [
