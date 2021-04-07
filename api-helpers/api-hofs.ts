@@ -4,7 +4,7 @@ import Boom from '@hapi/boom';
 import type { PrismaClient, UserRole } from '@prisma/client';
 import * as Sentry from '@sentry/node';
 import type { NextApiResponse, NextApiRequest } from 'next';
-import type { Session } from 'next-auth/client';
+import type { Session } from 'next-auth';
 import { getSession } from 'next-auth/client';
 import { object } from 'yup';
 import type { AnySchema, ObjectSchema, InferType } from 'yup';
@@ -92,7 +92,7 @@ export const withAsync = (
       return res.json(result);
     } catch (err) {
       if (Boom.isBoom(err)) {
-        Object.entries(err.output.headers).forEach(([key, val]) => res.setHeader(key, val));
+        Object.entries(err.output.headers).forEach(([key, val]) => val && res.setHeader(key, val));
         return res.status(err.output.statusCode).json(err.output.payload);
       } else {
         logger.error(err);
