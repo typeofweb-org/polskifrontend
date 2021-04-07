@@ -1,16 +1,19 @@
 import Boom from '@hapi/boom';
 import type { PrismaClient } from '@prisma/client';
 import type { NextApiHandler, NextApiRequest } from 'next';
-import type { InitOptions } from 'next-auth';
+import type { NextAuthOptions, Session } from 'next-auth';
 import NextAuth from 'next-auth';
+// eslint-disable-next-line import/no-unresolved
+import type { WithAdditionalParams } from 'next-auth/_utils';
 import Adapters from 'next-auth/adapters';
+import type { JWT } from 'next-auth/jwt';
 import Providers from 'next-auth/providers';
 
 import { withAsync, withDb } from '../../../api-helpers/api-hofs';
 import { closeConnection, openConnection } from '../../../api-helpers/db';
 
 function getNextAuthOptions(prisma: PrismaClient) {
-  const options: InitOptions = {
+  const options: NextAuthOptions = {
     providers: [
       Providers.GitHub({
         clientId: process.env.GITHUB_ID as string,
@@ -29,7 +32,7 @@ function getNextAuthOptions(prisma: PrismaClient) {
       secret: process.env.JWT_SECRET,
     },
     callbacks: {
-      jwt: async (token, user?) => {
+      async jwt(token, user) {
         if (!user) {
           // If it's not sign in operation return already created token
           return Promise.resolve(token);
@@ -43,9 +46,15 @@ function getNextAuthOptions(prisma: PrismaClient) {
             },
             select: { id: true, role: true },
           });
-          token.userId = dbUser?.id;
-          token.role = dbUser?.role;
-          return token;
+
+          /* eslint-disable */
+          const ret: WithAdditionalParams<JWT> = {
+            ...token,
+            userId: dbUser?.id,
+            role: dbUser?.role,
+          };
+          return ret;
+          /* eslint-enable */
         } catch (err) {
           console.error(err);
           throw Boom.unauthorized();
@@ -53,15 +62,18 @@ function getNextAuthOptions(prisma: PrismaClient) {
           await closeConnection();
         }
       },
-      session: (session, token) => {
-        return Promise.resolve({
+      session(session, token) {
+        /* eslint-disable */
+        const ret: WithAdditionalParams<Session> = {
           ...session,
           user: {
             ...session.user,
-            role: token.role,
-            userId: token.userId,
+            role: token.role as any,
+            userId: token.userId as any,
           },
-        });
+        };
+        return Promise.resolve(ret);
+        /* eslint-enable */
       },
     },
   };
