@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 
 import { useMutation } from '../../hooks/useMutation';
 import { deleteBlog } from '../../utils/api/deleteBlog';
+import { resetBlog } from '../../utils/api/resetBlog';
 import { Button } from '../Button/Button';
 
 import styles from './dangerZone.module.scss';
@@ -12,6 +13,7 @@ type DangerZoneProps = {
 
 export const DangerZone = ({ blogId }: DangerZoneProps) => {
   const deleteMutation = useMutation(deleteBlog);
+  const resetMutation = useMutation(resetBlog);
   const router = useRouter();
 
   async function handleDelete() {
@@ -30,6 +32,22 @@ export const DangerZone = ({ blogId }: DangerZoneProps) => {
     }
   }
 
+  async function handleReset() {
+    if (
+      window.confirm(
+        'Czy na pewno chcesz zresetować tego bloga? Wszystkie jego dane oraz wpisy zostaną usunięte i pobrane na nowo.',
+      )
+    ) {
+      try {
+        await resetMutation.mutate(blogId);
+        window.alert('Udało się!');
+      } catch (err) {
+        console.error(err);
+        window.alert('Nie udało się usunąć bloga.');
+      }
+    }
+  }
+
   return (
     <section className={styles.section}>
       <ul className={styles.optionList}>
@@ -41,6 +59,9 @@ export const DangerZone = ({ blogId }: DangerZoneProps) => {
           </p>
           <Button buttonStyle="danger" onClick={handleDelete}>
             Usuń bloga
+          </Button>
+          <Button buttonStyle="danger" onClick={handleReset}>
+            Zresetuj bloga
           </Button>
         </li>
         {/**
