@@ -19,6 +19,9 @@ export default withAsync(
           where: {
             isPublic: req.query.isPublic,
           },
+          orderBy: {
+            id: 'desc',
+          },
         });
 
         return {
