@@ -9,6 +9,7 @@ import {
   withMethods,
   withDb,
 } from '../../../api-helpers/api-hofs';
+import { addContentCreator } from '../../../api-helpers/contentCreatorFunctions';
 
 const cuidValidator = string()
   .matches(/^c[a-zA-Z0-9]{24}$/)
@@ -59,6 +60,35 @@ export default withAsync(
           });
 
           return blog;
+        }),
+      ),
+
+      PATCH: withValidation({
+        query: object({
+          blogId: cuidValidator,
+        }),
+      })(
+        withDb(async (req) => {
+          const existingBlog = await req.db.blog.findUnique({ where: { id: req.query.blogId } });
+          await req.db.article.deleteMany({ where: { blogId: req.query.blogId } });
+          await req.db.blog.delete({ where: { id: req.query.blogId } });
+
+          if (!existingBlog) {
+            return null;
+          }
+
+          const blog = await addContentCreator(
+            existingBlog.href,
+            existingBlog.creatorEmail!,
+            req.db,
+          );
+
+          const savedBlog = await req.db.blog.update({
+            data: { ...blog, isPublic: existingBlog.isPublic },
+            where: { id: blog.id },
+          });
+
+          return savedBlog;
         }),
       ),
 
