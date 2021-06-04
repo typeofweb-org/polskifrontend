@@ -1,10 +1,8 @@
 import type { PrismaClient } from '@prisma/client';
 
-import {
-  getArticlesPaginationForGrid,
-  getArticlesPaginationForList,
-  getArticlesSlugs,
-} from './articles';
+import { getPagesArray } from '../utils/array-utils';
+
+import { getLastArticlePage, getLastBlogPage, getArticlesSlugs } from './articles';
 
 type Item = {
   readonly path: string;
@@ -22,11 +20,13 @@ const staticItems: readonly Item[] = [
 ];
 
 export async function getSitemap(prisma: PrismaClient) {
-  const [gridCursors, listCursors, articleSlugs] = await Promise.all([
-    getArticlesPaginationForGrid(prisma),
-    getArticlesPaginationForList(prisma),
+  const [gridLastPage, listLastPage, articleSlugs] = await Promise.all([
+    getLastBlogPage(prisma),
+    getLastArticlePage(prisma),
     getArticlesSlugs(prisma),
   ]);
+  const gridPages = getPagesArray(gridLastPage);
+  const listPages = getPagesArray(listLastPage);
 
   const dynamicItems: readonly Item[] = [
     ...articleSlugs.map(({ slug }) => ({
@@ -34,13 +34,13 @@ export async function getSitemap(prisma: PrismaClient) {
       changefreq: 'monthly' as const,
       priority: 0.5,
     })),
-    ...gridCursors.map((cursor) => ({
-      path: `/grid/${cursor}`,
+    ...gridPages.map((page) => ({
+      path: `/grid/${page}`,
       changefreq: 'hourly' as const,
       priority: 0.4,
     })),
-    ...listCursors.map((cursor) => ({
-      path: `/list/${cursor}`,
+    ...listPages.map((page) => ({
+      path: `/list/${page}`,
       changefreq: 'hourly' as const,
       priority: 0.4,
     })),

@@ -75,8 +75,9 @@ export const getStaticProps = async ({
         revalidate: REVALIDATION_TIME,
       };
     }
-
-    const { data: blogsFromDb, nextCursor } = await getArticlesForGrid(prisma, params?.page[0]);
+    const lastPage = await getLastBlogPage(prisma);
+    const pageNumber = !params?.page ? `${lastPage}` : params?.page[0];
+    const { data: blogsFromDb } = await getArticlesForGrid(prisma, pageNumber);
     const blogs = blogsFromDb.map((blog) => {
       return {
         ...blog,
@@ -84,7 +85,12 @@ export const getStaticProps = async ({
       } as const;
     });
     return {
-      props: { blogs, displayStyle: 'grid' as const, nextCursor },
+      props: {
+        blogs,
+        displayStyle: 'grid' as const,
+        isLastPage: +pageNumber === lastPage,
+        pageNumber,
+      },
       revalidate: REVALIDATION_TIME,
     } as const;
   } catch (err) {
