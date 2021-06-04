@@ -1,14 +1,18 @@
+import { GetStaticPaths } from 'next';
+
 import {
   getArticlesForList,
   getArticlesForGrid,
-  getArticlesPaginationForGrid,
-  getArticlesPaginationForList,
+  getLastArticlePage,
+  getLastBlogPage,
 } from '../../api-helpers/articles';
 import { closeConnection, openConnection } from '../../api-helpers/db';
 import { HTTPNotFound } from '../../api-helpers/errors';
 import { Layout } from '../../components/Layout';
 import { Main } from '../../components/Main/Main';
+import { MAX_PAGES, REVALIDATION_TIME } from '../../contants';
 import type { InferGetStaticPropsContext, InferGetStaticPropsType2 } from '../../types';
+import { getPagesArray } from '../../utils/array-utils';
 import { addExcerptToArticle } from '../../utils/excerpt-utils';
 
 export type HomePageProps = InferGetStaticPropsType2<typeof getStaticProps>;
@@ -30,30 +34,21 @@ export default function HomePage(props: HomePageProps) {
     </Layout>
   );
 }
-
-export const REVALIDATION_TIME = 15 * 60; // 15 minutes
-const MAX_PAGES = 5;
-
 export const getStaticPaths = async () => {
   try {
     const prisma = await openConnection();
-
-    const [gridCursors, listCursors] = await Promise.all([
-      await getArticlesPaginationForGrid(prisma),
-      await getArticlesPaginationForList(prisma),
+    const [gridLastPage, listLastPage] = await Promise.all([
+      await getLastBlogPage(prisma),
+      await getLastArticlePage(prisma),
     ]);
-
+    const gridPages = getPagesArray(gridLastPage, MAX_PAGES);
+    const listPages = getPagesArray(listLastPage, MAX_PAGES);
     const paths = [
-      ...gridCursors
-        .slice(0, MAX_PAGES)
-        .map((cursor) => ({ params: { displayStyle: 'grid' as const, cursor } })),
-      ...listCursors
-        .slice(0, MAX_PAGES)
-        .map((cursor) => ({ params: { displayStyle: 'list' as const, cursor } })),
+      ...gridPages.map((page) => ({ params: { displayStyle: 'grid' as const, page } })),
+      ...listPages.map((page) => ({ params: { displayStyle: 'list' as const, page } })),
     ];
-
     return {
-      paths: paths,
+      paths,
       fallback: 'blocking' as const,
     };
   } finally {
@@ -68,7 +63,7 @@ export const getStaticProps = async ({
     const prisma = await openConnection();
 
     if (params?.displayStyle === 'list') {
-      const { data: articlesFromDb, nextCursor } = await getArticlesForList(prisma, params?.cursor);
+      const { data: articlesFromDb, nextCursor } = await getArticlesForList(prisma, params?.page);
       const articles = articlesFromDb.map(addExcerptToArticle);
       return {
         props: {
@@ -80,7 +75,7 @@ export const getStaticProps = async ({
       };
     }
 
-    const { data: blogsFromDb, nextCursor } = await getArticlesForGrid(prisma, params?.cursor);
+    const { data: blogsFromDb, nextCursor } = await getArticlesForGrid(prisma, params?.page);
     const blogs = blogsFromDb.map((blog) => {
       return {
         ...blog,

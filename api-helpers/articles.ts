@@ -1,13 +1,10 @@
 import type { PrismaClient } from '@prisma/client';
 
+import { LIST_ARTICLES_PER_PAGE, TILES_ARTICLES_PER_BLOG, TILES_BLOGS_PER_PAGE } from '../contants';
 import { isIsoDate } from '../utils/date-utils';
 
 import { cursorToText, textToCursor } from './cursor-encoding';
 import { HTTPNotFound } from './errors';
-
-export const TILES_BLOGS_PER_PAGE = 4;
-export const TILES_ARTICLES_PER_BLOG = 5;
-export const LIST_ARTICLES_PER_PAGE = 20;
 
 function last<T extends readonly R[], R>(arr: readonly [R, ...T]): R;
 function last<T>(arr: readonly T[]): T | undefined;
@@ -76,34 +73,38 @@ export const getArticlesPaginationForGrid = async (prisma: PrismaClient) => {
   return cursors;
 };
 
-export const getArticlesForList = async (prisma: PrismaClient, cursor?: string) => {
-  const date = cursor && cursorToText(cursor);
+export const getLastArticlePage = async (prisma: PrismaClient) => {
+  const articlesCount = await prisma.article.count({
+    where: { blog: { isPublic: true } },
+  });
+  return Math.floor(articlesCount / LIST_ARTICLES_PER_PAGE);
+};
 
-  if (date && !isIsoDate(date)) {
-    throw new HTTPNotFound();
-  }
+export const getLastBlogPage = async (prisma: PrismaClient) => {
+  const blogCount = await prisma.blog.count({
+    where: { isPublic: true, lastArticlePublishedAt: { not: null } },
+  });
+  return Math.floor(blogCount / TILES_BLOGS_PER_PAGE);
+};
+export const getArticlesForList = async (prisma: PrismaClient, page?: string) => {
+  if (page && isNaN(+page)) throw new Error('Page must be a number value');
 
-  const where = date
-    ? {
-        publishedAt: {
-          lt: date,
-        },
-      }
-    : {};
   const articles = await prisma.article.findMany({
-    where: { ...where, blog: { isPublic: true } },
+    skip: page ? +page * LIST_ARTICLES_PER_PAGE + 1 : 0,
+    where: { blog: { isPublic: true } },
     take: LIST_ARTICLES_PER_PAGE,
     orderBy: {
-      publishedAt: 'desc',
+      publishedAt: 'asc',
     },
     include: {
       blog: true,
     },
   });
-
+  if (articles.length === 0) throw new HTTPNotFound();
   const lastArticle = last(articles);
   return {
-    data: articles,
+    data: articles.reverse(),
+    //isNextPageAvailable: page === lastPage ? false : true,
     nextCursor: lastArticle?.publishedAt && textToCursor(lastArticle?.publishedAt.toISOString()),
   };
 };

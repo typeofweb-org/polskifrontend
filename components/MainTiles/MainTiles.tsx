@@ -6,7 +6,7 @@ import { useCallback, memo } from 'react';
 import { useDidMount } from '../../hooks/useDidMount';
 import type { DisplayPreferences } from '../../hooks/useDisplayPreferences';
 import { useDisplayPreferences } from '../../hooks/useDisplayPreferences';
-import type { HomePageProps } from '../../pages/[displayStyle]/[cursor]';
+import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
 
