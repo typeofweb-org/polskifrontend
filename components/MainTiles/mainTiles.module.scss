@@ -20,7 +20,15 @@
 
 .pagination {
   display: flex;
+  gap: 2em;
+  flex: 1 0 100%;
   justify-content: flex-end;
+  & > a:only-child {
+    flex-grow: 0;
+  }
+  & > a {
+    flex-grow: 1;
+  }
 }
 
 .nextPageButton {

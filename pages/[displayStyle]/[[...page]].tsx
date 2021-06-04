@@ -1,5 +1,3 @@
-import { GetStaticPaths } from 'next';
-
 import {
   getArticlesForList,
   getArticlesForGrid,
@@ -44,8 +42,8 @@ export const getStaticPaths = async () => {
     const gridPages = getPagesArray(gridLastPage, MAX_PAGES);
     const listPages = getPagesArray(listLastPage, MAX_PAGES);
     const paths = [
-      ...gridPages.map((page) => ({ params: { displayStyle: 'grid' as const, page } })),
-      ...listPages.map((page) => ({ params: { displayStyle: 'list' as const, page } })),
+      ...gridPages.map((page) => ({ params: { displayStyle: 'grid' as const, page: [page] } })),
+      ...listPages.map((page) => ({ params: { displayStyle: 'list' as const, page: [page] } })),
     ];
     return {
       paths,
@@ -63,19 +61,22 @@ export const getStaticProps = async ({
     const prisma = await openConnection();
 
     if (params?.displayStyle === 'list') {
-      const { data: articlesFromDb, nextCursor } = await getArticlesForList(prisma, params?.page);
+      const lastPage = await getLastArticlePage(prisma);
+      const pageNumber = !params.page ? `${lastPage}` : params.page[0];
+      const { data: articlesFromDb } = await getArticlesForList(prisma, pageNumber);
       const articles = articlesFromDb.map(addExcerptToArticle);
       return {
         props: {
           articles,
           displayStyle: 'list' as const,
-          nextCursor,
+          isLastPage: +pageNumber === lastPage,
+          pageNumber,
         },
         revalidate: REVALIDATION_TIME,
       };
     }
 
-    const { data: blogsFromDb, nextCursor } = await getArticlesForGrid(prisma, params?.page);
+    const { data: blogsFromDb, nextCursor } = await getArticlesForGrid(prisma, params?.page[0]);
     const blogs = blogsFromDb.map((blog) => {
       return {
         ...blog,

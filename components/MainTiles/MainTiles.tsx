@@ -6,7 +6,7 @@ import { useCallback, memo } from 'react';
 import { useDidMount } from '../../hooks/useDidMount';
 import type { DisplayPreferences } from '../../hooks/useDisplayPreferences';
 import { useDisplayPreferences } from '../../hooks/useDisplayPreferences';
-import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
+import type { HomePageProps } from '../../pages/[displayStyle]/[[...page]]';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
 
@@ -26,6 +26,8 @@ export const MainTiles = memo<MainTilesProps>((props) => {
     },
     [changeDisplay],
   );
+  const nextPage = props.pageNumber ? +props.pageNumber - 1 : '';
+  const previousPage = props.pageNumber ? +props.pageNumber + 1 : '';
 
   useDidMount(() => {
     void router.prefetch(`/grid`);
@@ -49,8 +51,27 @@ export const MainTiles = memo<MainTilesProps>((props) => {
         <BlogsGrid blogs={props.blogs} />
       )}
       <div className={styles.pagination}>
-        {props.nextCursor && (
-          <Link passHref href={`/${props.displayStyle}/${props.nextCursor}`}>
+        {!props.isLastPage && (
+          <>
+            <Link passHref href={`/${props.displayStyle}/${previousPage}`}>
+              <Button
+                className={styles.nextPageButton}
+                as="a"
+                iconPosition="left"
+                icon="icon-arrow-left2"
+              >
+                Poprzednia strona
+              </Button>
+            </Link>
+            <Link passHref href={`/${props.displayStyle}`}>
+              <Button className={styles.nextPageButton} as="a">
+                Najnowsze
+              </Button>
+            </Link>
+          </>
+        )}
+        {nextPage && nextPage !== 0 && (
+          <Link passHref href={`/${props.displayStyle}/${nextPage}`}>
             <Button
               className={styles.nextPageButton}
               as="a"

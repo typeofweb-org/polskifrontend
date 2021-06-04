@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { memo } from 'react';
 
-import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
+import type { HomePageProps } from '../../pages/[displayStyle]/[[...page]]';
 import { ArticleTile } from '../ArticleTile/ArticleTile';
 
 import styles from './blogsGrid.module.scss';
