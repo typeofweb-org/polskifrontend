@@ -8,7 +8,7 @@
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Dev
@@ -41,6 +41,9 @@ Ogromne podziękowania dla tych fantastycznych osób ([wyjaśnienie emoji](https
     <td align="center"><a href="https://github.com/poulch"><img src="https://avatars3.githubusercontent.com/u/16362049?v=4?s=70" width="70px;" alt=""/><br /><sub><b>poulch</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/pulls?q=is%3Apr+reviewed-by%3Apoulch" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/typeofweb/polskifrontend/commits?author=poulch" title="Code">💻</a></td>
     <td align="center"><a href="https://mateuszromek.pl/"><img src="https://avatars3.githubusercontent.com/u/46934668?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Mateusz Romek</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=MateuszRomek" title="Code">💻</a></td>
     <td align="center"><a href="http://pabich.cc"><img src="https://avatars1.githubusercontent.com/u/15004768?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Wiktor Pabich</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=pabichw" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://szery.net.pl"><img src="https://avatars.githubusercontent.com/u/4786095?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Łukasz Wiśniewski</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=lukaszwisniewski88" title="Code">💻</a></td>
   </tr>
 </table>
 
