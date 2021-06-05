@@ -1,6 +1,6 @@
 import { withAsync, withDb, withMethods } from '../../api-helpers/api-hofs';
 import { getSitemap } from '../../api-helpers/sitemap';
-import { REVALIDATION_TIME } from '../../contants';
+import { REVALIDATION_TIME } from '../../constants';
 
 export default withAsync(
   withMethods({

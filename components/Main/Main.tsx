@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { memo, useState } from 'react';
 
-import type { HomePageProps } from '../../pages/[displayStyle]/[[...page]]';
+import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
 import type { AlgoliaSearchProps, SearchState } from '../AlgoliaSearch/AlgoliaSearch';
 import { MainTiles } from '../MainTiles/MainTiles';
 

@@ -6,7 +6,7 @@ import { useCallback, memo } from 'react';
 import { useDidMount } from '../../hooks/useDidMount';
 import type { DisplayPreferences } from '../../hooks/useDisplayPreferences';
 import { useDisplayPreferences } from '../../hooks/useDisplayPreferences';
-import type { HomePageProps } from '../../pages/[displayStyle]/[[...page]]';
+import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
 
@@ -26,8 +26,9 @@ export const MainTiles = memo<MainTilesProps>((props) => {
     },
     [changeDisplay],
   );
-  const nextPage = props.pageNumber ? +props.pageNumber - 1 : '';
-  const previousPage = props.pageNumber ? +props.pageNumber + 1 : '';
+  const nextPage = Number(props.pageNumber) - 1;
+  const previousPage = Number(props.pageNumber) + 1;
+  const isFirstPage = Number(props.pageNumber) === 1;
 
   useDidMount(() => {
     void router.prefetch(`/grid`);
@@ -70,7 +71,7 @@ export const MainTiles = memo<MainTilesProps>((props) => {
             </Link>
           </>
         )}
-        {nextPage && nextPage !== 0 && (
+        {!isFirstPage && (
           <Link passHref href={`/${props.displayStyle}/${nextPage}`}>
             <Button
               className={styles.nextPageButton}

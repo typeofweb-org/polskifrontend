@@ -1,29 +1,27 @@
 import type { PrismaClient } from '@prisma/client';
 
-import { LIST_ARTICLES_PER_PAGE, TILES_ARTICLES_PER_BLOG, TILES_BLOGS_PER_PAGE } from '../contants';
+import {
+  LIST_ARTICLES_PER_PAGE,
+  TILES_ARTICLES_PER_BLOG,
+  TILES_BLOGS_PER_PAGE,
+} from '../constants';
 
 import { HTTPNotFound } from './errors';
 
-function pageValidGuard(page: string | undefined): void {
-  if (page === undefined) throw new HTTPNotFound('Page must be a number value');
-  if (isNaN(+page)) throw new HTTPNotFound('Page must be a number value');
-  return;
-}
-
-export const getArticlesForGrid = async (prisma: PrismaClient, page?: string) => {
-  pageValidGuard(page);
+export const getArticlesForGrid = async (prisma: PrismaClient, page: number) => {
+  const pageNumber = reversePageNumber(page, await getLastBlogPage(prisma));
   const blogs = await prisma.blog.findMany({
     where: { isPublic: true },
-    skip: page ? +page * TILES_BLOGS_PER_PAGE + 1 : 0,
+    skip: pageNumber * TILES_BLOGS_PER_PAGE,
     take: TILES_BLOGS_PER_PAGE,
     orderBy: {
-      lastArticlePublishedAt: 'asc',
+      lastArticlePublishedAt: 'desc',
     },
     include: {
       articles: {
         take: TILES_ARTICLES_PER_BLOG,
         orderBy: {
-          publishedAt: 'asc',
+          publishedAt: 'desc',
         },
       },
     },
@@ -31,7 +29,7 @@ export const getArticlesForGrid = async (prisma: PrismaClient, page?: string) =>
   if (blogs.length === 0) throw new HTTPNotFound();
 
   return {
-    data: blogs.reverse(),
+    data: blogs,
   };
 };
 
@@ -39,23 +37,26 @@ export const getLastArticlePage = async (prisma: PrismaClient) => {
   const articlesCount = await prisma.article.count({
     where: { blog: { isPublic: true } },
   });
-  return Math.floor(articlesCount / LIST_ARTICLES_PER_PAGE);
+  return Math.ceil(articlesCount / LIST_ARTICLES_PER_PAGE);
 };
 
 export const getLastBlogPage = async (prisma: PrismaClient) => {
   const blogCount = await prisma.blog.count({
     where: { isPublic: true, lastArticlePublishedAt: { not: null } },
   });
-  return Math.floor(blogCount / TILES_BLOGS_PER_PAGE);
+  return Math.ceil(blogCount / TILES_BLOGS_PER_PAGE);
 };
-export const getArticlesForList = async (prisma: PrismaClient, page?: string) => {
-  pageValidGuard(page);
+const reversePageNumber = (page: number, lastPage: number): number => {
+  return lastPage - page;
+};
+export const getArticlesForList = async (prisma: PrismaClient, page: number) => {
+  const pageNumber = reversePageNumber(page, await getLastArticlePage(prisma));
   const articles = await prisma.article.findMany({
-    skip: page ? +page * LIST_ARTICLES_PER_PAGE + 1 : 0,
+    skip: pageNumber * LIST_ARTICLES_PER_PAGE,
     where: { blog: { isPublic: true } },
     take: LIST_ARTICLES_PER_PAGE,
     orderBy: {
-      publishedAt: 'asc',
+      publishedAt: 'desc',
     },
     include: {
       blog: true,
@@ -63,7 +64,7 @@ export const getArticlesForList = async (prisma: PrismaClient, page?: string) =>
   });
   if (articles.length === 0) throw new HTTPNotFound();
   return {
-    data: articles.reverse(),
+    data: articles,
   };
 };
 

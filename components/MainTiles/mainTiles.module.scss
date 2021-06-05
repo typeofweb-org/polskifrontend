@@ -20,14 +20,17 @@
 
 .pagination {
   display: flex;
-  gap: 2em;
   flex: 1 0 100%;
+  flex-direction: column;
   justify-content: flex-end;
   & > a:only-child {
     flex-grow: 0;
   }
   & > a {
     flex-grow: 1;
+  }
+  @media screen and (min-width: 45em) {
+    flex-direction: row;
   }
 }
 

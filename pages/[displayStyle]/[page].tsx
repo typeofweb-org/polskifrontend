@@ -8,12 +8,19 @@ import { closeConnection, openConnection } from '../../api-helpers/db';
 import { HTTPNotFound } from '../../api-helpers/errors';
 import { Layout } from '../../components/Layout';
 import { Main } from '../../components/Main/Main';
-import { MAX_PAGES, REVALIDATION_TIME } from '../../contants';
+import { MAX_PAGES, REVALIDATION_TIME } from '../../constants';
 import type { InferGetStaticPropsContext, InferGetStaticPropsType2 } from '../../types';
 import { getPagesArray } from '../../utils/array-utils';
 import { addExcerptToArticle } from '../../utils/excerpt-utils';
 
 export type HomePageProps = InferGetStaticPropsType2<typeof getStaticProps>;
+
+const pageValidGuard = (page: string | undefined, lastPage: number) => {
+  if (page === undefined) return lastPage;
+  if (Number(page) === 0 || isNaN(Number(page))) throw new HTTPNotFound();
+  if (Number(page) > lastPage) throw new HTTPNotFound();
+  return Number(page);
+};
 
 const displayStyleToTitle: Record<HomePageProps['displayStyle'], string> = {
   grid: 'siatka',
@@ -42,8 +49,8 @@ export const getStaticPaths = async () => {
     const gridPages = getPagesArray(gridLastPage, MAX_PAGES);
     const listPages = getPagesArray(listLastPage, MAX_PAGES);
     const paths = [
-      ...gridPages.map((page) => ({ params: { displayStyle: 'grid' as const, page: [page] } })),
-      ...listPages.map((page) => ({ params: { displayStyle: 'list' as const, page: [page] } })),
+      ...gridPages.map((page) => ({ params: { displayStyle: 'grid' as const, page } })),
+      ...listPages.map((page) => ({ params: { displayStyle: 'list' as const, page } })),
     ];
     return {
       paths,
@@ -53,30 +60,28 @@ export const getStaticPaths = async () => {
     await closeConnection();
   }
 };
-
 export const getStaticProps = async ({
   params,
 }: InferGetStaticPropsContext<typeof getStaticPaths>) => {
   try {
     const prisma = await openConnection();
-
     if (params?.displayStyle === 'list') {
       const lastPage = await getLastArticlePage(prisma);
-      const pageNumber = !params.page ? `${lastPage}` : params.page[0];
+      const pageNumber = pageValidGuard(params.page, lastPage);
       const { data: articlesFromDb } = await getArticlesForList(prisma, pageNumber);
       const articles = articlesFromDb.map(addExcerptToArticle);
       return {
         props: {
           articles,
           displayStyle: 'list' as const,
-          isLastPage: +pageNumber === lastPage,
+          isLastPage: pageNumber === lastPage,
           pageNumber,
         },
         revalidate: REVALIDATION_TIME,
       };
     }
     const lastPage = await getLastBlogPage(prisma);
-    const pageNumber = !params?.page ? `${lastPage}` : params?.page[0];
+    const pageNumber = pageValidGuard(params?.page, lastPage);
     const { data: blogsFromDb } = await getArticlesForGrid(prisma, pageNumber);
     const blogs = blogsFromDb.map((blog) => {
       return {
@@ -88,7 +93,7 @@ export const getStaticProps = async ({
       props: {
         blogs,
         displayStyle: 'grid' as const,
-        isLastPage: +pageNumber === lastPage,
+        isLastPage: pageNumber === lastPage,
         pageNumber,
       },
       revalidate: REVALIDATION_TIME,
