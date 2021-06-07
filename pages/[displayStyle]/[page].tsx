@@ -1,17 +1,26 @@
 import {
   getArticlesForList,
   getArticlesForGrid,
-  getArticlesPaginationForGrid,
-  getArticlesPaginationForList,
+  getLastArticlePage,
+  getLastBlogPage,
 } from '../../api-helpers/articles';
 import { closeConnection, openConnection } from '../../api-helpers/db';
 import { HTTPNotFound } from '../../api-helpers/errors';
 import { Layout } from '../../components/Layout';
 import { Main } from '../../components/Main/Main';
+import { MAX_PAGES, REVALIDATION_TIME } from '../../constants';
 import type { InferGetStaticPropsContext, InferGetStaticPropsType2 } from '../../types';
+import { getPagesArray } from '../../utils/array-utils';
 import { addExcerptToArticle } from '../../utils/excerpt-utils';
 
 export type HomePageProps = InferGetStaticPropsType2<typeof getStaticProps>;
+
+const pageValidGuard = (page: string | undefined, lastPage: number) => {
+  if (page === undefined) return lastPage;
+  if (Number(page) === 0 || isNaN(Number(page))) throw new HTTPNotFound();
+  if (Number(page) > lastPage) throw new HTTPNotFound();
+  return Number(page);
+};
 
 const displayStyleToTitle: Record<HomePageProps['displayStyle'], string> = {
   grid: 'siatka',
@@ -30,57 +39,50 @@ export default function HomePage(props: HomePageProps) {
     </Layout>
   );
 }
-
-export const REVALIDATION_TIME = 15 * 60; // 15 minutes
-const MAX_PAGES = 5;
-
 export const getStaticPaths = async () => {
   try {
     const prisma = await openConnection();
-
-    const [gridCursors, listCursors] = await Promise.all([
-      await getArticlesPaginationForGrid(prisma),
-      await getArticlesPaginationForList(prisma),
+    const [gridLastPage, listLastPage] = await Promise.all([
+      await getLastBlogPage(prisma),
+      await getLastArticlePage(prisma),
     ]);
-
+    const gridPages = getPagesArray(gridLastPage, MAX_PAGES);
+    const listPages = getPagesArray(listLastPage, MAX_PAGES);
     const paths = [
-      ...gridCursors
-        .slice(0, MAX_PAGES)
-        .map((cursor) => ({ params: { displayStyle: 'grid' as const, cursor } })),
-      ...listCursors
-        .slice(0, MAX_PAGES)
-        .map((cursor) => ({ params: { displayStyle: 'list' as const, cursor } })),
+      ...gridPages.map((page) => ({ params: { displayStyle: 'grid' as const, page } })),
+      ...listPages.map((page) => ({ params: { displayStyle: 'list' as const, page } })),
     ];
-
     return {
-      paths: paths,
+      paths,
       fallback: 'blocking' as const,
     };
   } finally {
     await closeConnection();
   }
 };
-
 export const getStaticProps = async ({
   params,
 }: InferGetStaticPropsContext<typeof getStaticPaths>) => {
   try {
     const prisma = await openConnection();
-
     if (params?.displayStyle === 'list') {
-      const { data: articlesFromDb, nextCursor } = await getArticlesForList(prisma, params?.cursor);
+      const lastPage = await getLastArticlePage(prisma);
+      const pageNumber = pageValidGuard(params.page, lastPage);
+      const { data: articlesFromDb } = await getArticlesForList(prisma, pageNumber);
       const articles = articlesFromDb.map(addExcerptToArticle);
       return {
         props: {
           articles,
           displayStyle: 'list' as const,
-          nextCursor,
+          isLastPage: pageNumber === lastPage,
+          pageNumber,
         },
         revalidate: REVALIDATION_TIME,
       };
     }
-
-    const { data: blogsFromDb, nextCursor } = await getArticlesForGrid(prisma, params?.cursor);
+    const lastPage = await getLastBlogPage(prisma);
+    const pageNumber = pageValidGuard(params?.page, lastPage);
+    const { data: blogsFromDb } = await getArticlesForGrid(prisma, pageNumber);
     const blogs = blogsFromDb.map((blog) => {
       return {
         ...blog,
@@ -88,7 +90,12 @@ export const getStaticProps = async ({
       } as const;
     });
     return {
-      props: { blogs, displayStyle: 'grid' as const, nextCursor },
+      props: {
+        blogs,
+        displayStyle: 'grid' as const,
+        isLastPage: pageNumber === lastPage,
+        pageNumber,
+      },
       revalidate: REVALIDATION_TIME,
     } as const;
   } catch (err) {

@@ -1,6 +1,6 @@
-import HomePage from './[cursor]';
+import HomePage from './[page]';
 
-export { getStaticProps } from './[cursor]';
+export { getStaticProps } from './[page]';
 
 export const getStaticPaths = () => {
   return {

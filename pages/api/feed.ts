@@ -1,6 +1,6 @@
 import { withAsync, withDb, withMethods } from '../../api-helpers/api-hofs';
 import { getGeneralFeed } from '../../api-helpers/general-feed';
-import { REVALIDATION_TIME } from '../[displayStyle]/[cursor]';
+import { REVALIDATION_TIME } from '../../constants';
 
 export default withAsync(
   withMethods({
