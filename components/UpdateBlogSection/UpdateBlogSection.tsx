@@ -16,7 +16,7 @@ export const UpdateBlogSection = memo<Props>(({ blogId }) => {
       <section className={styles.section}>
         <h2 className={styles.heading}>Aktualizacja danych</h2>
         <UpdateBlogForm blogId={blogId} />
-        <h2 className={styles.heading}>"Danger zone"</h2>
+        <h2 className={styles.heading}>Danger zone</h2>
         <DangerZone blogId={blogId} />
       </section>
     </AuthGuard>

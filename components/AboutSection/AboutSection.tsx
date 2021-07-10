@@ -21,7 +21,7 @@ export const AboutSection = () => (
         <strong>w języku polskim</strong>!
       </p>
       <p>
-        Podstawowym założeniem "Polskiego Frontendu" było zebranie tutaj{' '}
+        Podstawowym założeniem „Polskiego Frontendu” było zebranie tutaj{' '}
         <strong>całych blogów</strong>, a nie pojedynczych artykułów. Z tego powodu selekcji treści
         mogę dokonywać jedynie na etapie dodawania danej strony do serwisu. Jako, że nie każdy pisze
         tylko i wyłącznie o frontendzie, to czasem może się tutaj pojawić wpis na temat, na

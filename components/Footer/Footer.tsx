@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import styles from './footer.module.scss';
@@ -10,7 +11,7 @@ export const Footer = () => {
     <footer className={styles.footer}>
       <Link href="https://vercel.com?utm_source=typeofweb&utm_campaign=oss">
         <a target="_blank" rel="noopener noreferrer">
-          <img
+          <Image
             loading="lazy"
             src="/powered-by-vercel.svg"
             alt="Powered by Vercel"
