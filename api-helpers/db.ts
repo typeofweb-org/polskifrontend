@@ -1,30 +1,19 @@
 import { PrismaClient } from '@prisma/client';
 
-const getHerokuDBCredentials = async () => {
-  const res = await fetch(`https://api.heroku.com/apps/polskifrontend/config-vars`, {
-    headers: {
-      Accept: 'application/vnd.heroku+json; version=3',
-      Authorization: `Bearer ${process.env.HEROKU_API_KEY!}`,
-    },
-  });
-  return res.json() as Promise<{ readonly DATABASE_URL: string }>;
-};
+import { getConfig } from './config';
 
 let mutableOpenConnections = 0;
 let mutablePrisma: PrismaClient | undefined;
-export const openConnection = async () => {
+export const openConnection = () => {
   if (!mutablePrisma) {
-    if (process.env.HEROKU_API_KEY) {
-      mutablePrisma = new PrismaClient({
-        datasources: {
-          db: {
-            url: (await getHerokuDBCredentials()).DATABASE_URL + '?connection_limit=5',
-          },
+    // use pgbouncer
+    mutablePrisma = new PrismaClient({
+      datasources: {
+        db: {
+          url: getConfig('DATABASE_POOL_URL'),
         },
-      });
-    } else {
-      mutablePrisma = new PrismaClient();
-    }
+      },
+    });
   }
 
   ++mutableOpenConnections;

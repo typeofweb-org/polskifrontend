@@ -3,8 +3,9 @@ import type { ChangeEvent } from 'react';
 import { useCallback } from 'react';
 import { object, string } from 'yup';
 
+import { AuthGuard } from '../../components/AuthGuard/AuthGuard';
 import { useQuery } from '../../hooks/useQuery';
-import { useSmartQuery } from '../../hooks/useSmartQuery';
+import { useSmartQueryParams } from '../../hooks/useSmartQueryParams';
 import { getBlogs } from '../../utils/api/getBlogs';
 import { formatDate } from '../../utils/date-utils';
 import { oneOfValues } from '../../utils/schema-utils';
@@ -26,7 +27,9 @@ export const AdminPanel = () => {
   const {
     query: { isPublic },
     changeQuery,
-  } = useSmartQuery(object({ isPublic: oneOfValues(string(), ['true', 'false', ''] as const) }));
+  } = useSmartQueryParams(
+    object({ isPublic: oneOfValues(string(), ['true', 'false', ''] as const) }),
+  );
 
   const { value: blogs } = useQuery(useCallback(() => getBlogs(isPublic), [isPublic]));
 
@@ -65,19 +68,21 @@ export const AdminPanel = () => {
   }));
 
   return (
-    <section className={styles.section}>
-      <h2 className={styles.heading}>Admin Panel - Blogi</h2>
-      <label className={styles.publicSelectLabel}>
-        Pokazuj blogi:{' '}
-        <select onChange={handlePublicChange} value={isPublic}>
-          <option value="" defaultChecked>
-            Wszystkie
-          </option>
-          <option value="true">Tylko widoczne</option>
-          <option value="false">Tylko ukryte</option>
-        </select>
-      </label>
-      <Table columns={columns} data={tableData} />
-    </section>
+    <AuthGuard role="ADMIN">
+      <section className={styles.section}>
+        <h2 className={styles.heading}>Admin Panel - Blogi</h2>
+        <label className={styles.publicSelectLabel}>
+          Pokazuj blogi:{' '}
+          <select onChange={handlePublicChange} value={isPublic}>
+            <option value="" defaultChecked>
+              Wszystkie
+            </option>
+            <option value="true">Tylko widoczne</option>
+            <option value="false">Tylko ukryte</option>
+          </select>
+        </label>
+        <Table columns={columns} data={tableData} />
+      </section>
+    </AuthGuard>
   );
 };

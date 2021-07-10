@@ -10,15 +10,6 @@ declare namespace NodeJS {
   }
 }
 
-type Role = 'USER' | 'ADMIN';
-
-declare module 'next-auth' {
-  interface User {
-    readonly userId?: number;
-    readonly role?: Role;
-  }
-}
-
 declare module 'next' {
   interface NextApiRequest {
     readonly body: never;

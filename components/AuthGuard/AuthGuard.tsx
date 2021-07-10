@@ -1,33 +1,87 @@
-import { signIn, useSession } from 'next-auth/client';
-import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 
+import { useQuery } from '../../hooks/useQuery';
+import { getMe } from '../../utils/api/getMe';
+import { supabase } from '../../utils/api/initSupabase';
 import { LoadingScreen } from '../LoadingScreen/LoadingScreen';
 
 import styles from './authGuard.module.css';
 
+export type AuthHookRet =
+  | { readonly isLoading: true; readonly isLoggedIn?: undefined; readonly user?: undefined }
+  | {
+      readonly isLoggedIn: false;
+      readonly isLoading: false;
+      readonly user?: undefined;
+    }
+  | {
+      readonly isLoggedIn: true;
+      readonly isLoading: false;
+      readonly user: {
+        readonly user: {
+          readonly id: string;
+          readonly created_at: string;
+        };
+        readonly member: {
+          readonly id: string;
+          readonly email: string;
+          readonly role: string;
+        };
+      };
+    };
+
 type Props = {
-  readonly role?: 'admin';
+  readonly role?: 'ADMIN';
+};
+
+const useAuth = (): AuthHookRet => {
+  const session = supabase.auth.session();
+  const { value: me, status } = useQuery(getMe);
+
+  if (!session?.user) {
+    return { isLoggedIn: false, isLoading: false };
+  }
+
+  switch (status) {
+    case 'loading':
+    case 'idle':
+      return { isLoading: true };
+    case 'error':
+      return { isLoggedIn: false, isLoading: false };
+    case 'success': {
+      if (!me?.user || !me.member) {
+        return { isLoggedIn: false, isLoading: false };
+      }
+      return { isLoggedIn: true, user: me, isLoading: false };
+    }
+  }
 };
 
 export const AuthGuard: React.FC<Props> = ({ children, role }) => {
-  const [session, isLoading] = useSession();
+  const { isLoading, isLoggedIn, user } = useAuth();
+  const { push } = useRouter();
 
   useEffect(() => {
-    if (!isLoading && !session) {
-      void signIn();
+    if (!isLoading && !isLoggedIn) {
+      void push('/login');
     }
-  }, [session, isLoading]);
+  }, [isLoggedIn, isLoading, push]);
+
+  if (!isLoading && !isLoggedIn) {
+    return null;
+  }
 
   if (isLoading) {
     return <LoadingScreen />;
   }
 
   // Without role allow all authorized users
-  if (!role && session) {
+  if (!role && user) {
     return <>{children}</>;
   }
 
-  if (role === 'admin' && session?.user.role === 'ADMIN') {
+  if (role === 'ADMIN' && user?.member.role === 'ADMIN') {
     return <>{children}</>;
   }
 

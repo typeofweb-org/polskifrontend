@@ -8,48 +8,6 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
-model Account {
-  id                 Int       @default(autoincrement()) @id
-  compoundId         String    @unique @map(name: "compound_id")
-  userId             Int       @map(name: "user_id")
-  providerType       String    @map(name: "provider_type")
-  providerId         String    @map(name: "provider_id")
-  providerAccountId  String    @map(name: "provider_account_id")
-  refreshToken       String?   @map(name: "refresh_token")
-  accessToken        String?   @map(name: "access_token")
-  accessTokenExpires DateTime? @map(name: "access_token_expires")
-  createdAt          DateTime  @default(now()) @map(name: "created_at")
-  updatedAt          DateTime  @default(now()) @map(name: "updated_at")
-
-  @@index([providerAccountId], name: "providerAccountId")
-  @@index([providerId], name: "providerId")
-  @@index([userId], name: "userId")
-
-  @@map(name: "accounts")
-}
-
-
-
-model User {
-  id            Int       @default(autoincrement()) @id
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map(name: "email_verified")
-  image         String?
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @default(now()) @map(name: "updated_at")
-
-  role          UserRole  @default(USER)
-
-  @@map(name: "users")
-}
-
-enum UserRole {
-  USER
-  ADMIN
-}
-
-
 model Article {
   id String @default(cuid()) @id
   title String
@@ -86,11 +44,18 @@ model Blog {
   updatedAt DateTime @default(now()) @updatedAt
 }
 
-model NewsItem {
-  id String @default(cuid()) @id
-  title String
-  message String
+enum UserRole {
+  USER
+  ADMIN
+}
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+model Member {
+  id String @id
+  role UserRole @default(USER)
+  email String
+}
+
+model Secret {
+  id String @id
+  name String
 }

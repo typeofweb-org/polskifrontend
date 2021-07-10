@@ -3,12 +3,6 @@ import { useRouter } from 'next/router';
 
 import { Layout } from '../../../components/Layout';
 
-const AuthGuard = dynamic<{ readonly role?: 'admin' }>(() =>
-  import(
-    /* webpackChunkName: "AuthGuard" */
-    '../../../components/AuthGuard/AuthGuard'
-  ).then((mod) => mod.AuthGuard),
-);
 const UpdateBlogSection = dynamic<{ readonly blogId: string }>(
   import(
     /* webpackChunkName: "UpdateBlogSection" */
@@ -26,9 +20,7 @@ export default function AdminBlogPage() {
 
   return (
     <Layout title="Panel admina - edycja danych bloga">
-      <AuthGuard role="admin">
-        <UpdateBlogSection blogId={blogId as string} />
-      </AuthGuard>
+      <UpdateBlogSection blogId={blogId as string} />
     </Layout>
   );
 }
