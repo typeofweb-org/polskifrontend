@@ -21,7 +21,7 @@ export const getStaticProps = async ({
   params,
 }: InferGetStaticPropsContext<typeof getStaticPaths>) => {
   try {
-    const prisma = await openConnection();
+    const prisma = openConnection();
 
     const article = await getArticleBySlug(prisma, params!.slug);
 
@@ -43,7 +43,7 @@ export const getStaticProps = async ({
 
 export const getStaticPaths = async () => {
   try {
-    const prisma = await openConnection();
+    const prisma = openConnection();
 
     const articles = await getArticlesSlugs(prisma, DEFAULT_ARTICLES);
 

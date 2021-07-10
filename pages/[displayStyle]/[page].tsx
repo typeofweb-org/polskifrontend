@@ -41,7 +41,7 @@ export default function HomePage(props: HomePageProps) {
 }
 export const getStaticPaths = async () => {
   try {
-    const prisma = await openConnection();
+    const prisma = openConnection();
     const [gridLastPage, listLastPage] = await Promise.all([
       await getLastBlogPage(prisma),
       await getLastArticlePage(prisma),
@@ -64,7 +64,7 @@ export const getStaticProps = async ({
   params,
 }: InferGetStaticPropsContext<typeof getStaticPaths>) => {
   try {
-    const prisma = await openConnection();
+    const prisma = openConnection();
     if (params?.displayStyle === 'list') {
       const lastPage = await getLastArticlePage(prisma);
       const pageNumber = pageValidGuard(params.page, lastPage);
