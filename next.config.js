@@ -1,7 +1,7 @@
-// @ts-check
+// @ts-  check
 
 // Use the SentryWebpack plugin to upload the source maps during build step
-const { SentryWebpackPlugin } = require('@sentry/webpack-plugin');
+const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const {
   NEXT_PUBLIC_SENTRY_DSN: SENTRY_DSN,
   SENTRY_ORG,
