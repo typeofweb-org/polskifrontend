@@ -3,7 +3,7 @@ import { Layout } from '../components/Layout';
 
 export default function AddContentCreatorPage() {
   return (
-    <Layout title="Zgłoś serwis">
+    <Layout title="Dodaj serwis">
       <AddContentCreatorSection />
     </Layout>
   );
