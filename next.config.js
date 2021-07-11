@@ -114,4 +114,8 @@ config.experimental = { optimizeImages: true, optimizeCss: true };
 
 config.productionBrowserSourceMaps = true;
 
+config.images = {
+  domains: [],
+};
+
 module.exports = config;

@@ -41,7 +41,7 @@ export const ArticleTile = ({
         </Link>
         <p className={style.meta}>
           {favicon && (
-            <Image
+            <img
               loading="lazy"
               src={favicon}
               width={16}
