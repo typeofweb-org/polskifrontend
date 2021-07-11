@@ -146,8 +146,8 @@ describe('getYoutubeRss', () => {
     );
   });
   it('return undefined when given url without channelId or userId', () => {
-    expect(
+    expect(() =>
       getYouTubeRss('https://www.youtube.com/watch?v=pHlqEvAwdVc&list=RDpHlqEvAwdVc&start_radio=1'),
-    ).toBe(undefined);
+    ).toThrowError(/Bad Request/);
   });
 });

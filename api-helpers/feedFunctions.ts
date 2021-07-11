@@ -7,9 +7,15 @@ import { EMPTY, from, of } from 'rxjs';
 import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
 
-import { getBlogName, getFavicon } from './contentCreatorFunctions';
+import {
+  getBlogName,
+  getFavicon,
+  getYouTubeChannelIdFromUrl,
+  getYouTubeUserFromUrl,
+} from './contentCreatorFunctions';
 import { logger } from './logger';
 import { streamToRx } from './rxjs-utils';
+import { getYouTubeChannelFavicon } from './youtube';
 
 const MAX_CONCURRENCY = 5;
 const MAX_FETCHING_TIME = ms('6 s');
@@ -41,10 +47,7 @@ function getFeedStreamFor(blog: Blog) {
     mergeMap((res) => {
       logger.debug(`Got stream for blog ${blog.name}`);
       const charset = getContentTypeParams(res.headers.get('content-type') || '').charset;
-      const responseStream = maybeTranslate(
-        (res.body as unknown) as NodeJS.ReadableStream,
-        charset,
-      );
+      const responseStream = maybeTranslate(res.body as unknown as NodeJS.ReadableStream, charset);
       logger.debug(`Translated ${blog.name}`);
       const feedparser = new FeedParser({});
       return streamToRx<FeedParser>(responseStream.pipe(feedparser)).pipe(
@@ -78,35 +81,36 @@ function maybeTranslate(res: NodeJS.ReadableStream, charset: string | undefined)
   return res;
 }
 
-const feedParserItemToArticle = (now: Date) => (blogId: Blog['id']) => (
-  item: FeedParser.Item,
-): Prisma.ArticleCreateInput => {
-  logger.debug(`Mapping articles for blog ID ${blogId}`);
+const feedParserItemToArticle =
+  (now: Date) =>
+  (blogId: Blog['id']) =>
+  (item: FeedParser.Item): Prisma.ArticleCreateInput => {
+    logger.debug(`Mapping articles for blog ID ${blogId}`);
 
-  const description =
-    item.summary ||
-    item.description ||
-    item.meta.description ||
-    // @todo legacy ?
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    ((item as any)?.['media:group']?.['media:description']?.['#'] as string | undefined) ||
-    null;
+    const description =
+      item.summary ||
+      item.description ||
+      item.meta.description ||
+      // @todo legacy ?
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      ((item as any)?.['media:group']?.['media:description']?.['#'] as string | undefined) ||
+      null;
 
-  const article: Prisma.ArticleCreateInput = {
-    title: item.title,
-    href: item.link,
-    description,
-    publishedAt: item.pubdate || now,
-    slug: Slugify(item.title, { lower: true }),
-    blog: {
-      connect: {
-        id: blogId,
+    const article: Prisma.ArticleCreateInput = {
+      title: item.title,
+      href: item.link,
+      description,
+      publishedAt: item.pubdate || now,
+      slug: Slugify(item.title, { lower: true }),
+      blog: {
+        connect: {
+          id: blogId,
+        },
       },
-    },
+    };
+    logger.debug(article, 'Mapping done!');
+    return article;
   };
-  logger.debug(article, 'Mapping done!');
-  return article;
-};
 
 const getNewArticlesForBlog = (now: Date) => (blog: Blog) => {
   return getFeedStreamFor(blog).pipe(
@@ -166,7 +170,7 @@ const getUpdatedInfoFor = (blog: Blog) => {
       return EMPTY;
     }),
     mergeMap((res) => from(res.text())),
-    map((text) => getBlogInfoFromRss(text, blog)),
+    mergeMap((text) => from(getBlogInfoFromRss(text, blog))),
     map((updatedInfo) => {
       logger.debug(`Got updated info for blog: ${updatedInfo.name || blog.name}`);
       return {
@@ -177,12 +181,18 @@ const getUpdatedInfoFor = (blog: Blog) => {
   );
 };
 
-const getBlogInfoFromRss = (text: string, blog: Blog) => {
-  const $ = Cheerio.load(text, { xmlMode: true, decodeEntities: true });
+const getBlogInfoFromRss = async (rssContent: string, blog: Blog) => {
+  const channelId = getYouTubeChannelIdFromUrl(blog.href);
+  const username = getYouTubeUserFromUrl(blog.href);
+
+  const $ = Cheerio.load(rssContent, { xmlMode: true, decodeEntities: true });
   const type = blog.rss.includes('youtube.com') ? 'youtube' : 'other';
 
   const blogName = getBlogName($) || undefined;
-  const favicon = getFavicon($) || undefined;
+  const favicon =
+    (type === 'youtube' ? await getYouTubeChannelFavicon({ channelId, username }) : '') ||
+    getFavicon($) ||
+    undefined;
 
   const name = blogName ? (type === 'youtube' ? `${blogName} YouTube` : blogName) : undefined;
   const slug = name ? Slugify(name, { lower: true }) : undefined;

@@ -5,6 +5,8 @@ import type { PrismaClient } from '@prisma/client';
 import Cheerio from 'cheerio';
 import Slugify from 'slugify';
 
+import { getYouTubeChannelFavicon } from './youtube';
+
 const NEVER = new Date(0);
 const YOUTUBE_REGEX = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;
 const YOUTUBE_CHANNEL_ID_REGEX = /channel\/(.*?)(\/|$)/;
@@ -43,9 +45,9 @@ type BlogType = 'youtube' | 'other';
 const getBlogData = async (
   url: string,
 ): Promise<{ readonly data: BlogData; readonly type: BlogType }> => {
-  const youtubeRss = getYouTubeRss(url);
-  if (youtubeRss) {
-    return { data: await getBlogDataForYouTubeRss(url, youtubeRss), type: 'youtube' };
+  const youtubeRssUrl = getYouTubeRss(url);
+  if (youtubeRssUrl) {
+    return { data: await getBlogDataForYouTubeRss(url, youtubeRssUrl), type: 'youtube' };
   }
   return { data: await getBlogDataForUrl(url), type: 'other' };
 };
@@ -67,29 +69,36 @@ const getYouTubeChannelFeedUrl = (url: string) => {
   if (getYouTubeUserFromUrl(url)) {
     return `https://www.youtube.com/feeds/videos.xml?user=${getYouTubeUserFromUrl(url) as string}`;
   }
-  return undefined;
+  throw Boom.badRequest();
 };
 
-const getYouTubeChannelIdFromUrl = (url: string) => {
+export const getYouTubeChannelIdFromUrl = (url: string) => {
   const channelId = YOUTUBE_CHANNEL_ID_REGEX.exec(url)?.[1];
   return channelId;
 };
 
-const getYouTubeUserFromUrl = (url: string) => {
+export const getYouTubeUserFromUrl = (url: string) => {
   const user = YOUTUBE_USER_REGEX.exec(url)?.[1];
   return user;
 };
 
-const getBlogDataForYouTubeRss = async (url: string, youtubeRss: string) => {
-  const response = await fetch(youtubeRss);
-  const xmlText = await response.text();
+const getBlogDataForYouTubeRss = async (url: string, youtubeRssUrl: string) => {
+  const channelId = getYouTubeChannelIdFromUrl(url);
+  const username = getYouTubeUserFromUrl(url);
+
+  const [favicon, rssResponse] = await Promise.all([
+    getYouTubeChannelFavicon({ channelId, username }),
+    fetch(youtubeRssUrl),
+  ]);
+
+  const xmlText = await rssResponse.text();
   if (xmlText) {
     const $ = Cheerio.load(xmlText, { xmlMode: true, decodeEntities: true });
     return {
       name: getBlogName($),
       href: url,
-      favicon: 'https://www.youtube.com/s/desktop/d743f786/img/favicon_48.png',
-      rss: youtubeRss,
+      favicon: favicon,
+      rss: youtubeRssUrl,
     };
   }
   throw Boom.badData();

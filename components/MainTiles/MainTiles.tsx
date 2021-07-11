@@ -41,7 +41,7 @@ export const MainTiles = memo<MainTilesProps>((props) => {
       <div className={styles.buttons}>
         <Link href="/zglos-serwis" passHref>
           <Button as="a" icon="icon-plus">
-            Zgłoś serwis
+            Dodaj serwis
           </Button>
         </Link>
         <DisplayStyleSwitch value={props.displayStyle} onChange={changeDisplayStyle} />

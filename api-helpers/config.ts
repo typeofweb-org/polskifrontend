@@ -9,6 +9,7 @@ type NameToType = {
   readonly NODE_ENV: 'production' | 'development';
   readonly NEXT_PUBLIC_SUPABASE_URL: string;
   readonly NEXT_PUBLIC_SUPABASE_ANON_KEY: string;
+  readonly YOUTUBE_API_KEY: string;
 
   readonly NEXT_PUBLIC_ALGOLIA_APP_ID: string;
   readonly ALGOLIA_API_SECRET: string;

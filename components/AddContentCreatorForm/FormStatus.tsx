@@ -11,12 +11,13 @@ type Props = {
 };
 
 const errorToMessage: Record<number, string> = {
-  409: 'Blog o podanym adresie został już dodany do naszej bazy danych. Jeżeli nie pojawiają się najnowsze wpisy, lub masz inne zastrzeżenia - proszę skontaktuj się z administratorem.',
-  422: 'Nie udało się odnaleźć pliku RSS na twojej stronie, jeśli ten błąd się powtarza, proszę skontaktuj się z administratorem.',
+  409: 'Blog o podanym adresie został już dodany do naszej bazy danych. Jeżeli nie pojawiają się najnowsze wpisy lub masz inne zastrzeżenia – proszę skontaktuj się z administratorem.',
+  400: `Nie udało się wyciągnąć ID kanału z podanego adresu YouTube. Postaraj się znaleźć adres w postaci https://youtube.com/channel/{ID_KANAŁU} lub https://youtube.com/user/{ID_UŻYTKOWNIKA}`,
+  422: 'Nie udało się odnaleźć pliku RSS na twojej stronie. Upewnij się, że strona posiada RSS/ATOM i link do niego jest poprawnie dodany w sekcji <head> na stronie.',
 };
 
 const defaultErrorMessage =
-  'Wystąpił błąd podczas dodawania nowego serwisu, sprawdź poprawność danych i spróbuj ponownie';
+  'Wystąpił błąd podczas dodawania nowego serwisu. Sprawdź poprawność danych i spróbuj ponownie.';
 
 function getStatusMessage({ status, errorCode }: Props) {
   switch (status) {
