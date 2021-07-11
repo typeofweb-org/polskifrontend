@@ -115,7 +115,7 @@ config.experimental = { optimizeImages: true, optimizeCss: true };
 config.productionBrowserSourceMaps = true;
 
 config.images = {
-  domains: [],
+  domains: ['res.cloudinary.com'],
 };
 
 module.exports = config;

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { memo } from 'react';
 
@@ -16,7 +17,6 @@ const linkLabels: Record<ReturnType<typeof detectContentGenre>, string> = {
 };
 
 type ArticleSectionProps = Pick<ArticlePageProps, 'article'>;
-
 export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
   const readableDate = formatDate(article.publishedAt);
 
@@ -28,7 +28,7 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
         <Link href={addTrackingToLink(article.blog.href, { utm_medium: 'article_page' })}>
           <a target="_blank" rel="noopener noreferrer">
             {article.blog.favicon && (
-              <img
+              <Image
                 loading="lazy"
                 src={article.blog.favicon}
                 alt=""

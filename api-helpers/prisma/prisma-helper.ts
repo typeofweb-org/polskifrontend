@@ -1,6 +1,7 @@
 import Boom from '@hapi/boom';
 
-import { logger } from './logger';
+import { logger } from '../logger';
+
 import type { PrismaError } from './prisma-errors';
 
 export function isPrismaError(err: any): err is PrismaError {

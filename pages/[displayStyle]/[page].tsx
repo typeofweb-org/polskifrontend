@@ -4,8 +4,8 @@ import {
   getLastArticlePage,
   getLastBlogPage,
 } from '../../api-helpers/articles';
-import { closeConnection, openConnection } from '../../api-helpers/db';
 import { HTTPNotFound } from '../../api-helpers/errors';
+import { closeConnection, openConnection } from '../../api-helpers/prisma/db';
 import { Layout } from '../../components/Layout';
 import { Main } from '../../components/Main/Main';
 import { MAX_PAGES, REVALIDATION_TIME } from '../../constants';

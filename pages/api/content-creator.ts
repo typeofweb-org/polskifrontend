@@ -4,7 +4,7 @@ import { string, object } from 'yup';
 
 import { withAsync, withDb, withMethods, withValidation } from '../../api-helpers/api-hofs';
 import { addContentCreator } from '../../api-helpers/contentCreatorFunctions';
-import { sendNewCreatorNotification } from '../../api-helpers/mailFunctions';
+import { sendNewCreatorNotification } from '../../api-helpers/external-services/mailgun';
 
 export default withAsync(
   withMethods({
