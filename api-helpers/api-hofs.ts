@@ -11,9 +11,9 @@ import type { AnySchema, ObjectSchema, InferType } from 'yup';
 import { supabase } from '../utils/api/initSupabase';
 import { initSentry } from '../utils/sentry';
 
-import { closeConnection, openConnection } from './db';
 import { logger } from './logger';
-import { handlePrismaError } from './prisma-helper';
+import { closeConnection, openConnection } from './prisma/db';
+import { handlePrismaError } from './prisma/prisma-helper';
 
 type SomeSchema = Record<string, AnySchema<any, any, any>>;
 type AllAllowedFields = 'body' | 'query';
@@ -43,30 +43,31 @@ export const withValidation = <
     | {}
     | { readonly body: ObjectSchema<Body> }
     | { readonly query: ObjectSchema<Query> }
-    | { readonly body: ObjectSchema<Body>; readonly query: ObjectSchema<Query> }
+    | { readonly body: ObjectSchema<Body>; readonly query: ObjectSchema<Query> },
 >(
   schema: Schema,
 ) => {
   const schemaObj = object(schema).unknown(true).required();
 
   return <R extends OurNextApiRequest>(
-    handler: (
-      req: R & InferType<typeof schemaObj> & { readonly _rawBody: any },
-      res: NextApiResponse,
-    ) => unknown,
-  ) => async (req: R, res: NextApiResponse) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-    const rawBody = (req as any).body;
+      handler: (
+        req: R & InferType<typeof schemaObj> & { readonly _rawBody: any },
+        res: NextApiResponse,
+      ) => unknown,
+    ) =>
+    async (req: R, res: NextApiResponse) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      const rawBody = (req as any).body;
 
-    try {
-      // eslint-disable-next-line no-var
-      var validatedValues = await schemaObj.validate(req, { abortEarly: false });
-    } catch (err) {
-      throw Boom.badRequest((err as Error | undefined)?.message, err);
-    }
+      try {
+        // eslint-disable-next-line no-var
+        var validatedValues = await schemaObj.validate(req, { abortEarly: false });
+      } catch (err) {
+        throw Boom.badRequest((err as Error | undefined)?.message, err);
+      }
 
-    return handler(unsafe__set(validatedValues, '_rawBody', rawBody) as any, res);
-  };
+      return handler(unsafe__set(validatedValues, '_rawBody', rawBody) as any, res);
+    };
 };
 
 export const withAsync = (
@@ -111,21 +112,23 @@ export const withAsync = (
   };
 };
 
-export const withDb = <R extends OurNextApiRequest>(
-  handler: (
-    req: R & { readonly db: PrismaClient },
-    res: NextApiResponse,
-  ) => Promise<unknown> | unknown,
-) => async (req: R, res: NextApiResponse) => {
-  try {
-    const prisma = openConnection();
-    return handler(unsafe__set(req, 'db', prisma), res);
-  } catch (err) {
-    handlePrismaError(err);
-  } finally {
-    await closeConnection();
-  }
-};
+export const withDb =
+  <R extends OurNextApiRequest>(
+    handler: (
+      req: R & { readonly db: PrismaClient },
+      res: NextApiResponse,
+    ) => Promise<unknown> | unknown,
+  ) =>
+  async (req: R, res: NextApiResponse) => {
+    try {
+      const prisma = openConnection();
+      return handler(unsafe__set(req, 'db', prisma), res);
+    } catch (err) {
+      handlePrismaError(err);
+    } finally {
+      await closeConnection();
+    }
+  };
 
 export function withAuth(role?: UserRole) {
   return <R extends OurNextApiRequest>(

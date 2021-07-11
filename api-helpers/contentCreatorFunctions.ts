@@ -5,7 +5,7 @@ import type { PrismaClient } from '@prisma/client';
 import Cheerio from 'cheerio';
 import Slugify from 'slugify';
 
-import { getYouTubeChannelFavicon } from './youtube';
+import { getYouTubeChannelFavicon } from './external-services/youtube';
 
 const NEVER = new Date(0);
 const YOUTUBE_REGEX = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;

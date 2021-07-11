@@ -13,9 +13,9 @@ import {
   getYouTubeChannelIdFromUrl,
   getYouTubeUserFromUrl,
 } from './contentCreatorFunctions';
+import { getYouTubeChannelFavicon } from './external-services/youtube';
 import { logger } from './logger';
 import { streamToRx } from './rxjs-utils';
-import { getYouTubeChannelFavicon } from './youtube';
 
 const MAX_CONCURRENCY = 5;
 const MAX_FETCHING_TIME = ms('6 s');

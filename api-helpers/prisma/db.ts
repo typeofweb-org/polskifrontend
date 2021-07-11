@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { getConfig } from './config';
+import { getConfig } from '../config';
 
 let mutableOpenConnections = 0;
 let mutablePrisma: PrismaClient | undefined;

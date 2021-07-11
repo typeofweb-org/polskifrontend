@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import type { HomePageArticle, HomePageBlog } from '../../types';
@@ -11,7 +12,6 @@ export type ArticleTileArticle = Pick<
   HomePageArticle,
   'title' | 'publishedAt' | 'excerpt' | 'href' | 'slug'
 >;
-
 export type ArticleTileBlog = Pick<HomePageBlog, 'name' | 'favicon'>;
 
 type ArticleTileProps = {
@@ -40,7 +40,7 @@ export const ArticleTile = ({
         </Link>
         <p className={style.meta}>
           {favicon && (
-            <img
+            <Image
               loading="lazy"
               src={favicon}
               width={16}

@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import { memo } from 'react';
 
 import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
@@ -18,7 +19,7 @@ export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
           <h3 className={clsx(styles.gridItem, styles.blogHeader)}>
             <a href={blog.href} target="_blank" rel="noopener noreferrer">
               {blog.favicon && (
-                <img
+                <Image
                   loading="lazy"
                   src={blog.favicon}
                   alt=""

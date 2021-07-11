@@ -1,6 +1,6 @@
 import * as Googleapis from 'googleapis';
 
-import { getConfig } from './config';
+import { getConfig } from '../config';
 
 const DEFAULT_AVATAR = 'https://www.youtube.com/s/desktop/d743f786/img/favicon_48.png';
 

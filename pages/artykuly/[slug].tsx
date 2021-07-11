@@ -1,7 +1,7 @@
 import { getArticleBySlug, getArticlesSlugs } from '../../api-helpers/articles';
-import { closeConnection, openConnection } from '../../api-helpers/db';
 import { HTTPNotFound } from '../../api-helpers/errors';
 import { DEFAULT_ARTICLES } from '../../api-helpers/general-feed';
+import { closeConnection, openConnection } from '../../api-helpers/prisma/db';
 import { ArticleSection } from '../../components/ArticleSection/ArticleSection';
 import { Layout } from '../../components/Layout';
 import type { InferGetStaticPropsContext, InferGetStaticPropsType2 } from '../../types';
