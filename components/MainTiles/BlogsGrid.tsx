@@ -17,14 +17,16 @@ export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
         <li className={styles.blog} key={blog.id}>
           <h3 className={clsx(styles.gridItem, styles.blogHeader)}>
             <a href={blog.href} target="_blank" rel="noopener noreferrer">
-              <img
-                loading="lazy"
-                src={blog.favicon || undefined}
-                alt=""
-                className={styles.favicon}
-                height={16}
-                width={16}
-              />
+              {blog.favicon && (
+                <img
+                  loading="lazy"
+                  src={blog.favicon}
+                  alt=""
+                  className={styles.favicon}
+                  height={16}
+                  width={16}
+                />
+              )}
               {blog.name}
             </a>
           </h3>

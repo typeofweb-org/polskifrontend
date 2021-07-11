@@ -1,6 +1,7 @@
 import 'normalize.css/normalize.css';
 import '../global.scss';
 import '../icomoon-v1.0/style.css';
+import { Auth } from '@supabase/ui';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -8,6 +9,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import { pageview } from '../utils/analytics';
+import { supabase } from '../utils/api/initSupabase';
 import { initSentry } from '../utils/sentry';
 
 const meta = {
@@ -89,7 +91,9 @@ export default function MyApp({
           crossOrigin="anonymous"
         />
       </Head>
-      <Component {...pageProps} err={err} />
+      <Auth.UserContextProvider supabaseClient={supabase}>
+        <Component {...pageProps} err={err} />
+      </Auth.UserContextProvider>
     </>
   );
 }

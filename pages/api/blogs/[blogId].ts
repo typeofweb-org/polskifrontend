@@ -2,13 +2,7 @@ import Boom from '@hapi/boom';
 import type { InferType } from 'yup';
 import { boolean, object, string } from 'yup';
 
-import {
-  withAsync,
-  withValidation,
-  withAuth,
-  withMethods,
-  withDb,
-} from '../../../api-helpers/api-hofs';
+import { withAsync, withValidation, withAuth, withMethods } from '../../../api-helpers/api-hofs';
 import { addContentCreator } from '../../../api-helpers/contentCreatorFunctions';
 
 const cuidValidator = string()
@@ -29,81 +23,69 @@ export default withAsync(
         query: object({
           blogId: cuidValidator,
         }),
-      })(
-        withDb(async (req) => {
-          const blog = await req.db.blog.findUnique({
-            where: {
-              id: req.query.blogId,
-            },
-          });
+      })(async (req) => {
+        const blog = await req.db.blog.findUnique({
+          where: {
+            id: req.query.blogId,
+          },
+        });
 
-          if (blog) {
-            return blog;
-          }
+        if (blog) {
+          return blog;
+        }
 
-          throw Boom.notFound();
-        }),
-      ),
+        throw Boom.notFound();
+      }),
 
       PUT: withValidation({
         query: object({
           blogId: cuidValidator,
         }),
         body: blogIdRequestBody,
-      })(
-        withDb(async (req) => {
-          const blog = await req.db.blog.update({
-            where: {
-              id: req.query.blogId,
-            },
-            data: req.body,
-          });
+      })(async (req) => {
+        const blog = await req.db.blog.update({
+          where: {
+            id: req.query.blogId,
+          },
+          data: req.body,
+        });
 
-          return blog;
-        }),
-      ),
+        return blog;
+      }),
 
       PATCH: withValidation({
         query: object({
           blogId: cuidValidator,
         }),
-      })(
-        withDb(async (req) => {
-          const existingBlog = await req.db.blog.findUnique({ where: { id: req.query.blogId } });
-          await req.db.article.deleteMany({ where: { blogId: req.query.blogId } });
-          await req.db.blog.delete({ where: { id: req.query.blogId } });
+      })(async (req) => {
+        const existingBlog = await req.db.blog.findUnique({ where: { id: req.query.blogId } });
+        await req.db.article.deleteMany({ where: { blogId: req.query.blogId } });
+        await req.db.blog.delete({ where: { id: req.query.blogId } });
 
-          if (!existingBlog) {
-            return null;
-          }
+        if (!existingBlog) {
+          return null;
+        }
 
-          const blog = await addContentCreator(
-            existingBlog.href,
-            existingBlog.creatorEmail!,
-            req.db,
-          );
+        const blog = await addContentCreator(existingBlog.href, existingBlog.creatorEmail!, req.db);
 
-          const savedBlog = await req.db.blog.update({
-            data: { ...blog, isPublic: existingBlog.isPublic },
-            where: { id: blog.id },
-          });
+        const savedBlog = await req.db.blog.update({
+          data: { ...blog, isPublic: existingBlog.isPublic },
+          where: { id: blog.id },
+        });
 
-          return savedBlog;
-        }),
-      ),
+        return savedBlog;
+      }),
 
       DELETE: withValidation({
         query: object({
           blogId: cuidValidator,
         }),
-      })(
-        withDb(async (req) => {
-          await req.db.article.deleteMany({ where: { blogId: req.query.blogId } });
-          await req.db.blog.delete({ where: { id: req.query.blogId } });
+      })(async (req) => {
+        await req.db.article.deleteMany({ where: { blogId: req.query.blogId } });
+        await req.db.blog.delete({ where: { id: req.query.blogId } });
 
-          return null;
-        }),
-      ),
+        return null;
+      }),
     }),
   ),
 );

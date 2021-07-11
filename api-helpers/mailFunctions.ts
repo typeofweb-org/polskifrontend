@@ -40,12 +40,9 @@ export const sendNewCreatorNotification = async (
   { name, href, rss, creatorEmail }: Blog,
   prisma: PrismaClient,
 ) => {
-  const admins = (await prisma.user.findMany({
+  const admins = (await prisma.member.findMany({
     where: {
       role: UserRole.ADMIN,
-      email: {
-        not: null,
-      },
     },
     select: {
       email: true,

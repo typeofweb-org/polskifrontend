@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom';
 import { boolean, object } from 'yup';
 
-import { withAsync, withValidation, withAuth, withDb } from '../../../api-helpers/api-hofs';
+import { withAsync, withValidation, withAuth } from '../../../api-helpers/api-hofs';
 
 export default withAsync(
   withAuth('ADMIN')(
@@ -9,25 +9,23 @@ export default withAsync(
       query: object({
         isPublic: boolean().optional(),
       }).optional(),
-    })(
-      withDb(async (req) => {
-        if (req.method !== 'GET') {
-          throw Boom.notFound();
-        }
+    })(async (req) => {
+      if (req.method !== 'GET') {
+        throw Boom.notFound();
+      }
 
-        const blogs = await req.db.blog.findMany({
-          where: {
-            isPublic: req.query.isPublic,
-          },
-          orderBy: {
-            id: 'desc',
-          },
-        });
+      const blogs = await req.db.blog.findMany({
+        where: {
+          isPublic: req.query.isPublic,
+        },
+        orderBy: {
+          id: 'desc',
+        },
+      });
 
-        return {
-          data: blogs,
-        };
-      }),
-    ),
+      return {
+        data: blogs,
+      };
+    }),
   ),
 );

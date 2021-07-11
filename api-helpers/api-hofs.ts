@@ -1,14 +1,14 @@
 import type { IncomingMessage } from 'http';
 
 import Boom from '@hapi/boom';
-import type { PrismaClient, UserRole } from '@prisma/client';
+import type { Member, PrismaClient, UserRole } from '@prisma/client';
 import * as Sentry from '@sentry/node';
+import type { User } from '@supabase/gotrue-js';
 import type { NextApiResponse, NextApiRequest } from 'next';
-import type { Session } from 'next-auth';
-import { getSession } from 'next-auth/client';
 import { object } from 'yup';
 import type { AnySchema, ObjectSchema, InferType } from 'yup';
 
+import { supabase } from '../utils/api/initSupabase';
 import { initSentry } from '../utils/sentry';
 
 import { closeConnection, openConnection } from './db';
@@ -47,11 +47,17 @@ export const withValidation = <
 >(
   schema: Schema,
 ) => {
-  const schemaObj = object(schema).required();
+  const schemaObj = object(schema).unknown(true).required();
 
   return <R extends OurNextApiRequest>(
-    handler: (req: R & InferType<typeof schemaObj>, res: NextApiResponse) => unknown,
+    handler: (
+      req: R & InferType<typeof schemaObj> & { readonly _rawBody: any },
+      res: NextApiResponse,
+    ) => unknown,
   ) => async (req: R, res: NextApiResponse) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    const rawBody = (req as any).body;
+
     try {
       // eslint-disable-next-line no-var
       var validatedValues = await schemaObj.validate(req, { abortEarly: false });
@@ -59,7 +65,7 @@ export const withValidation = <
       throw Boom.badRequest((err as Error | undefined)?.message, err);
     }
 
-    return handler(validatedValues as any, res);
+    return handler(unsafe__set(validatedValues, '_rawBody', rawBody) as any, res);
   };
 };
 
@@ -112,7 +118,7 @@ export const withDb = <R extends OurNextApiRequest>(
   ) => Promise<unknown> | unknown,
 ) => async (req: R, res: NextApiResponse) => {
   try {
-    const prisma = await openConnection();
+    const prisma = openConnection();
     return handler(unsafe__set(req, 'db', prisma), res);
   } catch (err) {
     handlePrismaError(err);
@@ -123,16 +129,27 @@ export const withDb = <R extends OurNextApiRequest>(
 
 export function withAuth(role?: UserRole) {
   return <R extends OurNextApiRequest>(
-    handler: (req: R & { readonly session: Session }, res: NextApiResponse) => unknown,
-  ) => async (req: R, res: NextApiResponse) => {
-    const session = await getSession({ req });
+    handler: (
+      req: R & { readonly session: { readonly user: User; readonly member: Member } } & {
+        readonly db: PrismaClient;
+      },
+      res: NextApiResponse,
+    ) => unknown,
+  ) =>
+    withDb<R>(async (req, res) => {
+      const session = await supabase.auth.api.getUserByCookie(req);
 
-    if (!session || (role && session.user.role !== role)) {
-      throw Boom.unauthorized();
-    }
+      if (!session?.user) {
+        throw Boom.unauthorized();
+      }
 
-    return handler(unsafe__set(req, 'session', session), res);
-  };
+      const member = await req.db.member.findUnique({ where: { id: session.user.id } });
+      if (!member || (role && member.role !== role)) {
+        throw Boom.unauthorized();
+      }
+
+      return handler(unsafe__set(req, 'session', { user: session.user, member }), res);
+    });
 }
 
 export function withMethods<R extends OurNextApiRequest>(

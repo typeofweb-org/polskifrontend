@@ -51,3 +51,6 @@ icomoon-v1.0/*
 !icomoon-v1.0/selection.json
 
 .vercel
+
+# Supabase
+.supabase

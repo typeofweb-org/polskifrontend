@@ -58,8 +58,7 @@ module.exports = {
   commentHeading: 'Stats from current PR',
   commentReleaseHeading: 'Stats from current release',
   // the command to build the app (app source should be in `.stats-app`)
-  appBuildCommand:
-    'cp .env-sample .env && NEXT_TELEMETRY_DISABLED=1 DATABASE_URL=$(yarn --silent heroku config:get DATABASE_URL -a polskifrontend)"?connection_limit=3" yarn next build',
+  appBuildCommand: 'cp .env-sample .env && NEXT_TELEMETRY_DISABLED=1 yarn next build',
   appStartCommand: 'NEXT_TELEMETRY_DISABLED=1 yarn next start --port $PORT',
   // the main branch to compare against (what PRs will be merging into)
   mainBranch: 'develop',

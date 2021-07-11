@@ -14,7 +14,8 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "react-app",
     "plugin:jsx-a11y/recommended",
-    "plugin:css-modules/recommended"
+    "plugin:css-modules/recommended",
+    "next"
   ],
   "rules": {
     "no-const-assign": "error",
