@@ -42,11 +42,7 @@ export const AdminPanel = () => {
     [changeQuery],
   );
 
-  if (!blogs) {
-    return <p>Ładowanie...</p>;
-  }
-
-  const tableData = blogs.map((blog) => ({
+  const tableData = blogs?.map((blog) => ({
     ...blog,
     isPublic: blog.isPublic ? '✅' : '❌',
     lastArticlePublishedAt: blog.lastArticlePublishedAt
@@ -81,7 +77,7 @@ export const AdminPanel = () => {
             <option value="false">Tylko ukryte</option>
           </select>
         </label>
-        <Table columns={columns} data={tableData} />
+        {tableData && <Table columns={columns} data={tableData} />}
       </section>
     </AuthGuard>
   );
