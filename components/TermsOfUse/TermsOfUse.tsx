@@ -38,7 +38,7 @@ export const TermsOfUse = () => (
             <li>
               Serwis służy do prezentacji najnowszych artykułów, podcastów lub filmów (zwanych
               dalej: „Artykułami”) z polskich blogów, podcastów i kanałów YouTube (zwanych dalej:
-              „Blogami”) o tematyce front-endu. Usługodawca świadczy usługę polegającą na
+              „Blogami”) o tematyce frontendu. Usługodawca świadczy usługę polegającą na
               udostępnianiu infrastruktury teleinformatycznej celem dodawania i&nbsp;przechowywania
               zbioru Blogów jak i&nbsp;Artykułów, oraz ich wyświetlania.
             </li>

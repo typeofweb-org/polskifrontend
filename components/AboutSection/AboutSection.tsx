@@ -25,9 +25,9 @@ export const AboutSection = () => (
         <strong>całych blogów</strong>, a nie pojedynczych artykułów. Z tego powodu selekcji treści
         mogę dokonywać jedynie na etapie dodawania danej strony do serwisu. Jako, że nie każdy pisze
         tylko i wyłącznie o frontendzie, to czasem może się tutaj pojawić wpis na temat, na
-        przykład, PHP... Wydaje mi się jednak, że każdy blog czy strona, która pisze{' '}
+        przykład, PHP… Wydaje mi się jednak, że każdy blog czy strona, która pisze{' '}
         <strong>dużo o frontendzie, czy ogólniej o web developmencie</strong>, zasługuje by się
-        tutaj znaleźć... Nawet jeśli frontend to nie jedyny poruszany tam temat.
+        tutaj znaleźć… Nawet jeśli frontend to nie jedyny poruszany tam temat.
       </p>
       <p>
         Jeżeli więc znasz (lub sam prowadzisz) jakiś blog, serwis lub stronę{' '}
@@ -42,7 +42,12 @@ export const AboutSection = () => (
       <p>
         A jeśli podoba Ci się moja idea i sam prowadzisz bloga o frontendzie, to oprócz zgłoszenia
         zachęcam również, do <strong>polecania tej strony</strong> swoim czytelnikom! Im większy
-        ruch tutaj <strong>tym większy ruch do Twojego bloga...</strong>
+        ruch tutaj <strong>tym większy ruch do Twojego bloga…</strong>
+      </p>
+      <p>
+        Od 2020 portal jest własnością <a href="https://typeofweb.com">Type of Web</a> i jest
+        rozwijany jako{' '}
+        <a href="https://github.com/typeofweb/polskifrontend">Open Source na GitHubie</a>!
       </p>
     </article>
   </section>
