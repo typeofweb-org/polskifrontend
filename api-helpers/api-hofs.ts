@@ -13,7 +13,7 @@ import { initSentry } from '../utils/sentry';
 
 import { logger } from './logger';
 import { closeConnection, openConnection } from './prisma/db';
-import { handlePrismaError } from './prisma/prisma-helper';
+import { handlePrismaError, isPrismaError } from './prisma/prisma-helper';
 
 type SomeSchema = Record<string, AnySchema<any, any, any>>;
 type AllAllowedFields = 'body' | 'query';
@@ -124,7 +124,11 @@ export const withDb =
       const prisma = openConnection();
       return handler(unsafe__set(req, 'db', prisma), res);
     } catch (err) {
-      handlePrismaError(err);
+      if (isPrismaError(err)) {
+        handlePrismaError(err);
+      } else {
+        throw err;
+      }
     } finally {
       await closeConnection();
     }
