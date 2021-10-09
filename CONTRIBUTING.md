@@ -21,7 +21,7 @@ Zachęcamy do otwierania Issues ze znalezionymi bugami i z sugestiami tego, co m
 ## Praca lokalna
 
 Przed przystąpieniem do pracy należy skopiować plik `.env-sample` do `.env`.
-Projekt uruchamiamy jednym poleceniem `yarn dev`. Spowoduje ono instalację wszystkich potrzebnych zależności, uruchomienie kontenera w Dockerze oraz nasze aplikacji.
+Projekt uruchamiamy jednym poleceniem `yarn dev`. Spowoduje ono instalację wszystkich potrzebnych zależności, uruchomienie kontenera w Dockerze oraz naszej aplikacji.
 Po chwili powinna być gotowa pod adresem http://localhost:3000/
 
 Gdy wszystko będzie już gotowe, to w drugim oknie terminala należy wpisać polecenie:
