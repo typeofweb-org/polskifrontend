@@ -8,7 +8,7 @@
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Dev
@@ -44,6 +44,7 @@ Ogromne podziękowania dla tych fantastycznych osób ([wyjaśnienie emoji](https
   </tr>
   <tr>
     <td align="center"><a href="http://szery.net.pl"><img src="https://avatars.githubusercontent.com/u/4786095?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Łukasz Wiśniewski</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=lukaszwisniewski88" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/PatrykBuniX"><img src="https://avatars.githubusercontent.com/u/45733298?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Patryk Górka</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=PatrykBuniX" title="Documentation">📖</a></td>
   </tr>
 </table>
 
