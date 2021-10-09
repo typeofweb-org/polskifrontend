@@ -102,7 +102,7 @@ export const withAsync = (
         Object.entries(err.output.headers).forEach(([key, val]) => val && res.setHeader(key, val));
         return res.status(err.output.statusCode).json(err.output.payload);
       } else {
-        logger.error(err);
+        logger.error(err instanceof Error ? err : { err });
         Sentry.captureException(err);
         return res.status(500).json(err);
       }
@@ -155,11 +155,9 @@ export function withAuth(role?: UserRole) {
     });
 }
 
-export function withMethods<R extends OurNextApiRequest>(
-  methods: {
-    readonly [key in HTTPMethod]?: (req: R, res: NextApiResponse) => unknown;
-  },
-) {
+export function withMethods<R extends OurNextApiRequest>(methods: {
+  readonly [key in HTTPMethod]?: (req: R, res: NextApiResponse) => unknown;
+}) {
   return (req: R, res: NextApiResponse) => {
     const reqMethod = req.method as HTTPMethod;
     const handler = methods[reqMethod];
