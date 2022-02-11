@@ -67,7 +67,7 @@
     "react-instantsearch-dom": "6.12.1",
     "rxjs": "7.4.0",
     "slugify": "1.6.1",
-    "superjson": "1.7.5",
+    "superjson": "1.8.1",
     "xss": "1.0.10",
     "yup": "0.32.9"
   },
