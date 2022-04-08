@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 
 import { pageview } from '../utils/analytics';
 import { supabase } from '../utils/api/initSupabase';
-import { initSentry } from '../utils/sentry';
 
 const meta = {
   title: 'Polski Frontend',
@@ -18,16 +17,7 @@ const meta = {
 };
 export const titleTemplate = `%s | ${meta.title}`;
 
-initSentry();
-
-// Workaround for https://github.com/vercel/next.js/issues/8592
-type SentryErrorProps = { readonly err: unknown };
-
-export default function MyApp({
-  Component,
-  pageProps,
-  err,
-}: AppProps<SentryErrorProps> & SentryErrorProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   const { asPath, events } = useRouter();
 
   useEffect(() => {
@@ -92,7 +82,7 @@ export default function MyApp({
         />
       </Head>
       <Auth.UserContextProvider supabaseClient={supabase}>
-        <Component {...pageProps} err={err} />
+        <Component {...pageProps} />
       </Auth.UserContextProvider>
     </>
   );

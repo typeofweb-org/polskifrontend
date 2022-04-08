@@ -23,7 +23,8 @@
       {
         "name": "typescript-plugin-css-modules"
       }
-    ]
+    ],
+    "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"],
   "exclude": ["node_modules", "cypress"]

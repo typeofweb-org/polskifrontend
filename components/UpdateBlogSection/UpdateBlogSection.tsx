@@ -12,7 +12,7 @@ type Props = {
 
 export const UpdateBlogSection = memo<Props>(({ blogId }) => {
   return (
-    <AuthGuard role="ADMIN">
+    <AuthGuard userRole="ADMIN">
       <section className={styles.section}>
         <h2 className={styles.heading}>Aktualizacja danych</h2>
         <UpdateBlogForm blogId={blogId} />

@@ -64,7 +64,7 @@ export const AdminPanel = () => {
   }));
 
   return (
-    <AuthGuard role="ADMIN">
+    <AuthGuard userRole="ADMIN">
       <section className={styles.section}>
         <h2 className={styles.heading}>Admin Panel - Blogi</h2>
         <label className={styles.publicSelectLabel}>

@@ -12,10 +12,9 @@
     "plugin:import/errors",
     "plugin:import/typescript",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "react-app",
     "plugin:jsx-a11y/recommended",
     "plugin:css-modules/recommended",
-    "next"
+    "next/core-web-vitals"
   ],
   "rules": {
     "no-const-assign": "error",

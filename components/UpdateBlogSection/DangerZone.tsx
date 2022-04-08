@@ -57,10 +57,20 @@ export const DangerZone = ({ blogId }: DangerZoneProps) => {
             Blog oraz wszystkie jego artykuły zostaną nieodwracalnie usunięte z serwisu
             polskifrontend.pl
           </p>
-          <Button buttonStyle="danger" onClick={handleDelete}>
+          <Button
+            buttonStyle="danger"
+            onClick={() => {
+              void handleDelete();
+            }}
+          >
             Usuń bloga
           </Button>
-          <Button buttonStyle="danger" onClick={handleReset}>
+          <Button
+            buttonStyle="danger"
+            onClick={() => {
+              void handleReset();
+            }}
+          >
             Zresetuj bloga
           </Button>
         </li>

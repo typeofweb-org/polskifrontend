@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import type { ReactNode } from 'react';
 import React, { useEffect } from 'react';
 
 import { useQuery } from '../../hooks/useQuery';
@@ -32,7 +33,8 @@ export type AuthHookRet =
     };
 
 type Props = {
-  readonly role?: 'ADMIN';
+  readonly userRole?: 'ADMIN';
+  readonly children?: ReactNode;
 };
 
 const useAuth = (): AuthHookRet => {
@@ -58,7 +60,7 @@ const useAuth = (): AuthHookRet => {
   }
 };
 
-export const AuthGuard: React.FC<Props> = ({ children, role }) => {
+export const AuthGuard: React.FC<Props> = ({ children, userRole: role }) => {
   const { isLoading, isLoggedIn, user } = useAuth();
   const { push } = useRouter();
 

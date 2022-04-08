@@ -2,14 +2,13 @@ import type { IncomingMessage } from 'http';
 
 import Boom from '@hapi/boom';
 import type { Member, PrismaClient, UserRole } from '@prisma/client';
-import * as Sentry from '@sentry/node';
 import type { User } from '@supabase/gotrue-js';
 import type { NextApiResponse, NextApiRequest } from 'next';
 import { object } from 'yup';
 import type { AnySchema, ObjectSchema, InferType } from 'yup';
+import type { AssertsShape } from 'yup/lib/object';
 
 import { supabase } from '../utils/api/initSupabase';
-import { initSentry } from '../utils/sentry';
 
 import { logger } from './logger';
 import { closeConnection, openConnection } from './prisma/db';
@@ -66,15 +65,17 @@ export const withValidation = <
         throw Boom.badRequest((err as Error | undefined)?.message, err);
       }
 
-      return handler(unsafe__set(validatedValues, '_rawBody', rawBody) as any, res);
+      return handler(
+        unsafe__set(validatedValues, '_rawBody', rawBody) as R &
+          AssertsShape<Schema> & { readonly _rawBody: any },
+        res,
+      );
     };
 };
 
 export const withAsync = (
   handler: (req: OurNextApiRequest, res: NextApiResponse) => Promise<unknown> | unknown,
 ) => {
-  initSentry();
-
   return async <R extends OurNextApiRequest>(req: R, res: NextApiResponse) => {
     try {
       const result = await handler(req, res);
@@ -103,11 +104,9 @@ export const withAsync = (
         return res.status(err.output.statusCode).json(err.output.payload);
       } else {
         logger.error(err instanceof Error ? err : { err });
-        Sentry.captureException(err);
         return res.status(500).json(err);
       }
     } finally {
-      await Sentry.flush(2000).catch(() => {});
     }
   };
 };
