@@ -4,7 +4,7 @@ import type { InferType, ObjectSchema } from 'yup';
 
 const replacementsPattern = /\[([^[\]\s]+)\]/gi;
 
-export const useSmartQueryParams = <S extends ObjectSchema<any>>(schema: S) => {
+export const useSmartQueryParams = <S extends ObjectSchema<{}>>(schema: S) => {
   const { pathname, query: routerQuery, push } = useRouter();
 
   /**
@@ -20,9 +20,7 @@ export const useSmartQueryParams = <S extends ObjectSchema<any>>(schema: S) => {
         matches.some(([, replacement]) => key === replacement),
       ),
     );
-    const query = schema.validateSync(
-      Object.fromEntries(Object.entries(routerQuery).filter(([key]) => !(key in params))),
-    );
+    const query = schema.validateSync(getQueryWithoutNextParams<S>(routerQuery, params));
 
     return {
       params,
@@ -32,9 +30,7 @@ export const useSmartQueryParams = <S extends ObjectSchema<any>>(schema: S) => {
 
   const changeQuery = useCallback(
     (query: InferType<S>) => {
-      const filteredQuery = Object.fromEntries(
-        Object.entries(query).filter(([key]) => !(key in params)),
-      );
+      const filteredQuery = getQueryWithoutNextParams<S>(query, params);
 
       const result = schema.validateSync(filteredQuery);
 
@@ -50,3 +46,10 @@ export const useSmartQueryParams = <S extends ObjectSchema<any>>(schema: S) => {
 
   return useMemo(() => ({ changeQuery, params, query }), [params, query, changeQuery]);
 };
+
+function getQueryWithoutNextParams<S extends ObjectSchema<any>>(
+  query: InferType<S>,
+  params: { readonly [k: string]: string | readonly string[] | undefined },
+) {
+  return Object.fromEntries(Object.entries(query).filter(([key]) => !(key in params)));
+}

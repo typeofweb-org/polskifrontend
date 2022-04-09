@@ -6,7 +6,7 @@ interface Stringifiable {
 
 type TableProps<T> = {
   readonly data: readonly T[];
-  readonly columns: ReadonlyArray<readonly [key: keyof T, label: string]>;
+  readonly columns: ReadonlyArray<readonly [key: keyof T & string, label: string]>;
 };
 
 export const Table = <
@@ -20,7 +20,7 @@ export const Table = <
       <thead>
         <tr>
           {columns.map(([key, label]) => (
-            <th key={key as string}>{label}</th>
+            <th key={key}>{label}</th>
           ))}
         </tr>
       </thead>

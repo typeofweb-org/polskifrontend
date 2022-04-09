@@ -16,7 +16,7 @@ export default withAsync(
 
       const blogs = await req.db.blog.findMany({
         where: {
-          isPublic: req.query.isPublic,
+          isPublic: Boolean(req.query?.isPublic),
         },
         orderBy: {
           id: 'desc',

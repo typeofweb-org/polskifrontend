@@ -1,8 +1,8 @@
-import type { AnySchema, InferType } from 'yup';
+import type { Schema, InferType } from 'yup';
 
 import type { HTTPMethod } from '../api-helpers/api-hofs';
 
-type FetcherConfig<S extends AnySchema | null> = {
+type FetcherConfig<S extends Schema | null> = {
   readonly method: HTTPMethod;
   readonly schema: S;
   readonly body?: object;
@@ -14,12 +14,12 @@ export async function fetcher<S extends null>(
   { method, body, config, schema }: FetcherConfig<S>,
 ): Promise<null>;
 
-export async function fetcher<S extends AnySchema>(
+export async function fetcher<S extends Schema>(
   path: string,
   { method, body, config, schema }: FetcherConfig<S>,
 ): Promise<InferType<S>>;
 
-export async function fetcher<S extends AnySchema | null>(
+export async function fetcher<S extends Schema | null>(
   path: string,
   { method, body, config, schema }: FetcherConfig<S>,
 ) {

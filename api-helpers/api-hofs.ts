@@ -6,7 +6,6 @@ import type { User } from '@supabase/gotrue-js';
 import type { NextApiResponse, NextApiRequest } from 'next';
 import { object } from 'yup';
 import type { AnySchema, ObjectSchema, InferType } from 'yup';
-import type { AssertsShape } from 'yup/lib/object';
 
 import { supabase } from '../utils/api/initSupabase';
 
@@ -67,7 +66,7 @@ export const withValidation = <
 
       return handler(
         unsafe__set(validatedValues, '_rawBody', rawBody) as R &
-          AssertsShape<Schema> & { readonly _rawBody: any },
+          InferType<typeof schemaObj> & { readonly _rawBody: any },
         res,
       );
     };
