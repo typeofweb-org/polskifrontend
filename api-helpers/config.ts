@@ -33,14 +33,8 @@ function getConfigForName(name: keyof NameToType): Nil<NameToType[keyof NameToTy
 
     case 'DATABASE_URL':
       return process.env.DATABASE_URL;
-    case 'DATABASE_POOL_URL':
-      return process.env.DATABASE_POOL_URL;
-    case 'ENV':
-      return process.env.ENV;
     case 'FEED_UPDATE_SECRET':
       return process.env.FEED_UPDATE_SECRET;
-    case 'NODE_ENV':
-      return process.env.NODE_ENV;
     case 'YOUTUBE_API_KEY':
       return process.env.YOUTUBE_API_KEY;
     case 'CAPTCHA_SECRET_KEY':
