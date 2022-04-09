@@ -1,18 +1,19 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { ChangeEventHandler } from 'react';
 import { useCallback, memo } from 'react';
 
 import { useDidMount } from '../../hooks/useDidMount';
-import type { DisplayPreferences } from '../../hooks/useDisplayPreferences';
-import { useDisplayPreferences } from '../../hooks/useDisplayPreferences';
-import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
+import { displayPreferences, useDisplayPreferences } from '../../hooks/useDisplayPreferences';
+import { includes } from '../../utils/array-utils';
 import { Button } from '../Button/Button';
 import { DisplayStyleSwitch } from '../DisplayStyleSwitch/DisplayStyleSwitch';
 
 import { BlogsGrid } from './BlogsGrid';
 import { BlogsList } from './BlogsList';
-import styles from './mainTiles.module.scss';
+import Styles from './mainTiles.module.scss';
+
+import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
+import type { ChangeEventHandler } from 'react';
 
 type MainTilesProps = HomePageProps;
 
@@ -22,7 +23,9 @@ export const MainTiles = memo<MainTilesProps>((props) => {
 
   const changeDisplayStyle = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ currentTarget }) => {
-      changeDisplay(currentTarget.value as DisplayPreferences);
+      if (includes(displayPreferences, currentTarget.value)) {
+        changeDisplay(currentTarget.value);
+      }
     },
     [changeDisplay],
   );
@@ -37,8 +40,8 @@ export const MainTiles = memo<MainTilesProps>((props) => {
 
   return (
     <>
-      <h2 className={styles.heading}>Wszystkie artykuły</h2>
-      <div className={styles.buttons}>
+      <h2 className={Styles.heading}>Wszystkie artykuły</h2>
+      <div className={Styles.buttons}>
         <Link href="/zglos-serwis" passHref>
           <Button as="a" icon="icon-plus">
             Dodaj serwis
@@ -51,12 +54,12 @@ export const MainTiles = memo<MainTilesProps>((props) => {
       ) : (
         <BlogsGrid blogs={props.blogs} />
       )}
-      <div className={styles.pagination}>
+      <div className={Styles.pagination}>
         {!props.isLastPage && (
           <>
             <Link passHref href={`/${props.displayStyle}/${previousPage}`}>
               <Button
-                className={styles.nextPageButton}
+                className={Styles.nextPageButton}
                 as="a"
                 iconPosition="left"
                 icon="icon-arrow-left2"
@@ -65,7 +68,7 @@ export const MainTiles = memo<MainTilesProps>((props) => {
               </Button>
             </Link>
             <Link passHref href={`/${props.displayStyle}`}>
-              <Button className={styles.nextPageButton} as="a">
+              <Button className={Styles.nextPageButton} as="a">
                 Najnowsze
               </Button>
             </Link>
@@ -74,7 +77,7 @@ export const MainTiles = memo<MainTilesProps>((props) => {
         {!isFirstPage && (
           <Link passHref href={`/${props.displayStyle}/${nextPage}`}>
             <Button
-              className={styles.nextPageButton}
+              className={Styles.nextPageButton}
               as="a"
               iconPosition="right"
               icon="icon-arrow-right2"

@@ -1,11 +1,12 @@
-import clsx from 'clsx';
+import Clsx from 'clsx';
 import Image from 'next/image';
 import { memo } from 'react';
 
-import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
 import { ArticleTile } from '../ArticleTile/ArticleTile';
 
-import styles from './blogsGrid.module.scss';
+import Styles from './blogsGrid.module.scss';
+
+import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
 
 type BlogsGridProps = {
   readonly blogs: NonNullable<HomePageProps['blogs']>;
@@ -13,17 +14,17 @@ type BlogsGridProps = {
 
 export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
   return (
-    <ul className={styles.blogsGrid}>
+    <ul className={Styles.blogsGrid}>
       {blogs.map((blog) => (
-        <li className={styles.blog} key={blog.id}>
-          <h3 className={clsx(styles.gridItem, styles.blogHeader)}>
+        <li className={Styles.blog} key={blog.id}>
+          <h3 className={Clsx(Styles.gridItem, Styles.blogHeader)}>
             <a href={blog.href} target="_blank" rel="noopener noreferrer">
               {blog.favicon && (
                 <Image
                   loading="lazy"
                   src={blog.favicon}
                   alt=""
-                  className={styles.favicon}
+                  className={Styles.favicon}
                   height={16}
                   width={16}
                 />
@@ -31,9 +32,9 @@ export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
               {blog.name}
             </a>
           </h3>
-          <ul className={styles.articles}>
+          <ul className={Styles.articles}>
             {blog.articles.map((article) => (
-              <li key={article.id} className={styles.gridItem}>
+              <li key={article.id} className={Styles.gridItem}>
                 <ArticleTile article={article} blog={blog} truncate />
               </li>
             ))}

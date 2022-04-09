@@ -1,14 +1,16 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import clsx from 'clsx';
-import type { ChangeEventHandler, FormEventHandler } from 'react';
+import Clsx from 'clsx';
 import { useEffect, useRef, useCallback, useState } from 'react';
 
+import { getConfig } from '../../api-helpers/config';
 import { useMutation } from '../../hooks/useMutation';
 import { addContentCreator } from '../../utils/api/addContentCreator';
 import { Button } from '../Button/Button';
 
 import { FormStatus } from './FormStatus';
-import styles from './addContentCreatorForm.module.scss';
+import Styles from './addContentCreatorForm.module.scss';
+
+import type { ChangeEventHandler, FormEventHandler } from 'react';
 
 export const AddContentCreatorForm = () => {
   const [fields, setFields] = useState({ contentURL: '', email: '' });
@@ -48,9 +50,9 @@ export const AddContentCreatorForm = () => {
     setToken(null);
   }, []);
 
-  if (!process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY) {
+  if (!getConfig('NEXT_PUBLIC_CAPTCHA_SITE_KEY')) {
     return (
-      <div className={styles.errorContainer}>
+      <div className={Styles.errorContainer}>
         <span>
           Wystąpił błąd po stronie serwera, jeśli ten problem będzie się utrzymywał, proszę
           skontaktuj się z administratorem serwisu.
@@ -65,13 +67,13 @@ export const AddContentCreatorForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className={clsx(styles.form, isLoading && styles.formLoading)}
+      className={Clsx(Styles.form, isLoading && Styles.formLoading)}
       ref={formRef}
     >
-      <label className={styles.label}>
+      <label className={Styles.label}>
         Adres URL
         <input
-          className={styles.input}
+          className={Styles.input}
           value={fields.contentURL}
           name="contentURL"
           onChange={handleChange}
@@ -80,13 +82,13 @@ export const AddContentCreatorForm = () => {
           type="url"
         />
         {touched['contentURL'] && (
-          <span className={styles.errorMessage}>Wprowadzony adres URL jest nieprawidłowy</span>
+          <span className={Styles.errorMessage}>Wprowadzony adres URL jest nieprawidłowy</span>
         )}
       </label>
-      <label className={styles.label}>
+      <label className={Styles.label}>
         Adres email
         <input
-          className={styles.input}
+          className={Styles.input}
           value={fields.email}
           name="email"
           onChange={handleChange}
@@ -95,12 +97,12 @@ export const AddContentCreatorForm = () => {
           type="email"
         />
         {touched['email'] && (
-          <span className={styles.errorMessage}>Wprowadzony adres email jest nieprawidłowy</span>
+          <span className={Styles.errorMessage}>Wprowadzony adres email jest nieprawidłowy</span>
         )}
       </label>
-      <div className={styles.wrapper}>
+      <div className={Styles.wrapper}>
         <HCaptcha
-          sitekey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY}
+          sitekey={getConfig('NEXT_PUBLIC_CAPTCHA_SITE_KEY')}
           onVerify={setToken}
           onExpire={handleCaptchaExpire}
           onError={handleCaptchaError}

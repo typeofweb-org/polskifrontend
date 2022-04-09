@@ -1,11 +1,14 @@
-import type { PrismaClient } from '@prisma/client';
 import { Feed } from 'feed';
+
+import { getConfig } from './config';
+
+import type { PrismaClient } from '@prisma/client';
 
 export const DEFAULT_ARTICLES = 30;
 
-const publicUrl = `https://${process.env.NEXT_PUBLIC_URL!}`;
-
 export async function getGeneralFeed(prisma: PrismaClient) {
+  const publicUrl = `https://${getConfig('NEXT_PUBLIC_URL')}`;
+
   const articles = await prisma.article.findMany({
     where: { blog: { isPublic: true } },
     take: DEFAULT_ARTICLES,

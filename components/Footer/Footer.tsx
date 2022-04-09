@@ -1,14 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import styles from './footer.module.scss';
+import Styles from './footer.module.scss';
 
 const date = new Date();
 const copyrightYear = date.getFullYear();
 
 export const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <footer className={Styles.footer}>
       <Link href="https://vercel.com?utm_source=typeofweb&utm_campaign=oss">
         <a target="_blank" rel="noopener noreferrer">
           <Image
@@ -27,7 +27,7 @@ export const Footer = () => {
             Type of Web
           </a>
         </Link>{' '}
-        <span aria-hidden={true} className={styles.version}>
+        <span aria-hidden={true} className={Styles.version}>
           {process.env.NEXT_PUBLIC_VERSION || ''}
         </span>
       </p>

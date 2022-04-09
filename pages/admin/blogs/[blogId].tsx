@@ -1,9 +1,9 @@
-import dynamic from 'next/dynamic';
+import Dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
 import { Layout } from '../../../components/Layout';
 
-const UpdateBlogSection = dynamic<{ readonly blogId: string }>(
+const UpdateBlogSection = Dynamic<{ readonly blogId: string }>(
   import(
     /* webpackChunkName: "UpdateBlogSection" */
     '../../../components/UpdateBlogSection/UpdateBlogSection'
@@ -14,13 +14,13 @@ export default function AdminBlogPage() {
   const router = useRouter();
   const blogId = router.query.blogId;
 
-  if (!blogId) {
+  if (!blogId || Array.isArray(blogId)) {
     return null;
   }
 
   return (
     <Layout title="Panel admina - edycja danych bloga">
-      <UpdateBlogSection blogId={blogId as string} />
+      <UpdateBlogSection blogId={blogId} />
     </Layout>
   );
 }

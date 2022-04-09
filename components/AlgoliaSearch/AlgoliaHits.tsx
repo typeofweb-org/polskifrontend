@@ -1,17 +1,18 @@
 import { connectHits } from 'react-instantsearch-dom';
 
-import type { Hit } from './AlgoliaHit';
 import { AlgoliaHit } from './AlgoliaHit';
-import styles from './AlgoliaHits.module.css';
+import Styles from './AlgoliaHits.module.css';
+
+import type { Hit } from './AlgoliaHit';
 
 type HitsProps = {
   readonly hits: readonly Hit[];
 };
 
 const Hits = ({ hits }: HitsProps) => (
-  <ol className={styles.list}>
+  <ol className={Styles.list}>
     {hits.map((hit) => (
-      <li className={styles.listItem} key={hit.objectID}>
+      <li className={Styles.listItem} key={hit.objectID}>
         <AlgoliaHit hit={hit} />
       </li>
     ))}

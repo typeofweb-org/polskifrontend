@@ -1,4 +1,4 @@
-import styles from './table.module.scss';
+import Styles from './table.module.scss';
 
 interface Stringifiable {
   toString(): string;
@@ -15,8 +15,8 @@ export const Table = <
   data,
   columns,
 }: TableProps<T>) => (
-  <div className={styles.tableWrapper}>
-    <table className={styles.table}>
+  <div className={Styles.tableWrapper}>
+    <table className={Styles.table}>
       <thead>
         <tr>
           {columns.map(([key, label]) => (
@@ -28,7 +28,7 @@ export const Table = <
         {data.map((row) => (
           <tr key={row.id}>
             {columns.map(([key]) => (
-              <td key={key as string}>{row[key]?.toString()}</td>
+              <td key={key}>{row[key]?.toString()}</td>
             ))}
           </tr>
         ))}

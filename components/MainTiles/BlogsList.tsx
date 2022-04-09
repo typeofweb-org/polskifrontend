@@ -1,9 +1,10 @@
 import { memo } from 'react';
 
-import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
 import { ArticleTile } from '../ArticleTile/ArticleTile';
 
-import styles from './blogsList.module.scss';
+import Styles from './blogsList.module.scss';
+
+import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
 
 type BlogsListProps = {
   readonly articles: NonNullable<HomePageProps['articles']>;
@@ -11,7 +12,7 @@ type BlogsListProps = {
 
 export const BlogsList = memo<BlogsListProps>(({ articles }) => {
   return (
-    <ul className={styles.list}>
+    <ul className={Styles.list}>
       {articles.map((article) => (
         <li key={article.id}>
           <ArticleTile article={article} blog={article.blog} />

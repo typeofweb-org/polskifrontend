@@ -6,32 +6,19 @@
     "project": "tsconfig.json"
   },
   "ignorePatterns": "next.config.js",
-  "plugins": ["functional", "@typescript-eslint", "jsx-a11y", "css-modules"],
+  "plugins": ["jsx-a11y", "css-modules"],
   "extends": [
-    "prettier",
-    "plugin:import/errors",
-    "plugin:import/typescript",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typeofweb/recommended",
+    "next/core-web-vitals",
     "plugin:jsx-a11y/recommended",
-    "plugin:css-modules/recommended",
-    "next/core-web-vitals"
+    "plugin:css-modules/recommended"
   ],
   "rules": {
-    "no-const-assign": "error",
-    "no-param-reassign": "error",
-    "prefer-const": "error",
-    "no-var": "error",
-    "require-await": "error",
     "react-hooks/exhaustive-deps": ["error"],
     "react/display-name": "error",
     "react/jsx-curly-brace-presence": ["error", "never"],
     "jsx-a11y/anchor-is-valid": "off",
-    "import/no-anonymous-default-export": "error",
-    "import/no-default-export": "error",
-    "import/dynamic-import-chunkname": "error",
-    "import/order": ["error", { "newlines-between": "always", "alphabetize": { "order": "asc" } }],
-    "import/no-duplicates": "error",
-    "import/no-cycle": "error",
+    "jsx-a11y/no-onchange": "off",
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -48,20 +35,7 @@
           "jest-setup-after.ts"
         ]
       }
-    ],
-    "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/consistent-type-imports": "error",
-    "functional/no-let": [
-      "error",
-      {
-        "allowLocalMutation": true,
-        "ignorePattern": "^mutable"
-      }
-    ],
-    "functional/prefer-readonly-type": "error",
-    "functional/no-this-expression": "error",
-    "functional/no-loop-statement": "error",
-    "jsx-a11y/no-onchange": "off"
+    ]
   },
   "overrides": [
     {

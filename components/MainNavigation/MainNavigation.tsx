@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import styles from './mainNavigation.module.scss';
+import Styles from './mainNavigation.module.scss';
 
 const links = [
   {
@@ -37,25 +37,25 @@ const links = [
 
 export const MainNavigation = () => (
   <nav>
-    <ul className={styles.navigationList}>
+    <ul className={Styles.navigationList}>
       {links.map(({ label, href, openInNewTab, icon }) => (
-        <li className={styles.navigationItem} key={href}>
+        <li className={Styles.navigationItem} key={href}>
           {openInNewTab ? (
             <a
-              className={styles.link}
+              className={Styles.link}
               href={href}
               target="_blank"
               rel="noopener noreferrer"
               title={label}
             >
-              <span className={`icon-${icon} ${styles.icon}`} />
-              <span className={styles.label}>{label}</span>
+              <span className={`icon-${icon} ${Styles.icon}`} />
+              <span className={Styles.label}>{label}</span>
             </a>
           ) : (
             <Link href={href}>
-              <a className={styles.link} title={label}>
-                <span className={`icon-${icon} ${styles.icon}`} />
-                <span className={styles.label}>{label}</span>
+              <a className={Styles.link} title={label}>
+                <span className={`icon-${icon} ${Styles.icon}`} />
+                <span className={Styles.label}>{label}</span>
               </a>
             </Link>
           )}

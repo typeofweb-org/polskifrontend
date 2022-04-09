@@ -1,4 +1,3 @@
-import type { Article } from '@prisma/client';
 import Algoliasearch from 'algoliasearch';
 import * as AllHtmlEntities from 'html-entities';
 import Xss from 'xss';
@@ -6,6 +5,8 @@ import { object, string, mixed } from 'yup';
 
 import { withAsync, withDb, withMethods, withValidation } from '../../api-helpers/api-hofs';
 import { getConfig } from '../../api-helpers/config';
+
+import type { Article } from '@prisma/client';
 
 const client = Algoliasearch(
   getConfig('NEXT_PUBLIC_ALGOLIA_APP_ID'),

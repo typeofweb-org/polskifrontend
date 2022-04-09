@@ -3,7 +3,8 @@ import { useEffect } from 'react';
 
 import { useLocalStorage } from './useLocalStorage';
 
-export type DisplayPreferences = 'list' | 'grid';
+export const displayPreferences = ['list', 'grid'] as const;
+export type DisplayPreferences = typeof displayPreferences[number];
 
 export const useDisplayPreferences = () => {
   const router = useRouter();

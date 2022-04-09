@@ -4,8 +4,9 @@ import { DEFAULT_ARTICLES } from '../../api-helpers/general-feed';
 import { closeConnection, openConnection } from '../../api-helpers/prisma/db';
 import { ArticleSection } from '../../components/ArticleSection/ArticleSection';
 import { Layout } from '../../components/Layout';
-import type { InferGetStaticPropsContext, InferGetStaticPropsType2 } from '../../types';
 import { addSanitizedDescriptionToArticle } from '../../utils/sanitize-utils';
+
+import type { InferGetStaticPropsContext, InferGetStaticPropsType2 } from '../../types';
 
 export type ArticlePageProps = InferGetStaticPropsType2<typeof getStaticProps>;
 
@@ -20,10 +21,14 @@ export default function ArticlePage({ article }: ArticlePageProps) {
 export const getStaticProps = async ({
   params,
 }: InferGetStaticPropsContext<typeof getStaticPaths>) => {
+  if (!params) {
+    return { props: undefined, notFound: true as const };
+  }
+
   try {
     const prisma = openConnection();
 
-    const article = await getArticleBySlug(prisma, params!.slug);
+    const article = await getArticleBySlug(prisma, params.slug);
 
     return {
       props: {

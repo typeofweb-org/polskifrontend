@@ -10,10 +10,13 @@ type NameToType = {
   readonly NEXT_PUBLIC_SUPABASE_URL: string;
   readonly NEXT_PUBLIC_SUPABASE_ANON_KEY: string;
   readonly YOUTUBE_API_KEY: string;
+  readonly CAPTCHA_SECRET_KEY: string;
 
   readonly NEXT_PUBLIC_ALGOLIA_APP_ID: string;
-  readonly ALGOLIA_API_SECRET: string;
+  readonly NEXT_PUBLIC_ALGOLIA_API_KEY: string;
   readonly NEXT_PUBLIC_ALGOLIA_INDEX_NAME: string;
+  readonly ALGOLIA_API_SECRET: string;
+  readonly NEXT_PUBLIC_CAPTCHA_SITE_KEY: string;
 };
 
 function getConfigForName<T extends keyof NameToType>(name: T): Nil<NameToType[T]>;
@@ -27,8 +30,9 @@ function getConfigForName(name: keyof NameToType): Nil<NameToType[keyof NameToTy
       return val || 'development';
     case 'DATABASE_POOL_URL':
       return val || getConfigForName('DATABASE_URL');
+    default:
+      return val;
   }
-  return val;
 }
 
 export function getConfig<T extends keyof NameToType>(name: T): NameToType[T];

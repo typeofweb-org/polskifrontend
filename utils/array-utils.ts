@@ -7,3 +7,7 @@ export const getPagesArray = (lastPageNumber: number, length?: number): readonly
   }
   return fullArray;
 };
+
+export const includes = <T>(arr: readonly T[], item: unknown): item is T =>
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/consistent-type-assertions -- this assertion is required but also completely typesafe
+  arr.includes(item as any);

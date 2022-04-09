@@ -2,12 +2,20 @@ import { PrismaClient } from '@prisma/client';
 
 import { getConfig } from '../config';
 
-let mutableOpenConnections = 0;
-let mutablePrisma: PrismaClient | undefined;
+// https://www.prisma.io/docs/support/help-articles/nextjs-prisma-client-dev-practices
+declare global {
+  // allow global `var` declarations
+  // eslint-disable-next-line no-var -- global var required
+  var prisma: PrismaClient | undefined;
+  // eslint-disable-next-line no-var -- global var required
+  var prismaOpenConnections: number;
+}
+global.prismaOpenConnections = 0;
+
 export const openConnection = () => {
-  if (!mutablePrisma) {
+  if (!global.prisma) {
     // use pgbouncer
-    mutablePrisma = new PrismaClient({
+    global.prisma = new PrismaClient({
       datasources: {
         db: {
           url: getConfig('DATABASE_POOL_URL'),
@@ -16,14 +24,14 @@ export const openConnection = () => {
     });
   }
 
-  ++mutableOpenConnections;
-  return mutablePrisma;
+  ++global.prismaOpenConnections;
+  return global.prisma;
 };
 
 export const closeConnection = () => {
-  --mutableOpenConnections;
-  if (mutableOpenConnections === 0) {
-    return mutablePrisma?.$disconnect();
+  --global.prismaOpenConnections;
+  if (global.prismaOpenConnections === 0) {
+    return global.prisma?.$disconnect();
   }
   return undefined;
 };

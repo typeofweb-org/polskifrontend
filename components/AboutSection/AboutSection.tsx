@@ -2,17 +2,17 @@ import Link from 'next/link';
 
 import { Button } from '../Button/Button';
 
-import styles from './aboutSection.module.scss';
+import Styles from './aboutSection.module.scss';
 
 export const AboutSection = () => (
-  <section className={styles.section}>
-    <h2 className={styles.heading}>O serwisie</h2>
-    <div className={styles.buttons}>
+  <section className={Styles.section}>
+    <h2 className={Styles.heading}>O serwisie</h2>
+    <div className={Styles.buttons}>
       <Link href="/" passHref>
         <Button icon="icon-arrow-left2">Strona Główna</Button>
       </Link>
     </div>
-    <article className={styles.note}>
+    <article className={Styles.note}>
       <h3>Po co jest ten serwis?</h3>
       <p>
         Serwis <strong>Polski Frontend</strong> powstał w celu zebrania w jednym miejscu jak

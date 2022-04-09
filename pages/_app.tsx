@@ -3,13 +3,15 @@ import '../global.scss';
 import '../icomoon-v1.0/style.css';
 import { Auth } from '@supabase/ui';
 import { DefaultSeo } from 'next-seo';
-import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import { getConfig } from '../api-helpers/config';
 import { pageview } from '../utils/analytics';
 import { supabase } from '../utils/api/initSupabase';
+
+import type { AppProps } from 'next/app';
 
 const meta = {
   title: 'Polski Frontend',
@@ -35,11 +37,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           type: 'website',
           title: meta.title,
           locale: 'pl_PL',
-          url: `https://${process.env.NEXT_PUBLIC_URL!}${asPath}`,
+          url: `https://${getConfig('NEXT_PUBLIC_URL')}${asPath}`,
           description: meta.description,
           images: [
             {
-              url: `https://${process.env.NEXT_PUBLIC_URL!}/logo_og.png`,
+              url: `https://${getConfig('NEXT_PUBLIC_URL')}/logo_og.png`,
               width: 1000,
               height: 1000,
             },

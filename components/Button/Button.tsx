@@ -1,7 +1,7 @@
-import clsx from 'clsx';
+import Clsx from 'clsx';
 import { memo, forwardRef } from 'react';
 
-import styles from './button.module.scss';
+import Styles from './button.module.scss';
 
 type ButtonProps = {
   readonly as?: 'a' | 'button';
@@ -34,16 +34,16 @@ export const Button = memo<ButtonProps>(
     ) => {
       return (
         <As
-          className={clsx(styles.button, className, {
-            [styles.buttonIconRight]: iconPosition === 'right',
-            [styles.buttonDanger]: buttonStyle === 'danger',
-            [styles.buttonDisabled]: props.disabled,
+          className={Clsx(Styles.button, className, {
+            [Styles.buttonIconRight]: iconPosition === 'right',
+            [Styles.buttonDanger]: buttonStyle === 'danger',
+            [Styles.buttonDisabled]: props.disabled,
           })}
           // @ts-ignore
           ref={ref}
           {...props}
         >
-          {icon && <span className={clsx(icon, children && styles.icon)}></span>}
+          {icon && <span className={Clsx(icon, children && Styles.icon)}></span>}
           {children}
         </As>
       );

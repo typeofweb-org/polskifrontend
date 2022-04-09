@@ -9,9 +9,10 @@ import { closeConnection, openConnection } from '../../api-helpers/prisma/db';
 import { Layout } from '../../components/Layout';
 import { Main } from '../../components/Main/Main';
 import { MAX_PAGES, REVALIDATION_TIME } from '../../constants';
-import type { InferGetStaticPropsContext, InferGetStaticPropsType2 } from '../../types';
 import { getPagesArray } from '../../utils/array-utils';
 import { addExcerptToArticle } from '../../utils/excerpt-utils';
+
+import type { InferGetStaticPropsContext, InferGetStaticPropsType2 } from '../../types';
 
 export type HomePageProps = InferGetStaticPropsType2<typeof getStaticProps>;
 
