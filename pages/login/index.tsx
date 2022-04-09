@@ -13,16 +13,22 @@ export default function Login() {
   const [authView, setAuthView] = useState<ViewType>('sign_in');
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log('onAuthStateChange', { event, session });
+    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
       if (event === 'PASSWORD_RECOVERY') {
         setAuthView('update_password');
       }
       if (event === 'USER_UPDATED') {
         setTimeout(() => setAuthView('sign_in'), 1000);
       }
+    });
 
-      // headers: new Headers({ 'Content-Type': 'application/json', token }),
+    return () => {
+      authListener?.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       fetch('/api/auth', {
         method: 'POST',
         headers: new Headers({ 'Content-Type': 'application/json' }),

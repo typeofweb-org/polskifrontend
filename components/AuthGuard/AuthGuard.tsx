@@ -39,8 +39,13 @@ type Props = {
 };
 
 const useAuth = (): AuthHookRet => {
-  const session = supabase.auth.session();
   const { value: me, status } = useQuery(getMe);
+
+  if (typeof window === 'undefined') {
+    return { isLoading: true };
+  }
+
+  const session = supabase.auth.session();
 
   if (!session?.user) {
     return { isLoggedIn: false, isLoading: false };

@@ -2,10 +2,12 @@ import Dynamic from 'next/dynamic';
 
 import { Layout } from '../../components/Layout';
 
-const AdminPanel = Dynamic<{}>(() =>
-  import(/* webpackChunkName: "AdminPanel" */ '../../components/AdminPanel/AdminPanel').then(
-    (mod) => mod.AdminPanel,
-  ),
+const AdminPanel = Dynamic<{}>(
+  () =>
+    import(/* webpackChunkName: "AdminPanel" */ '../../components/AdminPanel/AdminPanel').then(
+      (mod) => mod.AdminPanel,
+    ),
+  { ssr: false },
 );
 
 export default function AdminPage() {

@@ -7,7 +7,7 @@ export default withAsync(
   withAuth('ADMIN')(
     withValidation({
       query: object({
-        isPublic: boolean().optional(),
+        isPublic: boolean(),
       }).optional(),
     })(async (req) => {
       if (req.method !== 'GET') {
@@ -16,7 +16,7 @@ export default withAsync(
 
       const blogs = await req.db.blog.findMany({
         where: {
-          isPublic: Boolean(req.query?.isPublic),
+          isPublic: req.query?.isPublic,
         },
         orderBy: {
           id: 'desc',

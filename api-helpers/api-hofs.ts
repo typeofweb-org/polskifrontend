@@ -46,7 +46,7 @@ export const withValidation = <
 >(
   schema: Schema,
 ) => {
-  const schemaObj = object(schema).unknown(true).required();
+  const schemaObj = object().shape(schema).unknown(true).required();
 
   return <R extends OurNextApiRequest>(
       handler: (
@@ -144,7 +144,6 @@ export function withAuth(role?: UserRole) {
   ) =>
     withDb<R>(async (req, res) => {
       const session = await supabase.auth.api.getUserByCookie(req);
-      console.log(session);
 
       if (!session?.user) {
         throw Boom.unauthorized();

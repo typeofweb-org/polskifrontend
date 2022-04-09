@@ -1,11 +1,12 @@
 import { URL } from 'url';
 
 import Boom from '@hapi/boom';
-import type { PrismaClient } from '@prisma/client';
 import Cheerio from 'cheerio';
 import Slugify from 'slugify';
 
 import { getYouTubeChannelFavicon } from './external-services/youtube';
+
+import type { PrismaClient } from '@prisma/client';
 
 const NEVER = new Date(0);
 const YOUTUBE_REGEX = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;
@@ -61,14 +62,16 @@ export const getYouTubeRss = (url: string) => {
 };
 
 const getYouTubeChannelFeedUrl = (url: string) => {
-  if (getYouTubeChannelIdFromUrl(url)) {
-    return `https://www.youtube.com/feeds/videos.xml?channel_id=${
-      getYouTubeChannelIdFromUrl(url) as string
-    }`;
+  const channelIdFromUrl = getYouTubeChannelIdFromUrl(url);
+  if (channelIdFromUrl) {
+    return `https://www.youtube.com/feeds/videos.xml?channel_id=${channelIdFromUrl}`;
   }
-  if (getYouTubeUserFromUrl(url)) {
-    return `https://www.youtube.com/feeds/videos.xml?user=${getYouTubeUserFromUrl(url) as string}`;
+
+  const userFromUrl = getYouTubeUserFromUrl(url);
+  if (userFromUrl) {
+    return `https://www.youtube.com/feeds/videos.xml?user=${userFromUrl}`;
   }
+
   throw Boom.badRequest();
 };
 
@@ -148,16 +151,22 @@ const RSS_LINK_TYPES = [
 const searchFeed = (url: string, $: cheerio.Root): readonly Feed[] => {
   return $('link[type]')
     .toArray()
-    .map((link) => {
-      const linkType = $(link).attr('type') as string;
-      if (RSS_LINK_TYPES.includes(linkType)) {
-        const feedUrl = getFeedUrl(url, $(link).attr('href') as string);
+    .map((link): Feed | null => {
+      const $link = $(link);
+
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- asserted on line 152
+      const linkType = $link.attr('type')!;
+      const href = $link.attr('href');
+      const title = $link.attr('title');
+      if (RSS_LINK_TYPES.includes(linkType) && href) {
+        const feedUrl = getFeedUrl(url, href);
         return {
           type: linkType,
           url: feedUrl,
-          title: $(link).attr('title') || feedUrl,
-        } as Feed;
+          title: title || feedUrl,
+        };
       }
+
       return null;
     })
     .filter((feed): feed is Feed => Boolean(feed));

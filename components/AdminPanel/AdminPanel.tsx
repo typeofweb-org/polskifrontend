@@ -8,7 +8,6 @@ import { useSmartQueryParams } from '../../hooks/useSmartQueryParams';
 import { getBlogs } from '../../utils/api/getBlogs';
 import { includes } from '../../utils/array-utils';
 import { formatDate } from '../../utils/date-utils';
-import { oneOfValues } from '../../utils/schema-utils';
 import { Table } from '../Table/Table';
 
 import Styles from './adminPanel.module.scss';
@@ -31,7 +30,7 @@ export const AdminPanel = () => {
   const {
     query: { isPublic },
     changeQuery,
-  } = useSmartQueryParams(object({ isPublic: oneOfValues(string(), isPublicValues) }));
+  } = useSmartQueryParams(object({ isPublic: string().oneOf(isPublicValues).default('') }));
 
   const { value: blogs } = useQuery(useCallback(() => getBlogs(isPublic), [isPublic]));
 

@@ -20,7 +20,24 @@ const meta = {
 export const titleTemplate = `%s | ${meta.title}`;
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const { asPath, events } = useRouter();
+  const { asPath, events, ...router } = useRouter();
+
+  useEffect(() => {
+    // redirect for auth
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    // it might have 5 properties: access_token, expires_in, provider_token, refresh_token, token_type
+    // we only care about 3
+    const searchParams = new URLSearchParams(location.hash.slice(1));
+    const properties = ['access_token', 'provider_token', 'refresh_token'];
+    const shouldRedirect = properties.some((p) => searchParams.has(p));
+
+    if (shouldRedirect) {
+      void router.push('/login');
+    }
+  }, [router]);
 
   useEffect(() => {
     const reportRouteChange = (url: string) => pageview(url);
