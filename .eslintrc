@@ -44,7 +44,8 @@
           "**/jest-setup.ts",
           "**/jest-utils.ts",
           "**/next-env.d.ts",
-          "**/global.d.ts"
+          "**/global.d.ts",
+          "jest-setup-after.ts"
         ]
       }
     ],
