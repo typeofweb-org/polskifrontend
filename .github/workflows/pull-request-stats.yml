@@ -48,4 +48,5 @@ jobs:
           base_directory_name: base-branch
         env:
           DATABASE_URL: ${{secrets.DATABASE_URL}}
+          DATABASE_POOL_URL: ${{secrets.DATABASE_URL}}
           GITHUB_TOKEN: ${{secrets.TYPEOFWEB_BOT_GITHUB_TOKEN}}
