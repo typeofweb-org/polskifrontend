@@ -1,17 +1,18 @@
-import type { IncomingMessage } from 'http';
-
+/* eslint-disable @typescript-eslint/consistent-type-assertions -- this is, in principle, unsafe */
 import Boom from '@hapi/boom';
-import type { Member, PrismaClient, UserRole } from '@prisma/client';
-import type { User } from '@supabase/gotrue-js';
-import type { NextApiResponse, NextApiRequest } from 'next';
 import { object } from 'yup';
-import type { AnySchema, ObjectSchema, InferType } from 'yup';
 
 import { supabase } from '../utils/api/initSupabase';
 
 import { logger } from './logger';
 import { closeConnection, openConnection } from './prisma/db';
 import { handlePrismaError, isPrismaError } from './prisma/prisma-helper';
+
+import type { Member, PrismaClient, UserRole } from '@prisma/client';
+import type { User } from '@supabase/gotrue-js';
+import type { IncomingMessage } from 'http';
+import type { NextApiResponse, NextApiRequest } from 'next';
+import type { AnySchema, ObjectSchema, InferType } from 'yup';
 
 type SomeSchema = Record<string, AnySchema<any, any, any>>;
 type AllAllowedFields = 'body' | 'query';
@@ -54,12 +55,12 @@ export const withValidation = <
       ) => unknown,
     ) =>
     async (req: R, res: NextApiResponse) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access -- this is unsafe
       const rawBody = (req as any).body;
 
+      let validatedValues: InferType<typeof schemaObj>;
       try {
-        // eslint-disable-next-line no-var
-        var validatedValues = await schemaObj.validate(req, { abortEarly: false });
+        validatedValues = await schemaObj.validate(req, { abortEarly: false });
       } catch (err) {
         throw Boom.badRequest((err as Error | undefined)?.message, err);
       }
@@ -143,6 +144,7 @@ export function withAuth(role?: UserRole) {
   ) =>
     withDb<R>(async (req, res) => {
       const session = await supabase.auth.api.getUserByCookie(req);
+      console.log(session);
 
       if (!session?.user) {
         throw Boom.unauthorized();

@@ -1,17 +1,15 @@
 import Styles from './table.module.scss';
 
-interface Stringifiable {
-  toString(): string;
-}
+import type { ReactNode } from 'react';
 
 type TableProps<T> = {
   readonly data: readonly T[];
   readonly columns: ReadonlyArray<readonly [key: keyof T & string, label: string]>;
 };
 
-export const Table = <
-  T extends { readonly id: string; readonly [key: string]: Stringifiable | undefined | null },
->({
+const isDate = (v: unknown): v is Date => Object.prototype.toString.call(v) === '[object Date]';
+
+export const Table = <T extends { readonly id: string; readonly [key: string]: ReactNode | Date }>({
   data,
   columns,
 }: TableProps<T>) => (
@@ -27,9 +25,10 @@ export const Table = <
       <tbody>
         {data.map((row) => (
           <tr key={row.id}>
-            {columns.map(([key]) => (
-              <td key={key}>{row[key]?.toString()}</td>
-            ))}
+            {columns.map(([key]) => {
+              const v = row[key];
+              return <td key={key}>{isDate(v) ? v.toISOString() : v}</td>;
+            })}
           </tr>
         ))}
       </tbody>
