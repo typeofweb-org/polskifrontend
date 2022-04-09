@@ -14,7 +14,7 @@ export type AlgoliaSearchProps = {
   readonly setSearchState: (searchState: SearchState) => void;
 };
 
-export const AlogliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchState }) => {
+export const AlgoliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchState }) => {
   const searchClient = Algoliasearch(
     getConfig('NEXT_PUBLIC_ALGOLIA_APP_ID'),
     getConfig('NEXT_PUBLIC_ALGOLIA_API_KEY'),
@@ -48,4 +48,4 @@ export const AlogliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchS
     </InstantSearch>
   );
 });
-AlogliaSearch.displayName = 'AlogliaSearch';
+AlgoliaSearch.displayName = 'AlgoliaSearch';

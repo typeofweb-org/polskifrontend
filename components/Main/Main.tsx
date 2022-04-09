@@ -10,12 +10,12 @@ import type { AlgoliaSearchProps, SearchState } from '../AlgoliaSearch/AlgoliaSe
 
 type MainProps = HomePageProps;
 
-const AlogliaSearch = Dynamic<AlgoliaSearchProps>(
+const AlgoliaSearch = Dynamic<AlgoliaSearchProps>(
   () =>
     import(
       /* webpackChunkName: "AlgoliaSearch" */
       '../AlgoliaSearch/AlgoliaSearch'
-    ).then((mod) => mod.AlogliaSearch),
+    ).then((mod) => mod.AlgoliaSearch),
   { ssr: false },
 );
 
@@ -25,7 +25,7 @@ export const Main = memo<MainProps>((props) => {
   return (
     <section className={Styles.section}>
       <div className={Styles.searchWrapper}>
-        <AlogliaSearch searchState={searchState} setSearchState={setSearchState} />
+        <AlgoliaSearch searchState={searchState} setSearchState={setSearchState} />
       </div>
       {!searchState.query && <MainTiles {...props} />}
     </section>
