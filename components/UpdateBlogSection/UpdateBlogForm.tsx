@@ -1,15 +1,16 @@
-import clsx from 'clsx';
-import type { ChangeEventHandler, FormEvent } from 'react';
+import Clsx from 'clsx';
 import { useRef, memo, useCallback, useEffect, useState } from 'react';
 
 import { useMutation } from '../../hooks/useMutation';
 import { useQuery } from '../../hooks/useQuery';
-import type { BlogIdRequestBody } from '../../pages/api/blogs/[blogId]';
 import { getBlog } from '../../utils/api/getBlog';
 import { updateBlog } from '../../utils/api/updateBlog';
 import { Button } from '../Button/Button';
 
-import styles from './updateBlogForm.module.scss';
+import Styles from './updateBlogForm.module.scss';
+
+import type { BlogIdRequestBody } from '../../pages/api/blogs/[blogId]';
+import type { ChangeEventHandler, FormEvent } from 'react';
 
 type Props = {
   readonly blogId: string;
@@ -66,17 +67,17 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className={clsx(styles.form, isLoading && styles.formLoading)}
+      className={Clsx(Styles.form, isLoading && Styles.formLoading)}
       ref={formRef}
     >
-      <label className={styles.label}>
+      <label className={Styles.label}>
         Nazwa bloga
-        <input className={styles.input} value={blog.name} type="text" name="name" readOnly />
+        <input className={Styles.input} value={blog.name} type="text" name="name" readOnly />
       </label>
-      <label className={styles.label}>
+      <label className={Styles.label}>
         Href bloga
         <input
-          className={styles.input}
+          className={Styles.input}
           value={fields.href}
           name="href"
           onChange={handleChange}
@@ -85,28 +86,28 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
           type="url"
         />
       </label>
-      <label className={styles.label}>
+      <label className={Styles.label}>
         Rss bloga
-        <input className={styles.input} value={blog.rss} name="rss" type="url" readOnly />
+        <input className={Styles.input} value={blog.rss} name="rss" type="url" readOnly />
       </label>
-      <label className={styles.label}>
+      <label className={Styles.label}>
         Slug bloga
-        <input className={styles.input} value={blog.slug ?? ''} readOnly name="slug" type="text" />
+        <input className={Styles.input} value={blog.slug ?? ''} readOnly name="slug" type="text" />
       </label>
-      <label className={styles.label}>
+      <label className={Styles.label}>
         Favicon bloga
         <input
-          className={styles.input}
+          className={Styles.input}
           value={blog.favicon ?? ''}
           name="favicon"
           type="url"
           readOnly
         />
       </label>
-      <label className={styles.label}>
+      <label className={Styles.label}>
         Email twórcy
         <input
-          className={styles.input}
+          className={Styles.input}
           value={fields.creatorEmail ?? ''}
           name="creatorEmail"
           onChange={handleChange}
@@ -114,9 +115,9 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
           type="email"
         />
       </label>
-      <label className={styles.labelCheckbox}>
+      <label className={Styles.labelCheckbox}>
         <input
-          className={styles.inputCheckbox}
+          className={Styles.inputCheckbox}
           checked={fields.isPublic}
           name="isPublic"
           onChange={handleInputCheckboxChange}
@@ -124,7 +125,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
         />
         Czy blog ma być pokazany na stronie?
       </label>
-      <Button type="submit" disabled={!isValid} className={styles.submitButton}>
+      <Button type="submit" disabled={!isValid} className={Styles.submitButton}>
         Zapisz
       </Button>
     </form>

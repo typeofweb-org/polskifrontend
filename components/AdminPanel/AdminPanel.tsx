@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import type { ChangeEvent } from 'react';
 import { useCallback } from 'react';
 import { object, string } from 'yup';
 
@@ -7,11 +6,14 @@ import { AuthGuard } from '../../components/AuthGuard/AuthGuard';
 import { useQuery } from '../../hooks/useQuery';
 import { useSmartQueryParams } from '../../hooks/useSmartQueryParams';
 import { getBlogs } from '../../utils/api/getBlogs';
+import { includes } from '../../utils/array-utils';
 import { formatDate } from '../../utils/date-utils';
 import { oneOfValues } from '../../utils/schema-utils';
 import { Table } from '../Table/Table';
 
-import styles from './adminPanel.module.scss';
+import Styles from './adminPanel.module.scss';
+
+import type { ChangeEvent } from 'react';
 
 const columns = [
   ['link', 'Link do bloga'],
@@ -23,21 +25,21 @@ const columns = [
   ['edit', 'Edytuj dane bloga'],
 ] as const;
 
+const isPublicValues = ['true', 'false', ''] as const;
+
 export const AdminPanel = () => {
   const {
     query: { isPublic },
     changeQuery,
-  } = useSmartQueryParams(
-    object({ isPublic: oneOfValues(string(), ['true', 'false', ''] as const) }),
-  );
+  } = useSmartQueryParams(object({ isPublic: oneOfValues(string(), isPublicValues) }));
 
   const { value: blogs } = useQuery(useCallback(() => getBlogs(isPublic), [isPublic]));
 
   const handlePublicChange = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
-      const val = e.currentTarget.value as typeof isPublic;
-
-      void changeQuery({ isPublic: val });
+      if (includes(isPublicValues, e.currentTarget.value)) {
+        void changeQuery({ isPublic: e.currentTarget.value });
+      }
     },
     [changeQuery],
   );
@@ -64,10 +66,10 @@ export const AdminPanel = () => {
   }));
 
   return (
-    <AuthGuard role="ADMIN">
-      <section className={styles.section}>
-        <h2 className={styles.heading}>Admin Panel - Blogi</h2>
-        <label className={styles.publicSelectLabel}>
+    <AuthGuard userRole="ADMIN">
+      <section className={Styles.section}>
+        <h2 className={Styles.heading}>Admin Panel - Blogi</h2>
+        <label className={Styles.publicSelectLabel}>
           Pokazuj blogi:{' '}
           <select onChange={handlePublicChange} value={isPublic}>
             <option value="" defaultChecked>

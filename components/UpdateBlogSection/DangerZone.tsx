@@ -5,7 +5,7 @@ import { deleteBlog } from '../../utils/api/deleteBlog';
 import { resetBlog } from '../../utils/api/resetBlog';
 import { Button } from '../Button/Button';
 
-import styles from './dangerZone.module.scss';
+import Styles from './dangerZone.module.scss';
 
 type DangerZoneProps = {
   readonly blogId: string;
@@ -49,18 +49,28 @@ export const DangerZone = ({ blogId }: DangerZoneProps) => {
   }
 
   return (
-    <section className={styles.section}>
-      <ul className={styles.optionList}>
-        <li className={styles.optionListItem}>
+    <section className={Styles.section}>
+      <ul className={Styles.optionList}>
+        <li className={Styles.optionListItem}>
           <h3>Usuń bloga</h3>
           <p>
             Blog oraz wszystkie jego artykuły zostaną nieodwracalnie usunięte z serwisu
             polskifrontend.pl
           </p>
-          <Button buttonStyle="danger" onClick={handleDelete}>
+          <Button
+            buttonStyle="danger"
+            onClick={() => {
+              void handleDelete();
+            }}
+          >
             Usuń bloga
           </Button>
-          <Button buttonStyle="danger" onClick={handleReset}>
+          <Button
+            buttonStyle="danger"
+            onClick={() => {
+              void handleReset();
+            }}
+          >
             Zresetuj bloga
           </Button>
         </li>

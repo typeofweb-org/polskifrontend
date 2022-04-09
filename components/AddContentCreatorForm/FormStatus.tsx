@@ -1,9 +1,9 @@
-import clsx from 'clsx';
+import Clsx from 'clsx';
 import { memo } from 'react';
 
-import type { Status } from '../../hooks/useMutation';
+import Styles from './FormStatus.module.css';
 
-import styles from './FormStatus.module.css';
+import type { Status } from '../../hooks/useMutation';
 
 type Props = {
   readonly status: Status;
@@ -38,9 +38,9 @@ export const FormStatus = memo<Props>(({ status, errorCode }) => {
   }
 
   return (
-    <div className={styles.statusContainer}>
+    <div className={Styles.statusContainer}>
       <span
-        className={clsx(styles.statusIcon, {
+        className={Clsx(Styles.statusIcon, {
           'icon-spinner': status === 'loading',
           'icon-checkmark': status === 'success',
           'icon-error': status === 'error',

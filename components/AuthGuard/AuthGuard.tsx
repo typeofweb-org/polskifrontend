@@ -6,7 +6,9 @@ import { getMe } from '../../utils/api/getMe';
 import { supabase } from '../../utils/api/initSupabase';
 import { LoadingScreen } from '../LoadingScreen/LoadingScreen';
 
-import styles from './authGuard.module.css';
+import Styles from './authGuard.module.css';
+
+import type { ReactNode } from 'react';
 
 export type AuthHookRet =
   | { readonly isLoading: true; readonly isLoggedIn?: undefined; readonly user?: undefined }
@@ -32,7 +34,8 @@ export type AuthHookRet =
     };
 
 type Props = {
-  readonly role?: 'ADMIN';
+  readonly userRole?: 'ADMIN';
+  readonly children?: ReactNode;
 };
 
 const useAuth = (): AuthHookRet => {
@@ -58,7 +61,7 @@ const useAuth = (): AuthHookRet => {
   }
 };
 
-export const AuthGuard: React.FC<Props> = ({ children, role }) => {
+export const AuthGuard: React.FC<Props> = ({ children, userRole: role }) => {
   const { isLoading, isLoggedIn, user } = useAuth();
   const { push } = useRouter();
 
@@ -86,9 +89,9 @@ export const AuthGuard: React.FC<Props> = ({ children, role }) => {
   }
 
   return (
-    <section className={styles.section}>
-      <h2 className={styles.heading}>Brak uprawnień</h2>
-      <p className={styles.p}>
+    <section className={Styles.section}>
+      <h2 className={Styles.heading}>Brak uprawnień</h2>
+      <p className={Styles.p}>
         Nie masz odpowiednich uprawnień, żeby korzystać z tej podstrony. W celu weryfikacji
         skontaktuj się z administracją serwisu.
       </p>

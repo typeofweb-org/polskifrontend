@@ -1,14 +1,11 @@
-import algoliasearch from 'algoliasearch/lite';
+import Algoliasearch from 'algoliasearch/lite';
 import { memo, useEffect } from 'react';
 import { InstantSearch, PoweredBy, SearchBox } from 'react-instantsearch-dom';
 
-import { AlgoliaHits } from './AlgoliaHits';
-import styles from './algoliaSearch.module.scss';
+import { getConfig } from '../../api-helpers/config';
 
-const searchClient = algoliasearch(
-  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string,
-  process.env.NEXT_PUBLIC_ALGOLIA_API_KEY as string,
-);
+import { AlgoliaHits } from './AlgoliaHits';
+import Styles from './algoliaSearch.module.scss';
 
 export type SearchState = { readonly query: string };
 
@@ -17,7 +14,12 @@ export type AlgoliaSearchProps = {
   readonly setSearchState: (searchState: SearchState) => void;
 };
 
-export const AlogliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchState }) => {
+export const AlgoliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchState }) => {
+  const searchClient = Algoliasearch(
+    getConfig('NEXT_PUBLIC_ALGOLIA_APP_ID'),
+    getConfig('NEXT_PUBLIC_ALGOLIA_API_KEY'),
+  );
+
   const showHits = searchState.query !== '';
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export const AlogliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchS
       searchState={searchState}
       onSearchStateChange={setSearchState}
       searchClient={searchClient}
-      indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME as string}
+      indexName={getConfig('NEXT_PUBLIC_ALGOLIA_INDEX_NAME')}
     >
       <SearchBox
         translations={{
@@ -41,9 +43,9 @@ export const AlogliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchS
           placeholder: 'Szukaj...',
         }}
       />
-      <PoweredBy className={styles.algoliaPoweredBy} />
+      <PoweredBy className={Styles.algoliaPoweredBy} />
       {showHits && <AlgoliaHits />}
     </InstantSearch>
   );
 });
-AlogliaSearch.displayName = 'AlogliaSearch';
+AlgoliaSearch.displayName = 'AlgoliaSearch';

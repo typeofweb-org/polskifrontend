@@ -3,14 +3,15 @@ import '../global.scss';
 import '../icomoon-v1.0/style.css';
 import { Auth } from '@supabase/ui';
 import { DefaultSeo } from 'next-seo';
-import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import { getConfig } from '../api-helpers/config';
 import { pageview } from '../utils/analytics';
 import { supabase } from '../utils/api/initSupabase';
-import { initSentry } from '../utils/sentry';
+
+import type { AppProps } from 'next/app';
 
 const meta = {
   title: 'Polski Frontend',
@@ -18,16 +19,7 @@ const meta = {
 };
 export const titleTemplate = `%s | ${meta.title}`;
 
-initSentry();
-
-// Workaround for https://github.com/vercel/next.js/issues/8592
-type SentryErrorProps = { readonly err: unknown };
-
-export default function MyApp({
-  Component,
-  pageProps,
-  err,
-}: AppProps<SentryErrorProps> & SentryErrorProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   const { asPath, events } = useRouter();
 
   useEffect(() => {
@@ -45,11 +37,11 @@ export default function MyApp({
           type: 'website',
           title: meta.title,
           locale: 'pl_PL',
-          url: `https://${process.env.NEXT_PUBLIC_URL!}${asPath}`,
+          url: `https://${getConfig('NEXT_PUBLIC_URL')}${asPath}`,
           description: meta.description,
           images: [
             {
-              url: `https://${process.env.NEXT_PUBLIC_URL!}/logo_og.png`,
+              url: `https://${getConfig('NEXT_PUBLIC_URL')}/logo_og.png`,
               width: 1000,
               height: 1000,
             },
@@ -78,21 +70,21 @@ export default function MyApp({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="alternate" href="/feed" type="application/rss+xml" title="Polski Frontend RSS" />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/reset-min.css"
-          integrity="sha256-t2ATOGCtAIZNnzER679jwcFcKYfLlw01gli6F6oszk8="
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css"
-          integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8="
-          crossOrigin="anonymous"
-        />
       </Head>
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/reset-min.css"
+        integrity="sha256-t2ATOGCtAIZNnzER679jwcFcKYfLlw01gli6F6oszk8="
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css"
+        integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8="
+        crossOrigin="anonymous"
+      />
       <Auth.UserContextProvider supabaseClient={supabase}>
-        <Component {...pageProps} err={err} />
+        <Component {...pageProps} />
       </Auth.UserContextProvider>
     </>
   );

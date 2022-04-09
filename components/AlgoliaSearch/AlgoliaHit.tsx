@@ -1,8 +1,9 @@
 import { memo } from 'react';
 
 import { createExcerpt } from '../../utils/excerpt-utils';
-import type { ArticleTileArticle, ArticleTileBlog } from '../ArticleTile/ArticleTile';
 import { ArticleTile } from '../ArticleTile/ArticleTile';
+
+import type { ArticleTileArticle, ArticleTileBlog } from '../ArticleTile/ArticleTile';
 
 export type Hit = {
   readonly objectID: string;

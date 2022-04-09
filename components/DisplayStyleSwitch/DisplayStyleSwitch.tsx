@@ -1,10 +1,10 @@
-import clsx from 'clsx';
-import type { ChangeEventHandler } from 'react';
+import Clsx from 'clsx';
 import { memo } from 'react';
 
-import type { DisplayPreferences } from '../../hooks/useDisplayPreferences';
+import Styles from './displayStyleSwitch.module.scss';
 
-import styles from './displayStyleSwitch.module.scss';
+import type { DisplayPreferences } from '../../hooks/useDisplayPreferences';
+import type { ChangeEventHandler } from 'react';
 
 type DisplayStyleSwitchProps = {
   readonly value: DisplayPreferences;
@@ -13,31 +13,31 @@ type DisplayStyleSwitchProps = {
 
 export const DisplayStyleSwitch = memo<DisplayStyleSwitchProps>(({ value, onChange }) => {
   return (
-    <div className={styles.container}>
+    <div className={Styles.container}>
       <label title="Wyświetl jako siatkę">
         <input
-          className={clsx('sr-only', styles.input)}
+          className={Clsx('sr-only', Styles.input)}
           value="grid"
           checked={value === 'grid'}
           type="radio"
           name="displayStyle"
           onChange={onChange}
         />
-        <span className={styles.span}>
+        <span className={Styles.span}>
           <span className="icon-th-large"></span>
           <span className="sr-only">Wyświetl jako siatkę</span>
         </span>
       </label>
       <label title="Wyświetl jako listę">
         <input
-          className={clsx('sr-only', styles.input)}
+          className={Clsx('sr-only', Styles.input)}
           value="list"
           checked={value === 'list'}
           type="radio"
           name="displayStyle"
           onChange={onChange}
         />
-        <span className={styles.span}>
+        <span className={Styles.span}>
           <span className="icon-menu"></span>
           <span className="sr-only">Wyświetl jako listę</span>
         </span>

@@ -1,5 +1,4 @@
 import { NextSeo } from 'next-seo';
-import type { ReactNode } from 'react';
 
 import { titleTemplate as defaultTitleTemplate } from '../pages/_app';
 
@@ -7,7 +6,9 @@ import { CookiesPopup } from './CookiesPopup/CookiesPopup';
 import { Footer } from './Footer/Footer';
 import { MainHeader } from './MainHeader/MainHeader';
 import { MainNavigation } from './MainNavigation/MainNavigation';
-import styles from './layout.module.scss';
+import Styles from './layout.module.scss';
+
+import type { ReactNode } from 'react';
 
 type LayoutProps = {
   readonly children: ReactNode;
@@ -17,12 +18,12 @@ type LayoutProps = {
 
 export const Layout = ({ children, title, titleTemplate = defaultTitleTemplate }: LayoutProps) => {
   return (
-    <div className={styles.wrapper}>
+    <div className={Styles.wrapper}>
       <header>
         <MainNavigation />
         <MainHeader />
       </header>
-      <main className={styles.main}>{children}</main>
+      <main className={Styles.main}>{children}</main>
       <Footer />
       <CookiesPopup />
       <NextSeo

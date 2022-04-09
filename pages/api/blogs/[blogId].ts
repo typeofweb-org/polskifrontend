@@ -1,9 +1,10 @@
 import Boom from '@hapi/boom';
-import type { InferType } from 'yup';
 import { boolean, object, string } from 'yup';
 
 import { withAsync, withValidation, withAuth, withMethods } from '../../../api-helpers/api-hofs';
 import { addContentCreator } from '../../../api-helpers/contentCreatorFunctions';
+
+import type { InferType } from 'yup';
 
 const cuidValidator = string()
   .matches(/^c[a-zA-Z0-9]{24}$/)
@@ -62,11 +63,11 @@ export default withAsync(
         await req.db.article.deleteMany({ where: { blogId: req.query.blogId } });
         await req.db.blog.delete({ where: { id: req.query.blogId } });
 
-        if (!existingBlog) {
+        if (!existingBlog || !existingBlog.creatorEmail) {
           return null;
         }
 
-        const blog = await addContentCreator(existingBlog.href, existingBlog.creatorEmail!, req.db);
+        const blog = await addContentCreator(existingBlog.href, existingBlog.creatorEmail, req.db);
 
         const savedBlog = await req.db.blog.update({
           data: { ...blog, isPublic: existingBlog.isPublic },

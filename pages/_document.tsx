@@ -2,7 +2,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
   render() {
-    const gaId = process.env.NEXT_PUBLIC_GA_TRACKING_ID || '';
+    const gaId = (process.env.NEXT_PUBLIC_GA_TRACKING_ID || '').replace(/[^\-a-zA-Z0-9]/g, '');
     return (
       <Html lang="pl">
         <Head>

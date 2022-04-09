@@ -1,16 +1,16 @@
-import type { AnySchema, InferType, BaseSchema } from 'yup';
+import type { AnySchema, Schema, InferType } from 'yup';
 
 type CheckOptional<S extends AnySchema, T extends InferType<S>> = undefined extends InferType<S>
   ? T | undefined
   : T;
 
-export const oneOfValues = <S extends AnySchema, T extends InferType<S>>(
+export const oneOfValues = <S extends Schema, T extends InferType<S>>(
   schema: S,
   values: readonly T[],
 ) => {
-  return schema.oneOf([...values]) as BaseSchema<
+  return schema.oneOf(values) as Schema<
     CheckOptional<S, T>,
-    Record<string, any>,
+    Record<string, unknown>,
     CheckOptional<S, T>
   >;
 };

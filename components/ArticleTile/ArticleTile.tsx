@@ -1,12 +1,13 @@
-import clsx from 'clsx';
+import Clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import type { HomePageArticle, HomePageBlog } from '../../types';
 import { formatDate } from '../../utils/date-utils';
 import { addTrackingToLink } from '../../utils/link-utils';
 
-import style from './articleTile.module.scss';
+import Styles from './articleTile.module.scss';
+
+import type { HomePageArticle, HomePageBlog } from '../../types';
 
 export type ArticleTileArticle = Pick<
   HomePageArticle,
@@ -29,47 +30,47 @@ export const ArticleTile = ({
   const readableDate = formatDate(publishedAt);
 
   return (
-    <article className={style.article}>
-      <header className={style.articleHeader}>
+    <article className={Styles.article}>
+      <header className={Styles.articleHeader}>
         <Link href={`/artykuly/${slug}`}>
-          <a className={style.articleTitleLink}>
-            <h3 className={clsx(style.articleTitle, truncate && style.articleTitleTruncate)}>
+          <a className={Styles.articleTitleLink}>
+            <h3 className={Clsx(Styles.articleTitle, truncate && Styles.articleTitleTruncate)}>
               {title}
             </h3>
           </a>
         </Link>
-        <p className={style.meta}>
+        <p className={Styles.meta}>
           {favicon && (
             <Image
               loading="lazy"
               src={favicon}
               width={16}
               height={16}
-              className={style.favicon}
+              className={Styles.favicon}
               alt=""
             />
           )}
-          <span className={style.blogName}>{blogName}&nbsp;</span>
-          <time className={style.articleDate} dateTime={dateTime}>
+          <span className={Styles.blogName}>{blogName}&nbsp;</span>
+          <time className={Styles.articleDate} dateTime={dateTime}>
             {readableDate}
           </time>
         </p>
       </header>
-      <p className={clsx(truncate && style.excerpt)}>{excerpt}</p>
-      <footer className={style.footer}>
-        <ul className={style.footerList}>
-          <li className={style.footerItem}>
+      <p className={Clsx(truncate && Styles.excerpt)}>{excerpt}</p>
+      <footer className={Styles.footer}>
+        <ul className={Styles.footerList}>
+          <li className={Styles.footerItem}>
             <Link href={`/artykuly/${slug}`}>
-              <a className={style.footerLink}>
-                <span className={`icon-folder-open ${style.icon}`}></span>
+              <a className={Styles.footerLink}>
+                <span className={`icon-folder-open ${Styles.icon}`}></span>
                 OTWÓRZ
               </a>
             </Link>
           </li>
-          <li className={style.footerItem}>
+          <li className={Styles.footerItem}>
             <Link href={addTrackingToLink(href, { utm_medium: 'homepage' })}>
-              <a target="_blank" className={style.footerLink} rel="noopener noreferrer">
-                <span className={`icon-new-tab ${style.icon}`}></span>
+              <a target="_blank" className={Styles.footerLink} rel="noopener noreferrer">
+                <span className={`icon-new-tab ${Styles.icon}`}></span>
                 ORYGINAŁ
               </a>
             </Link>

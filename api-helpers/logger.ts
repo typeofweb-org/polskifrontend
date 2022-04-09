@@ -1,6 +1,11 @@
 import Pino from 'pino';
 
 export const logger = Pino({
-  prettyPrint: { colorize: true, translateTime: true },
   level: 'trace',
+  ...(process.env.NODE_ENV !== 'production' && {
+    transport: {
+      target: 'pino-pretty',
+      options: { colorize: true, translateTime: true },
+    },
+  }),
 });

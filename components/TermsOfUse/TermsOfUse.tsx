@@ -2,22 +2,22 @@ import Link from 'next/link';
 
 import { Button } from '../Button/Button';
 
-import styles from './termsOfUse.module.scss';
+import Styles from './termsOfUse.module.scss';
 
 export const TermsOfUse = () => (
-  <section className={styles.section}>
-    <div className={styles.buttons}>
+  <section className={Styles.section}>
+    <div className={Styles.buttons}>
       <Link href="/" passHref>
         <Button icon="icon-arrow-left2">Strona Główna</Button>
       </Link>
     </div>
-    <article className={styles.note}>
-      <h2 className={styles.heading}>Regulamin polskifrontend.pl</h2>
+    <article className={Styles.note}>
+      <h2 className={Styles.heading}>Regulamin polskifrontend.pl</h2>
       <p>Wersja z dnia 27. stycznia 2021r.</p>
-      <ol className={styles.ol}>
-        <li className={styles.li}>
+      <ol className={Styles.ol}>
+        <li className={Styles.li}>
           Postanowienia ogólne
-          <ol className={styles.ol}>
+          <ol className={Styles.ol}>
             <li>
               Niniejszy Regulamin (zwany dalej „Regulaminem”) określa zasady korzystania z serwisu
               polskifrontend.pl (zwanego dalej: „Serwisem”) dla użytkowników indywidualnych (zwanych
@@ -32,9 +32,9 @@ export const TermsOfUse = () => (
             </li>
           </ol>
         </li>
-        <li className={styles.li}>
+        <li className={Styles.li}>
           Zasady korzystania z&nbsp;Serwisu
-          <ol className={styles.ol}>
+          <ol className={Styles.ol}>
             <li>
               Serwis służy do prezentacji najnowszych artykułów, podcastów lub filmów (zwanych
               dalej: „Artykułami”) z polskich blogów, podcastów i kanałów YouTube (zwanych dalej:
@@ -58,7 +58,7 @@ export const TermsOfUse = () => (
             </li>
             <li>
               Zgłaszając Bloga do Serwisu, Użytkownik:
-              <ol className={styles.ol}>
+              <ol className={Styles.ol}>
                 <li>ma obowiązek przestrzegania zasad kultury osobistej i&nbsp;netykiety;</li>
                 <li>
                   oświadcza, że przysługują mu prawa do publikacji dodawanych treści i&nbsp;wyraża
@@ -79,7 +79,7 @@ export const TermsOfUse = () => (
             </li>
             <li>
               Użytkownik nie może:
-              <ol className={styles.ol}>
+              <ol className={Styles.ol}>
                 <li>
                   wykorzystywać Serwisu, ani treści w&nbsp;nim zamieszczonych, do działalności
                   komercyjnej. Pod pojęciem działalności komercyjnej rozumie się jakąkolwiek
@@ -111,9 +111,9 @@ export const TermsOfUse = () => (
             </li>
           </ol>
         </li>
-        <li className={styles.li}>
+        <li className={Styles.li}>
           Odpowiedzialność i&nbsp;sankcje
-          <ol className={styles.ol}>
+          <ol className={Styles.ol}>
             <li>
               Użytkownik zobowiązuje się, że w&nbsp;momencie wystąpienia przez osoby trzecie z
               roszczeniami w&nbsp;stosunku do Usługodawcy z&nbsp;tytułu naruszenia jakichkolwiek
@@ -133,9 +133,9 @@ export const TermsOfUse = () => (
             </li>
           </ol>
         </li>
-        <li className={styles.li}>
+        <li className={Styles.li}>
           Wyłączenie odpowiedzialności i&nbsp;zastrzeżenia
-          <ol className={styles.ol}>
+          <ol className={Styles.ol}>
             <li>
               W&nbsp;najszerszym zakresie dopuszczalnym przez prawo, wyłączona zostaje
               odpowiedzialność Usługodawcy za:{' '}
@@ -150,7 +150,7 @@ export const TermsOfUse = () => (
             </li>
             <li>
               W&nbsp;najszerszym dopuszczalnym zakresie, Usługodawca ma prawo do:
-              <ol className={styles.ol}>
+              <ol className={Styles.ol}>
                 <li>zmiany parametrów oraz sposobu działania Serwisu;</li>
                 <li>wyłączania Serwisu bez wcześniejszego powiadomienia Użytkowników;</li>
                 <li>usuwania opublikowanych treści;</li>
@@ -163,9 +163,9 @@ export const TermsOfUse = () => (
             </li>
           </ol>
         </li>
-        <li className={styles.li}>
+        <li className={Styles.li}>
           Informacje o&nbsp;zagrożeniach
-          <ol className={styles.ol}>
+          <ol className={Styles.ol}>
             <li>
               Podstawowym zagrożeniem każdego użytkownika Internetu, w&nbsp;tym osób korzystających
               z usług świadczonych drogą elektroniczną, jest możliwość zainfekowania systemu
@@ -184,9 +184,9 @@ export const TermsOfUse = () => (
             </li>
           </ol>
         </li>
-        <li className={styles.li}>
+        <li className={Styles.li}>
           Ochrona danych osobowych
-          <ol className={styles.ol}>
+          <ol className={Styles.ol}>
             <li>
               Administratorem danych osobowych Użytkowników, jest Michał Miszczyszyn prowadzący
               działalność gospodarczą pod firmą „Type of Web - Michał Miszczyszyn”, zarejestrowaną
@@ -216,7 +216,7 @@ export const TermsOfUse = () => (
             <li>
               Zgodnie z&nbsp;RODO, Użytkownik ma następujące prawa w&nbsp;związku
               z&nbsp;przetwarzaniem jego danych osobowych:
-              <ol className={styles.ol}>
+              <ol className={Styles.ol}>
                 <li>Prawo do informacji, w&nbsp;jaki sposób dane osobowe są przetwarzane;</li>
                 <li>Prawo do dostępu i&nbsp;sprostowania danych osobowych;</li>
                 <li>
@@ -262,9 +262,9 @@ export const TermsOfUse = () => (
             </li>
           </ol>
         </li>
-        <li className={styles.li}>
+        <li className={Styles.li}>
           Postanowienia końcowe{' '}
-          <ol className={styles.ol}>
+          <ol className={Styles.ol}>
             <li>
               Usługodawca zastrzega sobie prawo do zmiany Regulaminu. O&nbsp;treści zmian Regulaminu
               Usługodawca poinformuje Użytkowników przez umieszczenie na stronie internetowej
