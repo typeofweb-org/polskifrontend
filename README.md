@@ -8,10 +8,13 @@
 </p>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Dev
+
 Zachęcamy do tworzenia issues i pracy z kodem! Otwórz [CONTRIBUTING](./CONTRIBUTING.md).
 
 ## Społeczność ✨
@@ -46,6 +49,9 @@ Ogromne podziękowania dla tych fantastycznych osób ([wyjaśnienie emoji](https
     <td align="center"><a href="http://szery.net.pl"><img src="https://avatars.githubusercontent.com/u/4786095?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Łukasz Wiśniewski</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=lukaszwisniewski88" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/PatrykBuniX"><img src="https://avatars.githubusercontent.com/u/45733298?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Patryk Górka</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=PatrykBuniX" title="Documentation">📖</a></td>
     <td align="center"><a href="https://jcubic.pl/me"><img src="https://avatars.githubusercontent.com/u/280241?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Jakub T. Jankiewicz</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/issues?q=author%3Ajcubic" title="Bug reports">🐛</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://devszczepaniak.pl/"><img src="https://avatars.githubusercontent.com/u/23155008?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Dominik Szczepaniak</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/issues?q=author%3Aelszczepano" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
