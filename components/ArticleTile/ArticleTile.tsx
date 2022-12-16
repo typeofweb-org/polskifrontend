@@ -39,14 +39,7 @@ export const ArticleTile = ({
         </Link>
         <p className={Styles.meta}>
           {favicon && (
-            <Image
-              loading="lazy"
-              src={favicon}
-              width={16}
-              height={16}
-              className={Styles.favicon}
-              alt=""
-            />
+            <Image src={favicon} width={16} height={16} className={Styles.favicon} alt="" />
           )}
           <span className={Styles.blogName}>{blogName}&nbsp;</span>
           <time className={Styles.articleDate} dateTime={dateTime}>

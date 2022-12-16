@@ -21,7 +21,6 @@ export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
             <a href={blog.href} target="_blank" rel="noopener noreferrer">
               {blog.favicon && (
                 <Image
-                  loading="lazy"
                   src={blog.favicon}
                   alt=""
                   className={Styles.favicon}

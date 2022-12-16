@@ -14,13 +14,7 @@ export const Footer = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Image
-          loading="lazy"
-          src="/powered-by-vercel.svg"
-          alt="Powered by Vercel"
-          width={209}
-          height={40}
-        />
+        <Image src="/powered-by-vercel.svg" alt="Powered by Vercel" width={209} height={40} />
       </Link>
       <p>
         Copyright@{copyrightYear} –{' '}

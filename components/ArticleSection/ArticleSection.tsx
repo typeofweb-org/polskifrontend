@@ -33,7 +33,6 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
         >
           {article.blog.favicon && (
             <Image
-              loading="lazy"
               src={article.blog.favicon}
               alt=""
               className={Styles.favicon}
