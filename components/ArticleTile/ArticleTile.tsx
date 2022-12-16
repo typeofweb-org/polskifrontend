@@ -32,12 +32,10 @@ export const ArticleTile = ({
   return (
     <article className={Styles.article}>
       <header className={Styles.articleHeader}>
-        <Link href={`/artykuly/${slug}`}>
-          <a className={Styles.articleTitleLink}>
-            <h3 className={Clsx(Styles.articleTitle, truncate && Styles.articleTitleTruncate)}>
-              {title}
-            </h3>
-          </a>
+        <Link href={`/artykuly/${slug}`} className={Styles.articleTitleLink}>
+          <h3 className={Clsx(Styles.articleTitle, truncate && Styles.articleTitleTruncate)}>
+            {title}
+          </h3>
         </Link>
         <p className={Styles.meta}>
           {favicon && (
@@ -60,19 +58,20 @@ export const ArticleTile = ({
       <footer className={Styles.footer}>
         <ul className={Styles.footerList}>
           <li className={Styles.footerItem}>
-            <Link href={`/artykuly/${slug}`}>
-              <a className={Styles.footerLink}>
-                <span className={`icon-folder-open ${Styles.icon}`}></span>
-                OTWÓRZ
-              </a>
+            <Link href={`/artykuly/${slug}`} className={Styles.footerLink}>
+              <span className={`icon-folder-open ${Styles.icon}`}></span>
+              OTWÓRZ
             </Link>
           </li>
           <li className={Styles.footerItem}>
-            <Link href={addTrackingToLink(href, { utm_medium: 'homepage' })}>
-              <a target="_blank" className={Styles.footerLink} rel="noopener noreferrer">
-                <span className={`icon-new-tab ${Styles.icon}`}></span>
-                ORYGINAŁ
-              </a>
+            <Link
+              href={addTrackingToLink(href, { utm_medium: 'homepage' })}
+              target="_blank"
+              className={Styles.footerLink}
+              rel="noopener noreferrer"
+            >
+              <span className={`icon-new-tab ${Styles.icon}`}></span>
+              ORYGINAŁ
             </Link>
           </li>
         </ul>

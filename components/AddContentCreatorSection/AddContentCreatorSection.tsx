@@ -1,7 +1,5 @@
-import Link from 'next/link';
-
 import { AddContentCreatorForm } from '../AddContentCreatorForm/AddContentCreatorForm';
-import { Button } from '../Button/Button';
+import { ButtonAsLink } from '../ButtonAsLink/ButtonAsLink';
 
 import Styles from './addContentCreatorSection.module.css';
 
@@ -9,11 +7,9 @@ export const AddContentCreatorSection = () => {
   return (
     <section className={Styles.section}>
       <h2 className={Styles.heading}>Zgłoś Serwis</h2>
-      <Link href="/" passHref>
-        <Button as="a" icon="icon-arrow-left2">
-          Strona główna
-        </Button>
-      </Link>
+      <ButtonAsLink href="/" icon="icon-arrow-left2">
+        Strona Główna
+      </ButtonAsLink>
       <AddContentCreatorForm />
     </section>
   );

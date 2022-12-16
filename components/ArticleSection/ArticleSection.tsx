@@ -5,7 +5,7 @@ import { memo } from 'react';
 import { detectContentGenre } from '../../utils/creator-utils';
 import { formatDate } from '../../utils/date-utils';
 import { addTrackingToLink } from '../../utils/link-utils';
-import { Button } from '../Button/Button';
+import { ButtonAsLink } from '../ButtonAsLink/ButtonAsLink';
 
 import Styles from './articleSection.module.scss';
 
@@ -26,28 +26,28 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
   return (
     <section className={Styles.section}>
       <h2 className={Styles.heading}>
-        <Link href={addTrackingToLink(article.blog.href, { utm_medium: 'article_page' })}>
-          <a target="_blank" rel="noopener noreferrer">
-            {article.blog.favicon && (
-              <Image
-                loading="lazy"
-                src={article.blog.favicon}
-                alt=""
-                className={Styles.favicon}
-                height={16}
-                width={16}
-              />
-            )}
-            {article.blog.name}
-          </a>
+        <Link
+          href={addTrackingToLink(article.blog.href, { utm_medium: 'article_page' })}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {article.blog.favicon && (
+            <Image
+              loading="lazy"
+              src={article.blog.favicon}
+              alt=""
+              className={Styles.favicon}
+              height={16}
+              width={16}
+            />
+          )}
+          {article.blog.name}
         </Link>
       </h2>
       <div className={Styles.buttons}>
-        <Link href="/" passHref>
-          <Button icon="icon-arrow-left2" as="a">
-            Strona Główna
-          </Button>
-        </Link>
+        <ButtonAsLink href="/" icon="icon-arrow-left2">
+          Strona Główna
+        </ButtonAsLink>
       </div>
       <article className={Styles.article}>
         <h3 className={Styles.title}>{article.title}</h3>
@@ -55,11 +55,14 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
         <div dangerouslySetInnerHTML={{ __html: article.sanitizedDescription }} />
         <section className={Styles.linkWrapper}>
           <p className={Styles.linkHeader}>Chcesz więcej? Sprawdź w oryginale!</p>
-          <Link href={addTrackingToLink(article.href, { utm_medium: 'article_page' })} passHref>
-            <Button icon="icon-new-tab" as="a" target="_blank" rel="noopener noreferrer">
-              {articleLinkLabel}
-            </Button>
-          </Link>
+          <ButtonAsLink
+            href={addTrackingToLink(article.href, { utm_medium: 'article_page' })}
+            icon="icon-new-tab"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {articleLinkLabel}
+          </ButtonAsLink>
         </section>
       </article>
     </section>
