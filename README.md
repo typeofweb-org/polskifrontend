@@ -9,7 +9,7 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-17-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -52,6 +52,7 @@ Ogromne podziękowania dla tych fantastycznych osób ([wyjaśnienie emoji](https
   </tr>
   <tr>
     <td align="center"><a href="https://devszczepaniak.pl/"><img src="https://avatars.githubusercontent.com/u/23155008?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Dominik Szczepaniak</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/issues?q=author%3Aelszczepano" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/Wojtazzzz"><img src="https://avatars.githubusercontent.com/u/77293179?v=4?s=70" width="70px;" alt=""/><br /><sub><b>Marcin Witas</b></sub></a><br /><a href="https://github.com/typeofweb/polskifrontend/commits?author=Wojtazzzz" title="Code">💻</a></td>
   </tr>
 </table>
 
