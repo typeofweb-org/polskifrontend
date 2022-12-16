@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Button } from '../Button/Button';
+import { ButtonAsLink } from '../ButtonAsLink/ButtonAsLink';
 
 import Styles from './aboutSection.module.scss';
 
@@ -8,9 +8,9 @@ export const AboutSection = () => (
   <section className={Styles.section}>
     <h2 className={Styles.heading}>O serwisie</h2>
     <div className={Styles.buttons}>
-      <Link href="/" passHref>
-        <Button icon="icon-arrow-left2">Strona Główna</Button>
-      </Link>
+      <ButtonAsLink href="/" icon="icon-arrow-left2">
+        Strona Główna
+      </ButtonAsLink>
     </div>
     <article className={Styles.note}>
       <h3>Po co jest ten serwis?</h3>
@@ -33,11 +33,8 @@ export const AboutSection = () => (
         Jeżeli więc znasz (lub sam prowadzisz) jakiś blog, serwis lub stronę{' '}
         <strong>w języku polskim</strong>, której tutaj nie ma, a uważasz, że powinna się tu znaleźć
         - zapraszam do zgłoszenia go przez specjalnie do tego celu{' '}
-        <Link href="/zglos-serwis">
-          <a>przygotowany formularz</a>
-        </Link>
-        . Obiecuję, że przejrzę każde zgłoszenie i jeśli uznam, że dana strona się nadaje - dodam ją
-        do serwisu!
+        <Link href="/zglos-serwis">przygotowany formularz</Link>. Obiecuję, że przejrzę każde
+        zgłoszenie i jeśli uznam, że dana strona się nadaje - dodam ją do serwisu!
       </p>
       <p>
         A jeśli podoba Ci się moja idea i sam prowadzisz bloga o frontendzie, to oprócz zgłoszenia
