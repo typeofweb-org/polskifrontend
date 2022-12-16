@@ -12,7 +12,6 @@
 .pnp.js
 .tmp
 .version
-.yarn-integrity
 *.log
 *.pid
 *.pid.lock
@@ -39,8 +38,6 @@ npm-debug.log*
 package-lock.json
 pids
 test-results.xml
-yarn-error.log*
-yarn.lock
 
 key
 key.pub

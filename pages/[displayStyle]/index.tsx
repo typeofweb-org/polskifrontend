@@ -1,6 +1,6 @@
-import HomePage from './[page]';
+import HomePage, { getStaticProps } from './[page]';
 
-export { getStaticProps } from './[page]';
+export { getStaticProps };
 
 export const getStaticPaths = () => {
   return {

@@ -1,7 +1,7 @@
 import 'normalize.css/normalize.css';
 import '../global.scss';
 import '../icomoon-v1.0/style.css';
-import { Auth } from '@supabase/ui';
+import { Auth } from '@supabase/auth-ui-react';
 import { DefaultSeo } from 'next-seo';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
