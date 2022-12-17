@@ -1,4 +1,4 @@
-import { Auth } from '@supabase/ui';
+import { Auth } from '@supabase/auth-ui-react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -23,7 +23,7 @@ export default function Login() {
     });
 
     return () => {
-      authListener?.unsubscribe();
+      authListener.subscription.unsubscribe();
     };
   }, []);
 
@@ -40,7 +40,7 @@ export default function Login() {
     });
 
     return () => {
-      authListener?.unsubscribe();
+      authListener.subscription.unsubscribe();
     };
   }, []);
 
