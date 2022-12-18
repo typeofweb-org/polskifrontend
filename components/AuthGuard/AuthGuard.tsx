@@ -22,7 +22,6 @@ export type AuthHookRet =
       readonly user: {
         readonly user: {
           readonly id: string;
-          readonly created_at: string;
         };
         readonly member: {
           readonly id: string;

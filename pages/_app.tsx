@@ -1,16 +1,17 @@
 import 'normalize.css/normalize.css';
 import '../global.scss';
 import '../icomoon-v1.0/style.css';
-import { Auth } from '@supabase/auth-ui-react';
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { DefaultSeo } from 'next-seo';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { getConfig } from '../api-helpers/config';
 import { pageview } from '../utils/analytics';
-import { supabase } from '../utils/api/initSupabase';
 
+import type { Session } from '@supabase/auth-helpers-react';
 import type { AppProps } from 'next/app';
 
 const meta = {
@@ -19,8 +20,14 @@ const meta = {
 };
 export const titleTemplate = `%s | ${meta.title}`;
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({
+  Component,
+  pageProps,
+}: AppProps<{
+  readonly initialSession: Session;
+}>) {
   const { asPath, events, ...router } = useRouter();
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   useEffect(() => {
     // redirect for auth
@@ -100,9 +107,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8="
         crossOrigin="anonymous"
       />
-      <Auth.UserContextProvider supabaseClient={supabase}>
+      <SessionContextProvider
+        supabaseClient={supabaseClient}
+        initialSession={pageProps.initialSession}
+      >
         <Component {...pageProps} />
-      </Auth.UserContextProvider>
+      </SessionContextProvider>
     </>
   );
 }
