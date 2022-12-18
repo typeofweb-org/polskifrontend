@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 
 import { useQuery } from '../../hooks/useQuery';
 import { getMe } from '../../utils/api/getMe';
-import { supabase } from '../../utils/api/initSupabase';
 import { LoadingScreen } from '../LoadingScreen/LoadingScreen';
 
 import Styles from './authGuard.module.css';
@@ -43,12 +42,6 @@ const useAuth = (): AuthHookRet => {
 
   if (typeof window === 'undefined') {
     return { isLoading: true };
-  }
-
-  const session = supabase.auth.session();
-
-  if (!session?.user) {
-    return { isLoggedIn: false, isLoading: false };
   }
 
   switch (status) {

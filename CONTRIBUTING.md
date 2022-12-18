@@ -15,40 +15,33 @@ Zachęcamy do otwierania Issues ze znalezionymi bugami i z sugestiami tego, co m
 
 ## Wymagania
 
-- `yarn` w wersji co najmniej 1.22.x, ale mniejszej niż 2.x.x
-- Docker i polecenie `docker-compose`
+- `pnpm` w wersji co najmniej 7.17.0
+- Docker i polecenie `docker compose`
 
 ## Praca lokalna
 
 Przed przystąpieniem do pracy należy skopiować plik `.env-sample` do `.env`.
-Projekt uruchamiamy jednym poleceniem `yarn dev`. Spowoduje ono instalację wszystkich potrzebnych zależności, uruchomienie kontenera w Dockerze oraz naszej aplikacji.
+Projekt uruchamiamy jednym poleceniem `pnpm dev`. Spowoduje ono instalację wszystkich potrzebnych zależności, uruchomienie kontenera w Dockerze oraz naszej aplikacji.
 Po chwili powinna być gotowa pod adresem http://localhost:3000/
 
 ### Uwaga co do Supabase
 
-Przy pierwszym uruchomieniu, możesz zobaczyć komunikat mówiąc o braku Supabase. W takim przypadku uruchom polecenie `yarn supabase init` i zatwierdź domyślne opcje wciskając 3xenter. Po dłuższej chwili na ekranie zobaczysz 5 wartości:
+Przy pierwszym uruchomieniu, możesz zobaczyć komunikat mówiąc o braku Supabase. W takim przypadku uruchom polecenie `pnpm supabase init`. Następnie uruchom `pnpm supabase start`.
 
-- Supabase URL
-- Supabase Key (anon, public)
-- Supabase Key (service_role, private)
-- Database URL
-- Email testing interface URL
+Użyj komendy `pnpm supabase status`, aby uzyskać dostęp do wartości, które następnie musisz skopiować do swojego pliku `.env`. Odpowiednio:
 
-Koniecznie skopiuj je do swojego pliku `.env` odpowiednio:
+- `API URL` jako `NEXT_PUBLIC_SUPABASE_URL`
+- `anon key` jako `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `DB URL` jako `DATABASE_URL` oraz `DATABASE_POOL_URL`
 
-- Supabase URL jako `NEXT_PUBLIC_SUPABASE_URL`
-- Supabase Key (anon, public) jako `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- Database URL jako `DATABASE_URL` i `DATABASE_POOL_URL`
-- Supabase Key (service_role, private) oraz Email testing interface URL nie będą potrzebne
-
-Następnie ponownie odpal `yarn dev`.
+Następnie odpal `pnpm dev`.
 
 ## Przywracanie danych z DUMP.sql
 
 Gdy wszystko będzie już gotowe, to w drugim oknie terminala należy wpisać polecenie:
 
 ```bash
-docker exec -i supabase-db psql postgres -U postgres < DUMP.sql
+docker exec -i supabase_db_polskifrontend psql postgres -U postgres < DUMP.sql
 ```
 
 Spowoduje to załadowanie danych do bazy z pliku DUMP.sql.
@@ -57,6 +50,6 @@ Spowoduje to załadowanie danych do bazy z pliku DUMP.sql.
 
 Większość konwencji w projekcie jest wymuszona przez `prettier` i/lub `eslint` oraz TypeScripta.
 
-Ważna uwaga odnośnie tworzenia Pull Requestów: Od 29. grudnia korzystamy z "Conventional Commits", aby łatwiej nam było generować CHANGELOG. **Nazwy commitów mogą być dowolne**, ale **tytuł samego PR-a musi spełniać określone wymagania**! Więcej informacji oraz przykłady można znaleźć tutaj: https://highlab.pl/conventional-commits/
+Ważna uwaga odnośnie tworzenia Pull Requestów: korzystamy z "Conventional Commits", aby łatwiej nam było generować CHANGELOG. **Nazwy commitów mogą być dowolne**, ale **tytuł samego PR-a musi spełniać określone wymagania**! Więcej informacji oraz przykłady można znaleźć tutaj: https://highlab.pl/conventional-commits/
 
 **Tytuły i opisy PR-ów piszemy w języku polskim!**

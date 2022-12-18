@@ -20,7 +20,7 @@ const getMeSchema = object({
 
 export const getMe = async () => {
   return (
-    await fetcher(`/api/auth/me`, {
+    await fetcher('/api/auth/me', {
       schema: getMeSchema,
       method: 'GET',
     })
