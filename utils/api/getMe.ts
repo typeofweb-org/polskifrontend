@@ -6,7 +6,6 @@ const getMeSchema = object({
   data: object({
     user: object({
       id: string().required(),
-      created_at: string().required(),
     })
       .noUnknown()
       .required(),
