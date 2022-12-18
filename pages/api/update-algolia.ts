@@ -72,7 +72,7 @@ const articleSchema = object({});
 const insertPayloadSchema = commonSchema.shape({
   type: mixed<InsertPayload['type']>().required().oneOf(['INSERT']),
   record: articleSchema.required(),
-  old_record: mixed<null>().nullable(),
+  old_record: mixed<{}>().nullable(),
 });
 const updatePayloadSchema = commonSchema.shape({
   type: mixed<UpdatePayload['type']>().required().oneOf(['UPDATE']),
@@ -81,7 +81,7 @@ const updatePayloadSchema = commonSchema.shape({
 });
 const deletePayloadSchema = commonSchema.shape({
   type: mixed<DeletePayload['type']>().required().oneOf(['DELETE']),
-  record: mixed<null>().nullable(),
+  record: mixed<{}>().nullable(),
   old_record: articleSchema.required(),
 });
 
@@ -99,8 +99,6 @@ export default withAsync(
         }),
     })(
       withDb(async (req) => {
-        console.log(req.body);
-
         if (req.body.type === 'DELETE') {
           return algoliaIndex.deleteObject(req.body.old_record.id);
         } else {

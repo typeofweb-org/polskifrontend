@@ -6,7 +6,6 @@ const getMeSchema = object({
   data: object({
     user: object({
       id: string().required(),
-      created_at: string().required(),
     })
       .noUnknown()
       .required(),
@@ -20,7 +19,7 @@ const getMeSchema = object({
 
 export const getMe = async () => {
   return (
-    await fetcher(`/api/auth/me`, {
+    await fetcher('/api/auth/me', {
       schema: getMeSchema,
       method: 'GET',
     })

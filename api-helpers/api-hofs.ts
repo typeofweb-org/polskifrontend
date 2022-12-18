@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions -- this is, in principle, unsafe */
 import Boom from '@hapi/boom';
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { object } from 'yup';
-
-import { supabase } from '../utils/api/initSupabase';
 
 import { logger } from './logger';
 import { closeConnection, openConnection } from './prisma/db';
 import { handlePrismaError, isPrismaError } from './prisma/prisma-helper';
 
 import type { Member, PrismaClient, UserRole } from '@prisma/client';
-import type { User } from '@supabase/gotrue-js';
+import type { User } from '@supabase/auth-helpers-nextjs';
 import type { IncomingMessage } from 'http';
 import type { NextApiResponse, NextApiRequest } from 'next';
 import type { AnySchema, ObjectSchema, InferType } from 'yup';
@@ -143,18 +142,28 @@ export function withAuth(role?: UserRole) {
     ) => unknown,
   ) =>
     withDb<R>(async (req, res) => {
-      const session = await supabase.auth.api.getUserByCookie(req);
+      const supabase = createServerSupabaseClient({ req, res } as unknown as {
+        readonly req: NextApiRequest;
+        readonly res: NextApiResponse;
+      });
+      const session = await supabase.auth.getSession();
 
-      if (!session?.user) {
+      if (session.error) {
         throw Boom.unauthorized();
       }
 
-      const member = await req.db.member.findUnique({ where: { id: session.user.id } });
+      if (!session.data.session?.user) {
+        throw Boom.unauthorized();
+      }
+
+      const member = await req.db.member.findUnique({
+        where: { id: session.data.session.user.id },
+      });
       if (!member || (role && member.role !== role)) {
         throw Boom.unauthorized();
       }
 
-      return handler(unsafe__set(req, 'session', { user: session.user, member }), res);
+      return handler(unsafe__set(req, 'session', { user: session.data.session.user, member }), res);
     });
 }
 
