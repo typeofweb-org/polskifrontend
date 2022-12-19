@@ -3,49 +3,36 @@ import { memo, forwardRef } from 'react';
 
 import Styles from './button.module.scss';
 
+import type { ButtonHTMLAttributes } from 'react';
+
+export type IconPosition = 'right' | 'left';
+export type ButtonStyle = 'normal' | 'danger';
+
 type ButtonProps = {
-  readonly as?: 'a' | 'button';
   readonly icon?: string;
-  readonly children?: React.ReactNode;
-  readonly type?: string;
-  readonly disabled?: boolean;
-  readonly className?: string;
-  readonly onClick?: () => void;
-  readonly href?: string;
-  readonly target?: string;
-  readonly rel?: string;
-  readonly iconPosition?: 'right' | 'left';
-  readonly buttonStyle?: 'normal' | 'danger';
-};
+  readonly iconPosition?: IconPosition;
+  readonly buttonStyle?: ButtonStyle;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = memo<ButtonProps>(
-  forwardRef(
+  forwardRef<HTMLButtonElement, ButtonProps>(
     (
-      {
-        as: As = 'button',
-        icon,
-        children,
-        className = '',
-        iconPosition = 'left',
-        buttonStyle = 'normal',
-        ...props
-      },
+      { icon, children, className = '', iconPosition = 'left', buttonStyle = 'normal', ...props },
       ref,
     ) => {
       return (
-        <As
+        <button
           className={Clsx(Styles.button, className, {
             [Styles.buttonIconRight]: iconPosition === 'right',
             [Styles.buttonDanger]: buttonStyle === 'danger',
             [Styles.buttonDisabled]: props.disabled,
           })}
-          // @ts-ignore
           ref={ref}
           {...props}
         >
           {icon && <span className={Clsx(icon, children && Styles.icon)}></span>}
           {children}
-        </As>
+        </button>
       );
     },
   ),

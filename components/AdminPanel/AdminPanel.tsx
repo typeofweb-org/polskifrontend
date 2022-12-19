@@ -51,17 +51,11 @@ export const AdminPanel = () => {
       : '',
     createdAt: formatDate(blog.createdAt),
     link: (
-      <Link href={blog.href}>
-        <a target="_blank" rel="noopener noreferrer">
-          Link
-        </a>
+      <Link href={blog.href} target="_blank" rel="noopener noreferrer">
+        Link
       </Link>
     ),
-    edit: (
-      <Link href={`/admin/blogs/${blog.id}`}>
-        <a>Edytuj</a>
-      </Link>
-    ),
+    edit: <Link href={`/admin/blogs/${blog.id}`}>Edytuj</Link>,
   }));
 
   return (

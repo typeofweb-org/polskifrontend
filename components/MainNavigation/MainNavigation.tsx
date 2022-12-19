@@ -41,7 +41,7 @@ export const MainNavigation = () => (
       {links.map(({ label, href, openInNewTab, icon }) => (
         <li className={Styles.navigationItem} key={href}>
           {openInNewTab ? (
-            <a
+            <Link
               className={Styles.link}
               href={href}
               target="_blank"
@@ -50,13 +50,11 @@ export const MainNavigation = () => (
             >
               <span className={`icon-${icon} ${Styles.icon}`} />
               <span className={Styles.label}>{label}</span>
-            </a>
+            </Link>
           ) : (
-            <Link href={href}>
-              <a className={Styles.link} title={label}>
-                <span className={`icon-${icon} ${Styles.icon}`} />
-                <span className={Styles.label}>{label}</span>
-              </a>
+            <Link href={href} className={Styles.link} title={label}>
+              <span className={`icon-${icon} ${Styles.icon}`} />
+              <span className={Styles.label}>{label}</span>
             </Link>
           )}
         </li>

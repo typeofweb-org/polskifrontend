@@ -1,16 +1,17 @@
-import { Auth } from '@supabase/ui';
+import { useSupabaseClient, useSession } from '@supabase/auth-helpers-react';
+import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { Layout } from '../../components/Layout';
-import { supabase } from '../../utils/api/initSupabase';
 
 type ViewType = Parameters<typeof Auth>[0]['view'];
 
 export default function Login() {
-  const { user } = Auth.useUser();
+  const session = useSession();
   const router = useRouter();
   const [authView, setAuthView] = useState<ViewType>('sign_in');
+  const supabase = useSupabaseClient();
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
@@ -23,32 +24,15 @@ export default function Login() {
     });
 
     return () => {
-      authListener?.unsubscribe();
+      authListener.subscription.unsubscribe();
     };
-  }, []);
+  }, [supabase.auth]);
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      fetch('/api/auth', {
-        method: 'POST',
-        headers: new Headers({ 'Content-Type': 'application/json' }),
-        credentials: 'same-origin',
-        body: JSON.stringify({ event, session }),
-      })
-        .then((res) => res.json())
-        .catch((err) => console.error(err));
-    });
-
-    return () => {
-      authListener?.unsubscribe();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (user) {
+    if (session) {
       void router.replace('/admin');
     }
-  }, [user, router]);
+  }, [session, router]);
 
   return (
     <Layout title="Panel admina">
@@ -57,7 +41,7 @@ export default function Login() {
         providers={['github']}
         view={authView}
         socialLayout="horizontal"
-        socialButtonSize="xlarge"
+        appearance={{ theme: ThemeSupa }}
       />
     </Layout>
   );

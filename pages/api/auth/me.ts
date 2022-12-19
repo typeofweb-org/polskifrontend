@@ -5,8 +5,19 @@ export default withAsync(
     withMethods({
       async GET(req) {
         const user = req.session.user;
-        const member = await req.db.member.findUnique({ where: { id: user.id } });
-        return { data: { user, member } };
+
+        const member = await req.db.member.findUnique({
+          where: {
+            id: user.id,
+          },
+        });
+
+        return {
+          data: {
+            user,
+            member,
+          },
+        };
       },
     }),
   ),

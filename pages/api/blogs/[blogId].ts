@@ -63,7 +63,7 @@ export default withAsync(
         await req.db.article.deleteMany({ where: { blogId: req.query.blogId } });
         await req.db.blog.delete({ where: { id: req.query.blogId } });
 
-        if (!existingBlog || !existingBlog.creatorEmail) {
+        if (!existingBlog?.creatorEmail) {
           return null;
         }
 

@@ -58,8 +58,8 @@ module.exports = {
   commentHeading: 'Stats from current PR',
   commentReleaseHeading: 'Stats from current release',
   // the command to build the app (app source should be in `.stats-app`)
-  appBuildCommand: 'cp .env-sample .env && NEXT_TELEMETRY_DISABLED=1 yarn next build',
-  appStartCommand: 'NEXT_TELEMETRY_DISABLED=1 yarn next start --port $PORT',
+  appBuildCommand: 'cp .env-sample .env && NEXT_TELEMETRY_DISABLED=1 pnpm next build',
+  appStartCommand: 'NEXT_TELEMETRY_DISABLED=1 pnpm next start --port $PORT',
   // the main branch to compare against (what PRs will be merging into)
   mainBranch: 'develop',
   // the main repository path (relative to https://github.com/)
