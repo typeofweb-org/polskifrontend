@@ -1,15 +1,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { memo } from 'react';
+import { notFound } from 'next/navigation';
 
-import { detectContentGenre } from '../../utils/creator-utils';
-import { formatDate } from '../../utils/date-utils';
-import { addTrackingToLink } from '../../utils/link-utils';
-import { ButtonAsLink } from '../ButtonAsLink/ButtonAsLink';
+import { getArticleBySlug, getArticlesSlugs } from '../../../api-helpers/articles';
+import { HTTPNotFound } from '../../../api-helpers/errors';
+import { DEFAULT_ARTICLES } from '../../../api-helpers/general-feed';
+import { closeConnection, openConnection } from '../../../api-helpers/prisma/db';
+import { ButtonAsLink } from '../../../components/ButtonAsLink/ButtonAsLink';
+import { detectContentGenre } from '../../../utils/creator-utils';
+import { formatDate } from '../../../utils/date-utils';
+import { addTrackingToLink } from '../../../utils/link-utils';
+import { addSanitizedDescriptionToArticle } from '../../../utils/sanitize-utils';
 
-import Styles from './articleSection.module.scss';
-
-import type { ArticlePageProps } from '../../pages/artykuly/[slug]';
+import Styles from './page.module.scss';
 
 const linkLabels: Record<ReturnType<typeof detectContentGenre>, string> = {
   blog: 'Przejdź do artykułu',
@@ -17,11 +20,16 @@ const linkLabels: Record<ReturnType<typeof detectContentGenre>, string> = {
   youtube: 'Przejdź do filmu',
 };
 
-type ArticleSectionProps = Pick<ArticlePageProps, 'article'>;
+type ArticlePageProps = {
+  readonly params: {
+    readonly slug: string;
+  };
+};
 
-export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
+export default async function ArticlePage({ params }: ArticlePageProps) {
+  const article = await fetchArticleBySlug(params.slug);
+
   const readableDate = formatDate(article.publishedAt);
-
   const articleLinkLabel = linkLabels[detectContentGenre(article)];
 
   return (
@@ -44,11 +52,13 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
           {article.blog.name}
         </Link>
       </h2>
+
       <div className={Styles.buttons}>
         <ButtonAsLink href="/" icon="icon-arrow-left2">
           Strona Główna
         </ButtonAsLink>
       </div>
+
       <article className={Styles.article}>
         <h3 className={Styles.title}>{article.title}</h3>
         <time className={Styles.publishDate}>{readableDate}</time>
@@ -67,6 +77,39 @@ export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
       </article>
     </section>
   );
-});
+}
 
-ArticleSection.displayName = 'ArticleSection';
+const fetchArticleBySlug = async (slug: string | undefined) => {
+  if (!slug) {
+    return notFound();
+  }
+
+  try {
+    const prisma = openConnection();
+
+    const article = await getArticleBySlug(prisma, slug);
+    const sanitizedArticle = addSanitizedDescriptionToArticle(article);
+
+    return sanitizedArticle;
+  } catch (err) {
+    if (err instanceof HTTPNotFound) {
+      return notFound();
+    }
+
+    throw err;
+  } finally {
+    await closeConnection();
+  }
+};
+
+export const generateStaticParams = async () => {
+  try {
+    const prisma = openConnection();
+
+    const articles = await getArticlesSlugs(prisma, DEFAULT_ARTICLES);
+
+    return articles;
+  } finally {
+    await closeConnection();
+  }
+};
