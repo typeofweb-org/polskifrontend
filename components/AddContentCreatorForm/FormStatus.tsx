@@ -1,3 +1,4 @@
+'use client';
 import Clsx from 'clsx';
 import { memo } from 'react';
 
