@@ -1,16 +1,14 @@
-import { memo } from 'react';
-
 import { ArticleTile } from '../ArticleTile/ArticleTile';
 
 import Styles from './blogsList.module.scss';
 
-import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
+import type { Article } from '../../types';
 
 type BlogsListProps = {
-  readonly articles: NonNullable<HomePageProps['articles']>;
+  readonly articles: readonly Article[];
 };
 
-export const BlogsList = memo<BlogsListProps>(({ articles }) => {
+export const BlogsList = ({ articles }: BlogsListProps) => {
   return (
     <ul className={Styles.list}>
       {articles.map((article) => (
@@ -20,5 +18,6 @@ export const BlogsList = memo<BlogsListProps>(({ articles }) => {
       ))}
     </ul>
   );
-});
+};
+
 BlogsList.displayName = 'BlogsList';

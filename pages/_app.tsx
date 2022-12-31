@@ -54,27 +54,28 @@ export default function MyApp({
 
   return (
     <>
-      <DefaultSeo
-        title={meta.title}
-        description={meta.description}
-        openGraph={{
-          type: 'website',
-          title: meta.title,
-          locale: 'pl_PL',
-          url: `https://${getConfig('NEXT_PUBLIC_URL')}${asPath}`,
-          description: meta.description,
-          images: [
-            {
-              url: `https://${getConfig('NEXT_PUBLIC_URL')}/logo_og.png`,
-              width: 1000,
-              height: 1000,
-            },
-          ],
-          site_name: meta.title,
-        }}
-      />
       {/* Additional tags */}
       <Head>
+        <DefaultSeo
+          title={meta.title}
+          description={meta.description}
+          openGraph={{
+            type: 'website',
+            title: meta.title,
+            locale: 'pl_PL',
+            url: `https://${getConfig('NEXT_PUBLIC_URL')}${asPath}`,
+            description: meta.description,
+            images: [
+              {
+                url: `https://${getConfig('NEXT_PUBLIC_URL')}/logo_og.png`,
+                width: 1000,
+                height: 1000,
+              },
+            ],
+            site_name: meta.title,
+          }}
+        />
+
         <meta
           name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0, viewport-fit=cover"
@@ -95,7 +96,7 @@ export default function MyApp({
         <link rel="manifest" href="/manifest.json" />
         <link rel="alternate" href="/feed" type="application/rss+xml" title="Polski Frontend RSS" />
       </Head>
-      <link
+      {/* <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/reset-min.css"
         integrity="sha256-t2ATOGCtAIZNnzER679jwcFcKYfLlw01gli6F6oszk8="
@@ -106,7 +107,7 @@ export default function MyApp({
         href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css"
         integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8="
         crossOrigin="anonymous"
-      />
+      /> */}
       <SessionContextProvider
         supabaseClient={supabaseClient}
         initialSession={pageProps.initialSession}

@@ -1,11 +1,12 @@
+import type { fetchArticlesForList } from './utils/fetchArticlesForList';
+import type { fetchArticlesForGrid } from './utils/fetchArtilesForGrid';
+import type { GetStaticPathsContext, GetStaticPropsContext } from 'next';
 import type { ParsedUrlQuery } from 'querystring';
 
-import type { GetStaticPathsContext, GetStaticPropsContext } from 'next';
+export type Article = Awaited<ReturnType<typeof fetchArticlesForList>>['articles'][0];
+export type Blog = Awaited<ReturnType<typeof fetchArticlesForGrid>>['blogs'][0];
 
-import type { HomePageProps } from './pages/[displayStyle]/[page]';
-
-export type HomePageBlog = NonNullable<HomePageProps['blogs']>[number];
-export type HomePageArticle = NonNullable<HomePageBlog['articles']>[number];
+export type DisplayStyle = 'list' | 'grid';
 
 // make params more typesafe
 type GetStaticPathsResult2<P extends ParsedUrlQuery = ParsedUrlQuery> = {

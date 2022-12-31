@@ -3,3 +3,14 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.searchWrapper {
+  min-height: 5rem;
+  padding: 1rem 1rem;
+  margin-top: 3rem;
+  padding: 1rem;
+
+  @media screen and (min-width: 45em) {
+    padding: 1rem 2rem;
+  }
+}

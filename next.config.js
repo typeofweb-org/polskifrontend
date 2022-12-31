@@ -27,7 +27,9 @@ const config = withSuperjson()({
       },
     ];
   },
-  experimental: {},
+  experimental: {
+    appDir: true,
+  },
   productionBrowserSourceMaps: true,
   images: {
     domains: ['res.cloudinary.com'],

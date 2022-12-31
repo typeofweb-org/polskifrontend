@@ -18,6 +18,7 @@ const linkLabels: Record<ReturnType<typeof detectContentGenre>, string> = {
 };
 
 type ArticleSectionProps = Pick<ArticlePageProps, 'article'>;
+
 export const ArticleSection = memo<ArticleSectionProps>(({ article }) => {
   const readableDate = formatDate(article.publishedAt);
 

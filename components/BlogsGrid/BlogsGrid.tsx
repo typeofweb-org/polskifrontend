@@ -1,15 +1,16 @@
 import Clsx from 'clsx';
 import Image from 'next/image';
+import Link from 'next/link';
 import { memo } from 'react';
 
 import { ArticleTile } from '../ArticleTile/ArticleTile';
 
 import Styles from './blogsGrid.module.scss';
 
-import type { HomePageProps } from '../../pages/[displayStyle]/[page]';
+import type { Blog } from '../../types';
 
 type BlogsGridProps = {
-  readonly blogs: NonNullable<HomePageProps['blogs']>;
+  readonly blogs: readonly Blog[];
 };
 
 export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
@@ -18,7 +19,7 @@ export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
       {blogs.map((blog) => (
         <li className={Styles.blog} key={blog.id}>
           <h3 className={Clsx(Styles.gridItem, Styles.blogHeader)}>
-            <a href={blog.href} target="_blank" rel="noopener noreferrer">
+            <Link href={blog.href} target="_blank" rel="noopener noreferrer">
               {blog.favicon && (
                 <Image
                   src={blog.favicon}
@@ -29,7 +30,7 @@ export const BlogsGrid = memo<BlogsGridProps>(({ blogs }) => {
                 />
               )}
               {blog.name}
-            </a>
+            </Link>
           </h3>
           <ul className={Styles.articles}>
             {blog.articles.map((article) => (
