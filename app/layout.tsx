@@ -2,6 +2,7 @@ import { CookiesPopup } from '../components/CookiesPopup/CookiesPopup';
 import { Footer } from '../components/Footer/Footer';
 import { MainHeader } from '../components/MainHeader/MainHeader';
 import { MainNavigation } from '../components/MainNavigation/MainNavigation';
+import { Providers } from '../components/Providers';
 
 import Styles from './layout.module.scss';
 import 'normalize.css/normalize.css';
@@ -14,7 +15,6 @@ type RootLayoutProps = {
   readonly children: ReactNode;
 };
 
-// eslint-disable-next-line import/no-default-export -- Layout should be default exported
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="pl">
@@ -40,7 +40,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <MainHeader />
           </header>
 
-          <main className={Styles.main}>{children}</main>
+          <Providers>
+            <main className={Styles.main}>{children}</main>
+          </Providers>
 
           <Footer />
           <CookiesPopup />

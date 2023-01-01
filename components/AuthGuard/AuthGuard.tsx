@@ -1,4 +1,6 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
 import { useQuery } from '../../hooks/useQuery';
@@ -60,6 +62,7 @@ const useAuth = (): AuthHookRet => {
 
 export const AuthGuard: React.FC<Props> = ({ children, userRole: role }) => {
   const { isLoading, isLoggedIn, user } = useAuth();
+  // eslint-disable-next-line @typescript-eslint/unbound-method -- Nextjs 13
   const { push } = useRouter();
 
   useEffect(() => {

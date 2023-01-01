@@ -1,4 +1,5 @@
-import { useSupabaseClient, useSession } from '@supabase/auth-helpers-react';
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useSession } from '@supabase/auth-helpers-react';
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -11,7 +12,7 @@ export default function Login() {
   const session = useSession();
   const router = useRouter();
   const [authView, setAuthView] = useState<ViewType>('sign_in');
-  const supabase = useSupabaseClient();
+  const supabase = createBrowserSupabaseClient();
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((event) => {

@@ -9,7 +9,6 @@ const getBlogsSchema = object({
 
 export const getBlogs = async (isPublic: 'true' | 'false' | undefined | '') => {
   const queryString = isPublic ? new URLSearchParams({ isPublic }).toString() : '';
-
   return (
     await fetcher(`/api/blogs?${queryString}`, {
       schema: getBlogsSchema,

@@ -1,6 +1,5 @@
-import type { Schema, InferType } from 'yup';
-
 import type { HTTPMethod } from '../api-helpers/api-hofs';
+import type { Schema, InferType } from 'yup';
 
 type FetcherConfig<S extends Schema | null> = {
   readonly method: HTTPMethod;
@@ -37,7 +36,6 @@ export async function fetcher<S extends Schema | null>(
       if (!schema) {
         return null;
       }
-      /* eslint-disable @typescript-eslint/no-unsafe-return */
       return schema.cast(await response.json().catch(() => {}));
     }
     throw new ResponseError(response.statusText, response.status);
@@ -52,9 +50,9 @@ export async function fetcher<S extends Schema | null>(
 export class ResponseError extends Error {
   constructor(message: string, public readonly status?: number) {
     super(message);
-    // eslint-disable-next-line functional/no-this-expression
+    // eslint-disable-next-line functional/no-this-expression -- TypeScript class
     this.name = 'ResponseError';
-    // eslint-disable-next-line functional/no-this-expression
+    // eslint-disable-next-line functional/no-this-expression -- TypeScript class
     Object.setPrototypeOf(this, ResponseError.prototype);
   }
 }

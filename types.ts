@@ -1,3 +1,4 @@
+import type { fetchAdminBlogsList } from './utils/fetchAdminBlogsList';
 import type { fetchArticlesForList } from './utils/fetchArticlesForList';
 import type { fetchArticlesForGrid } from './utils/fetchArtilesForGrid';
 import type { addSanitizedDescriptionToArticle } from './utils/sanitize-utils';
@@ -7,6 +8,8 @@ import type { ParsedUrlQuery } from 'querystring';
 export type Article = Awaited<ReturnType<typeof fetchArticlesForList>>['articles'][0];
 export type SanitizedArticle = ReturnType<typeof addSanitizedDescriptionToArticle>;
 export type Blog = Awaited<ReturnType<typeof fetchArticlesForGrid>>['blogs'][0];
+export type AdminTableBlogsRow = Awaited<ReturnType<typeof fetchAdminBlogsList>>[0];
+export type TypeOfBlogs = 'public' | 'nonpublic' | 'all';
 
 export type DisplayStyle = 'list' | 'grid';
 
