@@ -2,7 +2,7 @@ import { CookiesPopup } from '../components/CookiesPopup/CookiesPopup';
 import { Footer } from '../components/Footer/Footer';
 import { MainHeader } from '../components/MainHeader/MainHeader';
 import { MainNavigation } from '../components/MainNavigation/MainNavigation';
-import { Providers } from '../components/Providers';
+import { Providers } from '../components/Providers/Providers';
 
 import Styles from './layout.module.scss';
 import 'normalize.css/normalize.css';
@@ -16,6 +16,8 @@ type RootLayoutProps = {
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {
+  const gaId = (process.env.NEXT_PUBLIC_GA_TRACKING_ID || '').replace(/[^\-a-zA-Z0-9]/g, '');
+
   return (
     <html lang="pl">
       <head>
@@ -31,6 +33,17 @@ export default function RootLayout({ children }: RootLayoutProps) {
           integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8="
           crossOrigin="anonymous"
         />
+        <script defer src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${gaId}', {page_path: window.location.pathname});
+            `.trim(),
+          }}
+        ></script>
       </head>
 
       <body>
@@ -46,11 +59,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
           <Footer />
           <CookiesPopup />
-
-          {/* <NextSeo
-            title={titleTemplate ? titleTemplate.replace('%s', title) : title}
-            openGraph={{ title: titleTemplate ? titleTemplate.replace('%s', title) : title }}
-          /> */}
         </div>
       </body>
     </html>

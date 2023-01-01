@@ -29,8 +29,7 @@ export const ChangeBlogsList = ({ type }: ChangeBlogsListProps) => {
 };
 
 const useChangeBlogsList = () => {
-  // eslint-disable-next-line @typescript-eslint/unbound-method -- NextJS 13
-  const { push } = useRouter();
+  const router = useRouter();
 
   const changeType = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -40,10 +39,10 @@ const useChangeBlogsList = () => {
     }
 
     if (value === 'all') {
-      return push('/admin');
+      return router.push('/admin');
     }
 
-    return push(`/admin/${value}`);
+    return router.push(`/admin/${value}`);
   };
 
   return changeType;

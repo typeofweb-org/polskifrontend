@@ -62,14 +62,13 @@ const useAuth = (): AuthHookRet => {
 
 export const AuthGuard: React.FC<Props> = ({ children, userRole: role }) => {
   const { isLoading, isLoggedIn, user } = useAuth();
-  // eslint-disable-next-line @typescript-eslint/unbound-method -- Nextjs 13
-  const { push } = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     if (!isLoading && !isLoggedIn) {
-      void push('/login');
+      router.push('/login');
     }
-  }, [isLoggedIn, isLoading, push]);
+  }, [isLoggedIn, isLoading, router]);
 
   if (!isLoading && !isLoggedIn) {
     return null;
