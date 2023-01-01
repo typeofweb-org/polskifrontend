@@ -1,23 +1,27 @@
+import { fetchArticlesForList } from '../../utils/fetchArticlesForList';
 import { ArticleTile } from '../ArticleTile/ArticleTile';
+import { Pagination } from '../Pagination/Pagination';
 
 import Styles from './blogsList.module.scss';
 
-import type { Article } from '../../types';
-
 type BlogsListProps = {
-  readonly articles: readonly Article[];
+  readonly page: string;
 };
 
-export const BlogsList = ({ articles }: BlogsListProps) => {
+export const BlogsList = async ({ page }: BlogsListProps) => {
+  const { articles, ...rest } = await fetchArticlesForList(page);
+
   return (
-    <ul className={Styles.list}>
-      {articles.map((article) => (
-        <li key={article.id}>
-          <ArticleTile article={article} blog={article.blog} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className={Styles.list}>
+        {articles.map((article) => (
+          <li key={article.id}>
+            <ArticleTile article={article} blog={article.blog} />
+          </li>
+        ))}
+      </ul>
+
+      <Pagination displayStyle="list" {...rest} />
+    </>
   );
 };
-
-BlogsList.displayName = 'BlogsList';

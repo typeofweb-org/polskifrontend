@@ -1,13 +1,13 @@
 import type { fetchAdminBlogsList } from './utils/fetchAdminBlogsList';
 import type { fetchArticlesForList } from './utils/fetchArticlesForList';
-import type { fetchArticlesForGrid } from './utils/fetchArtilesForGrid';
+import type { fetchBlogsForGrid } from './utils/fetchBlogsForGrid';
 import type { addSanitizedDescriptionToArticle } from './utils/sanitize-utils';
 import type { GetStaticPathsContext, GetStaticPropsContext } from 'next';
 import type { ParsedUrlQuery } from 'querystring';
 
 export type Article = Awaited<ReturnType<typeof fetchArticlesForList>>['articles'][0];
 export type SanitizedArticle = ReturnType<typeof addSanitizedDescriptionToArticle>;
-export type Blog = Awaited<ReturnType<typeof fetchArticlesForGrid>>['blogs'][0];
+export type Blog = Awaited<ReturnType<typeof fetchBlogsForGrid>>['blogs'][0];
 export type AdminTableBlogsRow = Awaited<ReturnType<typeof fetchAdminBlogsList>>[0];
 export type TypeOfBlogs = 'public' | 'nonpublic' | 'all';
 

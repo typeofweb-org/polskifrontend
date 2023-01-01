@@ -7,7 +7,7 @@ import { closeConnection, openConnection } from '../api-helpers/prisma/db';
 import { addExcerptToArticle } from './excerpt-utils';
 import { pageValidGuard } from './pageValidGuard';
 
-export const fetchArticlesForGrid = async (page?: string) => {
+export const fetchBlogsForGrid = async (page?: string) => {
   try {
     const prisma = openConnection();
 
