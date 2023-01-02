@@ -1,3 +1,4 @@
+import { Analytics } from '../components/Analytics';
 import { CookiesPopup } from '../components/CookiesPopup/CookiesPopup';
 import { Footer } from '../components/Footer/Footer';
 import { MainHeader } from '../components/MainHeader/MainHeader';
@@ -55,6 +56,7 @@ gtag('config', '${gaId}', {page_path: window.location.pathname});
 
           <Providers>
             <main className={Styles.main}>{children}</main>
+            <Analytics />
           </Providers>
 
           <Footer />

@@ -42,6 +42,7 @@
     "@supabase/auth-helpers-react": "0.3.1",
     "@supabase/auth-ui-react": "0.2.6",
     "@supabase/supabase-js": "2.2.1",
+    "@vercel/analytics": "0.1.6",
     "algoliasearch": "4.14.2",
     "cheerio": "1.0.0-rc.12",
     "cloudinary": "1.33.0",
