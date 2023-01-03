@@ -5,10 +5,10 @@ import type { addSanitizedDescriptionToArticle } from './utils/sanitize-utils';
 import type { GetStaticPathsContext, GetStaticPropsContext } from 'next';
 import type { ParsedUrlQuery } from 'querystring';
 
-export type Article = Awaited<ReturnType<typeof fetchArticlesForList>>['articles'][0];
+export type Article = Awaited<ReturnType<typeof fetchArticlesForList>>['articles'][number];
 export type SanitizedArticle = ReturnType<typeof addSanitizedDescriptionToArticle>;
-export type Blog = Awaited<ReturnType<typeof fetchBlogsForGrid>>['blogs'][0];
-export type AdminTableBlogsRow = Awaited<ReturnType<typeof fetchAdminBlogsList>>[0];
+export type Blog = Awaited<ReturnType<typeof fetchBlogsForGrid>>['blogs'][number];
+export type AdminTableBlogsRow = Awaited<ReturnType<typeof fetchAdminBlogsList>>[number];
 export type BlogsType = 'public' | 'nonpublic' | 'all';
 
 export type DisplayStyle = 'list' | 'grid';
