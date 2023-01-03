@@ -9,7 +9,7 @@ export type Article = Awaited<ReturnType<typeof fetchArticlesForList>>['articles
 export type SanitizedArticle = ReturnType<typeof addSanitizedDescriptionToArticle>;
 export type Blog = Awaited<ReturnType<typeof fetchBlogsForGrid>>['blogs'][0];
 export type AdminTableBlogsRow = Awaited<ReturnType<typeof fetchAdminBlogsList>>[0];
-export type TypeOfBlogs = 'public' | 'nonpublic' | 'all';
+export type BlogsType = 'public' | 'nonpublic' | 'all';
 
 export type DisplayStyle = 'list' | 'grid';
 

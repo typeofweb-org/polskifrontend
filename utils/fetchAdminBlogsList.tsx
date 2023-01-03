@@ -4,15 +4,15 @@ import { closeConnection, openConnection } from '../api-helpers/prisma/db';
 
 import { formatDate } from './date-utils';
 
-import type { TypeOfBlogs } from '../types';
+import type { BlogsType } from '../types';
 
-export const fetchAdminBlogsList = async (typeOfBlogs: TypeOfBlogs) => {
+export const fetchAdminBlogsList = async (blogsType: BlogsType) => {
   try {
     const prisma = openConnection();
 
     const blogs = await prisma.blog.findMany({
       where: {
-        isPublic: detectTypeOfBlogs(typeOfBlogs),
+        isPublic: detectBlogsType(blogsType),
       },
       orderBy: {
         id: 'desc',
@@ -40,8 +40,8 @@ export const fetchAdminBlogsList = async (typeOfBlogs: TypeOfBlogs) => {
   }
 };
 
-const detectTypeOfBlogs = (typeOfBlogs: TypeOfBlogs) => {
-  switch (typeOfBlogs) {
+const detectBlogsType = (blogsType: BlogsType) => {
+  switch (blogsType) {
     case 'public':
       return true;
 

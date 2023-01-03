@@ -4,11 +4,11 @@ import { Table } from '../Table/Table';
 import { ChangeBlogsList } from './ChangeBlogsList';
 import Styles from './adminBlogsList.module.scss';
 
-import type { AdminTableBlogsRow, TypeOfBlogs } from '../../types';
+import type { AdminTableBlogsRow, BlogsType } from '../../types';
 
 type AdminBlogsListProps = {
   readonly blogs: readonly AdminTableBlogsRow[];
-  readonly type: TypeOfBlogs;
+  readonly type: BlogsType;
 };
 
 export const AdminBlogsList = ({ blogs, type }: AdminBlogsListProps) => {

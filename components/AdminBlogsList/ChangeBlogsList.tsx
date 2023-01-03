@@ -4,11 +4,11 @@ import { useRouter } from 'next/navigation';
 
 import Styles from './changeBlogsList.module.scss';
 
-import type { TypeOfBlogs } from '../../types';
+import type { BlogsType } from '../../types';
 import type { ChangeEvent } from 'react';
 
 type ChangeBlogsListProps = {
-  readonly type: TypeOfBlogs;
+  readonly type: BlogsType;
 };
 
 export const ChangeBlogsList = ({ type }: ChangeBlogsListProps) => {
@@ -48,6 +48,6 @@ const useChangeBlogsList = () => {
   return changeType;
 };
 
-const checkValueHasCorrectType = (value: string): value is TypeOfBlogs => {
+const checkValueHasCorrectType = (value: string): value is BlogsType => {
   return ['public', 'nonpublic', 'all'].includes(value);
 };
