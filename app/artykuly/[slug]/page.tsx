@@ -1,16 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
 
-import { getArticleBySlug, getArticlesSlugs } from '../../../api-helpers/articles';
-import { HTTPNotFound } from '../../../api-helpers/errors';
+import { getArticlesSlugs } from '../../../api-helpers/articles';
 import { DEFAULT_ARTICLES } from '../../../api-helpers/general-feed';
 import { closeConnection, openConnection } from '../../../api-helpers/prisma/db';
 import { ButtonAsLink } from '../../../components/ButtonAsLink/ButtonAsLink';
 import { detectContentGenre } from '../../../utils/creator-utils';
 import { formatDate } from '../../../utils/date-utils';
+import { fetchArticleBySlug } from '../../../utils/fetchArticleBySlug';
 import { addTrackingToLink } from '../../../utils/link-utils';
-import { addSanitizedDescriptionToArticle } from '../../../utils/sanitize-utils';
 
 import Styles from './page.module.scss';
 
@@ -78,29 +76,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     </section>
   );
 }
-
-const fetchArticleBySlug = async (slug: string | undefined) => {
-  if (!slug) {
-    return notFound();
-  }
-
-  try {
-    const prisma = openConnection();
-
-    const article = await getArticleBySlug(prisma, slug);
-    const sanitizedArticle = addSanitizedDescriptionToArticle(article);
-
-    return sanitizedArticle;
-  } catch (err) {
-    if (err instanceof HTTPNotFound) {
-      return notFound();
-    }
-
-    throw err;
-  } finally {
-    await closeConnection();
-  }
-};
 
 export const generateStaticParams = async () => {
   try {
