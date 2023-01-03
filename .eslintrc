@@ -51,7 +51,8 @@
         "app/**/layout.tsx",
         "app/**/loading.tsx",
         "app/**/head.tsx",
-        "app/**/template.tsx"
+        "app/**/template.tsx",
+        "pages/api/**/*.ts"
       ],
       "rules": {
         "import/no-default-export": "off"
