@@ -1,9 +1,9 @@
-import { ButtonAsLink } from '../../../../components/ButtonAsLink/ButtonAsLink';
-import { DisplayStyleSwitch } from '../../../../components/DisplayStyleSwitch/DisplayStyleSwitch';
+import { ButtonAsLink } from '../../../components/ButtonAsLink/ButtonAsLink';
+import { DisplayStyleSwitch } from '../../../components/DisplayStyleSwitch/DisplayStyleSwitch';
 
 import Styles from './layout.module.scss';
 
-import type { DisplayStyle } from '../../../../types';
+import type { DisplayStyle } from '../../../types';
 import type { ReactNode } from 'react';
 
 type LayoutProps = {
