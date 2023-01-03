@@ -11,15 +11,6 @@ import Styles from './algoliaSearch.module.scss';
 
 import type { ReactNode } from 'react';
 
-// const InstantSearch = Dynamic<InstantSearchProps>(
-//   () =>
-//     import(
-//       /* webpackChunkName: "InstantSearch" */
-//       'react-instantsearch-dom'
-//     ).then((mod) => mod.InstantSearch),
-//   { ssr: false },
-// );
-
 export type SearchState = { readonly query: string };
 
 export type AlgoliaSearchProps = {
