@@ -2,12 +2,8 @@ import { getLastArticlePage, getLastBlogPage } from '../../../../api-helpers/art
 import { closeConnection, openConnection } from '../../../../api-helpers/prisma/db';
 import { BlogsGrid } from '../../../../components/BlogsGrid/BlogsGrid';
 import { BlogsList } from '../../../../components/BlogsList/BlogsList';
-import { ButtonAsLink } from '../../../../components/ButtonAsLink/ButtonAsLink';
-import { DisplayStyleSwitch } from '../../../../components/DisplayStyleSwitch/DisplayStyleSwitch';
 import { MAX_PAGES } from '../../../../constants';
 import { getPagesArray } from '../../../../utils/array-utils';
-
-import Styles from './page.module.scss';
 
 import type { DisplayStyle } from '../../../../types';
 
@@ -21,21 +17,13 @@ type HomePageProps = {
 export default function HomePage({ params }: HomePageProps) {
   const { displayStyle, page } = params;
 
-  return (
-    <>
-      <h2 className={Styles.heading}>Wszystkie artykuły</h2>
+  if (displayStyle === 'grid') {
+    // @ts-expect-error Server Component
+    return <BlogsGrid page={page} />;
+  }
 
-      <div className={Styles.buttons}>
-        <ButtonAsLink href="/zglos-serwis" icon="icon-plus">
-          Dodaj serwis
-        </ButtonAsLink>
-
-        <DisplayStyleSwitch value={displayStyle} />
-      </div>
-      {/* @ts-expect-error Async Server Component */}
-      {displayStyle === 'grid' ? <BlogsGrid page={page} /> : <BlogsList page={page} />}
-    </>
-  );
+  // @ts-expect-error Server Component
+  return <BlogsList page={page} />;
 }
 
 export const generateStaticParams = async () => {

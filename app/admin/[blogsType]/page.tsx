@@ -20,5 +20,5 @@ export const generateStaticParams = () => {
     { blogsType: 'public' },
     { blogsType: 'nonpublic' },
     { blogsType: 'all' },
-  ] satisfies readonly Record<'blogsType', BlogsType>[];
+  ] satisfies readonly { readonly blogsType: BlogsType }[];
 };
