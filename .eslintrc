@@ -19,7 +19,6 @@
     "react/jsx-curly-brace-presence": ["error", "never"],
     "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/no-onchange": "off",
-    "import/no-default-export": "off",
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -47,7 +46,13 @@
       }
     },
     {
-      "files": ["pages/**/*.tsx", "pages/**/*.ts"],
+      "files": [
+        "app/**/page.tsx",
+        "app/**/layout.tsx",
+        "app/**/loading.tsx",
+        "app/**/head.tsx",
+        "app/**/template.tsx"
+      ],
       "rules": {
         "import/no-default-export": "off"
       }
