@@ -22,7 +22,8 @@
     "test:ci": "jest --passWithNoTests",
     "tsc": "tsc --noEmit",
     "studio": "prisma studio",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "schema": "./api-helpers/prisma/schema.prisma"
