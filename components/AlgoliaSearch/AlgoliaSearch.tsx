@@ -1,5 +1,7 @@
+'use client';
+
 import Algoliasearch from 'algoliasearch/lite';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { InstantSearch, PoweredBy, SearchBox } from 'react-instantsearch-dom';
 
 import { getConfig } from '../../api-helpers/config';
@@ -7,20 +9,21 @@ import { getConfig } from '../../api-helpers/config';
 import { AlgoliaHits } from './AlgoliaHits';
 import Styles from './algoliaSearch.module.scss';
 
+import type { ReactNode } from 'react';
+
 export type SearchState = { readonly query: string };
 
 export type AlgoliaSearchProps = {
-  readonly searchState: SearchState;
-  readonly setSearchState: (searchState: SearchState) => void;
+  readonly children: ReactNode;
 };
 
-export const AlgoliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchState }) => {
+export const AlgoliaSearch = memo<AlgoliaSearchProps>(({ children }) => {
+  const [searchState, setSearchState] = useState<SearchState>({ query: '' });
+
   const searchClient = Algoliasearch(
     getConfig('NEXT_PUBLIC_ALGOLIA_APP_ID'),
     getConfig('NEXT_PUBLIC_ALGOLIA_API_KEY'),
   );
-
-  const showHits = searchState.query !== '';
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) =>
@@ -30,22 +33,25 @@ export const AlgoliaSearch = memo<AlgoliaSearchProps>(({ searchState, setSearchS
   }, [setSearchState]);
 
   return (
-    <InstantSearch
-      searchState={searchState}
-      onSearchStateChange={setSearchState}
-      searchClient={searchClient}
-      indexName={getConfig('NEXT_PUBLIC_ALGOLIA_INDEX_NAME')}
-    >
-      <SearchBox
-        translations={{
-          submitTitle: 'Zatwierdź frazę wyszukiwania.',
-          resetTitle: 'Wyczyść frazę wyszukiwania.',
-          placeholder: 'Szukaj...',
-        }}
-      />
-      <PoweredBy className={Styles.algoliaPoweredBy} />
-      {showHits && <AlgoliaHits />}
-    </InstantSearch>
+    <div className={Styles.searchWrapper}>
+      <InstantSearch
+        searchState={searchState}
+        onSearchStateChange={setSearchState}
+        searchClient={searchClient}
+        indexName={getConfig('NEXT_PUBLIC_ALGOLIA_INDEX_NAME')}
+      >
+        <SearchBox
+          translations={{
+            submitTitle: 'Zatwierdź frazę wyszukiwania.',
+            resetTitle: 'Wyczyść frazę wyszukiwania.',
+            placeholder: 'Szukaj...',
+          }}
+        />
+        <PoweredBy className={Styles.algoliaPoweredBy} />
+
+        {searchState.query ? <AlgoliaHits /> : <>{children}</>}
+      </InstantSearch>
+    </div>
   );
 });
 AlgoliaSearch.displayName = 'AlgoliaSearch';

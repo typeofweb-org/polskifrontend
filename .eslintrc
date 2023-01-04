@@ -46,7 +46,14 @@
       }
     },
     {
-      "files": ["pages/**/*.tsx", "pages/**/*.ts"],
+      "files": [
+        "app/**/page.tsx",
+        "app/**/layout.tsx",
+        "app/**/loading.tsx",
+        "app/**/head.tsx",
+        "app/**/template.tsx",
+        "pages/api/**/*.ts"
+      ],
       "rules": {
         "import/no-default-export": "off"
       }

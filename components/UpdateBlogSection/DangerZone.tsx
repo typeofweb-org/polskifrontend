@@ -1,4 +1,6 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useRouter } from 'next/navigation';
 
 import { useMutation } from '../../hooks/useMutation';
 import { deleteBlog } from '../../utils/api/deleteBlog';
@@ -24,7 +26,7 @@ export const DangerZone = ({ blogId }: DangerZoneProps) => {
     ) {
       try {
         await deleteMutation.mutate(blogId);
-        await router.push('/admin');
+        router.push('/admin');
       } catch (err) {
         console.error(err);
         window.alert('Nie udało się usunąć bloga.');

@@ -1,3 +1,5 @@
+'use client';
+
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import Clsx from 'clsx';
 import { useEffect, useRef, useCallback, useState } from 'react';

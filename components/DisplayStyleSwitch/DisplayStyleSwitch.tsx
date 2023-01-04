@@ -1,17 +1,20 @@
+'use client';
+
 import Clsx from 'clsx';
 import { memo } from 'react';
 
 import Styles from './displayStyleSwitch.module.scss';
+import { useChangeDisplayStyle } from './useChangeDisplayStyle';
 
 import type { DisplayPreferences } from '../../hooks/useDisplayPreferences';
-import type { ChangeEventHandler } from 'react';
 
 type DisplayStyleSwitchProps = {
   readonly value: DisplayPreferences;
-  readonly onChange: ChangeEventHandler<HTMLInputElement>;
 };
 
-export const DisplayStyleSwitch = memo<DisplayStyleSwitchProps>(({ value, onChange }) => {
+export const DisplayStyleSwitch = memo<DisplayStyleSwitchProps>(({ value }) => {
+  const changeDisplay = useChangeDisplayStyle();
+
   return (
     <div className={Styles.container}>
       <label title="Wyświetl jako siatkę">
@@ -21,7 +24,7 @@ export const DisplayStyleSwitch = memo<DisplayStyleSwitchProps>(({ value, onChan
           checked={value === 'grid'}
           type="radio"
           name="displayStyle"
-          onChange={onChange}
+          onChange={changeDisplay}
         />
         <span className={Styles.span}>
           <span className="icon-th-large"></span>
@@ -35,7 +38,7 @@ export const DisplayStyleSwitch = memo<DisplayStyleSwitchProps>(({ value, onChan
           checked={value === 'list'}
           type="radio"
           name="displayStyle"
-          onChange={onChange}
+          onChange={changeDisplay}
         />
         <span className={Styles.span}>
           <span className="icon-menu"></span>

@@ -6,9 +6,7 @@
 // const COMMIT_SHA =
 //   VERCEL_GITHUB_COMMIT_SHA || VERCEL_GITLAB_COMMIT_SHA || VERCEL_BITBUCKET_COMMIT_SHA;
 
-const { withSuperjson } = require('next-superjson');
-
-const config = withSuperjson()({
+const config = {
   reactStrictMode: true,
   poweredByHeader: false,
   async rewrites() {
@@ -27,11 +25,13 @@ const config = withSuperjson()({
       },
     ];
   },
-  experimental: {},
+  experimental: {
+    appDir: true,
+  },
   productionBrowserSourceMaps: true,
   images: {
     domains: ['res.cloudinary.com'],
   },
-});
+};
 
 module.exports = config;

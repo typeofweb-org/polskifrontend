@@ -1,4 +1,6 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
 import { useQuery } from '../../hooks/useQuery';
@@ -60,13 +62,13 @@ const useAuth = (): AuthHookRet => {
 
 export const AuthGuard: React.FC<Props> = ({ children, userRole: role }) => {
   const { isLoading, isLoggedIn, user } = useAuth();
-  const { push } = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     if (!isLoading && !isLoggedIn) {
-      void push('/login');
+      router.push('/login');
     }
-  }, [isLoggedIn, isLoading, push]);
+  }, [isLoggedIn, isLoading, router]);
 
   if (!isLoading && !isLoggedIn) {
     return null;

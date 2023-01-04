@@ -1,4 +1,3 @@
-import type { Blog, PrismaClient } from '@prisma/client';
 import { v2 as Cloudinary } from 'cloudinary';
 
 import {
@@ -8,6 +7,8 @@ import {
 } from '../constants';
 
 import { HTTPNotFound } from './errors';
+
+import type { Blog, PrismaClient } from '@prisma/client';
 
 // https://res.cloudinary.com/polskifrontend/image/fetch
 
@@ -132,10 +133,11 @@ const replaceFaviconWithCdn = <T extends Blog>(blog: T): T => {
   };
 };
 
-const imageUrlToCdn = (url: string) =>
-  Cloudinary.url(url, {
+const imageUrlToCdn = (url: string) => {
+  return Cloudinary.url(url, {
     type: 'fetch',
     secure: true,
     transformation: [{ width: 48, height: 48, crop: 'lpad' }],
     sign_url: true,
   });
+};
