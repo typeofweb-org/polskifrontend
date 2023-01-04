@@ -9,6 +9,7 @@ import Styles from './layout.module.scss';
 import 'normalize.css/normalize.css';
 import '../global.scss';
 import '../icomoon-v1.0/style.css';
+import '../tailwind.css';
 
 import type { ReactNode } from 'react';
 
