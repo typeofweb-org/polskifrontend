@@ -1,8 +1,10 @@
+import { Roboto } from '@next/font/google';
+
 import { Analytics } from '../components/Analytics';
 import { CookiesPopup } from '../components/CookiesPopup/CookiesPopup';
 import { Footer } from '../components/Footer/Footer';
 import { MainHeader } from '../components/MainHeader/MainHeader';
-import { MainNavigation } from '../components/MainNavigation/MainNavigation';
+import { Navigation } from '../components/Navigation/Navigation';
 import { Providers } from '../components/Providers/Providers';
 
 import Styles from './layout.module.scss';
@@ -17,9 +19,14 @@ type RootLayoutProps = {
   readonly children: ReactNode;
 };
 
+const roboto = Roboto({
+  weight: ['300', '400', '500', '700', '900'],
+  variable: '--font-roboto',
+});
+
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="pl">
+    <html lang="pl" className={roboto.variable}>
       <head>
         <link
           rel="stylesheet"
@@ -35,10 +42,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
         />
       </head>
 
-      <body>
+      <body className="font-sans">
         <div className={Styles.wrapper}>
           <header>
-            <MainNavigation />
+            <Navigation />
             <MainHeader />
           </header>
 

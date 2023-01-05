@@ -38,6 +38,7 @@
   "dependencies": {
     "@hapi/boom": "10.0.0",
     "@hcaptcha/react-hcaptcha": "1.4.4",
+    "@next/font": "13.1.1",
     "@prisma/client": "4.7.1",
     "@supabase/auth-helpers-nextjs": "0.5.2",
     "@supabase/auth-helpers-react": "0.3.1",
