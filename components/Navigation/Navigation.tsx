@@ -46,8 +46,11 @@ export const links = [
 
 export const Navigation = () => (
   <nav className="flex items-center justify-between py-12 px-24">
-    <Link href="/">
-      <Image src="new-logo.svg" width="296" height="84" alt="Polski Frontend" />
+    <Link href="/" title="Przejdź na stronę główną">
+      <h1>
+        <span className="sr-only">Polski Frontend</span>
+        <Image src="new-logo.svg" width="296" height="84" alt="Polski Frontend" />
+      </h1>
     </Link>
 
     <ul className="flex items-center gap-5">

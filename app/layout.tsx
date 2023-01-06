@@ -3,7 +3,7 @@ import { Roboto } from '@next/font/google';
 import { Analytics } from '../components/Analytics';
 import { CookiesPopup } from '../components/CookiesPopup/CookiesPopup';
 import { Footer } from '../components/Footer/Footer';
-import { MainHeader } from '../components/MainHeader/MainHeader';
+import { Header } from '../components/Header/Header';
 import { Navigation } from '../components/Navigation/Navigation';
 import { Providers } from '../components/Providers/Providers';
 
@@ -46,7 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <div className={Styles.wrapper}>
           <header>
             <Navigation />
-            <MainHeader />
+            <Header />
           </header>
 
           <Providers>
