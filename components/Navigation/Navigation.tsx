@@ -1,4 +1,7 @@
 import Image from 'next/image';
+import Link from 'next/link';
+
+import { ButtonAsLink } from '../ButtonAsLink/ButtonAsLink';
 
 import { NavItem } from './NavItem';
 
@@ -43,11 +46,13 @@ export const links = [
 
 export const Navigation = () => (
   <nav className="flex items-center justify-between py-12 px-24">
-    <Image src="new-logo.svg" width="296" height="84" alt="Polski Frontend" />
+    <Link href="/">
+      <Image src="new-logo.svg" width="296" height="84" alt="Polski Frontend" />
+    </Link>
 
-    <ul className="flex gap-5">
+    <ul className="flex items-center gap-5">
       {links.map(({ label, href, openInNewTab, icon }) => (
-        <li className="text-gre flex gap-5" key={href}>
+        <li className="flex gap-5" key={href}>
           <NavItem
             target={openInNewTab ? '_blank' : '_self'}
             rel={openInNewTab ? 'noopener noreferrer' : undefined}
@@ -59,6 +64,11 @@ export const Navigation = () => (
           </NavItem>
         </li>
       ))}
+      <li>
+        <ButtonAsLink href="/zglos-serwis" icon="icon-plus">
+          DODAJ SERWIS
+        </ButtonAsLink>
+      </li>
     </ul>
   </nav>
 );
