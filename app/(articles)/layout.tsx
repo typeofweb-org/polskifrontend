@@ -8,7 +8,7 @@ type ArticlesLayoutProps = {
   readonly children: ReactNode;
 };
 
-export default function AdminLayout({ children }: ArticlesLayoutProps) {
+export default function ArticlesLayout({ children }: ArticlesLayoutProps) {
   return (
     <section className={Styles.section}>
       <AlgoliaSearch>{children}</AlgoliaSearch>

@@ -25,7 +25,6 @@ export const Pagination = ({
         <>
           <ButtonAsLink
             href={`/${displayStyle}/${previousPage}`}
-            iconPosition="left"
             icon="icon-arrow-left2"
             className={Styles.nextPageButton}
           >
@@ -39,7 +38,6 @@ export const Pagination = ({
       {!isFirstPage && (
         <ButtonAsLink
           href={`/${displayStyle}/${nextPage}`}
-          iconPosition="right"
           icon="icon-arrow-right2"
           className={Styles.nextPageButton}
         >

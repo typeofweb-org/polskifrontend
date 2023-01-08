@@ -1,5 +1,5 @@
 :root {
-  --brand-color-main: #48a36f;
+  --brand-color-main: #ef516d;
   --brand-color-lighter: #{lighten(#5ab783, 20%)};
   --brand-color-secondary: #e12899;
   --gray: #595959;
@@ -69,7 +69,7 @@ a {
   transition: color 0.2s, outline 0.2s;
 
   &:hover {
-    // color: var(--brand-color-lighter);
+    color: var(--brand-color-lighter);
   }
 }
 

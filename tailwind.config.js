@@ -9,8 +9,8 @@ module.exports = {
           dark: '#B5263F',
         },
         gray: {
-          light: '#616161',
-          medium: '#C4C4C4',
+          light: '#C4C4C4',
+          medium: '#616161',
         },
       },
       fontFamily: {

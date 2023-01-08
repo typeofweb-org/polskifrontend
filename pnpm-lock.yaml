@@ -270,8 +270,6 @@ packages:
     resolution:
       {
         integrity: sha512-FQzvOCgoFXAbf5Y6mYozw2aj5KCJoA3m4heImceldzPSMbdyS4atVjJzXKMsfX3wnZTFYwkkt8/z8UesLHlSBQ==,
-        registry: https://registry.npmjs.com/,
-        tarball: https://registry.npmjs.com/@algolia/events/-/events-4.0.1.tgz,
       }
 
   /@algolia/logger-common/4.14.2:
@@ -818,8 +816,6 @@ packages:
     resolution:
       {
         integrity: sha512-Q+8MqP7TiHMWzSfwiJwXCjyf4GYA4Dgw3emg/7xmwsdLJOZUp+nMqcOwOzzYheuM1rhDu8FSj2l0aoMygEuXuA==,
-        registry: https://registry.npmjs.com/,
-        tarball: https://registry.npmjs.com/@babel/runtime/-/runtime-7.20.6.tgz,
       }
     engines: { node: '>=6.9.0' }
     dependencies:
@@ -11000,8 +10996,6 @@ packages:
     resolution:
       {
         integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==,
-        registry: https://registry.npmjs.com/,
-        tarball: https://registry.npmjs.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz,
       }
 
   /regexp-tree/0.1.24:

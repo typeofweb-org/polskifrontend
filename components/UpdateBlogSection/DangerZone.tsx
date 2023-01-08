@@ -60,7 +60,6 @@ export const DangerZone = ({ blogId }: DangerZoneProps) => {
             polskifrontend.pl
           </p>
           <Button
-            buttonStyle="danger"
             onClick={() => {
               void handleDelete();
             }}
@@ -68,7 +67,6 @@ export const DangerZone = ({ blogId }: DangerZoneProps) => {
             Usuń bloga
           </Button>
           <Button
-            buttonStyle="danger"
             onClick={() => {
               void handleReset();
             }}

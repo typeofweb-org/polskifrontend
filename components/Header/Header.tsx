@@ -9,7 +9,7 @@ export const Header = () => {
       {/* Divider */}
       <div className="mx-auto h-[2px] w-full min-w-[168px] max-w-md bg-[#E3E3E3]"></div>
 
-      <p className="text-center text-2xl font-light text-gray-light">
+      <p className="text-center text-2xl font-light text-gray-medium">
         Szukaj interesujących Cię tematów wśród setek artykułów, wpisów i filmów dostępnych na
         polskich blogach i kanałach o programowaniu.
       </p>
