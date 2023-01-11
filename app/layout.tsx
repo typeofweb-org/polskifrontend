@@ -1,4 +1,5 @@
 import { Roboto } from '@next/font/google';
+import Image from 'next/image';
 
 import { Analytics } from '../components/Analytics';
 import { CookiesPopup } from '../components/CookiesPopup/CookiesPopup';
@@ -6,8 +7,9 @@ import { Footer } from '../components/Footer/Footer';
 import { Header } from '../components/Header/Header';
 import { Navigation } from '../components/Navigation/Navigation';
 import { Providers } from '../components/Providers/Providers';
+import Background from '../public/background.svg';
+import BgTiles from '../public/bg-tiles.svg';
 
-import Styles from './layout.module.scss';
 import 'normalize.css/normalize.css';
 import '../global.scss';
 import '../icomoon-v1.0/style.css';
@@ -42,21 +44,32 @@ export default function RootLayout({ children }: RootLayoutProps) {
         />
       </head>
 
-      <body className="font-sans">
-        <div className={Styles.wrapper}>
-          <header>
-            <Navigation />
-            <Header />
-          </header>
+      <body className="relative font-sans">
+        <header className="width-container relative overflow-visible">
+          <Navigation />
+          <Header />
+        </header>
+
+        <div className="relative overflow-y-hidden">
+          <div className="absolute left-0 -z-10 mt-16 w-full">
+            <Image src={BgTiles} className="absolute top-3 left-0 -z-10 w-80" alt="" />
+            <Image src={BgTiles} className="absolute left-80 -top-5 -z-10 w-80" alt="" />
+            <Image src={Background} className="w-full" alt="" />
+            <Image src={BgTiles} className="absolute right-80 -top-5 -z-10 w-80" alt="" />
+            <Image src={BgTiles} className="absolute top-3 right-0 -z-10 w-80" alt="" />
+          </div>
 
           <Providers>
-            <main className={Styles.main}>{children}</main>
+            <main className="width-container">{children}</main>
             <Analytics />
           </Providers>
-
-          <Footer />
-          <CookiesPopup />
         </div>
+
+        <div className="width-container bg-[#F2F2F2]">
+          <Footer />
+        </div>
+
+        <CookiesPopup />
       </body>
     </html>
   );

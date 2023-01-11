@@ -45,7 +45,7 @@ export const links = [
 ] as const;
 
 export const Navigation = () => (
-  <nav className="flex items-center justify-between py-12 px-24">
+  <nav className="flex items-center justify-between py-12">
     <Link href="/" title="Przejdź na stronę główną">
       <h1>
         <span className="sr-only">Polski Frontend</span>

@@ -20,7 +20,7 @@ const CustomSearchBox = ({
   clearSearchState,
 }: CustomSearchBoxProps) => {
   const handleSearch = () => {
-    if (query.length <= 0) return;
+    if (query?.length <= 0) return;
 
     refine(query);
   };
@@ -30,7 +30,7 @@ const CustomSearchBox = ({
   };
 
   return (
-    <div className="relative mx-auto my-5 w-full max-w-2xl">
+    <div className="relative mx-auto my-6 w-full max-w-2xl">
       <button
         type="button"
         title="Zatwierdź frazę wyszukiwania"
@@ -50,7 +50,7 @@ const CustomSearchBox = ({
 
       <PoweredBy className="absolute top-3 right-5 flex flex-col text-gray-light" />
 
-      {query.length > 0 && (
+      {query?.length > 0 && (
         <button onClick={clearSearchState}>
           <span className="icon-plus text-gray absolute top-7 right-32"></span>
         </button>

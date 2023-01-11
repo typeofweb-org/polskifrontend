@@ -31,7 +31,7 @@ export const AlgoliaSearch = memo<AlgoliaSearchProps>(({ children }) => {
         changeSearchState={changeSearchState}
         clearSearchState={clearSearchState}
       />
-      {searchState.query.length > 0 ? <AlgoliaHits /> : <>{children}</>}
+      {searchState.query?.length > 0 ? <AlgoliaHits /> : <>{children}</>}
     </InstantSearch>
   );
 });

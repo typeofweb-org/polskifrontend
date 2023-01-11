@@ -1,7 +1,5 @@
 import { ButtonAsLink } from '../ButtonAsLink/ButtonAsLink';
 
-import Styles from './pagination.module.scss';
-
 import type { DisplayStyle } from '../../types';
 
 type PaginationProps = {
@@ -20,28 +18,19 @@ export const Pagination = ({
   nextPage,
 }: PaginationProps) => {
   return (
-    <div className={Styles.container}>
+    <div className="mt-3 mb-5 flex flex-wrap items-center justify-center gap-3">
       {!isLastPage && (
         <>
-          <ButtonAsLink
-            href={`/${displayStyle}/${previousPage}`}
-            icon="icon-arrow-left2"
-            className={Styles.nextPageButton}
-          >
-            Poprzednia strona
+          <ButtonAsLink href={`/${displayStyle}/${previousPage}`} icon="icon-arrow-left2">
+            POPRZEDNIA STRONA
           </ButtonAsLink>
-          <ButtonAsLink href={`/${displayStyle}`} className={Styles.nextPageButton}>
-            Najnowsze
-          </ButtonAsLink>
+          <ButtonAsLink href={`/${displayStyle}`}>NAJNOWSZE</ButtonAsLink>
         </>
       )}
+
       {!isFirstPage && (
-        <ButtonAsLink
-          href={`/${displayStyle}/${nextPage}`}
-          icon="icon-arrow-right2"
-          className={Styles.nextPageButton}
-        >
-          Następna strona
+        <ButtonAsLink href={`/${displayStyle}/${nextPage}`} icon="icon-arrow-right2">
+          NASTĘPNA STRONA
         </ButtonAsLink>
       )}
     </div>
