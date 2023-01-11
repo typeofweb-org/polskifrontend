@@ -65,8 +65,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </Providers>
         </div>
 
-        <div className="width-container bg-[#F2F2F2]">
-          <Footer />
+        <div className="bg-[#F2F2F2]">
+          <div className="width-container pt-12">
+            <Footer />
+          </div>
         </div>
 
         <CookiesPopup />
