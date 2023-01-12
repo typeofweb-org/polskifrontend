@@ -15,7 +15,6 @@ type NavItemProps = {
 
 export const NavItem = ({ href, icon, children, className, ...rest }: NavItemProps) => {
   const pathname = usePathname();
-
   const isActive = detectIsActive(href, pathname);
 
   return (
@@ -30,7 +29,7 @@ export const NavItem = ({ href, icon, children, className, ...rest }: NavItemPro
       <span className="ml-1">{children}</span>
       <div
         className={clsx(
-          'absolute -bottom-[1px] left-0 h-[2px] bg-red-400',
+          'absolute -bottom-[1px] left-0 hidden h-[2px] bg-red-400 md:block',
           isActive ? 'w-4/5' : 'w-0 transition-[width] duration-300 ease-out group-hover:w-4/5',
         )}
       ></div>

@@ -52,11 +52,29 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
         <div className="relative overflow-y-hidden">
           <div className="absolute left-0 -z-10 mt-16 w-full">
-            <Image src={BgTiles} className="absolute top-3 left-0 -z-10 w-80" alt="" />
-            <Image src={BgTiles} className="absolute left-80 -top-5 -z-10 w-80" alt="" />
+            <Image
+              src={BgTiles}
+              className="absolute top-3 left-0 -z-10 hidden w-80 md:block"
+              alt=""
+            />
+            <Image
+              src={BgTiles}
+              className="absolute left-80 -top-5 -z-10 hidden w-80 md:block"
+              alt=""
+            />
             <Image src={Background} className="w-full" alt="" />
-            <Image src={BgTiles} className="absolute right-80 -top-5 -z-10 w-80" alt="" />
-            <Image src={BgTiles} className="absolute top-3 right-0 -z-10 w-80" alt="" />
+            <Image
+              src={BgTiles}
+              className="absolute right-80 -top-5 -z-10 hidden w-80 md:block"
+              alt=""
+            />
+            <Image
+              src={BgTiles}
+              className="absolute top-3 right-0 -z-10 hidden w-80 md:block"
+              alt=""
+            />
+
+            <div className="absolute left-0 h-[999999px] w-full bg-[#F2F2F2]"></div>
           </div>
 
           <Providers>
@@ -66,9 +84,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         </div>
 
         <div className="bg-[#F2F2F2]">
-          <div className="width-container pt-12">
-            <Footer />
-          </div>
+          <Footer />
         </div>
 
         <CookiesPopup />
