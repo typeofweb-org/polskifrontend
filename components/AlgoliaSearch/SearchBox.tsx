@@ -55,6 +55,10 @@ const CustomSearchBox = ({
           <span className="icon-plus text-gray absolute top-7 right-32"></span>
         </button>
       )}
+
+      <div className="mt-2 flex w-full justify-end sm:!hidden">
+        <PoweredBy className="ml-auto text-gray-medium" />
+      </div>
     </div>
   );
 };
