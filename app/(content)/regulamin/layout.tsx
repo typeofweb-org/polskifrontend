@@ -10,12 +10,15 @@ type TermsOfUseLayoutProps = {
 export default function TermsOfUseLayout({ children }: TermsOfUseLayoutProps) {
   return (
     <>
-      <ContentTitle>
-        Regulamin polskifrontend.pl
-        <p className="mx-auto mt-2 w-full text-center text-sm font-normal normal-case text-gray-medium sm:text-right">
-          Wersja z dnia 27. stycznia 2021r.
-        </p>
-      </ContentTitle>
+      <div className="order-1">
+        <ContentTitle>
+          Regulamin polskifrontend.pl
+          <p className="mx-auto mt-2 w-full text-center text-sm font-normal normal-case text-gray-medium sm:text-right">
+            Wersja z dnia 27. stycznia 2021r.
+          </p>
+        </ContentTitle>
+      </div>
+
       <Content>{children}</Content>
     </>
   );

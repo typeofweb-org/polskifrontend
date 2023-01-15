@@ -7,8 +7,6 @@ import { deleteBlog } from '../../utils/api/deleteBlog';
 import { resetBlog } from '../../utils/api/resetBlog';
 import { Button } from '../Button/Button';
 
-import Styles from './dangerZone.module.scss';
-
 type DangerZoneProps = {
   readonly blogId: string;
 };
@@ -51,34 +49,32 @@ export const DangerZone = ({ blogId }: DangerZoneProps) => {
   }
 
   return (
-    <section className={Styles.section}>
-      <ul className={Styles.optionList}>
-        <li className={Styles.optionListItem}>
-          <h3>Usuń bloga</h3>
-          <p>
-            Blog oraz wszystkie jego artykuły zostaną nieodwracalnie usunięte z serwisu
-            polskifrontend.pl
-          </p>
-          <Button
-            onClick={() => {
-              void handleDelete();
-            }}
-          >
-            Usuń bloga
-          </Button>
-          <Button
-            onClick={() => {
-              void handleReset();
-            }}
-          >
-            Zresetuj bloga
-          </Button>
-        </li>
-        {/**
-         * @TODO Change RSS URL and remove all articles functionality
-         */}
-      </ul>
-    </section>
+    <div>
+      <h3 className="text-lg font-semibold">Usuń bloga</h3>
+      <p>
+        Blog oraz wszystkie jego artykuły zostaną nieodwracalnie usunięte z serwisu
+        polskifrontend.pl
+      </p>
+      <div className="mt-3 flex flex-row gap-3">
+        <Button
+          onClick={() => {
+            void handleDelete();
+          }}
+        >
+          Usuń bloga
+        </Button>
+        <Button
+          onClick={() => {
+            void handleReset();
+          }}
+        >
+          Zresetuj bloga
+        </Button>
+      </div>
+      {/**
+       * @TODO Change RSS URL and remove all articles functionality
+       */}
+    </div>
   );
 };
 DangerZone.displayName = 'DangerZone';

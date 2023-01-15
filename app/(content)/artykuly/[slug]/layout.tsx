@@ -19,15 +19,18 @@ export default async function ArticleLayout({ children, params }: AboutServiceLa
 
   return (
     <>
-      <ContentTitle>
-        <Link
-          href={addTrackingToLink(article.blog.href, { utm_medium: 'article_page' })}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {article.blog.name}
-        </Link>
-      </ContentTitle>
+      <div className="order-1">
+        <ContentTitle>
+          <Link
+            href={addTrackingToLink(article.blog.href, { utm_medium: 'article_page' })}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {article.blog.name}
+          </Link>
+        </ContentTitle>
+      </div>
+
       <Content>{children}</Content>
     </>
   );

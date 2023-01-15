@@ -6,7 +6,7 @@ import { formatDate } from './date-utils';
 
 import type { BlogsType } from '../types';
 
-export const fetchAdminBlogsList = async (blogsType: BlogsType) => {
+export const fetchAdminBlogsList = async (blogsType: BlogsType | undefined) => {
   try {
     const prisma = openConnection();
 
@@ -40,7 +40,7 @@ export const fetchAdminBlogsList = async (blogsType: BlogsType) => {
   }
 };
 
-const detectBlogsType = (blogsType: BlogsType) => {
+const detectBlogsType = (blogsType: BlogsType | undefined) => {
   switch (blogsType) {
     case 'public':
       return true;

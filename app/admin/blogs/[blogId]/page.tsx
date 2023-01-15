@@ -1,9 +1,12 @@
+import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
+
 import { closeConnection, openConnection } from '../../../../api-helpers/prisma/db';
-import { AuthGuard } from '../../../../components/AuthGuard/AuthGuard';
+import { ButtonAsLink } from '../../../../components/ButtonAsLink/ButtonAsLink';
+import { Content } from '../../../../components/Content/Content';
+import { ContentTitle } from '../../../../components/Content/ContentTitle';
+import { LogoutButton } from '../../../../components/LogoutButton/LogoutButton';
 import { DangerZone } from '../../../../components/UpdateBlogSection/DangerZone';
 import { UpdateBlogForm } from '../../../../components/UpdateBlogSection/UpdateBlogForm';
-
-import Styles from './page.module.scss';
 
 type AdminBlogPageProps = {
   readonly params: {
@@ -13,15 +16,26 @@ type AdminBlogPageProps = {
 
 export default function AdminBlogPage({ params }: AdminBlogPageProps) {
   return (
-    <AuthGuard userRole="ADMIN">
-      <section className={Styles.section}>
-        <h2 className={Styles.heading}>Aktualizacja danych</h2>
-        <UpdateBlogForm blogId={params.blogId} />
+    <>
+      <ContentTitle>Aktualizacja danych</ContentTitle>
 
-        <h2 className={Styles.heading}>Danger zone</h2>
+      <div className="order-2 flex gap-3 p-4 md:py-8 md:pb-4">
+        <ButtonAsLink href="/admin" icon={faArrowLeftLong}>
+          Lista Blogów
+        </ButtonAsLink>
+
+        <LogoutButton>Wyloguj</LogoutButton>
+      </div>
+
+      <Content>
+        <UpdateBlogForm blogId={params.blogId} />
+      </Content>
+
+      <ContentTitle>Danger zone</ContentTitle>
+      <Content>
         <DangerZone blogId={params.blogId} />
-      </section>
-    </AuthGuard>
+      </Content>
+    </>
   );
 }
 

@@ -2,8 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 
-import Styles from './changeBlogsList.module.scss';
-
 import type { BlogsType } from '../../types';
 import type { ChangeEvent } from 'react';
 
@@ -15,7 +13,7 @@ export const ChangeBlogsList = ({ type }: ChangeBlogsListProps) => {
   const changeType = useChangeBlogsList();
 
   return (
-    <label className={Styles.label}>
+    <label className="my-4 block">
       Pokazuj blogi:
       <select onChange={changeType} value={type}>
         <option value="all" defaultChecked>

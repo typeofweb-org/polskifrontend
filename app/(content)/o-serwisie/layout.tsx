@@ -10,7 +10,9 @@ type AboutServiceLayoutProps = {
 export default function AboutServiceLayout({ children }: AboutServiceLayoutProps) {
   return (
     <>
-      <ContentTitle>O serwisie</ContentTitle>
+      <div className="order-1">
+        <ContentTitle>O serwisie</ContentTitle>
+      </div>
       <Content>{children}</Content>
     </>
   );

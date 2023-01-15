@@ -1,8 +1,7 @@
 'use client';
+
 import Clsx from 'clsx';
 import { memo } from 'react';
-
-import Styles from './FormStatus.module.css';
 
 import type { Status } from '../../hooks/useMutation';
 
@@ -39,9 +38,9 @@ export const FormStatus = memo<Props>(({ status, errorCode }) => {
   }
 
   return (
-    <div className={Styles.statusContainer}>
+    <div className="mt-7 rounded-sm p-2 text-center text-lg">
       <span
-        className={Clsx(Styles.statusIcon, {
+        className={Clsx('mr-3', {
           'icon-spinner': status === 'loading',
           'icon-checkmark': status === 'success',
           'icon-error': status === 'error',

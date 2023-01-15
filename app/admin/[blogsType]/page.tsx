@@ -1,4 +1,11 @@
-import { AdminBlogsList } from '../../../components/AdminBlogsList/AdminBlogsList';
+import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
+
+import { ButtonAsLink } from '../../../components/ButtonAsLink/ButtonAsLink';
+import { ChangeBlogsList } from '../../../components/ChangeBlogsList/ChangeBlogsList';
+import { Content } from '../../../components/Content/Content';
+import { ContentTitle } from '../../../components/Content/ContentTitle';
+import { LogoutButton } from '../../../components/LogoutButton/LogoutButton';
+import { Table } from '../../../components/Table/Table';
 import { fetchAdminBlogsList } from '../../../utils/fetchAdminBlogsList';
 
 import type { BlogsType } from '../../../types';
@@ -10,9 +17,26 @@ type AdminPageProps = {
 };
 
 export default async function AdminPage({ params }: AdminPageProps) {
-  const data = await fetchAdminBlogsList(params.blogsType);
+  const blogs = await fetchAdminBlogsList(params.blogsType);
 
-  return <AdminBlogsList blogs={data} type={params.blogsType} />;
+  return (
+    <>
+      <ContentTitle>Admin Panel - Blogi</ContentTitle>
+
+      <div className="order-2 flex gap-3 p-4 md:py-8 md:pb-4">
+        <ButtonAsLink href="/" icon={faArrowLeftLong}>
+          Strona Główna
+        </ButtonAsLink>
+
+        <LogoutButton>Wyloguj</LogoutButton>
+      </div>
+
+      <Content>
+        <ChangeBlogsList type={params.blogsType} />
+        {blogs.length > 0 && <Table data={blogs} />}
+      </Content>
+    </>
+  );
 }
 
 export const generateStaticParams = () => {
