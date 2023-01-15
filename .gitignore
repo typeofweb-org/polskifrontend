@@ -42,11 +42,6 @@ test-results.xml
 key
 key.pub
 
-icomoon-v1.0/*
-!icomoon-v1.0/fonts
-!icomoon-v1.0/style.css
-!icomoon-v1.0/selection.json
-
 .vercel
 
 # Supabase

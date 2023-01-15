@@ -12,7 +12,6 @@ import BgTiles from '../public/bg-tiles.svg';
 
 import 'normalize.css/normalize.css';
 import '../styles/global.scss';
-import '../icomoon-v1.0/style.css';
 import '../styles/tailwind.css';
 
 import type { ReactNode } from 'react';

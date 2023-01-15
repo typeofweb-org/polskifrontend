@@ -1,11 +1,12 @@
 'use client';
 
-import Clsx from 'clsx';
+import { faCheck, faQuestionCircle, faSpinner, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { memo } from 'react';
 
 import type { Status } from '../../hooks/useMutation';
 
-type Props = {
+type FormStatusProps = {
   readonly status: Status;
   readonly errorCode?: number;
 };
@@ -19,7 +20,7 @@ const errorToMessage: Record<number, string> = {
 const defaultErrorMessage =
   'Wystąpił błąd podczas dodawania nowego serwisu. Sprawdź poprawność danych i spróbuj ponownie.';
 
-function getStatusMessage({ status, errorCode }: Props) {
+function getStatusMessage({ status, errorCode }: FormStatusProps) {
   switch (status) {
     case 'loading':
       return 'Oczekiwanie...';
@@ -32,20 +33,27 @@ function getStatusMessage({ status, errorCode }: Props) {
   }
 }
 
-export const FormStatus = memo<Props>(({ status, errorCode }) => {
+function getStatusIcon(status: Status) {
+  switch (status) {
+    case 'loading':
+      return faSpinner;
+    case 'success':
+      return faCheck;
+    case 'error':
+      return faXmark;
+    default:
+      return faQuestionCircle;
+  }
+}
+
+export const FormStatus = memo<FormStatusProps>(({ status, errorCode }) => {
   if (status === 'idle') {
     return null;
   }
 
   return (
     <div className="mt-7 rounded-sm p-2 text-center text-lg">
-      <span
-        className={Clsx('mr-3', {
-          'icon-spinner': status === 'loading',
-          'icon-checkmark': status === 'success',
-          'icon-error': status === 'error',
-        })}
-      ></span>
+      <FontAwesomeIcon className="mr-3" icon={getStatusIcon(status)} />
       <span>{getStatusMessage({ status, errorCode })}</span>
     </div>
   );
