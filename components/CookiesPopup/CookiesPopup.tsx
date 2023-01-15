@@ -7,7 +7,7 @@ import { useCookies } from './useCookies';
 export const CookiesPopup = () => {
   const { accepted, accept } = useCookies();
 
-  if (accepted === 'accepted') {
+  if (accepted !== 'not-accepted') {
     return null;
   }
 
