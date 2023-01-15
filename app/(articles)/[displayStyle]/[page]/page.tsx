@@ -2,7 +2,7 @@ import { getLastArticlePage, getLastBlogPage } from '../../../../api-helpers/art
 import { closeConnection, openConnection } from '../../../../api-helpers/prisma/db';
 import { BlogsGrid } from '../../../../components/BlogsGrid/BlogsGrid';
 import { BlogsList } from '../../../../components/BlogsList/BlogsList';
-import { MAX_PAGES } from '../../../../constants';
+import { MAX_PAGES, REVALIDATION_TIME } from '../../../../constants';
 import { getPagesArray } from '../../../../utils/array-utils';
 
 import type { DisplayStyle } from '../../../../types';
@@ -13,6 +13,8 @@ type HomePageProps = {
     readonly page: string;
   };
 };
+
+export const revalidate = REVALIDATION_TIME;
 
 export default function HomePage({ params }: HomePageProps) {
   const { displayStyle, page } = params;
