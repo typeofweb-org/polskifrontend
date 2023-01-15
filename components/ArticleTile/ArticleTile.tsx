@@ -1,9 +1,12 @@
+import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { formatDate } from '../../utils/date-utils';
+import { detectContentGenre } from '../../utils/creator-utils';
 import { addTrackingToLink } from '../../utils/link-utils';
+import { ArticleDate } from '../ArticleDate/ArticleDate';
 
 import Styles from './articleTile.module.scss';
 
@@ -11,9 +14,10 @@ import type { Article, Blog } from '../../types';
 
 export type ArticleTileArticle = Pick<
   Article,
-  'title' | 'publishedAt' | 'excerpt' | 'href' | 'slug'
+  'title' | 'publishedAt' | 'excerpt' | 'href' | 'slug' | 'blog'
 >;
-export type ArticleTileBlog = Pick<Blog, 'name' | 'favicon'>;
+
+export type ArticleTileBlog = Pick<Blog, 'name' | 'href' | 'favicon'>;
 
 type ArticleTileProps = {
   readonly article: ArticleTileArticle;
@@ -21,13 +25,11 @@ type ArticleTileProps = {
   readonly truncate?: boolean;
 };
 
-export const ArticleTile = ({
-  article: { title, publishedAt, excerpt, href, slug },
-  blog: { name: blogName, favicon },
-  truncate,
-}: ArticleTileProps) => {
-  const dateTime = publishedAt.toISOString();
-  const readableDate = formatDate(publishedAt);
+export const ArticleTile = ({ article, blog, truncate }: ArticleTileProps) => {
+  const contentGenre = detectContentGenre(article);
+
+  const { title, publishedAt, excerpt, href, slug } = article;
+  const { name: blogName, favicon } = blog;
 
   return (
     <article className="relative rounded-xl bg-white p-4 shadow-sm">
@@ -39,13 +41,13 @@ export const ArticleTile = ({
                 src={favicon}
                 width={40}
                 height={40}
-                className="h-[40px] w-[40px] align-top"
+                className="h-[32px] w-[32px] align-top md:h-[40px] md:w-[40px]"
                 alt=""
               />
             )}
             <p className="flex flex-col">
               <span className="font-semibold md:text-xl">{blogName}&nbsp;</span>
-              <span className="text-sm text-[#4F4F4F]">YouTube / Blog</span>
+              <span className="text-sm capitalize text-[#4F4F4F]">{contentGenre}</span>
             </p>
           </div>
 
@@ -64,20 +66,18 @@ export const ArticleTile = ({
 
       <p className={Clsx('text-[#505050]', truncate && Styles.excerpt)}>{excerpt}</p>
 
-      <div className="mt-1 flex items-center justify-between">
+      <div className="mt-1 flex items-center justify-between md:justify-end">
         <Link
           href={addTrackingToLink(href, { utm_medium: 'homepage' })}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-fit items-center justify-center gap-2 rounded-[10px] bg-[#F8F8F8] py-2 px-3 md:absolute md:top-3 md:right-3 md:gap-3"
+          className="flex h-fit items-center justify-center rounded-[10px] bg-[#F8F8F8] py-2 px-3 leading-4 md:absolute md:top-3 md:right-3 md:gap-3"
         >
-          <span className="icon-plus text-primary-base md:text-xl"></span>
+          <FontAwesomeIcon icon={faArrowRightToBracket} className="text-primary-base" />
           <span className="font-medium text-[#797979]">URL</span>
         </Link>
 
-        <time className="text-sm text-[#797979]" dateTime={dateTime}>
-          {readableDate}
-        </time>
+        <ArticleDate publishedAt={publishedAt} />
       </div>
     </article>
   );

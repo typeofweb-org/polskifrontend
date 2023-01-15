@@ -20,21 +20,20 @@ export const BlogsGrid = async ({ page }: BlogsGridProps) => {
       <ul className={Styles.blogsGrid}>
         {blogs.map((blog) => (
           <li className={Styles.blog} key={blog.id}>
-            <h3 className={Clsx(Styles.gridItem, Styles.blogHeader)}>
+            <h3
+              className={Clsx(
+                Styles.gridItem,
+                'mt-4 border-b-2 border-gray-light pb-2 text-center text-xl',
+              )}
+            >
               <Link href={blog.href} target="_blank" rel="noopener noreferrer">
                 {blog.favicon && (
-                  <Image
-                    src={blog.favicon}
-                    alt=""
-                    className={Styles.favicon}
-                    height={16}
-                    width={16}
-                  />
+                  <Image src={blog.favicon} alt="" className="mr-2" height={16} width={16} />
                 )}
                 {blog.name}
               </Link>
             </h3>
-            <ul className={Styles.articles}>
+            <ul className="contents list-none">
               {blog.articles.map((article) => (
                 <li key={article.id} className={Styles.gridItem}>
                   <ArticleTile article={article} blog={blog} truncate />

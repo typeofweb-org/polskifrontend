@@ -3,6 +3,7 @@
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-template-rows: 1fr;
 
   @media screen and (min-width: 45em) {
     gap: 2rem;
@@ -25,24 +26,4 @@
       }
     }
   }
-}
-
-.articles {
-  list-style-type: none;
-  display: contents;
-  margin: 0;
-  padding: 0;
-}
-
-.blogHeader {
-  text-align: center;
-  font-size: 1.3em;
-  margin: 0;
-  margin-top: 1rem;
-  border-bottom: 2px solid var(--gray-border);
-  padding-bottom: 0.5rem;
-}
-
-.favicon {
-  margin-right: 0.5rem;
 }

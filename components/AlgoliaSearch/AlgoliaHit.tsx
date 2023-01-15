@@ -24,15 +24,18 @@ type HitProps = {
 };
 
 const hitToArticle = (hit: Hit): ArticleTileArticle => ({
-  title: hit.title,
+  ...hit,
   publishedAt: new Date(hit.publishedAt),
   excerpt: createExcerpt(hit.description || ''),
-  href: hit.href,
-  slug: hit.slug,
+  blog: {
+    ...hit.blog,
+    favicon: hit.blog.favicon ?? null,
+  },
 });
 
 const hitToBlog = (hit: Hit): ArticleTileBlog => ({
   name: hit.blog.name,
+  href: hit.blog.href,
   favicon: hit.blog.favicon ?? null,
 });
 

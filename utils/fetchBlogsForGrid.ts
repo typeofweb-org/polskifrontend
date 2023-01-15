@@ -19,7 +19,7 @@ export const fetchBlogsForGrid = async (page?: string) => {
       return {
         ...blog,
         articles: blog.articles.map(addExcerptToArticle),
-      } as const;
+      };
     });
 
     return {

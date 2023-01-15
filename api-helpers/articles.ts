@@ -8,7 +8,7 @@ import {
 
 import { HTTPNotFound } from './errors';
 
-import type { Blog, PrismaClient } from '@prisma/client';
+import type { PrismaClient } from '@prisma/client';
 
 // https://res.cloudinary.com/polskifrontend/image/fetch
 
@@ -26,6 +26,9 @@ export const getArticlesForGrid = async (prisma: PrismaClient, page: number) => 
         take: TILES_ARTICLES_PER_BLOG,
         orderBy: {
           publishedAt: 'desc',
+        },
+        include: {
+          blog: true,
         },
       },
     },
@@ -70,7 +73,13 @@ export const getArticlesForList = async (prisma: PrismaClient, page: number) => 
       publishedAt: 'desc',
     },
     include: {
-      blog: true,
+      blog: {
+        select: {
+          name: true,
+          href: true,
+          favicon: true,
+        },
+      },
     },
   });
 
@@ -126,7 +135,7 @@ export const getArticleBySlug = async (prisma: PrismaClient, slug: string) => {
   };
 };
 
-const replaceFaviconWithCdn = <T extends Blog>(blog: T): T => {
+const replaceFaviconWithCdn = <T extends { readonly favicon: string | null }>(blog: T): T => {
   return {
     ...blog,
     favicon: blog.favicon ? imageUrlToCdn(blog.favicon) : blog.favicon,

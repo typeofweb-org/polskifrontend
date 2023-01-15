@@ -1,3 +1,5 @@
+import { faArrowLeftLong, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
+
 import { ButtonAsLink } from '../ButtonAsLink/ButtonAsLink';
 
 import type { DisplayStyle } from '../../types';
@@ -21,16 +23,16 @@ export const Pagination = ({
     <div className="mt-8 mb-5 flex flex-wrap items-center justify-center gap-3">
       {!isLastPage && (
         <>
-          <ButtonAsLink href={`/${displayStyle}/${previousPage}`} icon="icon-arrow-left2">
-            POPRZEDNIA STRONA
+          <ButtonAsLink href={`/${displayStyle}/${previousPage}`} icon={faArrowLeftLong}>
+            Poprzednia strona
           </ButtonAsLink>
-          <ButtonAsLink href={`/${displayStyle}`}>NAJNOWSZE</ButtonAsLink>
+          <ButtonAsLink href={`/${displayStyle}`}>Najnowsze</ButtonAsLink>
         </>
       )}
 
       {!isFirstPage && (
-        <ButtonAsLink href={`/${displayStyle}/${nextPage}`} icon="icon-arrow-right2">
-          NASTĘPNA STRONA
+        <ButtonAsLink href={`/${displayStyle}/${nextPage}`} icon={faArrowRightLong}>
+          Następna strona
         </ButtonAsLink>
       )}
     </div>

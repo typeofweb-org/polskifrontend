@@ -1,0 +1,23 @@
+.ol {
+  padding-inline-start: 0.6rem;
+
+  @media screen and (min-width: 45em) {
+    padding-inline-start: 0.8rem;
+  }
+
+  @media screen and (min-width: 60em) {
+    padding-inline-start: 1rem;
+  }
+}
+
+.li {
+  margin-bottom: 1rem;
+
+  li {
+    list-style-type: upper-roman;
+
+    li {
+      list-style-type: lower-alpha;
+    }
+  }
+}

@@ -2,8 +2,6 @@ import { fetchArticlesForList } from '../../utils/fetchArticlesForList';
 import { ArticleTile } from '../ArticleTile/ArticleTile';
 import { Pagination } from '../Pagination/Pagination';
 
-import Styles from './blogsList.module.scss';
-
 type BlogsListProps = {
   readonly page: string;
 };
@@ -13,7 +11,7 @@ export const BlogsList = async ({ page }: BlogsListProps) => {
 
   return (
     <>
-      <ul className={Styles.list}>
+      <ul className="grid list-none grid-cols-1 gap-4 overflow-hidden md:gap-8">
         {articles.map((article) => (
           <li key={article.id}>
             <ArticleTile article={article} blog={article.blog} />

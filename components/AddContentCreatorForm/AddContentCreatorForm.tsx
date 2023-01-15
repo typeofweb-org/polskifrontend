@@ -54,12 +54,10 @@ export const AddContentCreatorForm = () => {
 
   if (!getConfig('NEXT_PUBLIC_CAPTCHA_SITE_KEY')) {
     return (
-      <div className={Styles.errorContainer}>
-        <span>
-          Wystąpił błąd po stronie serwera, jeśli ten problem będzie się utrzymywał, proszę
-          skontaktuj się z administratorem serwisu.
-        </span>
-      </div>
+      <span>
+        Wystąpił błąd po stronie serwera, jeśli ten problem będzie się utrzymywał, proszę skontaktuj
+        się z administratorem serwisu.
+      </span>
     );
   }
 
@@ -67,11 +65,7 @@ export const AddContentCreatorForm = () => {
   const isButtonDisabled = isLoading || !isFormValid || !token;
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={Clsx(Styles.form, isLoading && Styles.formLoading)}
-      ref={formRef}
-    >
+    <form onSubmit={handleSubmit} className={Clsx(isLoading && Styles.formLoading)} ref={formRef}>
       <label className={Styles.label}>
         Adres URL
         <input
@@ -113,7 +107,7 @@ export const AddContentCreatorForm = () => {
           size="compact"
         />
         <Button type="submit" disabled={isButtonDisabled}>
-          Zgłoś
+          Dodaj
         </Button>
       </div>
       <FormStatus status={status} errorCode={errorCode} />

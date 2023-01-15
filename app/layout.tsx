@@ -11,9 +11,9 @@ import Background from '../public/background.svg';
 import BgTiles from '../public/bg-tiles.svg';
 
 import 'normalize.css/normalize.css';
-import '../global.scss';
+import '../styles/global.scss';
 import '../icomoon-v1.0/style.css';
-import '../tailwind.css';
+import '../styles/tailwind.css';
 
 import type { ReactNode } from 'react';
 
@@ -44,7 +44,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         />
       </head>
 
-      <body className="relative font-sans">
+      <body className="relative leading-[1.3]">
         <header className="width-container relative overflow-visible">
           <Navigation />
           <Header />
@@ -52,27 +52,24 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
         <div className="relative overflow-y-hidden">
           <div className="absolute left-0 -z-10 mt-16 w-full">
+            <Image src={BgTiles} className="absolute top-3 left-0 -z-10 w-1/5 md:block" alt="" />
             <Image
               src={BgTiles}
-              className="absolute top-3 left-0 -z-10 hidden w-80 md:block"
+              className="absolute left-[20%] -top-5 -z-10 w-1/5 md:block"
               alt=""
             />
             <Image
               src={BgTiles}
-              className="absolute left-80 -top-5 -z-10 hidden w-80 md:block"
+              className="absolute left-[40%] -top-10 -z-10 w-1/5 md:block"
               alt=""
             />
             <Image src={Background} className="w-full" alt="" />
             <Image
               src={BgTiles}
-              className="absolute right-80 -top-5 -z-10 hidden w-80 md:block"
+              className="absolute right-[20%] -top-5 -z-10 w-1/5 md:block"
               alt=""
             />
-            <Image
-              src={BgTiles}
-              className="absolute top-3 right-0 -z-10 hidden w-80 md:block"
-              alt=""
-            />
+            <Image src={BgTiles} className="absolute top-3 right-0 -z-10 w-1/5 md:block" alt="" />
 
             <div className="absolute left-0 h-[999999px] w-full bg-[#F2F2F2]"></div>
           </div>
