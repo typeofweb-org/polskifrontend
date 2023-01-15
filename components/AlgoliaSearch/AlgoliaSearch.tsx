@@ -6,10 +6,10 @@ import { InstantSearch, PoweredBy, SearchBox } from 'react-instantsearch-dom';
 
 import { getConfig } from '../../api-helpers/config';
 
+import type { ReactNode } from 'react';
+
 import { AlgoliaHits } from './AlgoliaHits';
 import Styles from './algoliaSearch.module.scss';
-
-import type { ReactNode } from 'react';
 
 export type SearchState = { readonly query: string };
 

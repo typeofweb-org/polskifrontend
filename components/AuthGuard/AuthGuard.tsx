@@ -7,9 +7,9 @@ import { useQuery } from '../../hooks/useQuery';
 import { getMe } from '../../utils/api/getMe';
 import { LoadingScreen } from '../LoadingScreen/LoadingScreen';
 
-import Styles from './authGuard.module.css';
-
 import type { ReactNode } from 'react';
+
+import Styles from './authGuard.module.css';
 
 export type AuthHookRet =
   | { readonly isLoading: true; readonly isLoggedIn?: undefined; readonly user?: undefined }

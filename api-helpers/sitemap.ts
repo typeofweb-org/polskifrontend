@@ -1,8 +1,8 @@
-import type { PrismaClient } from '@prisma/client';
-
 import { getPagesArray } from '../utils/array-utils';
 
 import { getLastArticlePage, getLastBlogPage, getArticlesSlugs } from './articles';
+
+import type { PrismaClient } from '@prisma/client';
 
 type Item = {
   readonly path: string;
@@ -54,7 +54,7 @@ function itemsToXml(items: ReadonlyArray<Item>) {
     .map((item) =>
       `
   <url>
-    <loc>https://${process.env.NEXT_PUBLIC_URL!}${item.path}</loc>
+    <loc>https://${process.env.NEXT_PUBLIC_URL}${item.path}</loc>
     <changefreq>${item.changefreq}</changefreq>
     <priority>${item.priority}</priority>
   </url>

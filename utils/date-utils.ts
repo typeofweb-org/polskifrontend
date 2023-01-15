@@ -1,4 +1,4 @@
-import ms from 'ms';
+import Ms from 'ms';
 
 export function formatDate(date: Date) {
   const day = date.getDate().toString().padStart(2, '0');
@@ -8,14 +8,15 @@ export function formatDate(date: Date) {
 }
 
 export function isToday(date: Date) {
-  return Date.now() - date.getTime() < ms('1 day');
+  return Date.now() - date.getTime() < Ms('1 day');
 }
 
 export function isThisWeek(date: Date) {
-  return Date.now() - date.getTime() < ms('1 week');
+  return Date.now() - date.getTime() < Ms('1 week');
 }
 
-const isoDateRegExp = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
+const isoDateRegExp =
+  /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
 export function isIsoDate(str: string) {
   return isoDateRegExp.test(str);
 }

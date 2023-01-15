@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { formatDate } from '../../utils/date-utils';
 import { addTrackingToLink } from '../../utils/link-utils';
 
-import Styles from './articleTile.module.scss';
-
 import type { Article, Blog } from '../../types';
+
+import Styles from './articleTile.module.scss';
 
 export type ArticleTileArticle = Pick<
   Article,

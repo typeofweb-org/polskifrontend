@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable -- can't add readonly here */
 import * as Prisma from '@prisma/client';
 
 type PrismaDelegates = Pick<Prisma.PrismaClient, ReadonlyKeys<Prisma.PrismaClient>>;

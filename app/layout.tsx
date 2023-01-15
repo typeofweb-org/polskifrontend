@@ -5,12 +5,12 @@ import { MainHeader } from '../components/MainHeader/MainHeader';
 import { MainNavigation } from '../components/MainNavigation/MainNavigation';
 import { Providers } from '../components/Providers/Providers';
 
+import type { ReactNode } from 'react';
+
 import Styles from './layout.module.scss';
 import 'normalize.css/normalize.css';
 import '../global.scss';
 import '../icomoon-v1.0/style.css';
-
-import type { ReactNode } from 'react';
 
 type RootLayoutProps = {
   readonly children: ReactNode;

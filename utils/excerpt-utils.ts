@@ -1,6 +1,7 @@
-import type { Article } from '@prisma/client';
 import { decode } from 'html-entities';
 import Xss from 'xss';
+
+import type { Article } from '@prisma/client';
 
 const EXCERPT_MAX_WORDS = 50;
 

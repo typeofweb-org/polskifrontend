@@ -1,11 +1,12 @@
-import type { Blog, Prisma, PrismaClient } from '@prisma/client';
 import Cheerio from 'cheerio';
 import FeedParser from 'feedparser';
 import Iconv from 'iconv-lite';
-import ms from 'ms';
+import Ms from 'ms';
 import { EMPTY, from, of } from 'rxjs';
 import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
+
+import type { Blog, Prisma, PrismaClient } from '@prisma/client';
 
 import {
   getBlogName,
@@ -18,7 +19,7 @@ import { logger } from './logger';
 import { streamToRx } from './rxjs-utils';
 
 const MAX_CONCURRENCY = 5;
-const MAX_FETCHING_TIME = ms('6 s');
+const MAX_FETCHING_TIME = Ms('6 s');
 
 async function fetchFeedFor(blog: Blog) {
   const res = await fetch(blog.rss, {
@@ -46,7 +47,8 @@ function getFeedStreamFor(blog: Blog) {
     }),
     mergeMap((res) => {
       logger.debug(`Got stream for blog ${blog.name}`);
-      const charset = getContentTypeParams(res.headers.get('content-type') || '').charset;
+      const charset = getContentTypeParaMs(res.headers.get('content-type') || '').charset;
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- it really is a stream
       const responseStream = maybeTranslate(res.body as unknown as NodeJS.ReadableStream, charset);
       logger.debug(`Translated ${blog.name}`);
       const feedparser = new FeedParser({});
@@ -57,15 +59,15 @@ function getFeedStreamFor(blog: Blog) {
   );
 }
 
-function getContentTypeParams(str: string) {
-  const params = str.split(';').reduce((params, param) => {
+function getContentTypeParaMs(str: string) {
+  const params = str.split(';').reduce<Record<string, string | undefined>>((params, param) => {
     const parts = param.split('=').map((part) => part.trim());
     if (parts.length === 2) {
       const [key, val] = parts;
       params[key] = val;
     }
     return params;
-  }, {} as Record<string, string | undefined>);
+  }, {});
   return params;
 }
 
@@ -91,8 +93,7 @@ const feedParserItemToArticle =
       item.summary ||
       item.description ||
       item.meta.description ||
-      // @todo legacy ?
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/consistent-type-assertions -- @todo legacy ?
       ((item as any)?.['media:group']?.['media:description']?.['#'] as string | undefined) ||
       null;
 
@@ -139,7 +140,7 @@ export const updateFeeds = async (prisma: PrismaClient) => {
           map((article) => article.blogId),
           catchError((err: Error) => {
             logger.error(err, `Database error`);
-            return of(article.blog.connect!.id!);
+            return of(article.blog.connect?.id);
           }),
         ),
       ),
