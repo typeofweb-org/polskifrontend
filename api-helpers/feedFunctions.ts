@@ -1,3 +1,5 @@
+import { Readable } from 'stream';
+
 import Cheerio from 'cheerio';
 import FeedParser from 'feedparser';
 import Iconv from 'iconv-lite';
@@ -5,8 +7,6 @@ import Ms from 'ms';
 import { EMPTY, from, of } from 'rxjs';
 import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
-
-import type { Blog, Prisma, PrismaClient } from '@prisma/client';
 
 import {
   getBlogName,
@@ -17,6 +17,8 @@ import {
 import { getYouTubeChannelFavicon } from './external-services/youtube';
 import { logger } from './logger';
 import { streamToRx } from './rxjs-utils';
+
+import type { Blog, Prisma, PrismaClient } from '@prisma/client';
 
 const MAX_CONCURRENCY = 5;
 const MAX_FETCHING_TIME = Ms('6 s');
@@ -48,11 +50,13 @@ function getFeedStreamFor(blog: Blog) {
     mergeMap((res) => {
       logger.debug(`Got stream for blog ${blog.name}`);
       const charset = getContentTypeParams(res.headers.get('content-type') || '').charset;
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- ok
-      const responseStream = maybeTranslate(res.body as unknown as NodeJS.ReadableStream, charset);
+      const responseStream = Readable.from(
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- ok
+        maybeTranslate(res.body as unknown as NodeJS.ReadableStream, charset),
+      );
       logger.debug(`Translated ${blog.name}`);
       const feedparser = new FeedParser({});
-      console.log(responseStream);
+
       return streamToRx<FeedParser>(responseStream.pipe(feedparser)).pipe(
         filter((item) => Boolean(item.pubdate && item.pubdate > blog.lastUpdateDate)),
       );
