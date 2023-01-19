@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function AboutPage() {
   return (
     <>
-      <h3>Po co jest ten serwis?</h3>
+      <h3 className="text-lg">Po co jest ten serwis?</h3>
       <p>
         Serwis <strong>Polski Frontend</strong> powstał w celu zebrania w jednym miejscu jak
         największej liczby stron, serwisów oraz blogów na temat szeroko rozumianego frontend
@@ -23,8 +23,11 @@ export default function AboutPage() {
         Jeżeli więc znasz (lub sam prowadzisz) jakiś blog, serwis lub stronę{' '}
         <strong>w języku polskim</strong>, której tutaj nie ma, a uważasz, że powinna się tu znaleźć
         - zapraszam do zgłoszenia go przez specjalnie do tego celu{' '}
-        <Link href="/zglos-serwis">przygotowany formularz</Link>. Obiecuję, że przejrzę każde
-        zgłoszenie i jeśli uznam, że dana strona się nadaje - dodam ją do serwisu!
+        <Link href="/zglos-serwis" className="transition-colors hover:text-primary-base">
+          przygotowany formularz
+        </Link>
+        . Obiecuję, że przejrzę każde zgłoszenie i jeśli uznam, że dana strona się nadaje - dodam ją
+        do serwisu!
       </p>
       <p>
         A jeśli podoba Ci się moja idea i sam prowadzisz bloga o frontendzie, to oprócz zgłoszenia
@@ -32,9 +35,18 @@ export default function AboutPage() {
         ruch tutaj <strong>tym większy ruch do Twojego bloga…</strong>
       </p>
       <p>
-        Od 2020 portal jest własnością <a href="https://typeofweb.com">Type of Web</a> i jest
-        rozwijany jako{' '}
-        <a href="https://github.com/typeofweb/polskifrontend">Open Source na GitHubie</a>!
+        Od 2020 portal jest własnością{' '}
+        <Link href="https://typeofweb.com" className="transition-colors hover:text-primary-base">
+          Type of Web
+        </Link>{' '}
+        i jest rozwijany jako{' '}
+        <Link
+          href="https://github.com/typeofweb/polskifrontend"
+          className="transition-colors hover:text-primary-base"
+        >
+          Open Source na GitHubie
+        </Link>
+        !
       </p>
     </>
   );
