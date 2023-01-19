@@ -8,7 +8,7 @@ const copyrightYear = date.getFullYear();
 export const Footer = memo(() => {
   return (
     <footer className="bg-theme-secondary py-6">
-      <div className="width-container flex flex-col items-center justify-between gap-5 border-t-2 border-gray-light pt-8 md:flex-row">
+      <div className="width-container mt-10 flex flex-col items-center justify-between gap-5 border-t-2 border-primary-dark pt-8 md:flex-row">
         <div className="gap-3 text-center md:flex md:text-left">
           <p>
             Copyright@{copyrightYear} –{' '}
