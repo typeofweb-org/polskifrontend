@@ -51,24 +51,32 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
         <div className="relative overflow-y-hidden">
           <div className="absolute left-0 -z-10 mt-16 w-full">
-            <Image src={BgTiles} className="absolute top-3 left-0 -z-10 w-1/5 md:block" alt="" />
             <Image
               src={BgTiles}
-              className="absolute left-[20%] -top-5 -z-10 w-1/5 md:block"
+              className="absolute -top-5 left-0 -z-10 w-1/2 md:top-3 md:w-1/5"
               alt=""
             />
             <Image
               src={BgTiles}
-              className="absolute left-[40%] -top-10 -z-10 w-1/5 md:block"
+              className="absolute left-[20%] -top-5 -z-10 hidden w-1/5 md:block"
+              alt=""
+            />
+            <Image
+              src={BgTiles}
+              className="absolute left-[40%] -top-10 -z-10 hidden w-1/5 md:block"
               alt=""
             />
             <Image src={Background} className="w-full" alt="" />
             <Image
               src={BgTiles}
-              className="absolute right-[20%] -top-5 -z-10 w-1/5 md:block"
+              className="absolute right-[20%] -top-5 -z-10 hidden w-1/5 md:block"
               alt=""
             />
-            <Image src={BgTiles} className="absolute top-3 right-0 -z-10 w-1/5 md:block" alt="" />
+            <Image
+              src={BgTiles}
+              className="absolute -top-5 right-0 -z-10 w-1/2 md:top-3 md:block md:w-1/5"
+              alt=""
+            />
 
             <div className="absolute left-0 h-[999999px] w-full bg-theme-secondary"></div>
           </div>
