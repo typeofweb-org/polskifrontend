@@ -1,14 +1,14 @@
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
 
-import { ButtonAsLink } from '../../../components/ButtonAsLink/ButtonAsLink';
-import { ChangeBlogsList } from '../../../components/ChangeBlogsList/ChangeBlogsList';
-import { Content } from '../../../components/Content/Content';
-import { ContentTitle } from '../../../components/Content/ContentTitle';
-import { LogoutButton } from '../../../components/LogoutButton/LogoutButton';
-import { Table } from '../../../components/Table/Table';
-import { fetchAdminBlogsList } from '../../../utils/fetchAdminBlogsList';
+import { ButtonAsLink } from '../../../../components/ButtonAsLink/ButtonAsLink';
+import { ChangeBlogsList } from '../../../../components/ChangeBlogsList/ChangeBlogsList';
+import { Content } from '../../../../components/Content/Content';
+import { ContentTitle } from '../../../../components/Content/ContentTitle';
+import { LogoutButton } from '../../../../components/LogoutButton/LogoutButton';
+import { Table } from '../../../../components/Table/Table';
+import { fetchAdminBlogsList } from '../../../../utils/fetchAdminBlogsList';
 
-import type { BlogsType } from '../../../types';
+import type { BlogsType } from '../../../../types';
 
 type AdminPageProps = {
   readonly params: {

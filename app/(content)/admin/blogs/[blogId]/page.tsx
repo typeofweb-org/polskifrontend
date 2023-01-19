@@ -1,12 +1,12 @@
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
 
-import { closeConnection, openConnection } from '../../../../api-helpers/prisma/db';
-import { ButtonAsLink } from '../../../../components/ButtonAsLink/ButtonAsLink';
-import { Content } from '../../../../components/Content/Content';
-import { ContentTitle } from '../../../../components/Content/ContentTitle';
-import { LogoutButton } from '../../../../components/LogoutButton/LogoutButton';
-import { DangerZone } from '../../../../components/UpdateBlogSection/DangerZone';
-import { UpdateBlogForm } from '../../../../components/UpdateBlogSection/UpdateBlogForm';
+import { closeConnection, openConnection } from '../../../../../api-helpers/prisma/db';
+import { ButtonAsLink } from '../../../../../components/ButtonAsLink/ButtonAsLink';
+import { Content } from '../../../../../components/Content/Content';
+import { ContentTitle } from '../../../../../components/Content/ContentTitle';
+import { LogoutButton } from '../../../../../components/LogoutButton/LogoutButton';
+import { DangerZone } from '../../../../../components/UpdateBlogSection/DangerZone';
+import { UpdateBlogForm } from '../../../../../components/UpdateBlogSection/UpdateBlogForm';
 
 type AdminBlogPageProps = {
   readonly params: {
