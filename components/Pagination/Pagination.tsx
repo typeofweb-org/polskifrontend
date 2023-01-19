@@ -20,7 +20,7 @@ export const Pagination = ({
   nextPage,
 }: PaginationProps) => {
   return (
-    <div className="mt-8 mb-5 flex flex-wrap items-center justify-center gap-3">
+    <div className="mt-8 mb-5 flex flex-col flex-wrap items-center justify-center gap-3 sm:flex-row">
       {!isLastPage && (
         <>
           <ButtonAsLink href={`/${displayStyle}/${previousPage}`} icon={faArrowLeftLong}>
