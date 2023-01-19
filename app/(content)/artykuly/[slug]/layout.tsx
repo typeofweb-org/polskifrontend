@@ -1,5 +1,7 @@
+import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 
+import { ButtonAsLink } from '../../../../components/ButtonAsLink/ButtonAsLink';
 import { Content } from '../../../../components/Content/Content';
 import { ContentTitle } from '../../../../components/Content/ContentTitle';
 import { fetchArticleBySlug } from '../../../../utils/fetchArticleBySlug';
@@ -19,17 +21,19 @@ export default async function ArticleLayout({ children, params }: AboutServiceLa
 
   return (
     <>
-      <div className="order-1">
-        <ContentTitle>
-          <Link
-            href={addTrackingToLink(article.blog.href, { utm_medium: 'article_page' })}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {article.blog.name}
-          </Link>
-        </ContentTitle>
-      </div>
+      <ContentTitle>
+        <Link
+          href={addTrackingToLink(article.blog.href, { utm_medium: 'article_page' })}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {article.blog.name}
+        </Link>
+      </ContentTitle>
+
+      <ButtonAsLink href="/" icon={faArrowLeftLong}>
+        Strona Główna
+      </ButtonAsLink>
 
       <Content>{children}</Content>
     </>

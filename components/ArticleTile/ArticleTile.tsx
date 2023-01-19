@@ -77,7 +77,9 @@ export const ArticleTile = ({ article, blog, truncate }: ArticleTileProps) => {
           <span className="font-medium text-gray-secondary">URL</span>
         </Link>
 
-        <ArticleDate publishedAt={publishedAt} />
+        <div className="mt-1">
+          <ArticleDate publishedAt={publishedAt} />
+        </div>
       </div>
     </article>
   );

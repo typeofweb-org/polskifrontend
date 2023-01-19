@@ -32,6 +32,7 @@ export default function AdminBlogPage({ params }: AdminBlogPageProps) {
       </Content>
 
       <ContentTitle>Danger zone</ContentTitle>
+
       <Content>
         <DangerZone blogId={params.blogId} />
       </Content>

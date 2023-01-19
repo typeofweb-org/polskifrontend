@@ -1,3 +1,6 @@
+import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
+
+import { ButtonAsLink } from '../../../components/ButtonAsLink/ButtonAsLink';
 import { Content } from '../../../components/Content/Content';
 import { ContentTitle } from '../../../components/Content/ContentTitle';
 
@@ -10,14 +13,16 @@ type TermsOfUseLayoutProps = {
 export default function TermsOfUseLayout({ children }: TermsOfUseLayoutProps) {
   return (
     <>
-      <div className="order-1">
-        <ContentTitle>
-          Regulamin polskifrontend.pl
-          <p className="mx-auto mt-2 w-full text-center text-sm font-normal normal-case text-gray-secondary sm:text-right">
-            Wersja z dnia 27. stycznia 2021r.
-          </p>
-        </ContentTitle>
-      </div>
+      <ContentTitle>
+        Regulamin polskifrontend.pl
+        <p className="mx-auto mt-2 w-full text-center text-sm font-normal normal-case text-gray-secondary sm:text-right">
+          Wersja z dnia 27. stycznia 2021r.
+        </p>
+      </ContentTitle>
+
+      <ButtonAsLink href="/" icon={faArrowLeftLong}>
+        Strona Główna
+      </ButtonAsLink>
 
       <Content>{children}</Content>
     </>

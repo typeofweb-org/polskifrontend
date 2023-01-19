@@ -23,7 +23,7 @@ export default function AboutPage() {
         Jeżeli więc znasz (lub sam prowadzisz) jakiś blog, serwis lub stronę{' '}
         <strong>w języku polskim</strong>, której tutaj nie ma, a uważasz, że powinna się tu znaleźć
         - zapraszam do zgłoszenia go przez specjalnie do tego celu{' '}
-        <Link href="/zglos-serwis" className="transition-colors hover:text-primary-base">
+        <Link href="/zglos-serwis" className="underline transition-colors hover:text-primary-base">
           przygotowany formularz
         </Link>
         . Obiecuję, że przejrzę każde zgłoszenie i jeśli uznam, że dana strona się nadaje - dodam ją
@@ -36,13 +36,16 @@ export default function AboutPage() {
       </p>
       <p>
         Od 2020 portal jest własnością{' '}
-        <Link href="https://typeofweb.com" className="transition-colors hover:text-primary-base">
+        <Link
+          href="https://typeofweb.com"
+          className="underline transition-colors hover:text-primary-base"
+        >
           Type of Web
         </Link>{' '}
         i jest rozwijany jako{' '}
         <Link
           href="https://github.com/typeofweb/polskifrontend"
-          className="transition-colors hover:text-primary-base"
+          className="underline transition-colors hover:text-primary-base"
         >
           Open Source na GitHubie
         </Link>

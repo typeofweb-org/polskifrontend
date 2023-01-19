@@ -1,3 +1,6 @@
+import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
+
+import { ButtonAsLink } from '../../../components/ButtonAsLink/ButtonAsLink';
 import { Content } from '../../../components/Content/Content';
 import { ContentTitle } from '../../../components/Content/ContentTitle';
 
@@ -10,9 +13,12 @@ type AboutServiceLayoutProps = {
 export default function AboutServiceLayout({ children }: AboutServiceLayoutProps) {
   return (
     <>
-      <div className="order-1">
-        <ContentTitle>O serwisie</ContentTitle>
-      </div>
+      <ContentTitle>O serwisie</ContentTitle>
+
+      <ButtonAsLink href="/" icon={faArrowLeftLong}>
+        Strona Główna
+      </ButtonAsLink>
+
       <Content>{children}</Content>
     </>
   );
