@@ -4,11 +4,11 @@ import Cheerio from 'cheerio';
 import FeedParser from 'feedparser';
 import Iconv from 'iconv-lite';
 import Ms from 'ms';
-import { EMPTY, from, of } from 'rxjs';
+import { EMPTY, firstValueFrom, from, of } from 'rxjs';
 import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
 
-import type { Blog, Prisma, PrismaClient, Blog, Prisma, PrismaClient } from '@prisma/client';
+import type { Blog, Prisma, PrismaClient } from '@prisma/client';
 
 import {
   getBlogName,
@@ -138,8 +138,8 @@ export const updateFeeds = async (prisma: PrismaClient) => {
   const now = new Date();
 
   logger.info(`Found blogs in SQL database ${blogs.length}`);
-  return await from(blogs)
-    .pipe(
+  return await firstValueFrom(
+    from(blogs).pipe(
       mergeMap(getNewArticlesForBlog(now), MAX_CONCURRENCY),
       mergeMap((article) =>
         from(prisma.article.create({ data: article })).pipe(
@@ -165,8 +165,8 @@ export const updateFeeds = async (prisma: PrismaClient) => {
           }),
         );
       }),
-    )
-    .toPromise();
+    ),
+  );
 };
 
 const getUpdatedInfoFor = (blog: Blog) => {
@@ -218,8 +218,8 @@ export const updateBlogs = async (prisma: PrismaClient) => {
     },
   });
 
-  return await from(blogs)
-    .pipe(
+  return await firstValueFrom(
+    from(blogs).pipe(
       mergeMap(getUpdatedInfoFor, MAX_CONCURRENCY),
       mergeMap(({ blog, updatedInfo }) => {
         logger.debug(`Updating blog: ${updatedInfo.name || blog.name}`);
@@ -232,6 +232,6 @@ export const updateBlogs = async (prisma: PrismaClient) => {
           }),
         );
       }),
-    )
-    .toPromise();
+    ),
+  );
 };

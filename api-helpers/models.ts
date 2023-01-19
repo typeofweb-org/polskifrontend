@@ -21,8 +21,8 @@ type ReadonlyKeys<T> = {
 }[keyof T];
 
 type EnumsKeys = {
-  readonly [K in keyof typeof Prisma]: typeof Prisma[K] extends object
-    ? typeof Prisma[K] extends Function
+  readonly [K in keyof typeof Prisma]: (typeof Prisma)[K] extends object
+    ? (typeof Prisma)[K] extends Function
       ? never
       : K
     : never;
