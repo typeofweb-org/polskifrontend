@@ -13,7 +13,7 @@ export default function TermsOfUseLayout({ children }: TermsOfUseLayoutProps) {
       <div className="order-1">
         <ContentTitle>
           Regulamin polskifrontend.pl
-          <p className="mx-auto mt-2 w-full text-center text-sm font-normal normal-case text-gray-medium sm:text-right">
+          <p className="mx-auto mt-2 w-full text-center text-sm font-normal normal-case text-gray-secondary sm:text-right">
             Wersja z dnia 27. stycznia 2021r.
           </p>
         </ContentTitle>

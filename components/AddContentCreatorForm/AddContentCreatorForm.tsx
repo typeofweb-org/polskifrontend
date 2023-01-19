@@ -68,7 +68,7 @@ export const AddContentCreatorForm = () => {
       <label className="my-2 block">
         Adres URL
         <input
-          className="peer w-full rounded-md border-[1px] border-[#999999] py-3 px-4"
+          className="border-gray-border peer w-full rounded-md border-[1px] py-3 px-4"
           value={fields.contentURL}
           name="contentURL"
           onChange={handleChange}
@@ -77,7 +77,7 @@ export const AddContentCreatorForm = () => {
           type="url"
         />
         {touched['contentURL'] && (
-          <span className="hidden text-sm text-[#f16262] peer-invalid:inline-block">
+          <span className="hidden text-sm text-error-color peer-invalid:inline-block">
             Wprowadzony adres URL jest nieprawidłowy
           </span>
         )}
@@ -85,7 +85,7 @@ export const AddContentCreatorForm = () => {
       <label className="my-2 block">
         Adres email
         <input
-          className="peer w-full rounded-md border-[1px] border-[#999999] py-3 px-4"
+          className="border-gray-border peer w-full rounded-md border-[1px] py-3 px-4"
           value={fields.email}
           name="email"
           onChange={handleChange}
@@ -94,7 +94,7 @@ export const AddContentCreatorForm = () => {
           type="email"
         />
         {touched['email'] && (
-          <span className="hidden text-sm text-[#f16262] peer-invalid:inline-block">
+          <span className="hidden text-sm text-error-color peer-invalid:inline-block">
             Wprowadzony adres email jest nieprawidłowy
           </span>
         )}

@@ -11,7 +11,7 @@ type HitsProps = {
 const Hits = ({ hits }: HitsProps) => (
   <ol className="w-full list-none p-0">
     {hits.map((hit) => (
-      <li className="my-4 w-full hover:bg-[#f2f2f2]" key={hit.objectID}>
+      <li className="my-4 w-full hover:bg-theme-secondary" key={hit.objectID}>
         <AlgoliaHit hit={hit} />
       </li>
     ))}

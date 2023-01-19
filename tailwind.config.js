@@ -5,13 +5,21 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          base: '#EF516D',
-          dark: '#B5263F',
+          base: 'var(--primary-base)',
+          light: 'var(--primary-light)',
+          dark: 'var(--primary-dark)',
+        },
+        theme: {
+          primary: 'var(--theme-primary)',
+          secondary: 'var(--theme-secondary)',
         },
         gray: {
-          light: '#C4C4C4',
-          medium: '#616161',
+          primary: 'var(--gray-primary)',
+          secondary: 'var(--gray-secondary)',
+          light: 'var(--gray-light)',
         },
+        'black-light': 'var(--black-light)',
+        'error-color': '#f16262',
       },
       fontFamily: {
         sans: ['var(--font-roboto)'],

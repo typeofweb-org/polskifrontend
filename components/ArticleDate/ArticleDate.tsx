@@ -9,7 +9,7 @@ export const ArticleDate = ({ publishedAt }: ArticleDateProps) => {
   const readableDate = formatDate(publishedAt);
 
   return (
-    <time className="text-sm text-[#797979]" dateTime={dateTime}>
+    <time className="text-sm text-gray-secondary" dateTime={dateTime}>
       {readableDate}
     </time>
   );

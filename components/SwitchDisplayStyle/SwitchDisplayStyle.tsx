@@ -20,10 +20,10 @@ export const SwitchDisplayStyle = memo<SwitchDisplayStyleProps>(({ value }) => {
         className="group flex w-9 flex-wrap items-center justify-center gap-1"
         onClick={changeDisplayToGrid}
       >
-        <div className="h-[15px] w-[15px] bg-gray-medium transition-colors duration-300 ease-out group-hover:bg-primary-base/80 group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
-        <div className="h-[15px] w-[15px] bg-gray-medium transition-colors duration-300 ease-out group-hover:bg-primary-base/80 group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
-        <div className="h-[15px] w-[15px] bg-gray-medium transition-colors duration-300 ease-out group-hover:bg-primary-base/80 group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
-        <div className="h-[15px] w-[15px] bg-gray-medium transition-colors duration-300 ease-out group-hover:bg-primary-base/80 group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
+        <div className="group-hover:bg-primary-base/80 h-[15px] w-[15px] bg-gray-secondary transition-colors duration-300 ease-out group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
+        <div className="group-hover:bg-primary-base/80 h-[15px] w-[15px] bg-gray-secondary transition-colors duration-300 ease-out group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
+        <div className="group-hover:bg-primary-base/80 h-[15px] w-[15px] bg-gray-secondary transition-colors duration-300 ease-out group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
+        <div className="group-hover:bg-primary-base/80 h-[15px] w-[15px] bg-gray-secondary transition-colors duration-300 ease-out group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
 
         <span className="sr-only">Wyświetl jako siatkę</span>
       </button>
@@ -33,8 +33,8 @@ export const SwitchDisplayStyle = memo<SwitchDisplayStyleProps>(({ value }) => {
         className="group flex flex-col items-center justify-center gap-1"
         onClick={changeDisplayToList}
       >
-        <div className="h-[15px] w-8 bg-gray-medium transition-colors duration-300 ease-out group-hover:bg-primary-base/80 group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
-        <div className="h-[15px] w-8 bg-gray-medium transition-colors duration-300 ease-out group-hover:bg-primary-base/80 group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
+        <div className="group-hover:bg-primary-base/80 h-[15px] w-8 bg-gray-secondary transition-colors duration-300 ease-out group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
+        <div className="group-hover:bg-primary-base/80 h-[15px] w-8 bg-gray-secondary transition-colors duration-300 ease-out group-active:bg-primary-base group-aria-pressed:bg-primary-base"></div>
 
         <span className="sr-only">Wyświetl jako listę</span>
       </button>

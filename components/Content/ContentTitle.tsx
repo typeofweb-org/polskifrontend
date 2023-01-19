@@ -6,7 +6,7 @@ type ContentTitleProps = {
 
 export const ContentTitle = ({ children }: ContentTitleProps) => {
   return (
-    <h2 className="mt-6 py-0 pt-4 pb-2 text-center text-xl font-semibold uppercase text-[#757575] md:text-2xl lg:text-3xl">
+    <h2 className="mt-6 py-0 pt-4 pb-2 text-center text-xl font-semibold uppercase text-gray-light md:text-2xl lg:text-3xl">
       {children}
     </h2>
   );

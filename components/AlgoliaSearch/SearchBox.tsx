@@ -64,7 +64,7 @@ const CustomSearchBox = ({
       </div>
 
       <div className="mt-2 flex w-full justify-end sm:!hidden">
-        <PoweredBy className="ml-auto text-gray-medium" />
+        <PoweredBy className="ml-auto text-gray-secondary" />
       </div>
     </div>
   );

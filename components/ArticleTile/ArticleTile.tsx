@@ -32,7 +32,7 @@ export const ArticleTile = ({ article, blog, truncate }: ArticleTileProps) => {
   const { name: blogName, favicon } = blog;
 
   return (
-    <article className="relative rounded-xl bg-white p-4 shadow-sm">
+    <article className="relative rounded-xl bg-theme-primary p-4 shadow-sm">
       <div className="relative flex w-full justify-between gap-1">
         <header className="mb-2 w-full">
           <div className="mb-3 flex items-center gap-2">
@@ -47,7 +47,7 @@ export const ArticleTile = ({ article, blog, truncate }: ArticleTileProps) => {
             )}
             <p className="flex flex-col">
               <span className="font-semibold md:text-xl">{blogName}&nbsp;</span>
-              <span className="text-sm capitalize text-[#4F4F4F]">{contentGenre}</span>
+              <span className="text-sm capitalize text-gray-primary">{contentGenre}</span>
             </p>
           </div>
 
@@ -64,17 +64,17 @@ export const ArticleTile = ({ article, blog, truncate }: ArticleTileProps) => {
         </header>
       </div>
 
-      <p className={Clsx('text-[#505050]', truncate && Styles.excerpt)}>{excerpt}</p>
+      <p className={Clsx('text-gray-primary', truncate && Styles.excerpt)}>{excerpt}</p>
 
       <div className="mt-1 flex items-center justify-between md:justify-end">
         <Link
           href={addTrackingToLink(href, { utm_medium: 'homepage' })}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-fit items-center justify-center rounded-[10px] bg-[#F8F8F8] py-2 px-3 leading-4 md:absolute md:top-3 md:right-3 md:gap-3"
+          className="flex h-fit items-center justify-center rounded-[10px] bg-theme-secondary py-2 px-3 leading-4 md:absolute md:top-3 md:right-3 md:gap-3"
         >
           <FontAwesomeIcon icon={faArrowRightToBracket} className="text-primary-base" />
-          <span className="font-medium text-[#797979]">URL</span>
+          <span className="font-medium text-gray-secondary">URL</span>
         </Link>
 
         <ArticleDate publishedAt={publishedAt} />

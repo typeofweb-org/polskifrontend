@@ -45,7 +45,7 @@ export const AuthGuard: React.FC<Props> = ({ children, userRole: role }) => {
   return (
     <section className="mx-auto max-w-6xl">
       <ContentTitle>Brak Uprawnień</ContentTitle>
-      <p className="text-center text-xl text-[#595959]">
+      <p className="text-center text-xl text-gray-primary">
         Nie masz odpowiednich uprawnień, żeby korzystać z tej podstrony. W celu weryfikacji
         skontaktuj się z administracją serwisu.
       </p>

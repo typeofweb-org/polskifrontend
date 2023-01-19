@@ -1,4 +1,3 @@
-import Clsx from 'clsx';
 import Link from 'next/link';
 
 import { fetchBlogsForGrid } from '../../utils/fetchBlogsForGrid';
@@ -20,7 +19,7 @@ export const BlogsGrid = async ({ page }: BlogsGridProps) => {
             className="flex w-full flex-col justify-center gap-6 p-2 lg:w-1/2 lg:p-3"
             key={blog.id}
           >
-            <h3 className={Clsx('', 'mt-4 border-b-2 border-gray-light pb-2 text-center text-xl')}>
+            <h3 className="mt-4 border-b-2 border-gray-light pb-2 text-center text-xl">
               <Link href={blog.href} target="_blank" rel="noopener noreferrer">
                 {blog.name}
               </Link>

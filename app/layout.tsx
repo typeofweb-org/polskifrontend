@@ -70,7 +70,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             />
             <Image src={BgTiles} className="absolute top-3 right-0 -z-10 w-1/5 md:block" alt="" />
 
-            <div className="absolute left-0 h-[999999px] w-full bg-[#F2F2F2]"></div>
+            <div className="absolute left-0 h-[999999px] w-full bg-theme-secondary"></div>
           </div>
 
           <Providers>
@@ -79,7 +79,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </Providers>
         </div>
 
-        <div className="bg-[#F2F2F2]">
+        <div className="bg-theme-secondary">
           <Footer />
         </div>
 

@@ -7,9 +7,9 @@ export const Header = () => {
       </h2>
 
       {/* Divider */}
-      <div className="mx-auto h-[2px] w-full min-w-[168px] max-w-[50%] bg-[#E3E3E3] md:max-w-md"></div>
+      <div className="mx-auto h-[2px] w-full min-w-[168px] max-w-[50%] bg-theme-secondary md:max-w-md"></div>
 
-      <p className="text-center font-light text-gray-medium md:text-2xl">
+      <p className="text-center font-light text-gray-secondary md:text-2xl">
         Szukaj interesujących Cię tematów wśród setek artykułów, wpisów i filmów dostępnych na
         polskich blogach i kanałach o programowaniu.
       </p>

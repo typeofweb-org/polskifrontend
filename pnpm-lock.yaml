@@ -11233,8 +11233,6 @@ packages:
     resolution:
       {
         integrity: sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==,
-        registry: https://registry.npmjs.com/,
-        tarball: https://registry.npmjs.com/rxjs/-/rxjs-6.6.7.tgz,
       }
     engines: { npm: '>=2.0.0' }
     dependencies:
@@ -11245,8 +11243,6 @@ packages:
     resolution:
       {
         integrity: sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==,
-        registry: https://registry.npmjs.com/,
-        tarball: https://registry.npmjs.com/rxjs/-/rxjs-7.8.0.tgz,
       }
     dependencies:
       tslib: 2.4.1
@@ -12413,8 +12409,6 @@ packages:
     resolution:
       {
         integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==,
-        registry: https://registry.npmjs.com/,
-        tarball: https://registry.npmjs.com/tslib/-/tslib-2.4.1.tgz,
       }
 
   /tsscmp/1.0.6:

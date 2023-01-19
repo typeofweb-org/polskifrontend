@@ -69,7 +69,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
       <label className="my-4 block text-black">
         Nazwa bloga
         <input
-          className="my-1 w-full rounded-md border-[1px] border-[#faf9f8] bg-[#faf9f8] py-3 px-4"
+          className="my-1 w-full rounded-md bg-theme-secondary py-3 px-4"
           value={blog.name}
           type="text"
           name="name"
@@ -80,7 +80,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
       <label className="my-4 block text-black">
         Href bloga
         <input
-          className="my-1 w-full rounded-md border-[1px] border-gray-700 py-3 px-4"
+          className="my-1 w-full rounded-md border-[1px] border-gray-primary py-3 px-4"
           value={fields.href}
           name="href"
           onChange={handleChange}
@@ -93,7 +93,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
       <label className="my-4 block text-black">
         Rss bloga
         <input
-          className="my-1 w-full rounded-md border-[1px] border-[#faf9f8] bg-[#faf9f8] py-3 px-4"
+          className="my-1 w-full rounded-md bg-theme-secondary py-3 px-4"
           value={blog.rss}
           name="rss"
           type="url"
@@ -104,7 +104,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
       <label className="my-4 block text-black">
         Slug bloga
         <input
-          className="my-1 w-full rounded-md border-[1px] border-[#faf9f8] bg-[#faf9f8] py-3 px-4"
+          className="my-1 w-full rounded-md bg-theme-secondary py-3 px-4"
           value={blog.slug ?? ''}
           readOnly
           name="slug"
@@ -115,7 +115,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
       <label className="my-4 block text-black">
         Favicon bloga
         <input
-          className="my-1 w-full rounded-md border-[1px] border-[#faf9f8] bg-[#faf9f8] py-3 px-4"
+          className="my-1 w-full rounded-md bg-theme-secondary py-3 px-4"
           value={blog.favicon ?? ''}
           name="favicon"
           type="url"
@@ -126,7 +126,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
       <label className="my-4 block text-black">
         Email twórcy
         <input
-          className="my-1 w-full rounded-md border-[1px] border-gray-700 py-3 px-4"
+          className="my-1 w-full rounded-md border-[1px] border-gray-primary py-3 px-4"
           value={fields.creatorEmail ?? ''}
           name="creatorEmail"
           onChange={handleChange}
