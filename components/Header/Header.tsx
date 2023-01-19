@@ -1,7 +1,7 @@
 export const Header = () => {
   return (
     <section className="mx-auto flex w-full max-w-4xl flex-col gap-3">
-      <h2 className="text-center text-2xl font-black text-black md:text-4xl lg:text-6xl">
+      <h2 className="text-center text-2xl font-black leading-[1.2] text-black md:text-4xl lg:text-6xl">
         Wszystkie <span className="text-primary-base">źródła informacji</span> w jednym miejscu, po
         polsku!
       </h2>
