@@ -1,3 +1,5 @@
+import { Readable } from 'stream';
+
 import Cheerio from 'cheerio';
 import FeedParser from 'feedparser';
 import Iconv from 'iconv-lite';
@@ -6,7 +8,7 @@ import { EMPTY, from, of } from 'rxjs';
 import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
 
-import type { Blog, Prisma, PrismaClient } from '@prisma/client';
+import type { Blog, Prisma, PrismaClient, Blog, Prisma, PrismaClient } from '@prisma/client';
 
 import {
   getBlogName,
@@ -47,11 +49,14 @@ function getFeedStreamFor(blog: Blog) {
     }),
     mergeMap((res) => {
       logger.debug(`Got stream for blog ${blog.name}`);
-      const charset = getContentTypeParaMs(res.headers.get('content-type') || '').charset;
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- it really is a stream
-      const responseStream = maybeTranslate(res.body as unknown as NodeJS.ReadableStream, charset);
+      const charset = getContentTypeParams(res.headers.get('content-type') || '').charset;
+      const responseStream = Readable.from(
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- ok
+        maybeTranslate(res.body as unknown as NodeJS.ReadableStream, charset),
+      );
       logger.debug(`Translated ${blog.name}`);
       const feedparser = new FeedParser({});
+
       return streamToRx<FeedParser>(responseStream.pipe(feedparser)).pipe(
         filter((item) => Boolean(item.pubdate && item.pubdate > blog.lastUpdateDate)),
       );
@@ -59,7 +64,7 @@ function getFeedStreamFor(blog: Blog) {
   );
 }
 
-function getContentTypeParaMs(str: string) {
+function getContentTypeParams(str: string) {
   const params = str.split(';').reduce<Record<string, string | undefined>>((params, param) => {
     const parts = param.split('=').map((part) => part.trim());
     if (parts.length === 2) {
@@ -77,6 +82,7 @@ function maybeTranslate(res: NodeJS.ReadableStream, charset: string | undefined)
       const iconvStream = Iconv.decodeStream(charset);
       return res.pipe(iconvStream);
     } catch (err) {
+      console.error(err);
       res.emit('error', err);
     }
   }
