@@ -4,7 +4,7 @@ import { SwitchDisplayStyle } from '../../../components/SwitchDisplayStyle/Switc
 import type { DisplayStyle } from '../../../types';
 import type { ReactNode } from 'react';
 
-type LayoutProps = {
+type ArticlesLayoutProps = {
   readonly children: ReactNode;
   readonly params: {
     readonly displayStyle: DisplayStyle;
@@ -12,7 +12,7 @@ type LayoutProps = {
   };
 };
 
-export default function Layout({ children, params }: LayoutProps) {
+export default function ArticlesLayout({ children, params }: ArticlesLayoutProps) {
   return (
     <section>
       <AlgoliaSearch>

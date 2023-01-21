@@ -15,6 +15,8 @@ type AdminPageProps = {
   };
 };
 
+export const revalidate = 900; // 15 minutes
+
 export default async function AdminPage({ params }: AdminPageProps) {
   const blogs = await fetchAdminBlogsList(params.blogsType);
 

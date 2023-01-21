@@ -9,14 +9,14 @@ import { addTrackingToLink } from '../../../../utils/link-utils';
 
 import type { ReactNode } from 'react';
 
-type AboutServiceLayoutProps = {
+type ArticleLayoutProps = {
   readonly children: ReactNode;
   readonly params: {
     readonly slug: string;
   };
 };
 
-export default async function ArticleLayout({ children, params }: AboutServiceLayoutProps) {
+export default async function ArticleLayout({ children, params }: ArticleLayoutProps) {
   const article = await fetchArticleBySlug(params.slug);
 
   return (

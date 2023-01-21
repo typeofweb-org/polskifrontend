@@ -19,6 +19,8 @@ type ArticlePageProps = {
   };
 };
 
+export const revalidate = 900; // 15 minutes
+
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const article = await fetchArticleBySlug(params.slug);
   const articleLinkLabel = linkLabels[detectContentGenre(article)];

@@ -13,6 +13,8 @@ type AdminBlogPageProps = {
   };
 };
 
+export const revalidate = 900; // 15 minutes
+
 export default function AdminBlogPage({ params }: AdminBlogPageProps) {
   return (
     <>
