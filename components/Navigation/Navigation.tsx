@@ -18,6 +18,7 @@ export const Navigation = () => (
           src="/new-logo.svg"
           className="md:h-[84px] md:w-[296px] lg:h-[60px] lg:w-[213px] xl:h-[84px] xl:w-[296px]"
           alt="Polski Frontend"
+          priority
         />
       </h1>
     </Link>
