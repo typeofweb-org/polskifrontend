@@ -1,17 +1,16 @@
 'use client';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { clsx } from 'clsx';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 import type { UrlObject } from 'url';
 
 type NavItemProps = {
   readonly href: string | UrlObject;
-  readonly icon: IconDefinition;
+  readonly icon: string;
   readonly children: ReactNode;
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
@@ -27,7 +26,7 @@ export const NavItem = ({ href, icon, children, className, ...rest }: NavItemPro
       })}
       {...rest}
     >
-      <FontAwesomeIcon icon={icon} className="text-sm" />
+      <Image src={`/icons/${icon}.svg`} alt="" width="14" height="14" className="fill-slate-800" />
       <span className="ml-1">{children}</span>
       <div
         className={clsx(

@@ -1,12 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Clsx from 'clsx';
+import Image from 'next/image';
 import { memo, forwardRef } from 'react';
 
-import type { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import type { ButtonHTMLAttributes } from 'react';
 
 type ButtonProps = {
-  readonly icon?: IconDefinition;
+  readonly icon?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = memo<ButtonProps>(
@@ -25,7 +24,9 @@ export const Button = memo<ButtonProps>(
           ref={ref}
           {...props}
         >
-          {icon && <FontAwesomeIcon icon={icon} className="mr-2 text-primary-dark" />}
+          {icon && (
+            <Image src={`/icons/${icon}.svg`} alt="" width="14" height="14" className="mr-2" />
+          )}
           {children}
         </button>
       );

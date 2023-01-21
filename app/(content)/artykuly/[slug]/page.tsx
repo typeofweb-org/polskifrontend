@@ -1,5 +1,3 @@
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
-
 import { getArticlesSlugs } from '../../../../api-helpers/articles';
 import { DEFAULT_ARTICLES } from '../../../../api-helpers/general-feed';
 import { closeConnection, openConnection } from '../../../../api-helpers/prisma/db';
@@ -30,11 +28,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <h3 className="text-lg">{article.title}</h3>
       <ArticleDate publishedAt={article.publishedAt} />
       <div dangerouslySetInnerHTML={{ __html: article.sanitizedDescription }} />
-      <section className="mt-7 flex flex-col items-center gap-3 border-t-2 border-dashed border-primary-dark pt-5 text-center">
+      <section className="bt-2 mt-7 flex flex-col items-center gap-3 border-dashed border-primary-dark pt-5 text-center">
         <p className="text-center text-xl font-semibold">Chcesz więcej? Sprawdź w oryginale!</p>
         <ButtonAsLink
           href={addTrackingToLink(article.href, { utm_medium: 'article_page' })}
-          icon={faArrowUpRightFromSquare}
           target="_blank"
           rel="noopener noreferrer"
         >

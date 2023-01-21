@@ -1,4 +1,3 @@
-import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 
 import { ButtonAsLink } from '../../../../components/ButtonAsLink/ButtonAsLink';
@@ -31,7 +30,7 @@ export default async function ArticleLayout({ children, params }: AboutServiceLa
         </Link>
       </ContentTitle>
 
-      <ButtonAsLink href="/" icon={faArrowLeftLong}>
+      <ButtonAsLink href="/" icon="arrow-left2">
         Strona Główna
       </ButtonAsLink>
 

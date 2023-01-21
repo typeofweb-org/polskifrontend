@@ -1,5 +1,3 @@
-import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -71,9 +69,9 @@ export const ArticleTile = ({ article, blog, truncate }: ArticleTileProps) => {
           href={addTrackingToLink(href, { utm_medium: 'homepage' })}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-2 flex h-fit items-center justify-center gap-2 rounded-[10px] bg-theme-secondary py-2 px-3 leading-4 md:absolute md:top-3 md:right-3 md:mt-0 md:gap-3"
+          className="mt-2 flex h-fit items-center justify-center gap-2 rounded-[10px] bg-theme-secondary py-2 px-3 leading-4 md:absolute md:top-3 md:right-3 md:mt-0"
         >
-          <FontAwesomeIcon icon={faArrowRightToBracket} className="text-primary-base" />
+          <Image src="/icons/link.svg" width="15" height="15" alt="" />
           <span className="font-medium text-gray-secondary">URL</span>
         </Link>
 

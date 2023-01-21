@@ -1,5 +1,3 @@
-import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
-
 import { ButtonAsLink } from '../../../components/ButtonAsLink/ButtonAsLink';
 import { Content } from '../../../components/Content/Content';
 import { ContentTitle } from '../../../components/Content/ContentTitle';
@@ -20,7 +18,7 @@ export default function TermsOfUseLayout({ children }: TermsOfUseLayoutProps) {
         </p>
       </ContentTitle>
 
-      <ButtonAsLink href="/" icon={faArrowLeftLong}>
+      <ButtonAsLink href="/" icon="arrow-left2">
         Strona Główna
       </ButtonAsLink>
 

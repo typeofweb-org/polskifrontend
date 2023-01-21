@@ -1,5 +1,3 @@
-import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
-
 import { ButtonAsLink } from '../../../../components/ButtonAsLink/ButtonAsLink';
 import { ChangeBlogsList } from '../../../../components/ChangeBlogsList/ChangeBlogsList';
 import { Content } from '../../../../components/Content/Content';
@@ -23,8 +21,8 @@ export default async function AdminPage({ params }: AdminPageProps) {
     <>
       <ContentTitle>Admin Panel - Blogi</ContentTitle>
 
-      <div className="order-2 flex gap-3 p-4 md:py-8 md:pb-4">
-        <ButtonAsLink href="/" icon={faArrowLeftLong}>
+      <div className="flex gap-3 p-4 md:py-8 md:pb-4">
+        <ButtonAsLink href="/" icon="arrow-left2">
           Strona Główna
         </ButtonAsLink>
 

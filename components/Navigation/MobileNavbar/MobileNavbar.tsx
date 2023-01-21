@@ -1,8 +1,7 @@
 'use client';
 
-import { faAdd, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Clsx from 'clsx';
+import Image from 'next/image';
 
 import { ButtonAsLink } from '../../ButtonAsLink/ButtonAsLink';
 import { NavItem } from '../NavItem';
@@ -38,7 +37,7 @@ export const MobileNavbar = () => {
         ))}
 
         <li>
-          <ButtonAsLink href="/zglos-serwis" icon={faAdd}>
+          <ButtonAsLink href="/zglos-serwis" icon="plus">
             DODAJ SERWIS
           </ButtonAsLink>
         </li>
@@ -49,10 +48,7 @@ export const MobileNavbar = () => {
         onClick={open}
         aria-label="Otwórz nawigację"
       >
-        <FontAwesomeIcon
-          icon={faBars}
-          className="text-3xl text-primary-base transition-colors duration-300 ease-out group-hover:bg-primary-base/80 group-active:bg-primary-base group-aria-pressed:bg-primary-base"
-        />
+        <Image src="/icons/menu.svg" alt="" width="28" height="28" />
       </button>
 
       <button
@@ -60,10 +56,7 @@ export const MobileNavbar = () => {
         className={Clsx('fixed top-5 right-5 z-50', isActive ? 'inline-block' : 'hidden')}
         aria-label="Zamknij nawigację"
       >
-        <FontAwesomeIcon
-          icon={faTimes}
-          className="text-3xl text-primary-base transition-colors duration-300 ease-out group-hover:bg-primary-base/80 group-active:bg-primary-base group-aria-pressed:bg-primary-base"
-        />
+        <Image src="/icons/cross.svg" alt="" width="26" height="26" />
       </button>
     </>
   );

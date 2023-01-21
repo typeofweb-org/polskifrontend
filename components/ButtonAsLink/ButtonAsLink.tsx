@@ -1,13 +1,12 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Clsx from 'clsx';
+import Image from 'next/image';
 import Link from 'next/link';
 import { memo, forwardRef } from 'react';
 
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import type { AnchorHTMLAttributes } from 'react';
 
 type ButtonAsLinkProps = {
-  readonly icon?: IconDefinition;
+  readonly icon?: string;
   readonly href: string;
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
@@ -23,7 +22,9 @@ export const ButtonAsLink = memo<ButtonAsLinkProps>(
           ref={ref}
           {...props}
         >
-          {icon && <FontAwesomeIcon icon={icon} className="mr-2 text-primary-dark" />}
+          {icon && (
+            <Image src={`/icons/${icon}.svg`} alt="" width="14" height="14" className="mr-2" />
+          )}
           {children}
         </Link>
       );

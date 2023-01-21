@@ -1,7 +1,6 @@
 'use client';
 
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 import { connectSearchBox, PoweredBy } from 'react-instantsearch-dom';
 
 import type { ChangeEvent } from 'react';
@@ -40,7 +39,20 @@ const CustomSearchBox = ({
           className="absolute inset-y-0 left-4 my-auto md:left-5"
           onClick={handleSearch}
         >
-          <FontAwesomeIcon icon={faSearch} className="text-xl text-primary-base md:text-2xl" />
+          <Image
+            src="/icons/search-base.svg"
+            alt=""
+            width="20"
+            height="20"
+            className="md:pointer-events-none md:hidden"
+          />
+          <Image
+            src="/icons/search-lg.svg"
+            alt=""
+            width="28"
+            height="28"
+            className="pointer-events-none hidden md:pointer-events-auto md:inline-block"
+          />
         </button>
 
         <input
@@ -58,7 +70,7 @@ const CustomSearchBox = ({
             onClick={clearSearchState}
             className="absolute inset-y-0 right-5 my-auto h-fit p-0.5 sm:right-32"
           >
-            <FontAwesomeIcon className="md:text-lg" icon={faTimes} />
+            <Image src="/icons/cross.svg" alt="" width="14" height="14" />
           </button>
         )}
       </div>

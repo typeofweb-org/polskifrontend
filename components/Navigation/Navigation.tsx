@@ -1,4 +1,3 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -39,7 +38,7 @@ export const Navigation = () => (
         </li>
       ))}
       <li>
-        <ButtonAsLink href="/zglos-serwis" icon={faPlus}>
+        <ButtonAsLink href="/zglos-serwis" icon="plus">
           DODAJ SERWIS
         </ButtonAsLink>
       </li>

@@ -1,5 +1,3 @@
-import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
-
 import { closeConnection, openConnection } from '../../../../../api-helpers/prisma/db';
 import { ButtonAsLink } from '../../../../../components/ButtonAsLink/ButtonAsLink';
 import { Content } from '../../../../../components/Content/Content';
@@ -19,8 +17,8 @@ export default function AdminBlogPage({ params }: AdminBlogPageProps) {
     <>
       <ContentTitle>Aktualizacja danych</ContentTitle>
 
-      <div className="order-2 flex gap-3 p-4 md:py-8 md:pb-4">
-        <ButtonAsLink href="/admin" icon={faArrowLeftLong}>
+      <div className="flex gap-3 p-4 md:py-8 md:pb-4">
+        <ButtonAsLink href="/admin" icon="arrow-left2">
           Lista Blogów
         </ButtonAsLink>
 

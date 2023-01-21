@@ -1,7 +1,6 @@
 'use client';
 
-import { faCheck, faQuestionCircle, faSpinner, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 import { memo } from 'react';
 
 import type { Status } from '../../hooks/useMutation';
@@ -36,13 +35,13 @@ function getStatusMessage({ status, errorCode }: FormStatusProps) {
 function getStatusIcon(status: Status) {
   switch (status) {
     case 'loading':
-      return faSpinner;
+      return 'spinner3';
     case 'success':
-      return faCheck;
+      return 'checkmark';
     case 'error':
-      return faXmark;
+      return 'cross';
     default:
-      return faQuestionCircle;
+      return 'question';
   }
 }
 
@@ -52,8 +51,8 @@ export const FormStatus = memo<FormStatusProps>(({ status, errorCode }) => {
   }
 
   return (
-    <div className="mt-7 rounded-sm p-2 text-center text-lg">
-      <FontAwesomeIcon className="mr-3" icon={getStatusIcon(status)} />
+    <div className="mt-7 flex justify-center gap-2 rounded-sm p-2 text-center text-lg">
+      <Image src={`/icons/${getStatusIcon(status)}.svg`} width="16" height="16" alt="" />
       <span>{getStatusMessage({ status, errorCode })}</span>
     </div>
   );

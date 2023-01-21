@@ -1,40 +1,37 @@
-import { faDiscord, faFacebook, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faHome, faQuestionCircle, faRss } from '@fortawesome/free-solid-svg-icons';
-
 export const links = [
   {
     href: '/',
-    icon: faHome,
+    icon: 'home',
     label: 'HOME',
     openInNewTab: false,
   },
   {
     href: '/o-serwisie',
-    icon: faQuestionCircle,
+    icon: 'question',
     label: 'O SERWISIE',
     openInNewTab: false,
   },
   {
     href: 'https://facebook.com/polskifrontend',
-    icon: faFacebook,
+    icon: 'facebook2',
     label: 'FACEBOOK',
     openInNewTab: true,
   },
   {
     href: 'https://polskifrontend.pl/feed',
-    icon: faRss,
+    icon: 'rss',
     label: 'RSS',
     openInNewTab: true,
   },
   {
     href: 'https://discord.typeofweb.com',
-    icon: faDiscord,
+    icon: 'discord',
     label: 'DISCORD',
     openInNewTab: true,
   },
   {
     href: 'https://github.com/typeofweb/polskifrontend',
-    icon: faGithub,
+    icon: 'github',
     label: 'GITHUB',
     openInNewTab: true,
   },

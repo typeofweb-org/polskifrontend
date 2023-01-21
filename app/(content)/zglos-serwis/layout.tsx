@@ -1,5 +1,3 @@
-import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons';
-
 import { ButtonAsLink } from '../../../components/ButtonAsLink/ButtonAsLink';
 import { Content } from '../../../components/Content/Content';
 import { ContentTitle } from '../../../components/Content/ContentTitle';
@@ -15,7 +13,7 @@ export default function AddContentCreatorLayout({ children }: AddContentCreatorL
     <>
       <ContentTitle>Zgłoś Serwis</ContentTitle>
 
-      <ButtonAsLink href="/" icon={faArrowLeftLong}>
+      <ButtonAsLink href="/" icon="arrow-left2">
         Strona Główna
       </ButtonAsLink>
 
