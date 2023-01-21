@@ -8,6 +8,7 @@ export function useLocalStorage<T extends string>(key: string, defaultValue: T) 
   useDidMount(() => {
     try {
       const savedValue = localStorage.getItem(key);
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- @todo validate this
       setValue((savedValue as T) || defaultValue);
     } catch {
       setValue(defaultValue);

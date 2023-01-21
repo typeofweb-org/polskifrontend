@@ -1,5 +1,6 @@
-import type { MockedRequest } from 'msw';
 import { setupServer } from 'msw/node';
+
+import type { MockedRequest } from 'msw';
 
 export const getPublicUrlFromRequest = (request: MockedRequest) => {
   const { protocol, host, pathname, origin } = request.url;

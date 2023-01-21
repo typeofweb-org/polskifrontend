@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable -- can't add readonly here */
 import * as Prisma from '@prisma/client';
 
 type PrismaDelegates = Pick<Prisma.PrismaClient, ReadonlyKeys<Prisma.PrismaClient>>;
@@ -21,8 +21,8 @@ type ReadonlyKeys<T> = {
 }[keyof T];
 
 type EnumsKeys = {
-  readonly [K in keyof typeof Prisma]: typeof Prisma[K] extends object
-    ? typeof Prisma[K] extends Function
+  readonly [K in keyof typeof Prisma]: (typeof Prisma)[K] extends object
+    ? (typeof Prisma)[K] extends Function
       ? never
       : K
     : never;

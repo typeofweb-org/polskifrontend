@@ -13,22 +13,22 @@ identyfikację seksualną, pochodzenie etniczne, religię, wiek czy wygląd zewn
 Wśród przykładów zachowania, które przyczyniają się do tworzenia pozytywnego
 środowiska, są:
 
-* Używanie języka, który jest przyjazny i nie wyklucza innych uczestników projektu,
-* Okazywanie szacunku dla różnych punktów widzenia i osobistych doświadczeń,
-* Przyjmowanie konstruktywnej krytyki z wdzięcznością,
-* Skupianie się na tym, co dobre dla społeczności projektu,
-* Wykazywanie empatii wobec innych członków społeczności.
+- Używanie języka, który jest przyjazny i nie wyklucza innych uczestników projektu,
+- Okazywanie szacunku dla różnych punktów widzenia i osobistych doświadczeń,
+- Przyjmowanie konstruktywnej krytyki z wdzięcznością,
+- Skupianie się na tym, co dobre dla społeczności projektu,
+- Wykazywanie empatii wobec innych członków społeczności.
 
 Wśród przykładów zachowania, którego nie będziemy akceptować, są:
 
-* Używanie języka i grafik o podtekście seksualnym, okazywanie
+- Używanie języka i grafik o podtekście seksualnym, okazywanie
   niepożądanego zainteresowania seksualnego, a także zaloty,
-* Trollowanie, obraźliwe bądź urągające komentarze oraz ataki osobiste bądź
+- Trollowanie, obraźliwe bądź urągające komentarze oraz ataki osobiste bądź
   polityczne,
-* Nękanie, zarówno na forum publicznym jak i prywatnym,
-* Publikowanie danych osobistych innych osób — takich jak
+- Nękanie, zarówno na forum publicznym jak i prywatnym,
+- Publikowanie danych osobistych innych osób — takich jak
   adres fizyczny czy elektroniczny — bez ich wyraźnej zgody,
-* Inne zachowania, które mogłyby zostać uznane za nieodpowiednie w kontekście
+- Inne zachowania, które mogłyby zostać uznane za nieodpowiednie w kontekście
   profesjonalnym.
 
 ## Nasza Odpowiedzialność

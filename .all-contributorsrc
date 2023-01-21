@@ -170,6 +170,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "grzegorzpokorski",
+      "name": "Grzegorz Pokorski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27455716?v=4",
+      "profile": "https://github.com/grzegorzpokorski",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 3,

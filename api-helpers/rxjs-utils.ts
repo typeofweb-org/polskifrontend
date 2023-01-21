@@ -1,11 +1,13 @@
 // https://github.com/Jason3S/rx-stream/blob/4c715e38924a44e65ed8c5aed883c2ca61dca1b1/src/streamToRx.ts
-import type { Duplex } from 'stream';
 
-import type { Subscription } from 'rxjs';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
+import type { Subscription } from 'rxjs';
+
 import { logger } from './logger';
+
+import type { Duplex } from 'stream';
 
 export function streamToRx<S extends Duplex = Duplex, T = ReturnType<S['read']>>(
   stream: S,

@@ -1,11 +1,14 @@
-import type { Blog, Prisma, PrismaClient } from '@prisma/client';
+import { Readable } from 'stream';
+
 import Cheerio from 'cheerio';
 import FeedParser from 'feedparser';
 import Iconv from 'iconv-lite';
-import ms from 'ms';
-import { EMPTY, from, of } from 'rxjs';
+import Ms from 'ms';
+import { EMPTY, firstValueFrom, from, of } from 'rxjs';
 import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
+
+import type { Blog, Prisma, PrismaClient } from '@prisma/client';
 
 import {
   getBlogName,
@@ -18,7 +21,7 @@ import { logger } from './logger';
 import { streamToRx } from './rxjs-utils';
 
 const MAX_CONCURRENCY = 5;
-const MAX_FETCHING_TIME = ms('6 s');
+const MAX_FETCHING_TIME = Ms('6 s');
 
 async function fetchFeedFor(blog: Blog) {
   const res = await fetch(blog.rss, {
@@ -47,9 +50,13 @@ function getFeedStreamFor(blog: Blog) {
     mergeMap((res) => {
       logger.debug(`Got stream for blog ${blog.name}`);
       const charset = getContentTypeParams(res.headers.get('content-type') || '').charset;
-      const responseStream = maybeTranslate(res.body as unknown as NodeJS.ReadableStream, charset);
+      const responseStream = Readable.from(
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- ok
+        maybeTranslate(res.body as unknown as NodeJS.ReadableStream, charset),
+      );
       logger.debug(`Translated ${blog.name}`);
       const feedparser = new FeedParser({});
+
       return streamToRx<FeedParser>(responseStream.pipe(feedparser)).pipe(
         filter((item) => Boolean(item.pubdate && item.pubdate > blog.lastUpdateDate)),
       );
@@ -58,14 +65,14 @@ function getFeedStreamFor(blog: Blog) {
 }
 
 function getContentTypeParams(str: string) {
-  const params = str.split(';').reduce((params, param) => {
+  const params = str.split(';').reduce<Record<string, string | undefined>>((params, param) => {
     const parts = param.split('=').map((part) => part.trim());
     if (parts.length === 2) {
       const [key, val] = parts;
       params[key] = val;
     }
     return params;
-  }, {} as Record<string, string | undefined>);
+  }, {});
   return params;
 }
 
@@ -75,6 +82,7 @@ function maybeTranslate(res: NodeJS.ReadableStream, charset: string | undefined)
       const iconvStream = Iconv.decodeStream(charset);
       return res.pipe(iconvStream);
     } catch (err) {
+      console.error(err);
       res.emit('error', err);
     }
   }
@@ -91,8 +99,7 @@ const feedParserItemToArticle =
       item.summary ||
       item.description ||
       item.meta.description ||
-      // @todo legacy ?
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/consistent-type-assertions -- @todo legacy ?
       ((item as any)?.['media:group']?.['media:description']?.['#'] as string | undefined) ||
       null;
 
@@ -131,15 +138,15 @@ export const updateFeeds = async (prisma: PrismaClient) => {
   const now = new Date();
 
   logger.info(`Found blogs in SQL database ${blogs.length}`);
-  return await from(blogs)
-    .pipe(
+  return await firstValueFrom(
+    from(blogs).pipe(
       mergeMap(getNewArticlesForBlog(now), MAX_CONCURRENCY),
       mergeMap((article) =>
         from(prisma.article.create({ data: article })).pipe(
           map((article) => article.blogId),
           catchError((err: Error) => {
             logger.error(err, `Database error`);
-            return of(article.blog.connect!.id!);
+            return of(article.blog.connect?.id);
           }),
         ),
       ),
@@ -158,8 +165,8 @@ export const updateFeeds = async (prisma: PrismaClient) => {
           }),
         );
       }),
-    )
-    .toPromise();
+    ),
+  );
 };
 
 const getUpdatedInfoFor = (blog: Blog) => {
@@ -211,8 +218,8 @@ export const updateBlogs = async (prisma: PrismaClient) => {
     },
   });
 
-  return await from(blogs)
-    .pipe(
+  return await firstValueFrom(
+    from(blogs).pipe(
       mergeMap(getUpdatedInfoFor, MAX_CONCURRENCY),
       mergeMap(({ blog, updatedInfo }) => {
         logger.debug(`Updating blog: ${updatedInfo.name || blog.name}`);
@@ -225,6 +232,6 @@ export const updateBlogs = async (prisma: PrismaClient) => {
           }),
         );
       }),
-    )
-    .toPromise();
+    ),
+  );
 };

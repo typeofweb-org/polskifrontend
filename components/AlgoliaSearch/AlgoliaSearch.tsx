@@ -5,11 +5,12 @@ import { InstantSearch } from 'react-instantsearch-dom';
 
 import { getConfig } from '../../api-helpers/config';
 
+import type { ReactNode } from 'react';
+
 import { AlgoliaHits } from './AlgoliaHits';
 import { SearchBox } from './SearchBox';
 import { useAlgolia } from './useAlgolia';
 
-import type { ReactNode } from 'react';
 
 export type AlgoliaSearchProps = {
   readonly children: ReactNode;

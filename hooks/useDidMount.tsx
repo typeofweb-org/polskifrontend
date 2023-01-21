@@ -1,5 +1,6 @@
-import type { EffectCallback } from 'react';
 import { useEffect } from 'react';
 
-/* eslint-disable react-hooks/exhaustive-deps */
+import type { EffectCallback } from 'react';
+
+/* eslint-disable react-hooks/exhaustive-deps -- this is on purpose */
 export const useDidMount = (cb: EffectCallback) => useEffect(cb, []);

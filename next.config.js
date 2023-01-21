@@ -32,6 +32,9 @@ const config = {
   images: {
     domains: ['res.cloudinary.com'],
   },
+  eslint: {
+    dirs: ['.'],
+  },
 };
 
 module.exports = config;
