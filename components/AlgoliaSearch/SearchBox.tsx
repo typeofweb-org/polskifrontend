@@ -36,6 +36,7 @@ const CustomSearchBox = ({
         <button
           type="button"
           title="Zatwierdź frazę wyszukiwania"
+          aria-label="Zatwierdź frazę wyszukiwania"
           className="absolute inset-y-0 left-4 my-auto md:left-5"
           onClick={handleSearch}
         >
