@@ -1,6 +1,7 @@
 import { closeConnection, openConnection } from '../../../../../api-helpers/prisma/db';
 import { ButtonAsLink } from '../../../../../components/ButtonAsLink/ButtonAsLink';
 import { Content } from '../../../../../components/Content/Content';
+import { ContentNavigation } from '../../../../../components/Content/ContentNavigation';
 import { ContentTitle } from '../../../../../components/Content/ContentTitle';
 import { LogoutButton } from '../../../../../components/LogoutButton/LogoutButton';
 import { DangerZone } from '../../../../../components/UpdateBlogSection/DangerZone';
@@ -17,13 +18,13 @@ export default function AdminBlogPage({ params }: AdminBlogPageProps) {
     <>
       <ContentTitle>Aktualizacja danych</ContentTitle>
 
-      <div className="flex gap-3 p-4 md:py-8 md:pb-4">
+      <ContentNavigation>
         <ButtonAsLink href="/admin" icon="arrow-left2">
           Lista Blogów
         </ButtonAsLink>
 
         <LogoutButton>Wyloguj</LogoutButton>
-      </div>
+      </ContentNavigation>
 
       <Content>
         <UpdateBlogForm blogId={params.blogId} />

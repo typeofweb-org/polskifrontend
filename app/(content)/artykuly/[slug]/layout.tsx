@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { ButtonAsLink } from '../../../../components/ButtonAsLink/ButtonAsLink';
 import { Content } from '../../../../components/Content/Content';
+import { ContentNavigation } from '../../../../components/Content/ContentNavigation';
 import { ContentTitle } from '../../../../components/Content/ContentTitle';
 import { fetchArticleBySlug } from '../../../../utils/fetchArticleBySlug';
 import { addTrackingToLink } from '../../../../utils/link-utils';
@@ -30,9 +31,11 @@ export default async function ArticleLayout({ children, params }: AboutServiceLa
         </Link>
       </ContentTitle>
 
-      <ButtonAsLink href="/" icon="arrow-left2">
-        Strona Główna
-      </ButtonAsLink>
+      <ContentNavigation>
+        <ButtonAsLink href="/" icon="arrow-left2">
+          Strona Główna
+        </ButtonAsLink>
+      </ContentNavigation>
 
       <Content>{children}</Content>
     </>

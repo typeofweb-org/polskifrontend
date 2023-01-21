@@ -1,6 +1,7 @@
 import { ButtonAsLink } from '../../../../components/ButtonAsLink/ButtonAsLink';
 import { ChangeBlogsList } from '../../../../components/ChangeBlogsList/ChangeBlogsList';
 import { Content } from '../../../../components/Content/Content';
+import { ContentNavigation } from '../../../../components/Content/ContentNavigation';
 import { ContentTitle } from '../../../../components/Content/ContentTitle';
 import { LogoutButton } from '../../../../components/LogoutButton/LogoutButton';
 import { Table } from '../../../../components/Table/Table';
@@ -21,13 +22,13 @@ export default async function AdminPage({ params }: AdminPageProps) {
     <>
       <ContentTitle>Admin Panel - Blogi</ContentTitle>
 
-      <div className="flex gap-3 p-4 md:py-8 md:pb-4">
+      <ContentNavigation>
         <ButtonAsLink href="/" icon="arrow-left2">
           Strona Główna
         </ButtonAsLink>
 
         <LogoutButton>Wyloguj</LogoutButton>
-      </div>
+      </ContentNavigation>
 
       <Content>
         <ChangeBlogsList type={params.blogsType} />
