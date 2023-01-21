@@ -20,13 +20,13 @@ export const revalidate = 900; // 15 minutes
 export default function HomePage({ params }: HomePageProps) {
   const { displayStyle, page } = params;
 
-  if (displayStyle === 'grid') {
+  if (displayStyle !== 'grid') {
     // @ts-expect-error Server Component
-    return <BlogsGrid page={page} />;
+    return <BlogsList page={page} />;
   }
 
   // @ts-expect-error Server Component
-  return <BlogsList page={page} />;
+  return <BlogsGrid page={page} />;
 }
 
 export const generateStaticParams = async () => {
