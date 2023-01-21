@@ -1,6 +1,5 @@
 import { withAsync, withDb, withMethods } from '../../api-helpers/api-hofs';
 import { getGeneralFeed } from '../../api-helpers/general-feed';
-import { REVALIDATION_TIME } from '../../constants';
 
 export default withAsync(
   withMethods({
@@ -9,7 +8,8 @@ export default withAsync(
 
       res.setHeader('Content-Type', 'application/rss+xml; charset=utf-8');
       res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Cache-Control', `s-maxage=${REVALIDATION_TIME}, stale-while-revalidate`);
+      // 900 equals revalidation time (15 minutes)
+      res.setHeader('Cache-Control', `s-maxage=900, stale-while-revalidate`);
 
       res.send(feed);
 
