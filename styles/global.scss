@@ -22,15 +22,10 @@ iframe,
 [contentEditable='true'] {
   &:not([tabindex='-1']) {
     &:focus {
-      outline: 2px dashed var(--primary-base);
+      outline: none;
     }
-    a {
-      &:focus {
-        outline: none;
-      }
-      &:focus-visible {
-        outline: 2px dashed var(--primary-base);
-      }
+    &:focus-visible {
+      outline: 2px dashed var(--primary-base);
     }
   }
 }
