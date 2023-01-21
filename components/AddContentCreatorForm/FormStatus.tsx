@@ -51,7 +51,7 @@ export const FormStatus = memo<FormStatusProps>(({ status, errorCode }) => {
   }
 
   return (
-    <div className="mt-7 flex justify-center gap-2 rounded-sm p-2 text-center text-lg">
+    <div className="mt-7 flex justify-center gap-2 rounded-sm p-2 text-center text-lg" role="status">
       <Image src={`/icons/${getStatusIcon(status)}.svg`} width="16" height="16" alt="" />
       <span>{getStatusMessage({ status, errorCode })}</span>
     </div>
