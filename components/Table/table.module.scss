@@ -4,6 +4,10 @@
   border-spacing: 0;
   width: 100%;
 
+  thead > tr > th {
+    background: var(--theme-primary);
+  }
+
   th,
   td {
     padding: 0.5rem 1rem;
