@@ -65,7 +65,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               className="absolute left-[40%] -top-10 -z-10 hidden w-1/5 md:block"
               alt=""
             />
-            <Image src={Background} className="w-full" alt="" />
+            <Image src={Background} className="w-full" alt="" priority />
             <Image
               src={BgTiles}
               className="absolute right-[20%] -top-5 -z-10 hidden w-1/5 md:block"

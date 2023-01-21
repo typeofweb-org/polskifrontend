@@ -68,8 +68,10 @@ const CustomSearchBox = ({
 
         {query?.length > 0 && (
           <button
+            type="button"
             onClick={clearSearchState}
             className="absolute inset-y-0 right-5 my-auto h-fit p-0.5 sm:right-32"
+            aria-label="Wyczyść pole wyszukiwania"
           >
             <Image src="/icons/cross.svg" alt="" width="14" height="14" />
           </button>

@@ -18,7 +18,10 @@ export const Pagination = ({
   nextPage,
 }: PaginationProps) => {
   return (
-    <div className="mt-8 mb-5 flex flex-col flex-wrap items-center justify-center gap-3 sm:flex-row">
+    <nav
+      aria-label="Paginacja"
+      className="mt-8 mb-5 flex flex-col flex-wrap items-center justify-center gap-3 sm:flex-row"
+    >
       {!isLastPage && (
         <>
           <ButtonAsLink href={`/${displayStyle}/${previousPage}`} icon="arrow-left2">
@@ -33,6 +36,6 @@ export const Pagination = ({
           Następna strona
         </ButtonAsLink>
       )}
-    </div>
+    </nav>
   );
 };

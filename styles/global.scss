@@ -24,7 +24,7 @@ iframe,
     &:focus {
       outline: 2px dashed var(--primary-base);
     }
-    @supports selector(a:focus-visible) {
+    a {
       &:focus {
         outline: none;
       }
