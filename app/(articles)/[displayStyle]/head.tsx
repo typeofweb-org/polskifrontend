@@ -4,7 +4,7 @@ import type { DisplayStyle } from '../../../types';
 
 type HeadProps = {
   readonly params: {
-    readonly displayStyle: DisplayStyle;
+    readonly displayStyle?: DisplayStyle;
     readonly page: string;
   };
 };
@@ -18,7 +18,7 @@ export default function Head({ params }: HeadProps) {
   return (
     <HeadTags
       title={`Polski Frontend – ${
-        displayStyleTitle[params.displayStyle]
+        displayStyleTitle[params.displayStyle ?? 'list']
       } artykułów z polskich blogów frontendowych`}
     />
   );
