@@ -6,9 +6,9 @@ import { detectContentGenre } from '../../utils/creator-utils';
 import { addTrackingToLink } from '../../utils/link-utils';
 import { ArticleDate } from '../ArticleDate/ArticleDate';
 
-import type { Article, Blog } from '../../types';
-
 import Styles from './articleTile.module.scss';
+
+import type { Article, Blog } from '../../types';
 
 export type ArticleTileArticle = Pick<
   Article,

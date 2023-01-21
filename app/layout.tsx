@@ -10,9 +10,8 @@ import { Providers } from '../components/Providers/Providers';
 import Background from '../public/background.svg';
 import BgTiles from '../public/bg-tiles.svg';
 
-import type{ ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import 'normalize.css/normalize.css';
 import '../styles/global.scss';
 import '../styles/tailwind.css';
 

@@ -7,12 +7,11 @@ import { useEffect, useRef, useCallback, useState } from 'react';
 import { getConfig } from '../../api-helpers/config';
 import { useMutation } from '../../hooks/useMutation';
 import { addContentCreator } from '../../utils/api/addContentCreator';
-
-import type { ChangeEventHandler, FormEventHandler } from 'react';
-
 import { Button } from '../Button/Button';
 
 import { FormStatus } from './FormStatus';
+
+import type { ChangeEventHandler, FormEventHandler } from 'react';
 
 export const AddContentCreatorForm = () => {
   const [fields, setFields] = useState({ contentURL: '', email: '' });

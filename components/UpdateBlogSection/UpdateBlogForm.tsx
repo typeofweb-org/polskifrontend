@@ -6,14 +6,10 @@ import { useRef, memo, useCallback, useEffect, useState } from 'react';
 import { useMutation } from '../../hooks/useMutation';
 import { useQuery } from '../../hooks/useQuery';
 import { getBlog } from '../../utils/api/getBlog';
-
-import type { BlogIdRequestBody } from '../../pages/api/blogs/[blogId]';
-
 import { updateBlog } from '../../utils/api/updateBlog';
-
-
 import { Button } from '../Button/Button';
 
+import type { BlogIdRequestBody } from '../../pages/api/blogs/[blogId]';
 import type { ChangeEventHandler, FormEvent } from 'react';
 
 type Props = {

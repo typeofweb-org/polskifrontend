@@ -8,8 +8,6 @@ import { EMPTY, firstValueFrom, from, of } from 'rxjs';
 import { catchError, map, mergeMap, groupBy, last, timeout, filter } from 'rxjs/operators';
 import Slugify from 'slugify';
 
-import type { Blog, Prisma, PrismaClient } from '@prisma/client';
-
 import {
   getBlogName,
   getFavicon,
@@ -19,6 +17,8 @@ import {
 import { getYouTubeChannelFavicon } from './external-services/youtube';
 import { logger } from './logger';
 import { streamToRx } from './rxjs-utils';
+
+import type { Blog, Prisma, PrismaClient } from '@prisma/client';
 
 const MAX_CONCURRENCY = 5;
 const MAX_FETCHING_TIME = Ms('6 s');

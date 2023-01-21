@@ -60,7 +60,6 @@ specifiers:
   ms: 2.1.3
   msw: 0.49.3
   next: 13.1.2
-  normalize.css: 8.0.1
   pino: 8.8.0
   pino-pretty: 9.1.1
   postcss: 8.4.20
@@ -107,7 +106,6 @@ dependencies:
   mailgun-js: 0.22.0
   ms: 2.1.3
   next: 13.1.2_3duxcpitbtplz62feflag7fwby
-  normalize.css: 8.0.1
   pino: 8.8.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -8295,13 +8293,6 @@ packages:
       }
     engines: { node: '>=0.10.0' }
     dev: true
-
-  /normalize.css/8.0.1:
-    resolution:
-      {
-        integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==,
-      }
-    dev: false
 
   /npm-normalize-package-bin/3.0.0:
     resolution:
