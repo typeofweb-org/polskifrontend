@@ -1,4 +1,4 @@
-import { closeConnection, openConnection } from '../../../../../api-helpers/prisma/db';
+import { openConnection } from '../../../../../api-helpers/prisma/db';
 import { ButtonAsLink } from '../../../../../components/ButtonAsLink/ButtonAsLink';
 import { Content } from '../../../../../components/Content/Content';
 import { ContentNavigation } from '../../../../../components/Content/ContentNavigation';
@@ -13,7 +13,7 @@ type AdminBlogPageProps = {
   };
 };
 
-export const revalidate = 900; // 15 minutes
+export const revalidate = 0;
 
 export default function AdminBlogPage({ params }: AdminBlogPageProps) {
   return (
@@ -42,14 +42,10 @@ export default function AdminBlogPage({ params }: AdminBlogPageProps) {
 }
 
 export const generateStaticParams = async () => {
-  try {
-    const prisma = openConnection();
+  const prisma = openConnection();
 
-    const blogs = await prisma.blog.findMany();
-    const paths = blogs.map(({ id }) => ({ blogId: id }));
+  const blogs = await prisma.blog.findMany();
+  const paths = blogs.map(({ id }) => ({ blogId: id }));
 
-    return paths;
-  } finally {
-    await closeConnection();
-  }
+  return paths;
 };

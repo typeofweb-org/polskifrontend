@@ -5,5 +5,5 @@ type ContentLayoutProps = {
 };
 
 export default function ContentLayout({ children }: ContentLayoutProps) {
-  return <section className="mx-auto flex max-w-6xl flex-col gap-3">{children}</section>;
+  return <section className="content-container-base flex flex-col gap-2">{children}</section>;
 }

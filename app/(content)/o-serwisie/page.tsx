@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 export default function AboutPage() {
   return (
-    <>
-      <h3 className="text-lg">Po co jest ten serwis?</h3>
+    <article className="prose prose-xl max-w-[72ch]">
+      <h3 className="text-xl">Po co jest ten serwis?</h3>
       <p>
         Serwis <strong>Polski Frontend</strong> powstał w celu zebrania w jednym miejscu jak
         największej liczby stron, serwisów oraz blogów na temat szeroko rozumianego frontend
@@ -51,6 +51,6 @@ export default function AboutPage() {
         </Link>
         !
       </p>
-    </>
+    </article>
   );
 }

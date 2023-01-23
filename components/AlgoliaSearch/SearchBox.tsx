@@ -41,23 +41,23 @@ const CustomSearchBox = ({
           onClick={handleSearch}
         >
           <Image
-            src="/icons/search-base.svg"
+            src="/icons/search.svg"
             alt=""
-            width="20"
-            height="20"
+            width="18"
+            height="18"
             className="md:pointer-events-none md:hidden"
           />
           <Image
-            src="/icons/search-lg.svg"
+            src="/icons/search.svg"
             alt=""
-            width="28"
-            height="28"
-            className="pointer-events-none hidden md:pointer-events-auto md:inline-block"
+            width="20"
+            height="20"
+            className="pointer-events-none hidden md:pointer-events-auto md:block"
           />
         </button>
 
         <input
-          className="h-full w-full rounded-3xl bg-white px-[52px] py-5 font-light shadow-[0_0_33px_rgba(0,0,0,0.25)] md:px-16 md:text-2xl"
+          className="h-full w-full rounded-3xl bg-white px-11 py-5 font-light shadow-[0_0_33px_rgba(0,0,0,0.25)] md:px-14 md:text-lg"
           type="input"
           value={query}
           onChange={handleChangeSearchState}
@@ -73,7 +73,7 @@ const CustomSearchBox = ({
             className="absolute inset-y-0 right-5 my-auto h-fit p-0.5 sm:right-32"
             aria-label="Wyczyść pole wyszukiwania"
           >
-            <Image src="/icons/cross.svg" alt="" width="14" height="14" />
+            <Image src="/icons/cross.svg" alt="" width="11" height="11" />
           </button>
         )}
       </div>

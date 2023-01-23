@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { getArticlesForGrid, getLastBlogPage } from '../api-helpers/articles';
 import { HTTPNotFound } from '../api-helpers/errors';
-import { closeConnection, openConnection } from '../api-helpers/prisma/db';
+import { openConnection } from '../api-helpers/prisma/db';
 
 import { addExcerptToArticle } from './excerpt-utils';
 import { pageValidGuard } from './pageValidGuard';
@@ -35,7 +35,5 @@ export const fetchBlogsForGrid = async (page?: string) => {
     }
 
     throw err;
-  } finally {
-    await closeConnection();
   }
 };

@@ -68,7 +68,7 @@ export const AddContentCreatorForm = () => {
       <label className="my-2 block">
         Adres URL
         <input
-          className="border-gray-border peer w-full rounded-md border-[1px] py-3 px-4"
+          className="border-gray-border peer w-full rounded-md border py-3 px-4"
           value={fields.contentURL}
           name="contentURL"
           onChange={handleChange}
@@ -85,7 +85,7 @@ export const AddContentCreatorForm = () => {
       <label className="my-2 block">
         Adres email
         <input
-          className="border-gray-border peer w-full rounded-md border-[1px] py-3 px-4"
+          className="border-gray-border peer w-full rounded-md border py-3 px-4"
           value={fields.email}
           name="email"
           onChange={handleChange}

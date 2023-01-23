@@ -43,7 +43,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       </head>
 
       <body className="relative leading-[1.3]">
-        <header className="width-container relative overflow-visible">
+        <header className="relative">
           <Navigation />
           <Header />
         </header>
@@ -81,7 +81,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </div>
 
           <Providers>
-            <main className="width-container">{children}</main>
+            <main>{children}</main>
             <Analytics />
           </Providers>
         </div>

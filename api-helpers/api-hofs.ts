@@ -4,7 +4,7 @@ import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { object } from 'yup';
 
 import { logger } from './logger';
-import { closeConnection, openConnection } from './prisma/db';
+import { openConnection } from './prisma/db';
 import { handlePrismaError, isPrismaError } from './prisma/prisma-helper';
 
 import type { Member, PrismaClient, UserRole } from '@prisma/client';
@@ -117,7 +117,7 @@ export const withDb =
       res: NextApiResponse,
     ) => Promise<unknown> | unknown,
   ) =>
-  async (req: R, res: NextApiResponse) => {
+  (req: R, res: NextApiResponse) => {
     try {
       const prisma = openConnection();
       return handler(unsafe__set(req, 'db', prisma), res);
@@ -127,8 +127,6 @@ export const withDb =
       } else {
         throw err;
       }
-    } finally {
-      await closeConnection();
     }
   };
 

@@ -16,16 +16,18 @@ export const ButtonAsLink = memo<ButtonAsLinkProps>(
       return (
         <Link
           className={Clsx(
-            'flex w-fit items-center rounded-[10px] bg-primary-base py-2 px-3 font-medium text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.25)] transition-[filter] hover:brightness-95 active:brightness-105',
+            'flex w-fit items-center gap-1.5 rounded-[10px] bg-primary-base py-2 px-3 font-medium text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.25)] transition-[filter] hover:brightness-95 active:brightness-105',
             className,
           )}
           ref={ref}
           {...props}
         >
           {icon && (
-            <Image src={`/icons/${icon}.svg`} alt="" width="14" height="14" className="mr-2" />
+            <div className="relative flex h-[12px] w-[12px] items-center">
+              <Image src={`/icons/${icon}.svg`} alt="" fill />
+            </div>
           )}
-          {children}
+          <span>{children}</span>
         </Link>
       );
     },

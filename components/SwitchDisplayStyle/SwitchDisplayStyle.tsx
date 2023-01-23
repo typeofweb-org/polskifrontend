@@ -14,7 +14,7 @@ export const SwitchDisplayStyle = memo<SwitchDisplayStyleProps>(({ value }) => {
   const { changeDisplayToGrid, changeDisplayToList } = useChangeDisplayStyle();
 
   return (
-    <div className="mx-5 mb-5 flex justify-end gap-5">
+    <div className="mx-5 flex justify-end gap-5">
       <button
         aria-pressed={value === 'grid'}
         className="group flex w-9 flex-wrap items-center justify-center gap-1"

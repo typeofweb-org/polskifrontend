@@ -1,5 +1,5 @@
 import { getLastArticlePage, getLastBlogPage } from '../../../../api-helpers/articles';
-import { closeConnection, openConnection } from '../../../../api-helpers/prisma/db';
+import { openConnection } from '../../../../api-helpers/prisma/db';
 import { BlogsGrid } from '../../../../components/BlogsGrid/BlogsGrid';
 import { BlogsList } from '../../../../components/BlogsList/BlogsList';
 import { getPagesArray } from '../../../../utils/array-utils';
@@ -30,24 +30,20 @@ export default function HomePage({ params }: HomePageProps) {
 }
 
 export const generateStaticParams = async () => {
-  try {
-    const prisma = openConnection();
+  const prisma = openConnection();
 
-    const [gridLastPage, listLastPage] = await Promise.all([
-      await getLastBlogPage(prisma),
-      await getLastArticlePage(prisma),
-    ]);
+  const [gridLastPage, listLastPage] = await Promise.all([
+    await getLastBlogPage(prisma),
+    await getLastArticlePage(prisma),
+  ]);
 
-    const gridPages = getPagesArray(gridLastPage, MAX_PAGES);
-    const listPages = getPagesArray(listLastPage, MAX_PAGES);
+  const gridPages = getPagesArray(gridLastPage, MAX_PAGES);
+  const listPages = getPagesArray(listLastPage, MAX_PAGES);
 
-    const paths = [
-      ...gridPages.map((page) => ({ displayStyle: 'grid' as const, page })),
-      ...listPages.map((page) => ({ displayStyle: 'list' as const, page })),
-    ] satisfies readonly HomePageProps['params'][];
+  const paths = [
+    ...gridPages.map((page) => ({ displayStyle: 'grid' as const, page })),
+    ...listPages.map((page) => ({ displayStyle: 'list' as const, page })),
+  ] satisfies readonly HomePageProps['params'][];
 
-    return paths;
-  } finally {
-    await closeConnection();
-  }
+  return paths;
 };

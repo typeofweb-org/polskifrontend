@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { getArticleBySlug } from '../api-helpers/articles';
 import { HTTPNotFound } from '../api-helpers/errors';
-import { closeConnection, openConnection } from '../api-helpers/prisma/db';
+import { openConnection } from '../api-helpers/prisma/db';
 
 import { addSanitizedDescriptionToArticle } from './sanitize-utils';
 
@@ -24,7 +24,5 @@ export const fetchArticleBySlug = async (slug: string | undefined) => {
     }
 
     throw err;
-  } finally {
-    await closeConnection();
   }
 };

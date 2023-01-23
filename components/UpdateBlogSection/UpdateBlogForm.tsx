@@ -80,7 +80,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
       <label className="my-4 block text-black">
         Href bloga
         <input
-          className="my-1 w-full rounded-md border-[1px] border-gray-primary py-3 px-4"
+          className="my-1 w-full rounded-md border border-gray-primary py-3 px-4"
           value={fields.href}
           name="href"
           onChange={handleChange}
@@ -126,7 +126,7 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
       <label className="my-4 block text-black">
         Email twórcy
         <input
-          className="my-1 w-full rounded-md border-[1px] border-gray-primary py-3 px-4"
+          className="my-1 w-full rounded-md border border-gray-primary py-3 px-4"
           value={fields.creatorEmail ?? ''}
           name="creatorEmail"
           onChange={handleChange}

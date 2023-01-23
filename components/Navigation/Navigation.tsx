@@ -8,7 +8,7 @@ import { NavItem } from './NavItem';
 import { links } from './links';
 
 export const Navigation = () => (
-  <nav className="flex items-center justify-between py-3 md:py-6 lg:py-10">
+  <nav className="navigation-container flex items-center justify-between py-3 md:py-6 lg:py-10">
     <Link href="/" title="Przejdź na stronę główną">
       <h1>
         <span className="sr-only">Polski Frontend</span>
@@ -24,7 +24,8 @@ export const Navigation = () => (
     </Link>
 
     {/* Desktop navigation */}
-    <ul className="hidden items-center gap-3 lg:flex lg:gap-5">
+    {/* eslint-disable-next-line jsx-a11y/no-redundant-roles -- unstyled lists should have role="list" attribute */}
+    <ul role="list" className="hidden items-center lg:flex lg:gap-4 xl:gap-5">
       {links.map(({ label, href, openInNewTab, icon }) => (
         <li key={href}>
           <NavItem

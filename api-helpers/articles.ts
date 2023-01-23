@@ -21,14 +21,23 @@ export const getArticlesForGrid = async (prisma: PrismaClient, page: number) => 
     orderBy: {
       lastArticlePublishedAt: 'desc',
     },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      href: true,
+      favicon: true,
       articles: {
         take: TILES_ARTICLES_PER_BLOG,
         orderBy: {
           publishedAt: 'desc',
         },
-        include: {
-          blog: true,
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          publishedAt: true,
+          href: true,
+          slug: true,
         },
       },
     },
@@ -72,7 +81,13 @@ export const getArticlesForList = async (prisma: PrismaClient, page: number) => 
     orderBy: {
       publishedAt: 'desc',
     },
-    include: {
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      publishedAt: true,
+      href: true,
+      slug: true,
       blog: {
         select: {
           name: true,
@@ -120,8 +135,19 @@ export const getArticleBySlug = async (prisma: PrismaClient, slug: string) => {
       slug,
       blog: { isPublic: true },
     },
-    include: {
-      blog: true,
+    select: {
+      id: true,
+      description: true,
+      title: true,
+      publishedAt: true,
+      href: true,
+      blog: {
+        select: {
+          href: true,
+          name: true,
+          favicon: true,
+        },
+      },
     },
   });
 

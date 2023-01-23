@@ -14,7 +14,7 @@ type ArticlesLayoutProps = {
 
 export default function ArticlesLayout({ children, params }: ArticlesLayoutProps) {
   return (
-    <section>
+    <section className="content-container-lg">
       <AlgoliaSearch>
         <SwitchDisplayStyle value={params.displayStyle} />
         {children}

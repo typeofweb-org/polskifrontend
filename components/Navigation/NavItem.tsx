@@ -21,16 +21,24 @@ export const NavItem = ({ href, icon, children, className, ...rest }: NavItemPro
   return (
     <Link
       href={href}
-      className={clsx('group relative flex h-fit items-center text-gray-secondary', className, {
+      className={clsx('group relative flex items-center text-gray-secondary', className, {
         'font-black !text-black': isActive,
       })}
       {...rest}
     >
-      <Image src={`/icons/${icon}.svg`} alt="" width="14" height="14" className="fill-slate-800" />
-      <span className="ml-1">{children}</span>
+      <div className="flex items-center">
+        <Image
+          className="align-center inline"
+          src={`/icons/${icon}.svg`}
+          alt=""
+          width="12"
+          height="12"
+        />
+        <span className="ml-1">{children}</span>
+      </div>
       <div
         className={clsx(
-          'absolute -bottom-[1px] left-0 hidden h-[2px] bg-primary-light md:block',
+          'absolute -bottom-px left-0 hidden h-[2px] bg-primary-light md:block',
           isActive ? 'w-4/5' : 'w-0 transition-[width] duration-300 ease-out group-hover:w-4/5',
         )}
       ></div>

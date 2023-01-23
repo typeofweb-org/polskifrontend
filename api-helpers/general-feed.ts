@@ -15,8 +15,18 @@ export async function getGeneralFeed(prisma: PrismaClient) {
     orderBy: {
       updatedAt: 'desc',
     },
-    include: {
-      blog: true,
+    select: {
+      title: true,
+      description: true,
+      href: true,
+      publishedAt: true,
+      updatedAt: true,
+      blog: {
+        select: {
+          name: true,
+          href: true,
+        },
+      },
     },
   });
 

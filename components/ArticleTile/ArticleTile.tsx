@@ -8,26 +8,22 @@ import { ArticleDate } from '../ArticleDate/ArticleDate';
 
 import Styles from './articleTile.module.scss';
 
-import type { Article, Blog } from '../../types';
-
-export type ArticleTileArticle = Pick<
-  Article,
-  'title' | 'publishedAt' | 'excerpt' | 'href' | 'slug' | 'blog'
->;
-
-export type ArticleTileBlog = Pick<Blog, 'name' | 'href' | 'favicon'>;
+import type { ArticleFromBlog, BlogFromArticle } from '../../types';
 
 type ArticleTileProps = {
-  readonly article: ArticleTileArticle;
-  readonly blog: ArticleTileBlog;
+  readonly article: ArticleFromBlog;
+  readonly blog: BlogFromArticle;
   readonly truncate?: boolean;
+  readonly isInGrid: boolean;
 };
 
-export const ArticleTile = ({ article, blog, truncate }: ArticleTileProps) => {
-  const contentGenre = detectContentGenre(article);
+export const ArticleTile = ({ article, blog, truncate, isInGrid }: ArticleTileProps) => {
+  const contentGenre = detectContentGenre(article, blog);
 
   const { title, publishedAt, excerpt, href, slug } = article;
   const { name: blogName, favicon } = blog;
+
+  const TitleTag = isInGrid ? 'h4' : 'h3';
 
   return (
     <article className="relative rounded-xl bg-theme-primary p-4 shadow-sm">
@@ -39,25 +35,25 @@ export const ArticleTile = ({ article, blog, truncate }: ArticleTileProps) => {
                 src={favicon}
                 width={40}
                 height={40}
-                className="h-[32px] w-[32px] align-top md:h-[40px] md:w-[40px]"
+                className="h-8 w-8 align-top md:h-10 md:w-10"
                 alt=""
               />
             )}
-            <p className="flex flex-col">
+            <p className="flex w-full flex-col overflow-hidden md:w-3/4">
               <span className="font-semibold md:text-xl">{blogName}&nbsp;</span>
               <span className="text-sm capitalize text-gray-primary">{contentGenre}</span>
             </p>
           </div>
 
           <Link href={`/artykuly/${slug}`} className="block">
-            <h3
+            <TitleTag
               className={Clsx(
                 'w-full text-lg font-bold leading-[1.3] hover:underline md:text-xl',
                 truncate && 'overflow-hidden text-ellipsis whitespace-nowrap',
               )}
             >
               {title}
-            </h3>
+            </TitleTag>
           </Link>
         </header>
       </div>
@@ -71,7 +67,7 @@ export const ArticleTile = ({ article, blog, truncate }: ArticleTileProps) => {
           rel="noopener noreferrer"
           className="mt-2 flex h-fit items-center justify-center gap-2 rounded-[10px] bg-theme-secondary py-2 px-3 leading-4 md:absolute md:top-3 md:right-3 md:mt-0"
         >
-          <Image src="/icons/link.svg" width="15" height="15" alt="" />
+          <Image src="/icons/link.svg" width="13" height="13" alt="" />
           <span className="font-medium text-gray-secondary">URL</span>
         </Link>
 
