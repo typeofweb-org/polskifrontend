@@ -53,7 +53,7 @@ export const MobileNavbar = () => {
 
       <button
         onClick={close}
-        className={Clsx('fixed top-5 right-5 z-50', isActive ? 'inline-block' : 'hidden')}
+        className={Clsx('fixed top-5 right-5 z-50', isActive ? 'inline-block lg:hidden' : 'hidden')}
         aria-label="Zamknij nawigację"
       >
         <Image src="/icons/cross.svg" alt="" width="26" height="26" />
