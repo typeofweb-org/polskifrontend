@@ -1,7 +1,7 @@
 export const addTrackingToLink = (
   href: string,
   {
-    utm_source = 'polskifrontend',
+    utm_source = 'polskifrontend.pl',
     utm_medium,
   }: { readonly utm_source?: string; readonly utm_medium?: string } = {},
 ) => {
@@ -13,7 +13,7 @@ export const addTrackingToLink = (
       url.searchParams.delete('utm_source');
     }
     if (utm_medium) {
-      url.searchParams.set('utm_source', utm_medium);
+      url.searchParams.set('utm_medium', utm_medium);
     } else {
       url.searchParams.delete('utm_medium');
     }
