@@ -25,12 +25,13 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <article>
-      <h3 className="text-lg font-semibold">{article.title}</h3>
-      <ArticleDate publishedAt={article.publishedAt} />
+      <div className="mb-4 leading-3">
+        <h3 className="text-lg font-semibold">{article.title}</h3>
+        <ArticleDate publishedAt={article.publishedAt} />
+      </div>
       <div
         dangerouslySetInnerHTML={{ __html: article.sanitizedDescription }}
-        // Manual paragraph space, because tailwindcss resets default <p> gaps
-        className="flex flex-col gap-4"
+        className="prose max-w-full"
       />
       <section className="mt-8 flex flex-col items-center gap-5 border-t-2 border-dashed border-primary-dark pt-5 text-center">
         <p className="text-center text-xl font-semibold">Chcesz więcej? Sprawdź w oryginale!</p>

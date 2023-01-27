@@ -24,7 +24,6 @@ export const Navigation = () => (
     </Link>
 
     {/* Desktop navigation */}
-    {/* eslint-disable-next-line jsx-a11y/no-redundant-roles -- unstyled lists should have role="list" attribute */}
     <ul role="list" className="hidden items-center lg:flex lg:gap-4 xl:gap-5">
       {links.map(({ label, href, openInNewTab, icon }) => (
         <li key={href}>

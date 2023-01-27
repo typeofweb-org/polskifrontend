@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
@@ -22,7 +24,7 @@ module.exports = {
         'error-color': '#f16262',
       },
       fontFamily: {
-        sans: ['var(--font-roboto)'],
+        sans: ['var(--font-roboto)', ...defaultTheme.fontFamily.sans],
       },
     },
   },

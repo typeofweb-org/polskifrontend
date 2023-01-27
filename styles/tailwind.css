@@ -2,29 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-.navigation-container,
-.header-container,
-.content-container-base,
-.content-container-lg,
-.footer-container {
-  @apply mx-auto w-full px-3 md:px-5;
-}
-.navigation-container {
-  @apply md:max-w-7xl;
-}
+@layer components {
+  .navigation-container,
+  .header-container,
+  .content-container-base,
+  .content-container-lg,
+  .footer-container {
+    @apply mx-auto w-full px-3 md:px-5;
+  }
+  .navigation-container {
+    @apply md:max-w-7xl;
+  }
 
-.header-container {
-  @apply md:max-w-5xl;
-}
+  .header-container {
+    @apply md:max-w-5xl;
+  }
 
-.content-container-base {
-  @apply md:max-w-5xl;
-}
+  .content-container-base {
+    @apply md:max-w-5xl;
+  }
 
-.content-container-lg {
-  @apply md:max-w-6xl;
-}
+  .content-container-lg {
+    @apply md:max-w-6xl;
+  }
 
-.footer-container {
-  @apply px-0 md:max-w-7xl md:px-0;
+  .footer-container {
+    @apply px-0 md:max-w-7xl md:px-0;
+  }
 }

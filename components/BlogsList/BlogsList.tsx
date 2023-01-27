@@ -11,8 +11,7 @@ export const BlogsList = async ({ page }: BlogsListProps) => {
 
   return (
     <>
-      {/* eslint-disable-next-line jsx-a11y/no-redundant-roles -- unstyled lists should have role="list" attribute */}
-      <ul role="list" className="grid w-full grid-cols-1 gap-4 overflow-hidden md:gap-8">
+      <ul role="list" className="mt-5 grid w-full grid-cols-1 gap-4 overflow-hidden md:gap-6">
         {articles.map((article) => (
           <li key={article.id}>
             <ArticleTile article={article} blog={article.blog} isInGrid={false} />

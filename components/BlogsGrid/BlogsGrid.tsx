@@ -13,7 +13,6 @@ export const BlogsGrid = async ({ page }: BlogsGridProps) => {
 
   return (
     <>
-      {/* eslint-disable-next-line jsx-a11y/no-redundant-roles -- unstyled lists should have role="list" attribute */}
       <ul
         role="list"
         className="flex w-full flex-col flex-wrap items-start justify-center md:p-3 lg:flex-row lg:p-6"
@@ -26,7 +25,6 @@ export const BlogsGrid = async ({ page }: BlogsGridProps) => {
               </Link>
             </h3>
 
-            {/* eslint-disable-next-line jsx-a11y/no-redundant-roles -- unstyled lists should have role="list" attribute */}
             <ul role="list" className="flex flex-col gap-4">
               {blog.articles.map((article) => (
                 <li key={article.id}>

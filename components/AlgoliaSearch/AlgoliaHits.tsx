@@ -9,7 +9,6 @@ type HitsProps = {
 };
 
 const Hits = ({ hits }: HitsProps) => (
-  // eslint-disable-next-line jsx-a11y/no-redundant-roles -- unstyled lists should have role="list" attribute
   <ol className="w-full" role="list">
     {hits.map((hit) => (
       <li className="my-4 w-full hover:bg-theme-secondary" key={hit.objectID}>

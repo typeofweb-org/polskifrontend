@@ -14,7 +14,6 @@ export const MobileNavbar = () => {
 
   return (
     <>
-      {/* eslint-disable-next-line jsx-a11y/no-redundant-roles -- unstyled lists should have role="list" attribute */}
       <ul
         role="list"
         className={Clsx(
