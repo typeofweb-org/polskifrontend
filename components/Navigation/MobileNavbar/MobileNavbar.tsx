@@ -17,7 +17,7 @@ export const MobileNavbar = () => {
       <ul
         role="list"
         className={Clsx(
-          'fixed top-0 left-0 z-40 flex h-screen w-screen flex-col items-center justify-center gap-4 bg-white lg:hidden',
+          'fixed top-0 left-0 z-40 flex h-screen w-screen flex-col items-center justify-center bg-white lg:hidden',
           isActive ? 'flex' : 'hidden',
         )}
       >
@@ -38,7 +38,7 @@ export const MobileNavbar = () => {
         ))}
 
         <li>
-          <ButtonAsLink href="/zglos-serwis" icon="plus">
+          <ButtonAsLink href="/zglos-serwis" icon="plus" onClick={close}>
             DODAJ SERWIS
           </ButtonAsLink>
         </li>

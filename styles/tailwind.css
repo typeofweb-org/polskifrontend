@@ -27,6 +27,6 @@
   }
 
   .footer-container {
-    @apply px-0 md:max-w-7xl md:px-0;
+    @apply md:max-w-7xl;
   }
 }

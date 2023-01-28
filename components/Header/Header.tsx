@@ -7,7 +7,7 @@ export const Header = () => {
       </h2>
 
       {/* Divider */}
-      <div className="mx-auto my-3 h-[2px] w-full min-w-[168px] max-w-[50%] bg-theme-secondary md:max-w-md"></div>
+      <div className="mx-auto my-3 h-0.5 w-full min-w-[168px] max-w-[50%] bg-theme-secondary md:max-w-md"></div>
 
       <p className="text-center font-light text-gray-secondary md:text-2xl">
         Szukaj interesujących Cię tematów wśród setek artykułów, wpisów i filmów dostępnych na

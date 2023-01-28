@@ -20,7 +20,7 @@ export const Pagination = ({
   return (
     <nav
       aria-label="Paginacja"
-      className="mt-8 mb-5 flex flex-col flex-wrap items-center justify-center gap-3 sm:flex-row"
+      className="my-5 flex flex-col flex-wrap items-center justify-center gap-3 sm:flex-row"
     >
       {!isLastPage && (
         <>

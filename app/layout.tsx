@@ -48,8 +48,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Header />
         </header>
 
-        <div className="relative overflow-y-hidden">
-          <div className="absolute left-0 -z-10 mt-16 w-full">
+        <div className="relative translate-y-24 md:translate-y-32">
+          <div className="absolute left-0 top-0 -z-10 w-full -translate-y-16">
             <Image
               src={BgTiles}
               className="absolute -top-5 left-0 -z-10 w-1/2 md:top-3 md:w-1/5"
@@ -76,17 +76,17 @@ export default function RootLayout({ children }: RootLayoutProps) {
               className="absolute -top-5 right-0 -z-10 w-1/2 md:top-3 md:block md:w-1/5"
               alt=""
             />
-
-            <div className="absolute left-0 h-[999999px] w-full bg-theme-secondary"></div>
           </div>
 
           <Providers>
-            <main>{children}</main>
+            <main className="relative bg-theme-secondary">
+              <div className="-translate-y-24">{children}</div>
+            </main>
             <Analytics />
           </Providers>
         </div>
 
-        <div className="bg-theme-secondary">
+        <div className="translate-y-2 md:translate-y-10">
           <Footer />
         </div>
 

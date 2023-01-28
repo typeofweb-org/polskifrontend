@@ -112,9 +112,11 @@ export const AddContentCreatorForm = () => {
           />
         </div>
 
-        <Button type="submit" disabled={isButtonDisabled}>
-          Dodaj
-        </Button>
+        <div className="mt-3 sm:mt-0">
+          <Button type="submit" disabled={isButtonDisabled}>
+            Dodaj
+          </Button>
+        </div>
       </div>
 
       <FormStatus status={status} errorCode={errorCode} />

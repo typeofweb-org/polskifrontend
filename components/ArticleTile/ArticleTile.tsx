@@ -60,7 +60,7 @@ export const ArticleTile = ({ article, blog, truncate, isInGrid }: ArticleTilePr
 
       <p className={Clsx('text-gray-primary', truncate && Styles.excerpt)}>{excerpt}</p>
 
-      <div className="mt-1 flex items-center justify-between md:justify-end">
+      <footer className="mt-1 flex items-center justify-between md:justify-end">
         <Link
           href={addTrackingToLink(href, { utm_medium: 'homepage' })}
           target="_blank"
@@ -74,7 +74,7 @@ export const ArticleTile = ({ article, blog, truncate, isInGrid }: ArticleTilePr
         <div className="mt-1">
           <ArticleDate publishedAt={publishedAt} />
         </div>
-      </div>
+      </footer>
     </article>
   );
 };
