@@ -4,10 +4,14 @@
   border-spacing: 0;
   width: 100%;
 
+  thead > tr > th {
+    background: var(--theme-primary);
+  }
+
   th,
   td {
     padding: 0.5rem 1rem;
-    border: 1px solid var(--gray-dark-border);
+    border: 1px solid var(--gray-text-secondary);
 
     & + th,
     & + td {

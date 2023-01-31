@@ -1,11 +1,9 @@
-import { REVALIDATION_TIME } from '../../../constants';
-
 import HomePage from './[page]/page';
 
-export const revalidate = REVALIDATION_TIME;
+export const revalidate = 900; // 15 minutes
 
 export default HomePage;
 
 export const generateStaticParams = () => {
-  return [{ displayStyle: 'grid' }, { displayStyle: 'list' }];
+  return [{ displayStyle: 'list' }, { displayStyle: 'grid' }];
 };

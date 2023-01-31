@@ -3,10 +3,9 @@
 import { Observable } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
-import type { Subscription } from 'rxjs';
-
 import { logger } from './logger';
 
+import type { Subscription } from 'rxjs';
 import type { Duplex } from 'stream';
 
 export function streamToRx<S extends Duplex = Duplex, T = ReturnType<S['read']>>(

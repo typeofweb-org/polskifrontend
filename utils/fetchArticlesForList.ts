@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { getArticlesForList, getLastArticlePage } from '../api-helpers/articles';
 import { HTTPNotFound } from '../api-helpers/errors';
-import { closeConnection, openConnection } from '../api-helpers/prisma/db';
+import { openConnection } from '../api-helpers/prisma/db';
 
 import { addExcerptToArticle } from './excerpt-utils';
 import { pageValidGuard } from './pageValidGuard';
@@ -29,7 +29,5 @@ export const fetchArticlesForList = async (page?: string) => {
     }
 
     throw err;
-  } finally {
-    await closeConnection();
   }
 };

@@ -1,8 +1,6 @@
 import { decode } from 'html-entities';
 import Xss from 'xss';
 
-import type { Article } from '@prisma/client';
-
 const EXCERPT_MAX_WORDS = 50;
 
 export function removeShortWordsFromTheEndReducer(
@@ -24,7 +22,11 @@ export function createExcerpt(text: string) {
     .reduceRight(removeShortWordsFromTheEndReducer, { done: false, text: '' }).text;
 }
 
-export function addExcerptToArticle<T extends Article>(article: T) {
+type ObjectWithDescription = {
+  readonly description: string | null;
+};
+
+export function addExcerptToArticle<T extends ObjectWithDescription>(article: T) {
   return {
     ...article,
     excerpt: article.description ? createExcerpt(article.description) : '',

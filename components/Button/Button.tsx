@@ -1,40 +1,37 @@
 import Clsx from 'clsx';
+import Image from 'next/image';
 import { memo, forwardRef } from 'react';
-
-import Styles from './button.module.scss';
 
 import type { ButtonHTMLAttributes } from 'react';
 
-export type IconPosition = 'right' | 'left';
-export type ButtonStyle = 'normal' | 'danger';
-
 type ButtonProps = {
   readonly icon?: string;
-  readonly iconPosition?: IconPosition;
-  readonly buttonStyle?: ButtonStyle;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = memo<ButtonProps>(
   forwardRef<HTMLButtonElement, ButtonProps>(
-    (
-      { icon, children, className = '', iconPosition = 'left', buttonStyle = 'normal', ...props },
-      ref,
-    ) => {
+    ({ icon, children, disabled, className = '', ...props }, ref) => {
       return (
         <button
-          className={Clsx(Styles.button, className, {
-            [Styles.buttonIconRight]: iconPosition === 'right',
-            [Styles.buttonDanger]: buttonStyle === 'danger',
-            [Styles.buttonDisabled]: props.disabled,
-          })}
+          disabled={disabled}
+          className={Clsx(
+            'flex w-fit items-center rounded-[10px] bg-primary-base py-2 px-3 font-medium text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.25)] transition-[filter]',
+            disabled
+              ? 'cursor-not-allowed'
+              : 'cursor-pointer hover:brightness-95 active:brightness-105',
+            className,
+          )}
           ref={ref}
           {...props}
         >
-          {icon && <span className={Clsx(icon, children && Styles.icon)}></span>}
+          {icon && (
+            <Image src={`/icons/${icon}.svg`} alt="" width="14" height="14" className="mr-2" />
+          )}
           {children}
         </button>
       );
     },
   ),
 );
+
 Button.displayName = 'Button';

@@ -1,0 +1,41 @@
+:root {
+  --primary-base: #ef516d;
+  --primary-light: #{lighten(#ef516d, 20%)};
+  --primary-dark: #b5263f;
+  --theme-primary: #ffffff;
+  --theme-secondary: #f2f2f2;
+  --gray-primary: #505050;
+  --gray-secondary: #616161;
+  --gray-light: #999999;
+  --black-light: #{lighten(#000000, 20%)};
+  --error-color: #f16262;
+}
+
+body {
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+}
+
+main {
+  padding: 0 constant(safe-area-inset-right) 0 constant(safe-area-inset-left);
+  padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
+}
+
+a[href],
+area[href],
+input:not([disabled]),
+select:not([disabled]),
+textarea:not([disabled]),
+button:not([disabled]),
+iframe,
+[tabindex],
+[contentEditable='true'] {
+  &:not([tabindex='-1']) {
+    &:focus {
+      outline: none;
+    }
+    &:focus-visible {
+      outline: 2px dashed var(--primary-base);
+    }
+  }
+}

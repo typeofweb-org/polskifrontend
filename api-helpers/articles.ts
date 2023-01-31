@@ -8,7 +8,7 @@ import {
 
 import { HTTPNotFound } from './errors';
 
-import type { Blog, PrismaClient } from '@prisma/client';
+import type { PrismaClient } from '@prisma/client';
 
 // https://res.cloudinary.com/polskifrontend/image/fetch
 
@@ -21,11 +21,23 @@ export const getArticlesForGrid = async (prisma: PrismaClient, page: number) => 
     orderBy: {
       lastArticlePublishedAt: 'desc',
     },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      href: true,
+      favicon: true,
       articles: {
         take: TILES_ARTICLES_PER_BLOG,
         orderBy: {
           publishedAt: 'desc',
+        },
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          publishedAt: true,
+          href: true,
+          slug: true,
         },
       },
     },
@@ -69,8 +81,20 @@ export const getArticlesForList = async (prisma: PrismaClient, page: number) => 
     orderBy: {
       publishedAt: 'desc',
     },
-    include: {
-      blog: true,
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      publishedAt: true,
+      href: true,
+      slug: true,
+      blog: {
+        select: {
+          name: true,
+          href: true,
+          favicon: true,
+        },
+      },
     },
   });
 
@@ -111,8 +135,19 @@ export const getArticleBySlug = async (prisma: PrismaClient, slug: string) => {
       slug,
       blog: { isPublic: true },
     },
-    include: {
-      blog: true,
+    select: {
+      id: true,
+      description: true,
+      title: true,
+      publishedAt: true,
+      href: true,
+      blog: {
+        select: {
+          href: true,
+          name: true,
+          favicon: true,
+        },
+      },
     },
   });
 
@@ -126,7 +161,7 @@ export const getArticleBySlug = async (prisma: PrismaClient, slug: string) => {
   };
 };
 
-const replaceFaviconWithCdn = <T extends Blog>(blog: T): T => {
+const replaceFaviconWithCdn = <T extends { readonly favicon: string | null }>(blog: T): T => {
   return {
     ...blog,
     favicon: blog.favicon ? imageUrlToCdn(blog.favicon) : blog.favicon,

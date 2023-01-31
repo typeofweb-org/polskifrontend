@@ -1,29 +1,27 @@
 'use client';
 
-import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { Button } from '../Button/Button';
 
-import Styles from './cookiesPopup.module.scss';
-
-type CookiesPreferences = 'not-accepted' | 'accepted';
+import { useCookies } from './useCookies';
 
 export const CookiesPopup = () => {
-  const [accepted, setAccepted] = useLocalStorage<CookiesPreferences>(
-    'cookies-accepted',
-    'not-accepted',
-  );
+  const { accepted, accept } = useCookies();
 
-  if (accepted === 'not-accepted') {
-    return (
-      <div className={Styles.popup}>
-        <p className={Styles.popupText}>
-          Ta strona, tak jak praktycznie każda w internecie, wykorzystuje ciasteczka.
-        </p>
-        <button className={Styles.acceptButton} onClick={() => setAccepted('accepted')}>
-          Rozumiem
-        </button>
-      </div>
-    );
+  if (accepted !== 'not-accepted') {
+    return null;
   }
 
-  return null;
+  return (
+    <div className="fixed bottom-0 left-0 z-50 flex w-full flex-col items-center gap-3 border-2 border-dashed border-primary-dark bg-gray-100 p-6 text-center shadow-md md:bottom-8 md:left-8 md:max-w-xs md:rounded-md">
+      <p className="text-black">
+        Ta strona, tak jak praktycznie każda w internecie, wykorzystuje ciasteczka.
+      </p>
+      <Button
+        className="appearance-none rounded-md bg-primary-base py-3 px-4 font-bold"
+        onClick={accept}
+      >
+        Rozumiem
+      </Button>
+    </div>
+  );
 };

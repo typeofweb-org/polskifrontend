@@ -1,49 +1,37 @@
 import Clsx from 'clsx';
+import Image from 'next/image';
 import Link from 'next/link';
 import { memo, forwardRef } from 'react';
 
-import Styles from '../Button/button.module.scss';
-
-import type { ButtonStyle, IconPosition } from '../Button/Button';
 import type { AnchorHTMLAttributes } from 'react';
 
 type ButtonAsLinkProps = {
   readonly icon?: string;
-  readonly disabled?: boolean;
   readonly href: string;
-  readonly iconPosition?: IconPosition;
-  readonly buttonStyle?: ButtonStyle;
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
 export const ButtonAsLink = memo<ButtonAsLinkProps>(
   forwardRef<HTMLAnchorElement, ButtonAsLinkProps>(
-    (
-      {
-        icon,
-        children,
-        className = '',
-        disabled,
-        iconPosition = 'left',
-        buttonStyle = 'normal',
-        ...props
-      },
-      ref,
-    ) => {
+    ({ icon, children, className = '', ...props }, ref) => {
       return (
         <Link
-          className={Clsx(Styles.button, className, {
-            [Styles.buttonIconRight]: iconPosition === 'right',
-            [Styles.buttonDanger]: buttonStyle === 'danger',
-            [Styles.buttonDisabled]: disabled,
-          })}
+          className={Clsx(
+            'flex w-fit items-center gap-1.5 rounded-[10px] bg-primary-base py-2 px-3 font-medium text-white drop-shadow-[0_0_6px_rgba(0,0,0,0.25)] transition-[filter] hover:brightness-95 active:brightness-105',
+            className,
+          )}
           ref={ref}
           {...props}
         >
-          {icon && <span className={Clsx(icon, children && Styles.icon)}></span>}
-          {children}
+          {icon && (
+            <div className="relative flex h-[12px] w-[12px] items-center">
+              <Image src={`/icons/${icon}.svg`} alt="" fill />
+            </div>
+          )}
+          <span>{children}</span>
         </Link>
       );
     },
   ),
 );
+
 ButtonAsLink.displayName = 'ButtonAsLink';

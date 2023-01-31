@@ -1,12 +1,10 @@
-import { ButtonAsLink } from '../../../components/ButtonAsLink/ButtonAsLink';
-import { DisplayStyleSwitch } from '../../../components/DisplayStyleSwitch/DisplayStyleSwitch';
-
-import Styles from './layout.module.scss';
+import { AlgoliaSearch } from '../../../components/AlgoliaSearch/AlgoliaSearch';
+import { SwitchDisplayStyle } from '../../../components/SwitchDisplayStyle/SwitchDisplayStyle';
 
 import type { DisplayStyle } from '../../../types';
 import type { ReactNode } from 'react';
 
-type LayoutProps = {
+type ArticlesLayoutProps = {
   readonly children: ReactNode;
   readonly params: {
     readonly displayStyle: DisplayStyle;
@@ -14,20 +12,13 @@ type LayoutProps = {
   };
 };
 
-export default function Layout({ children, params }: LayoutProps) {
+export default function ArticlesLayout({ children, params }: ArticlesLayoutProps) {
   return (
-    <>
-      <h2 className={Styles.heading}>Wszystkie artykuły</h2>
-
-      <div className={Styles.buttons}>
-        <ButtonAsLink href="/zglos-serwis" icon="icon-plus">
-          Dodaj serwis
-        </ButtonAsLink>
-
-        <DisplayStyleSwitch value={params.displayStyle} />
-      </div>
-
-      {children}
-    </>
+    <section className="content-container-lg">
+      <AlgoliaSearch>
+        <SwitchDisplayStyle value={params.displayStyle} />
+        {children}
+      </AlgoliaSearch>
+    </section>
   );
 }

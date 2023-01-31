@@ -3,14 +3,14 @@ import { memo } from 'react';
 import { createExcerpt } from '../../utils/excerpt-utils';
 import { ArticleTile } from '../ArticleTile/ArticleTile';
 
-import type { ArticleTileArticle, ArticleTileBlog } from '../ArticleTile/ArticleTile';
+import type { Article, BlogFromArticle } from '../../types';
 
 export type Hit = {
   readonly objectID: string;
   readonly href: string;
   readonly publishedAt: string;
   readonly slug: string;
-  readonly description?: string;
+  readonly description: string | null;
   readonly title: string;
   readonly blog: {
     readonly name: string;
@@ -23,21 +23,33 @@ type HitProps = {
   readonly hit: Hit;
 };
 
-const hitToArticle = (hit: Hit): ArticleTileArticle => ({
-  title: hit.title,
-  publishedAt: new Date(hit.publishedAt),
-  excerpt: createExcerpt(hit.description || ''),
-  href: hit.href,
-  slug: hit.slug,
-});
-
-const hitToBlog = (hit: Hit): ArticleTileBlog => ({
-  name: hit.blog.name,
-  favicon: hit.blog.favicon ?? null,
-});
+const hitToArticle = (hit: Hit) => {
+  return {
+    id: hit.objectID,
+    href: hit.href,
+    slug: hit.slug,
+    title: hit.title,
+    description: hit.description,
+    publishedAt: new Date(hit.publishedAt),
+    excerpt: createExcerpt(hit.description || ''),
+    blog: {
+      ...hit.blog,
+      favicon: hit.blog.favicon ?? null,
+    },
+  } satisfies Article;
+};
+const hitToBlog = (hit: Hit) => {
+  return {
+    name: hit.blog.name,
+    href: hit.blog.href,
+    favicon: hit.blog.favicon ?? null,
+  } satisfies BlogFromArticle;
+};
 
 export const AlgoliaHit = memo(
-  ({ hit }: HitProps) => <ArticleTile article={hitToArticle(hit)} blog={hitToBlog(hit)} />,
+  ({ hit }: HitProps) => (
+    <ArticleTile article={hitToArticle(hit)} blog={hitToBlog(hit)} isInGrid={false} />
+  ),
   ({ hit: prev }, { hit: next }) => prev.objectID === next.objectID,
 );
-AlgoliaHit.displayName = 'AlogliaHit';
+AlgoliaHit.displayName = 'AlgoliaHit';

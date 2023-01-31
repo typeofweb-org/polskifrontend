@@ -7,13 +7,11 @@ import { useEffect, useRef, useCallback, useState } from 'react';
 import { getConfig } from '../../api-helpers/config';
 import { useMutation } from '../../hooks/useMutation';
 import { addContentCreator } from '../../utils/api/addContentCreator';
-
-import type { ChangeEventHandler, FormEventHandler } from 'react';
-
 import { Button } from '../Button/Button';
 
 import { FormStatus } from './FormStatus';
-import Styles from './addContentCreatorForm.module.scss';
+
+import type { ChangeEventHandler, FormEventHandler } from 'react';
 
 export const AddContentCreatorForm = () => {
   const [fields, setFields] = useState({ contentURL: '', email: '' });
@@ -55,12 +53,10 @@ export const AddContentCreatorForm = () => {
 
   if (!getConfig('NEXT_PUBLIC_CAPTCHA_SITE_KEY')) {
     return (
-      <div className={Styles.errorContainer}>
-        <span>
-          Wystąpił błąd po stronie serwera, jeśli ten problem będzie się utrzymywał, proszę
-          skontaktuj się z administratorem serwisu.
-        </span>
-      </div>
+      <span>
+        Wystąpił błąd po stronie serwera, jeśli ten problem będzie się utrzymywał, proszę skontaktuj
+        się z administratorem serwisu.
+      </span>
     );
   }
 
@@ -68,15 +64,11 @@ export const AddContentCreatorForm = () => {
   const isButtonDisabled = isLoading || !isFormValid || !token;
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={Clsx(Styles.form, isLoading && Styles.formLoading)}
-      ref={formRef}
-    >
-      <label className={Styles.label}>
+    <form onSubmit={handleSubmit} className={Clsx(isLoading && 'cursor-wait')} ref={formRef}>
+      <label className="my-2 block">
         Adres URL
         <input
-          className={Styles.input}
+          className="border-gray-border peer w-full rounded-md border py-3 px-4"
           value={fields.contentURL}
           name="contentURL"
           onChange={handleChange}
@@ -85,13 +77,15 @@ export const AddContentCreatorForm = () => {
           type="url"
         />
         {touched['contentURL'] && (
-          <span className={Styles.errorMessage}>Wprowadzony adres URL jest nieprawidłowy</span>
+          <span className="hidden text-sm text-error-color peer-invalid:inline-block">
+            Wprowadzony adres URL jest nieprawidłowy
+          </span>
         )}
       </label>
-      <label className={Styles.label}>
+      <label className="my-2 block">
         Adres email
         <input
-          className={Styles.input}
+          className="border-gray-border peer w-full rounded-md border py-3 px-4"
           value={fields.email}
           name="email"
           onChange={handleChange}
@@ -100,23 +94,31 @@ export const AddContentCreatorForm = () => {
           type="email"
         />
         {touched['email'] && (
-          <span className={Styles.errorMessage}>Wprowadzony adres email jest nieprawidłowy</span>
+          <span className="hidden text-sm text-error-color peer-invalid:inline-block">
+            Wprowadzony adres email jest nieprawidłowy
+          </span>
         )}
       </label>
-      <div className={Styles.wrapper}>
-        <HCaptcha
-          sitekey={getConfig('NEXT_PUBLIC_CAPTCHA_SITE_KEY')}
-          onVerify={setToken}
-          onExpire={handleCaptchaExpire}
-          onError={handleCaptchaError}
-          ref={captchaRef}
-          languageOverride="pl"
-          size="compact"
-        />
-        <Button type="submit" disabled={isButtonDisabled}>
-          Zgłoś
-        </Button>
+      <div className="mt-6 flex flex-col sm:flex-row sm:items-end sm:justify-between">
+        <div className="self-center">
+          <HCaptcha
+            sitekey={getConfig('NEXT_PUBLIC_CAPTCHA_SITE_KEY')}
+            onVerify={setToken}
+            onExpire={handleCaptchaExpire}
+            onError={handleCaptchaError}
+            ref={captchaRef}
+            languageOverride="pl"
+            size="compact"
+          />
+        </div>
+
+        <div className="mt-3 sm:mt-0">
+          <Button type="submit" disabled={isButtonDisabled}>
+            Dodaj
+          </Button>
+        </div>
       </div>
+
       <FormStatus status={status} errorCode={errorCode} />
     </form>
   );

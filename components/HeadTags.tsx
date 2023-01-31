@@ -47,6 +47,8 @@ export const HeadTags = ({
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       <link rel="manifest" href="/manifest.json" />
       <link rel="alternate" href="/feed" type="application/rss+xml" title="Polski Frontend RSS" />
+      <meta name="theme-color" content="#ef516d" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="#ef516d" />
     </>
   );
 };

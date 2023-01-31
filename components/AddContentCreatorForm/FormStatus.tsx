@@ -1,12 +1,11 @@
 'use client';
-import Clsx from 'clsx';
-import { memo } from 'react';
 
-import Styles from './FormStatus.module.css';
+import Image from 'next/image';
+import { memo } from 'react';
 
 import type { Status } from '../../hooks/useMutation';
 
-type Props = {
+type FormStatusProps = {
   readonly status: Status;
   readonly errorCode?: number;
 };
@@ -20,7 +19,7 @@ const errorToMessage: Record<number, string> = {
 const defaultErrorMessage =
   'Wystąpił błąd podczas dodawania nowego serwisu. Sprawdź poprawność danych i spróbuj ponownie.';
 
-function getStatusMessage({ status, errorCode }: Props) {
+function getStatusMessage({ status, errorCode }: FormStatusProps) {
   switch (status) {
     case 'loading':
       return 'Oczekiwanie...';
@@ -33,20 +32,27 @@ function getStatusMessage({ status, errorCode }: Props) {
   }
 }
 
-export const FormStatus = memo<Props>(({ status, errorCode }) => {
+function getStatusIcon(status: Status) {
+  switch (status) {
+    case 'loading':
+      return 'spinner3';
+    case 'success':
+      return 'checkmark';
+    case 'error':
+      return 'cross';
+    default:
+      return 'question';
+  }
+}
+
+export const FormStatus = memo<FormStatusProps>(({ status, errorCode }) => {
   if (status === 'idle') {
     return null;
   }
 
   return (
-    <div className={Styles.statusContainer}>
-      <span
-        className={Clsx(Styles.statusIcon, {
-          'icon-spinner': status === 'loading',
-          'icon-checkmark': status === 'success',
-          'icon-error': status === 'error',
-        })}
-      ></span>
+    <div className="mt-7 flex justify-center gap-2 rounded-sm p-2 text-center text-lg" role="status">
+      <Image src={`/icons/${getStatusIcon(status)}.svg`} width="16" height="16" alt="" />
       <span>{getStatusMessage({ status, errorCode })}</span>
     </div>
   );

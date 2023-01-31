@@ -6,16 +6,11 @@ import { useRef, memo, useCallback, useEffect, useState } from 'react';
 import { useMutation } from '../../hooks/useMutation';
 import { useQuery } from '../../hooks/useQuery';
 import { getBlog } from '../../utils/api/getBlog';
-
-import type { BlogIdRequestBody } from '../../pages/api/blogs/[blogId]';
-
 import { updateBlog } from '../../utils/api/updateBlog';
-
-import type { ChangeEventHandler, FormEvent } from 'react';
-
 import { Button } from '../Button/Button';
 
-import Styles from './updateBlogForm.module.scss';
+import type { BlogIdRequestBody } from '../../pages/api/blogs/[blogId]';
+import type { ChangeEventHandler, FormEvent } from 'react';
 
 type Props = {
   readonly blogId: string;
@@ -70,19 +65,22 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
   const isLoading = status === 'loading';
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={Clsx(Styles.form, isLoading && Styles.formLoading)}
-      ref={formRef}
-    >
-      <label className={Styles.label}>
+    <form onSubmit={handleSubmit} className={Clsx(isLoading && 'cursor-wait')} ref={formRef}>
+      <label className="my-4 block text-black">
         Nazwa bloga
-        <input className={Styles.input} value={blog.name} type="text" name="name" readOnly />
+        <input
+          className="my-1 w-full rounded-md bg-theme-secondary py-3 px-4"
+          value={blog.name}
+          type="text"
+          name="name"
+          readOnly
+        />
       </label>
-      <label className={Styles.label}>
+
+      <label className="my-4 block text-black">
         Href bloga
         <input
-          className={Styles.input}
+          className="my-1 w-full rounded-md border border-gray-primary py-3 px-4"
           value={fields.href}
           name="href"
           onChange={handleChange}
@@ -91,28 +89,44 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
           type="url"
         />
       </label>
-      <label className={Styles.label}>
+
+      <label className="my-4 block text-black">
         Rss bloga
-        <input className={Styles.input} value={blog.rss} name="rss" type="url" readOnly />
+        <input
+          className="my-1 w-full rounded-md bg-theme-secondary py-3 px-4"
+          value={blog.rss}
+          name="rss"
+          type="url"
+          readOnly
+        />
       </label>
-      <label className={Styles.label}>
+
+      <label className="my-4 block text-black">
         Slug bloga
-        <input className={Styles.input} value={blog.slug ?? ''} readOnly name="slug" type="text" />
+        <input
+          className="my-1 w-full rounded-md bg-theme-secondary py-3 px-4"
+          value={blog.slug ?? ''}
+          readOnly
+          name="slug"
+          type="text"
+        />
       </label>
-      <label className={Styles.label}>
+
+      <label className="my-4 block text-black">
         Favicon bloga
         <input
-          className={Styles.input}
+          className="my-1 w-full rounded-md bg-theme-secondary py-3 px-4"
           value={blog.favicon ?? ''}
           name="favicon"
           type="url"
           readOnly
         />
       </label>
-      <label className={Styles.label}>
+
+      <label className="my-4 block text-black">
         Email twórcy
         <input
-          className={Styles.input}
+          className="my-1 w-full rounded-md border border-gray-primary py-3 px-4"
           value={fields.creatorEmail ?? ''}
           name="creatorEmail"
           onChange={handleChange}
@@ -120,9 +134,10 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
           type="email"
         />
       </label>
-      <label className={Styles.labelCheckbox}>
+
+      <label className="flex items-center">
         <input
-          className={Styles.inputCheckbox}
+          className="mr-3 flex h-5 w-5"
           checked={fields.isPublic}
           name="isPublic"
           onChange={handleInputCheckboxChange}
@@ -130,7 +145,8 @@ export const UpdateBlogForm = memo<Props>(({ blogId }) => {
         />
         Czy blog ma być pokazany na stronie?
       </label>
-      <Button type="submit" disabled={!isValid} className={Styles.submitButton}>
+
+      <Button type="submit" disabled={!isValid} className="mt-7">
         Zapisz
       </Button>
     </form>
