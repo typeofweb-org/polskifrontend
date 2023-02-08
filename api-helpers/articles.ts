@@ -7,13 +7,14 @@ import {
 } from '../constants';
 
 import { HTTPNotFound } from './errors';
-
-import type { PrismaClient } from '@prisma/client';
+import { prisma } from './prisma/db';
 
 // https://res.cloudinary.com/polskifrontend/image/fetch
 
-export const getArticlesForGrid = async (prisma: PrismaClient, page: number) => {
-  const pageNumber = reversePageNumber(page, await getLastBlogPage(prisma));
+export const getArticlesForGrid = async (page: number) => {
+  const lastBlogPage = await getLastBlogPage();
+  const pageNumber = reversePageNumber(page, lastBlogPage);
+
   const blogs = await prisma.blog.findMany({
     where: { isPublic: true },
     skip: pageNumber * TILES_BLOGS_PER_PAGE,
@@ -53,14 +54,14 @@ export const getArticlesForGrid = async (prisma: PrismaClient, page: number) => 
   };
 };
 
-export const getLastArticlePage = async (prisma: PrismaClient) => {
+export const getLastArticlePage = async () => {
   const articlesCount = await prisma.article.count({
     where: { blog: { isPublic: true } },
   });
   return Math.ceil(articlesCount / LIST_ARTICLES_PER_PAGE);
 };
 
-export const getLastBlogPage = async (prisma: PrismaClient) => {
+export const getLastBlogPage = async () => {
   const blogCount = await prisma.blog.count({
     where: { isPublic: true, lastArticlePublishedAt: { not: null } },
   });
@@ -71,8 +72,9 @@ const reversePageNumber = (page: number, lastPage: number): number => {
   return lastPage - page;
 };
 
-export const getArticlesForList = async (prisma: PrismaClient, page: number) => {
-  const pageNumber = reversePageNumber(page, await getLastArticlePage(prisma));
+export const getArticlesForList = async (page: number) => {
+  const lastArticlePage = await getLastArticlePage();
+  const pageNumber = reversePageNumber(page, lastArticlePage);
 
   const articles = await prisma.article.findMany({
     skip: pageNumber * LIST_ARTICLES_PER_PAGE,
@@ -112,7 +114,7 @@ export const getArticlesForList = async (prisma: PrismaClient, page: number) => 
   };
 };
 
-export const getArticlesSlugs = async (prisma: PrismaClient, limit?: number) => {
+export const getArticlesSlugs = async (limit?: number) => {
   const articles = await prisma.article.findMany({
     where: {
       blog: { isPublic: true },
@@ -129,7 +131,7 @@ export const getArticlesSlugs = async (prisma: PrismaClient, limit?: number) => 
   return articles;
 };
 
-export const getArticleBySlug = async (prisma: PrismaClient, slug: string) => {
+export const getArticleBySlug = async (slug: string) => {
   const article = await prisma.article.findFirst({
     where: {
       slug,

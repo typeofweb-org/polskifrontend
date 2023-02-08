@@ -1,14 +1,12 @@
 import Link from 'next/link';
 
-import { openConnection } from '../api-helpers/prisma/db';
+import { prisma } from '../api-helpers/prisma/db';
 
 import { formatDate } from './date-utils';
 
-import type { BlogsType } from '../types';
+import type { BlogsType } from './types/types';
 
 export const fetchAdminBlogsList = async (blogsType: BlogsType | undefined) => {
-  const prisma = openConnection();
-
   const blogs = await prisma.blog.findMany({
     where: {
       isPublic: detectBlogsType(blogsType),

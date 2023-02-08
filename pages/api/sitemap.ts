@@ -3,8 +3,8 @@ import { getSitemap } from '../../api-helpers/sitemap';
 
 export default withAsync(
   withMethods({
-    GET: withDb(async (req, res) => {
-      const sitemap = await getSitemap(req.db);
+    GET: withDb(async (_req, res) => {
+      const sitemap = await getSitemap();
 
       res.setHeader('Content-Type', 'application/xml; charset=utf-8');
       // 900 equals revalidation time (15 minutes)

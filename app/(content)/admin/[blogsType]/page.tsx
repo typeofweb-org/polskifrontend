@@ -7,7 +7,7 @@ import { LogoutButton } from '../../../../components/LogoutButton/LogoutButton';
 import { Table } from '../../../../components/Table/Table';
 import { fetchAdminBlogsList } from '../../../../utils/fetchAdminBlogsList';
 
-import type { BlogsType } from '../../../../types';
+import type { BlogsType } from '../../../../utils/types/types';
 
 type AdminPageProps = {
   readonly params: {

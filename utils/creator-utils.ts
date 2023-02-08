@@ -1,4 +1,4 @@
-import type { Article, Blog } from '../types';
+import type { Article, Blog } from './types/types';
 
 // Detect YouTube videos by the article URL
 const ytRegex = /youtu(\.be|be\.com)\//;

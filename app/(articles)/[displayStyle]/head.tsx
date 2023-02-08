@@ -1,6 +1,6 @@
 import { HeadTags } from '../../../components/HeadTags';
 
-import type { DisplayStyle } from '../../../types';
+import type { DisplayStyle } from '../../../utils/types/types';
 
 type HeadProps = {
   readonly params: {
