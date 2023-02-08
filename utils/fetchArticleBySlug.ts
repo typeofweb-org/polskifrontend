@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 
 import { getArticleBySlug } from '../api-helpers/articles';
 import { HTTPNotFound } from '../api-helpers/errors';
-import { openConnection } from '../api-helpers/prisma/db';
 
 import { addSanitizedDescriptionToArticle } from './sanitize-utils';
 
@@ -12,9 +11,7 @@ export const fetchArticleBySlug = async (slug: string | undefined) => {
   }
 
   try {
-    const prisma = openConnection();
-
-    const article = await getArticleBySlug(prisma, slug);
+    const article = await getArticleBySlug(slug);
     const sanitizedArticle = addSanitizedDescriptionToArticle(article);
 
     return sanitizedArticle;

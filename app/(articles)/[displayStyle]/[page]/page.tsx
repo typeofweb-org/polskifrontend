@@ -1,10 +1,9 @@
 import { getLastArticlePage, getLastBlogPage } from '../../../../api-helpers/articles';
-import { openConnection } from '../../../../api-helpers/prisma/db';
 import { BlogsGrid } from '../../../../components/BlogsGrid/BlogsGrid';
 import { BlogsList } from '../../../../components/BlogsList/BlogsList';
 import { getPagesArray } from '../../../../utils/array-utils';
 
-import type { DisplayStyle } from '../../../../types';
+import type { DisplayStyle } from '../../../../utils/types/types';
 
 const MAX_PAGES = 5;
 
@@ -30,11 +29,9 @@ export default function HomePage({ params }: HomePageProps) {
 }
 
 export const generateStaticParams = async () => {
-  const prisma = openConnection();
-
   const [gridLastPage, listLastPage] = await Promise.all([
-    await getLastBlogPage(prisma),
-    await getLastArticlePage(prisma),
+    await getLastBlogPage(),
+    await getLastArticlePage(),
   ]);
 
   const gridPages = getPagesArray(gridLastPage, MAX_PAGES);

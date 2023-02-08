@@ -8,7 +8,7 @@ import { ArticleDate } from '../ArticleDate/ArticleDate';
 
 import Styles from './articleTile.module.scss';
 
-import type { ArticleFromBlog, BlogFromArticle } from '../../types';
+import type { ArticleFromBlog, BlogFromArticle } from '../../utils/types/types';
 
 type ArticleTileProps = {
   readonly article: ArticleFromBlog;

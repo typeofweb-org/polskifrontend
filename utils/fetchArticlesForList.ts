@@ -2,18 +2,15 @@ import { notFound } from 'next/navigation';
 
 import { getArticlesForList, getLastArticlePage } from '../api-helpers/articles';
 import { HTTPNotFound } from '../api-helpers/errors';
-import { openConnection } from '../api-helpers/prisma/db';
 
 import { addExcerptToArticle } from './excerpt-utils';
 import { pageValidGuard } from './pageValidGuard';
 
 export const fetchArticlesForList = async (page?: string) => {
   try {
-    const prisma = openConnection();
-
-    const lastPage = await getLastArticlePage(prisma);
+    const lastPage = await getLastArticlePage();
     const pageNumber = pageValidGuard(page, lastPage);
-    const { data: articlesFromDb } = await getArticlesForList(prisma, pageNumber);
+    const { data: articlesFromDb } = await getArticlesForList(pageNumber);
     const articles = articlesFromDb.map(addExcerptToArticle);
 
     return {

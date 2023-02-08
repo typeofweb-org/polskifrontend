@@ -1,6 +1,6 @@
 import { ButtonAsLink } from '../ButtonAsLink/ButtonAsLink';
 
-import type { DisplayStyle } from '../../types';
+import type { DisplayStyle } from '../../utils/types/types';
 
 type PaginationProps = {
   readonly isFirstPage: boolean;

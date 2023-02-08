@@ -2,8 +2,6 @@ import { getPagesArray } from '../utils/array-utils';
 
 import { getLastArticlePage, getLastBlogPage, getArticlesSlugs } from './articles';
 
-import type { PrismaClient } from '@prisma/client';
-
 type Item = {
   readonly path: string;
   readonly changefreq: 'daily' | 'monthly' | 'always' | 'hourly' | 'weekly' | 'yearly' | 'never';
@@ -19,11 +17,11 @@ const staticItems: readonly Item[] = [
   { path: '/grid', changefreq: 'hourly', priority: 0.9 },
 ];
 
-export async function getSitemap(prisma: PrismaClient) {
+export async function getSitemap() {
   const [gridLastPage, listLastPage, articleSlugs] = await Promise.all([
-    getLastBlogPage(prisma),
-    getLastArticlePage(prisma),
-    getArticlesSlugs(prisma),
+    getLastBlogPage(),
+    getLastArticlePage(),
+    getArticlesSlugs(),
   ]);
   const gridPages = getPagesArray(gridLastPage);
   const listPages = getPagesArray(listLastPage);

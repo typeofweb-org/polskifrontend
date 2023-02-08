@@ -1,6 +1,6 @@
 import Styles from './table.module.scss';
 
-import type { AdminTableBlogsRow } from '../../types';
+import type { AdminTableBlogsRow } from '../../utils/types/types';
 
 const columns = [
   ['link', 'Link do bloga'],

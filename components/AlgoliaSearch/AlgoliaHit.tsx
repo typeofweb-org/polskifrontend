@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { createExcerpt } from '../../utils/excerpt-utils';
 import { ArticleTile } from '../ArticleTile/ArticleTile';
 
-import type { Article, BlogFromArticle } from '../../types';
+import type { Article, BlogFromArticle } from '../../utils/types/types';
 
 export type Hit = {
   readonly objectID: string;

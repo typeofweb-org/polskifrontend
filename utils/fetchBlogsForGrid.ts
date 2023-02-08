@@ -2,18 +2,15 @@ import { notFound } from 'next/navigation';
 
 import { getArticlesForGrid, getLastBlogPage } from '../api-helpers/articles';
 import { HTTPNotFound } from '../api-helpers/errors';
-import { openConnection } from '../api-helpers/prisma/db';
 
 import { addExcerptToArticle } from './excerpt-utils';
 import { pageValidGuard } from './pageValidGuard';
 
 export const fetchBlogsForGrid = async (page?: string) => {
   try {
-    const prisma = openConnection();
-
-    const lastPage = await getLastBlogPage(prisma);
+    const lastPage = await getLastBlogPage();
     const pageNumber = pageValidGuard(page, lastPage);
-    const { data: blogsFromDb } = await getArticlesForGrid(prisma, pageNumber);
+    const { data: blogsFromDb } = await getArticlesForGrid(pageNumber);
 
     const blogs = blogsFromDb.map((blog) => {
       return {

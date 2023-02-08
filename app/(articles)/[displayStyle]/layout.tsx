@@ -1,7 +1,7 @@
 import { AlgoliaSearch } from '../../../components/AlgoliaSearch/AlgoliaSearch';
 import { SwitchDisplayStyle } from '../../../components/SwitchDisplayStyle/SwitchDisplayStyle';
 
-import type { DisplayStyle } from '../../../types';
+import type { DisplayStyle } from '../../../utils/types/types';
 import type { ReactNode } from 'react';
 
 type ArticlesLayoutProps = {

@@ -1,4 +1,4 @@
-import { openConnection } from '../../../../../api-helpers/prisma/db';
+import { prisma } from '../../../../../api-helpers/prisma/db';
 import { ButtonAsLink } from '../../../../../components/ButtonAsLink/ButtonAsLink';
 import { Content } from '../../../../../components/Content/Content';
 import { ContentNavigation } from '../../../../../components/Content/ContentNavigation';
@@ -42,8 +42,6 @@ export default function AdminBlogPage({ params }: AdminBlogPageProps) {
 }
 
 export const generateStaticParams = async () => {
-  const prisma = openConnection();
-
   const blogs = await prisma.blog.findMany();
   const paths = blogs.map(({ id }) => ({ blogId: id }));
 

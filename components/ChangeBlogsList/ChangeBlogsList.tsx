@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import type { BlogsType } from '../../types';
+import type { BlogsType } from '../../utils/types/types';
 import type { ChangeEvent } from 'react';
 
 type ChangeBlogsListProps = {

@@ -1,7 +1,7 @@
-import type { fetchAdminBlogsList } from './utils/fetchAdminBlogsList';
-import type { fetchArticlesForList } from './utils/fetchArticlesForList';
-import type { fetchBlogsForGrid } from './utils/fetchBlogsForGrid';
-import type { addSanitizedDescriptionToArticle } from './utils/sanitize-utils';
+import type { fetchAdminBlogsList } from '../fetchAdminBlogsList';
+import type { fetchArticlesForList } from '../fetchArticlesForList';
+import type { fetchBlogsForGrid } from '../fetchBlogsForGrid';
+import type { addSanitizedDescriptionToArticle } from '../sanitize-utils';
 
 export type SanitizedArticle = ReturnType<typeof addSanitizedDescriptionToArticle>;
 export type Article = Awaited<ReturnType<typeof fetchArticlesForList>>['articles'][number];

@@ -1,6 +1,5 @@
 import { getArticlesSlugs } from '../../../../api-helpers/articles';
 import { DEFAULT_ARTICLES } from '../../../../api-helpers/general-feed';
-import { openConnection } from '../../../../api-helpers/prisma/db';
 import { ArticleDate } from '../../../../components/ArticleDate/ArticleDate';
 import { ButtonAsLink } from '../../../../components/ButtonAsLink/ButtonAsLink';
 import { detectContentGenre } from '../../../../utils/creator-utils';
@@ -48,9 +47,5 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 }
 
 export const generateStaticParams = async () => {
-  const prisma = openConnection();
-
-  const articleSlugs = await getArticlesSlugs(prisma, DEFAULT_ARTICLES);
-
-  return articleSlugs;
+  return await getArticlesSlugs(DEFAULT_ARTICLES);
 };
