@@ -9,6 +9,19 @@ import { updateFeeds } from '../../api-helpers/feedFunctions';
 
 export default withAsync(
   withMethods({
+    // VERCEL CRON
+    GET: withDb(async (req) => {
+      const isSecretValid = Crypto.timingSafeEqual(
+        Buffer.from(req.headers.authorization ?? ''),
+        Buffer.from(`Bearer ${getConfig('CRON_SECRET')}`),
+      );
+      if (!isSecretValid) {
+        throw Boom.unauthorized();
+      }
+      await updateFeeds(req.db);
+      return null;
+    }),
+    // LOCAL
     PATCH: withValidation({
       body: object({ secret: string().required() }).required(),
     })(

@@ -11,6 +11,7 @@ type NameToType = {
   readonly YOUTUBE_API_KEY: string;
   readonly CAPTCHA_SECRET_KEY: string;
   readonly ALGOLIA_API_SECRET: string;
+  readonly CRON_SECRET: string;
 
   readonly NEXT_PUBLIC_URL: string;
   readonly NEXT_PUBLIC_SUPABASE_URL: string;
@@ -35,6 +36,8 @@ function getConfigForName(name: keyof NameToType): Nil<NameToType[keyof NameToTy
       return process.env.DATABASE_URL;
     case 'FEED_UPDATE_SECRET':
       return process.env.FEED_UPDATE_SECRET;
+    case 'CRON_SECRET':
+      return process.env.CRON_SECRET;
     case 'YOUTUBE_API_KEY':
       return process.env.YOUTUBE_API_KEY;
     case 'CAPTCHA_SECRET_KEY':
