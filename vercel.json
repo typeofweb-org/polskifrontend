@@ -1,3 +1,9 @@
 {
-  "regions": ["dub1"]
+  "regions": ["fra1"],
+  "crons": [
+    {
+      "path": "/api/update-feed",
+      "schedule": "*/15 * * * *"
+    }
+  ]
 }

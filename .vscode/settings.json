@@ -5,7 +5,7 @@
   "eslint.packageManager": "pnpm",
   "eslint.run": "onSave",
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": "explicit"
   },
   "typescript.enablePromptUseWorkspaceTsdk": true
 }
