@@ -1,5 +1,5 @@
 // PAGE [displayStyle]/[page]
-export const REVALIDATION_TIME = 15 * 60; // 15 minutes
+export const REVALIDATION_TIME = 60 * 60; // 1 hour
 export const MAX_PAGES = 5;
 
 //api-helpers / articles
